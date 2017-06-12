@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+
 
 //MARK:----------- 下拉刷新文字组
 ///上下拉闲置状态

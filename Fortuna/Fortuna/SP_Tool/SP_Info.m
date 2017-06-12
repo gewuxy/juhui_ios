@@ -30,9 +30,9 @@ static SP_Info* shared = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
         if(shared == nil){
-             shared = [super allocWithZone:zone];
+            shared = [super allocWithZone:zone];
         }
-     });
+    });
     return shared;
 }
 //自定义初始化方法，本例中只有name这一属性
@@ -112,7 +112,7 @@ static SP_Info* shared = nil;
     if ([platform isEqualToString:@"iPod5,1"])   return tiPod;
     
     if ([platform isEqualToString:@"iPad1,1"])   return tiPad;
-
+    
     if ([platform isEqualToString:@"iPad2,1"])   return tiPad;
     if ([platform isEqualToString:@"iPad2,2"])   return tiPad;
     if ([platform isEqualToString:@"iPad2,3"])   return tiPad;
@@ -166,13 +166,5 @@ static SP_Info* shared = nil;
             break;
     }
 }
-
-
-
-
-
-
-
-
 
 @end

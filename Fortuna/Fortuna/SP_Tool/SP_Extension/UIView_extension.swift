@@ -139,6 +139,9 @@ extension UIImageView {
     static let placeholderImgName = ""
     func sp_ImageName(_ name:String, ph:Bool = true, phStr:String = placeholderImgName, phColor:UIColor = UIColor.main_line) {
         
+        //self.image = UIImage.placeholder(withSize: 40, color: "d4d4d4")
+        //self.image = UIImage(named: phStr)
+        
         if name.hasPrefix("http://") || name.hasPrefix("https://") {
             self.yy_setImage(with: URL(string:name), placeholder: UIImage(named:phStr), options: .progressiveBlur)
             //self.sd_setImage(with: URL(string:name), placeholderImage: UIImage(named:phStr))

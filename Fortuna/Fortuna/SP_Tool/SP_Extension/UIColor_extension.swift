@@ -11,23 +11,20 @@ extension UIColor {
     open class var main_1: UIColor {
         return UIColor(red: 89/255, green: 145/255, blue: 249/255, alpha: 1)
     }
-    open class var main_1_1: UIColor {
-        return UIColor.main_string("#ff7700")
-    }
     ///第二主题色 -- 界面辅助色
     open class var main_2: UIColor {
         return UIColor(red: 243/255, green: 78/255, blue: 8/255, alpha:1)
     }
     ///第三主题色 -- 字体主色
-    open class var main_3: UIColor {
+    open class var mainText_1: UIColor {
         return UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha:1)
     }
     ///第四主题色 -- 字体副色
-    open class var main_4: UIColor {
+    open class var mainText_2: UIColor {
         return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha:1)
     }
     ///第五主题色 -- 字体辅助色
-    open class var main_5: UIColor {
+    open class var mainText_3: UIColor {
         return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha:1)
     }
     ///按钮不可点

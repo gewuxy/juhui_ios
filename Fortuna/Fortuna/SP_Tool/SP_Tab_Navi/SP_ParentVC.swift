@@ -88,10 +88,10 @@ class SP_ParentVC: UIViewController {
         n_view.n_view_ActShow = false
         
         
-        n_view.n_view_NaviLine.isHidden = true
+        n_view.n_view_NaviLine.isHidden = false
         
-        n_view._tintColor = UIColor.white
-        n_view._titleColor = UIColor.white
+        n_view._tintColor = UIColor.black
+        n_view._titleColor = UIColor.black
     }
     
 }

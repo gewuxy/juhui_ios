@@ -25,8 +25,8 @@ extension SP_GridView {
                         image.layer.cornerRadius = image_h/2
                         image.clipsToBounds = true
                     }
-                    
                     image.sp_ImageName(_images[i])
+                    
                 }
                 if let label = item.subviews.last as? UILabel {
                     label.text = _angles.count>i ? _angles[i] : ""
@@ -50,7 +50,6 @@ extension SP_GridView {
             }
             
             imageView.sp_ImageName(_images[i])
-            
             
             imageView.snp.makeConstraints({ (make) in
                 make.top.equalToSuperview().offset(margin)
@@ -249,7 +248,6 @@ extension SP_GridView {
             ///图片
             let imageView = UIImageView()
             item.addSubview(imageView)
-            
             imageView.sp_ImageName(_images[i])
             
             

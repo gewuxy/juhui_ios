@@ -7,6 +7,16 @@
 //
 
 import UIKit
+enum SP_TextField_Type {
+    case tBegin
+    case tChange
+    case tEnd
+}
+enum SP_TextField_Type_Error {
+    case tError
+    case tChange
+    case tEnd
+}
 
 class SP_TextField: UIView {
 
@@ -24,6 +34,10 @@ class SP_TextField: UIView {
         return view
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        text_field.delegate = self
+    }
     
     @IBOutlet weak var label_L: UILabel!
     @IBOutlet weak var label_R: UILabel!
@@ -34,7 +48,25 @@ class SP_TextField: UIView {
     
     @IBOutlet weak var text_field: UITextField!
     
+    @IBOutlet weak var view_textBg: UIView!
     @IBOutlet weak var view_Line: UIView!
     
+    var _block:((_ type:SP_TextField_Type, _ text:String)->Void)?
+    @IBAction func begin(_ sender: UITextField) {
+        _block?(.tBegin,sender.text!)
+    }
+    @IBAction func changed(_ sender: UITextField) {
+        _block?(.tChange,sender.text!)
+    }
+    @IBAction func end(_ sender: UITextField) {
+        _block?(.tEnd,sender.text!)
+    }
+    
+}
 
+extension SP_TextField:UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        return true
+    }
 }

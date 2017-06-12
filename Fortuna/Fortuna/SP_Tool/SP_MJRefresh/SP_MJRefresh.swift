@@ -65,7 +65,6 @@ func footerEndRefreshNoMoreData() {
 
 //为什么扩展UIScrollView，你懂的
 //MARK:----------- 顶部下拉刷新
-
 extension UIScrollView {
     //MARK:----------- 添加顶部刷新 -- 普通
     func sp_headerAddMJRefresh(_ block:@escaping MJRefreshComponentRefreshingBlock)  {

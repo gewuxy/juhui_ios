@@ -20,12 +20,12 @@ class SP_TabMenuView: UIView {
     class func show(_ datas:(images:[String],titles:[String]), type:SP_TabMenuViewType = .t两行三列, block:@escaping ((Int)->Void)) {
         let view = (Bundle.main.loadNibNamed("SP_TabMenuView", owner: nil, options: nil)!.first as? SP_TabMenuView)!
         view._block = block
-        view.frame = SP_MainWindow.bounds
+        view.frame = sp_MainWindow.bounds
         view._type = type
         view._images = datas.images
         view._titles = datas.titles
         _self = view
-        SP_MainWindow.addSubview(view)
+        sp_MainWindow.addSubview(view)
     }
     weak static var _self:SP_TabMenuView?
     class func dismis() {
@@ -91,7 +91,7 @@ class SP_TabMenuView: UIView {
     }
     //MARK:--- 九宫格，需要本项目当中 SP_GridView类 的支持
     private lazy var _itemView:SP_GridView = {
-        let view = SP_GridView.show(CGRect(x:0,y:0,width:SP_ScreenWidth,height:self.view_item.bounds.size.height),superView: self.view_item, datas: (eachNum: self._eachNum, row: self._row, space: 0, margin: (30,10), images: (name: self._images, placeholderImage: "200x200"), titles: self._titles, angles: []), block: { [unowned self](indx) in
+        let view = SP_GridView.show(CGRect(x:0,y:0,width:sp_ScreenWidth,height:self.view_item.bounds.size.height),superView: self.view_item, datas: (eachNum: self._eachNum, row: self._row, space: 0, margin: (30,10), images: (name: self._images, placeholderImage: "200x200"), titles: self._titles, angles: []), block: { [unowned self](indx) in
             self.hideSubViews({
                 self._block?(indx)
             })
@@ -102,7 +102,7 @@ class SP_TabMenuView: UIView {
     //MARK:--- 音频播放器
     private lazy var _player:AVAudioPlayer? = {
         
-        if SP_isSimulator {
+        if sp_isSimulator {
             return nil
         }
         
@@ -173,8 +173,11 @@ class SP_TabMenuView: UIView {
     
     //MARK:--- 核心动画 - 显示
     private func showAnimate(_ view:UIView, delay:TimeInterval, height:CGFloat, block:@escaping (()->Void)) {
-        /*
+        
+        
         view.isHidden = true
+        block()
+        /*
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
             if #available(iOS 9.0, *) {
                 let spring = CASpringAnimation(keyPath: "position.y")
@@ -201,12 +204,12 @@ class SP_TabMenuView: UIView {
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay+_animateTime ) {
             block()
-        }
-        */
+        }*/
+        
     }
     //MARK:--- 核心动画 - 隐藏
-    
     private func hideAnimate(_ view:UIView, delay:TimeInterval, height:CGFloat, block:@escaping (()->Void)) {
+        block()
         /*
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
             if #available(iOS 9.0, *) {
@@ -232,8 +235,8 @@ class SP_TabMenuView: UIView {
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay+_animateTime) {
             block()
-        }
-        */
+        }*/
+        
     }
     //MARK:--- 核心动画 缩放
     private func zoomAnimation(_ view:UIView) {

@@ -14,13 +14,8 @@ class SP_AdsColleCell: UICollectionViewCell {
     
     var imageName:String = "" {
         didSet{
-            if imageName.hasPrefix("https://") || imageName.hasPrefix("http://") {
-                imageView.sp_ImageName(imageName)
-                
-            }else{
-                print(imageName)
-                imageView.image = imageName.isEmpty ? UIImage(named: SP_AdsView.placeholderImage) : UIImage(named: imageName)
-            }
+            imageView.sp_ImageName(imageName)
+            
         }
         
         
