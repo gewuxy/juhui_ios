@@ -51,15 +51,17 @@ class SP_TimeSingleton {
         _label.textColor = color.select
         _countTime = countTime
         _time = 0
-        button.isEnabled = false
-        button.isSelected = true
-        button.tintColor = UIColor.clear
-        button.backgroundColor = _color
-        _label.text = "\(countTime) 秒后重发"
+        _button?.isEnabled = false
+        _button?.isSelected = true
+        _button?.tintColor = UIColor.clear
+        _button?.backgroundColor = _color
+        
+        //_label.text = "\(countTime)s 重新获取"
+        makeLabelText(countTime)
         _label.font = button.titleLabel?.font
-        button.addSubview(_label)
+        _button?.addSubview(_label)
         _label.frame = button.bounds
-        button.setTitle("", for: .normal)
+        _button?.setTitle("", for: .normal)
         RunLoop.current.add(_timer!, forMode: .commonModes)
     }
     @objc private func timerClosure(_ timer: Timer) {
@@ -70,14 +72,24 @@ class SP_TimeSingleton {
             _button?.isEnabled = true
             _button?.isSelected = false
             _button?.backgroundColor = _color
-            _button?.setTitle("发送验证码", for: .normal)
+            _button?.setTitle("点击获取验证码", for: .normal)
             _label.text = ""
         }
         else{
-            _label.text = "\(_countTime - _time) 秒后重发"
-            //self.setTitle("\(_countTime - _time) 秒后重发", for: .normal)
+            makeLabelText(_countTime - _time)
+            //_label.text = "\(_countTime - _time)s 重新获取"
+            
+            //self.setTitle("\(_countTime - _time) 重新获取", for: .normal)
         }
     }
     
+    func makeLabelText(_ time:Int) {
+        let timeStr = String(format: "%d", time)
+        let textt = "\(time)s 重新获取"
+        let attributedString = NSMutableAttributedString(string: textt)
+        attributedString.addAttributes([NSForegroundColorAttributeName : UIColor.main_1], range: NSMakeRange(0, timeStr.characters.count + 1))
+        
+        _label.attributedText = attributedString
+    }
     
 }

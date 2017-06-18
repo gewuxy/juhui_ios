@@ -48,6 +48,10 @@ target ‘Fortuna’ do
     pod 'YYDispatchQueuePool'
     pod 'YYAsyncLayer'
     pod 'YYCategories'
+    
+    pod 'WebViewJavascriptBridge'
+    pod 'IMYWebView'
+    
 end
 
 post_install do |installer|

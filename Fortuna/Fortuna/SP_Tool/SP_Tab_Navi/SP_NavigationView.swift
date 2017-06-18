@@ -7,8 +7,8 @@
 //
 
 import UIKit
-let sp_navigationViewLeftButtonImg = "navi_back_gray"
-let sp_navigationViewLeftButtonImg2 = "navi_back_gray"
+let sp_navigationViewLeftButtonImg = "navi_back_white"
+let sp_navigationViewLeftButtonImg2 = "navi_back_white"
 
 class SP_NavigationView: UIView {
     
@@ -83,10 +83,11 @@ class SP_NavigationView: UIView {
     //MARK:--- 基本配置 -----------------------------
     open var n_btn_L1_Image:String = sp_navigationViewLeftButtonImg {
         didSet{
+            n_btn_L1.setImage(UIImage(named: n_btn_L1_Image), for: .normal)
             if n_btn_L1_Image.isEmpty {
                 n_btn_L1_W.constant = 0
             }else {
-                n_btn_L1.setImage(UIImage(named: n_btn_L1_Image), for: .normal)
+                
                 n_btn_L1_W.constant = 44
             }
             

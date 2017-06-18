@@ -1,5 +1,5 @@
 //
-//  LCDToolClass.h
+//  SP_ToolOC.h
 //  ihg
 //
 //  Created by sifenzi on 15/12/17.
@@ -21,17 +21,17 @@
 //#import "HXPhotoModel.h"
 
 
-@interface LCDToolClass : NSObject
-+ (NSArray *) xzReturnCategoryStringWithType:(NSString *)mallType;
+@interface SP_ToolOC : NSObject
++ (NSArray *) sp_returnTuPianStringWithType:(NSString *)mallType;
 
 
-+(NSString *)subStringWithString:(NSString *)string withRegex:(NSString *)regexString;
-+ (NSString*) xzRemoveStringWithString:(NSString *)string withRegex:(NSString *)regexString;
++(NSString *) sp_subStringWithString:(NSString *)string withRegex:(NSString *)regexString;
++ (NSString*) sp_removeStringWithString:(NSString *)string withRegex:(NSString *)regexString;
 
-+ (NSString *)getIPAddress;
++ (NSString *)sp_getIPAddress;
 
-+ (UIViewController *)getCurrentVC;
-+ (UIViewController *)getPresentedViewController;
++ (UIViewController *)sp_getCurrentVC;
++ (UIViewController *)sp_getPresentedVC;
 // 根据图片url获取图片尺寸
 //+(CGSize)getImageSizeWithURL:(id)imageURL;
 
@@ -43,7 +43,7 @@
 + (void)clickUpload:(NSString*)sign customFolderPath:(NSString*)customFolderPath tempImage:(NSString*)tempImage;
 
 //+ (AVAssetExportSession*) zipVideoWithModel:(HXPhotoModel *) model;
-
+/*
 + (void) zipVideoWithInputURL:(NSURL*)inputURL
                 completeBlock:(void (^)(NSURL *))completeBlock;
 
@@ -58,7 +58,7 @@
                          DraftId:(NSString*)DraftId
                          TopicId:(NSString*)TopicId;
 
-
+*/
 
 + (NSArray *)getSeparatedLinesFromtext:(NSString *)text font:(UIFont *)font maxWidth:(CGFloat)maxWidth;
 

@@ -1,5 +1,5 @@
 //
-//  SP_Info.h
+//  SP_InfoOC.h
 //  SuperApp
 //
 //  Created by 刘才德 on 2017/5/30.
@@ -13,14 +13,15 @@
 
 #pragma mark ---------- 设备型号 ----------
 typedef NS_ENUM(NSInteger) {
-    tiPhone = 0,
+    tiPhone4 = 0,
+    tiPhone,
     tiPhoneA,
     tiPhoneP,
     tiPod,
     tiPad,
 }SP_DeviceModel;
 
-@interface SP_Info : NSObject
+@interface SP_InfoOC : NSObject
 #pragma mark ---------- 单例及打印测试 ----------
 @property(nonatomic,strong) NSString *name;
 + (id)shared;
@@ -31,4 +32,7 @@ typedef NS_ENUM(NSInteger) {
 + (UIFont*) sp_fontFitWithSize:(CGFloat)size;
 + (CGFloat) sp_fitWithSize:(CGFloat)size;
 + (SP_DeviceModel)sp_deviceModel;
+
+
+
 @end

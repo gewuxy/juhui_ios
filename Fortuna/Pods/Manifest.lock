@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.4.0)
+  - IMYWebView (0.8.1)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -41,6 +42,7 @@ PODS:
   - SnapKit (3.2.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - WebViewJavascriptBridge (6.0.2)
   - YYAsyncLayer (1.0)
   - YYCache (1.0.4)
   - YYCategories (1.0.4):
@@ -59,6 +61,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Alamofire
+  - IMYWebView
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -72,6 +75,7 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - SwiftyJSON
+  - WebViewJavascriptBridge
   - YYAsyncLayer
   - YYCache
   - YYCategories
@@ -84,6 +88,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  IMYWebView: a6a9a52718ba6a44fb927d65f6d60930a8218cea
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -98,6 +103,7 @@ SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
   YYAsyncLayer: df6b01ebc695c5f6b4c15dd5c23fa3e081eb25c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
@@ -107,6 +113,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 59badf1a1bafa9dff68ecdae1808359ab1b270bf
+PODFILE CHECKSUM: 5343ecaaa529e2449e75a57b065d8047ea6bda02
 
 COCOAPODS: 1.0.1

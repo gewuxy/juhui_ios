@@ -9,22 +9,6 @@
 import Foundation
 import UIKit
 
-//MARK:---------- 主要 Key
-let my_APPID  = ""
-let my_UMengAppKey  = "58d9fbbfbbea832efc001890"
-let my_JPushKey     = "99875be9517257493bc38da8"
-let my_WXappID      = "wx0a92d39012e81d0a"
-let my_WXappSecret  = "88d47cc2c76637e4c4102f14b2f102bb"
-let my_QQappID      = "1105975319"
-let my_QQappSecret  = "SvyXcDOSaIyIQiZP"
-let my_SinaappID      = "1691952433"
-let my_SinaappSecret  = "ca759156415d114743397d8d0cab0c6c"
-let my_AliappID      = "2015111700822536"
-
-let my_ShareUrl  = "https://wancheleyuan.com"
-let my_ShareDownUrl  = "https:/wancheleyuan.com"
-
-
 extension AppDelegate {
     //MARK:----------- 状态栏全局样式
     func setupGlobalStyle() {
@@ -50,7 +34,7 @@ extension AppDelegate {
             let vc = SP_TabBarController.initSPVC()
             window?.rootViewContrvarer = vc
             //显示广告
-            if let nvc = vc.childViewControllers.first as? UINavigationController, let hvc = nvc.childViewControllers.first as? my_HomeVC {
+            if let nvc = vc.childViewControllers.first as? UINavigationController, let hvc = nvc.childViewControllers.first as? JH_HomeVC {
                 hvc.isShowAds = true
                 
             }
@@ -61,7 +45,7 @@ extension AppDelegate {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
-        
+        setupGlobalStyle()
     }
     
     /*
@@ -82,7 +66,7 @@ extension AppDelegate {
         let versionString = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "1.0.0"
         let nowVersion = versionString
         // 获取到之前的版本号
-        let oldVersion: String = sp_UserDefaultsGet("my_OldVersionKey") as! String
+        let oldVersion: String = sp_UserDefaultsGet("key_OldVersionKey") as! String
         // 对比
         return nowVersion > oldVersion
     }
@@ -91,7 +75,7 @@ extension AppDelegate {
         // 获取当前的版本号
         let nowVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "1.0.0"
         // 保存当前版本号
-        sp_UserDefaultsSet("my_OldVersionKey", obj:nowVersion as AnyObject)
+        sp_UserDefaultsSet("key_OldVersionKey", obj:nowVersion as AnyObject)
         sp_UserDefaultsSyn()
     }
     /*
@@ -100,17 +84,17 @@ extension AppDelegate {
         // ----- 打开日志
         UMSocialManager.default().openLog(true)
         // ----- 设置友盟appkey
-        UMSocialManager.default().umSocialAppkey = my_UMengAppKey
+        UMSocialManager.default().umSocialAppkey = key_UMengAppKey
         // ----- 获取友盟social版本号
         print("UMeng social version: \(UMSocialGlobal.umSocialSDKVersion())")
         // ----- 设置微信
-        UMSocialManager.default().setPlaform(.wechatSession, appKey: my_WXappID, appSecret: my_WXappSecret, redirectURL: my_ShareUrl)
+        UMSocialManager.default().setPlaform(.wechatSession, appKey: key_WXappID, appSecret: key_WXappSecret, redirectURL: key_ShareUrl)
         // ----- 设置 QQ
-        UMSocialManager.default().setPlaform(.QQ, appKey: my_QQappID, appSecret: my_QQappSecret, redirectURL: my_ShareUrl)
+        UMSocialManager.default().setPlaform(.QQ, appKey: key_QQappID, appSecret: key_QQappSecret, redirectURL: key_ShareUrl)
         //        UMSocialManager.defaultManager().setPlaform(.Qzone, appKey: QQappID, appSecret: QQappSecret, redirectURL: shareIhgUrl)
         //        UMSocialManager.defaultManager().setPlaform(.TencentWb, appKey: QQappID, appSecret: QQappSecret, redirectURL: shareIhgUrl)
         // ----- 设置新浪微博
-        UMSocialManager.default().setPlaform(.sina, appKey: my_SinaappID, appSecret: my_SinaappSecret, redirectURL: my_ShareUrl)
+        UMSocialManager.default().setPlaform(.sina, appKey: key_SinaappID, appSecret: key_SinaappSecret, redirectURL: key_ShareUrl)
         // ----- 设置支付宝
         
         
@@ -151,7 +135,7 @@ extension AppDelegate {
     
     //MARK:---- 版本更新
     func updateVersions() {
-        my_APIHelp.shared.net_Help(.url_版本控制, pram:[:]) { (isOk, data, error) in
+        JH_APIHelp.shared.net_Help(.url_版本控制, pram:[:]) { (isOk, data, error) in
             if isOk {
                 guard SP_UpdateVersionViewModel.shared.isUpdateShow else {return}
                 SP_UpdateVersionView.show()

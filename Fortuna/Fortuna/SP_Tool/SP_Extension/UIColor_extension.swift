@@ -9,38 +9,55 @@ import UIKit
 extension UIColor {
     ///主题色 -- 界面主色
     open class var main_1: UIColor {
-        return UIColor(red: 89/255, green: 145/255, blue: 249/255, alpha: 1)
+        return UIColor.main_string("#e30e44")
     }
     ///第二主题色 -- 界面辅助色
     open class var main_2: UIColor {
-        return UIColor(red: 243/255, green: 78/255, blue: 8/255, alpha:1)
+        return UIColor.main_string("#ff5475")
     }
-    ///第三主题色 -- 字体主色
+    ///第三主题色 -- 界面辅助色
+    open class var main_3: UIColor {
+        return UIColor.main_string("#5c86ff")
+    }
+    
+    ///第1字色 -- 字体主色
     open class var mainText_1: UIColor {
-        return UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha:1)
+        return UIColor.main_string("#4c4c4c")
     }
-    ///第四主题色 -- 字体副色
+    ///第2字色 -- 字体副色
     open class var mainText_2: UIColor {
-        return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha:1)
+        return UIColor.main_string("#b2b2b2")
     }
-    ///第五主题色 -- 字体辅助色
+    ///第3字色 -- 字体辅助色
     open class var mainText_3: UIColor {
-        return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha:1)
+        return UIColor.main_string("#8c8c8c")
     }
+    
+    ///第4字色 -- 字体辅助色
+    open class var mainText_4: UIColor {
+        return UIColor.main_string("#ff0000")
+    }
+    ///第5字色 -- 字体辅助色
+    open class var mainText_5: UIColor {
+        return UIColor.main_string("#14cd48")
+    }
+    
     ///按钮不可点
     open class var main_btnNotEnb: UIColor {
-        return UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha:1)
+        return UIColor.main_string("#b2b2b2")
     }
     
     ///背景色
     open class var main_bg: UIColor {
         //对应调色板上的银白
-        return UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+        return UIColor.main_string("#f2f2f2")
     }
     ///线条颜色
     open class var main_line: UIColor {
-        return UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha:1)
+        return UIColor.black.withAlphaComponent(0.1)
     }
+    
+    
     ///警告颜色
     open class var main_warning: UIColor {
         return UIColor(red: 255/255, green: 254/255, blue: 102/255, alpha: 1)

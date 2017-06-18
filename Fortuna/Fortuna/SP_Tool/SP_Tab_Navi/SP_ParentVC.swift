@@ -27,6 +27,7 @@ class SP_ParentVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.main_bg
         self.navigationController?.isNavigationBarHidden = true
         //全屏幕右划返回，隐藏导航栏
         self.fd_prefersNavigationBarHidden = true
@@ -90,8 +91,9 @@ class SP_ParentVC: UIViewController {
         
         n_view.n_view_NaviLine.isHidden = false
         
-        n_view._tintColor = UIColor.black
-        n_view._titleColor = UIColor.black
+        n_view.backgroundColor = UIColor.main_1
+        n_view._tintColor = UIColor.white
+        n_view._titleColor = UIColor.white
     }
     
 }

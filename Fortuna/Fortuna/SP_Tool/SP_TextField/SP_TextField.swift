@@ -11,11 +11,7 @@ enum SP_TextField_Type {
     case tBegin
     case tChange
     case tEnd
-}
-enum SP_TextField_Type_Error {
-    case tError
-    case tChange
-    case tEnd
+    case tReturn
 }
 
 class SP_TextField: UIView {
@@ -29,22 +25,28 @@ class SP_TextField: UIView {
         let view = (Bundle.main.loadNibNamed("SP_TextField", owner: nil, options: nil)!.first as? SP_TextField)!
         supView.addSubview(view)
         view.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         return view
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        text_field.showOkButton()
         text_field.delegate = self
     }
     
     @IBOutlet weak var label_L: UILabel!
-    @IBOutlet weak var label_R: UILabel!
+    
     @IBOutlet weak var label_error: UILabel!
     
     @IBOutlet weak var button_L: UIButton!
+    @IBOutlet weak var button_R: UIButton!
     @IBOutlet weak var button_L_W: NSLayoutConstraint!
+    @IBOutlet weak var button_R_W: NSLayoutConstraint!
     
     @IBOutlet weak var text_field: UITextField!
     
@@ -52,6 +54,9 @@ class SP_TextField: UIView {
     @IBOutlet weak var view_Line: UIView!
     
     var _block:((_ type:SP_TextField_Type, _ text:String)->Void)?
+    var _shouldChangeCharactersBlock:((_ textField: UITextField, _ range: NSRange, _ string: String)->Bool)?
+    var _shouldReturnBlock:((_ textField: UITextField)->Bool)?
+    var _shouldClearBlock:((_ textField: UITextField)->Bool)?
     @IBAction func begin(_ sender: UITextField) {
         _block?(.tBegin,sender.text!)
     }
@@ -65,8 +70,16 @@ class SP_TextField: UIView {
 }
 
 extension SP_TextField:UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        return _shouldReturnBlock?(textField) ?? true
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        return _shouldClearBlock?(textField) ?? true
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        return true
+        return _shouldChangeCharactersBlock?(textField,range,string) ?? true
     }
 }

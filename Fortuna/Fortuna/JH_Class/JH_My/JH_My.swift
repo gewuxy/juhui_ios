@@ -8,22 +8,35 @@
 
 import UIKit
 
+enum JH_MyCellType:String {
+    case t用户 = "用户"
+    case t我的持仓 = "我的持仓"
+    case t当日成交 = "当日成交"
+    case t当日委托 = "当日委托"
+    case t历史成交 = "历史成交"
+    case t历史委托 = "历史委托"
+    case t设置 = "设置"
+}
+
+
+
+
 class JH_My: SP_ParentVC {
 
-    lazy var _height_Top:CGFloat = 150
+    lazy var _height_Top:CGFloat = sp_ScreenWidth/1.4
     
     lazy var _imgae_Bg_Rate:CGFloat = 2
     @IBOutlet weak var image_Bg: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var _sectionsHead:[(txtL:String,txtR:String,imgL:String,imgR:String,on_off:Bool)] = {
-        return [("用户","","","",false),
-                //("我的持仓","","","com_向右",false),
-                ("当日成交","","wd_帖子","com_向右",false),
-                ("当日委托","","wd_帖子","com_向右",false),
-                ("历史成交","","wd_帖子","com_向右",false),
-                ("历史委托","","wd_帖子","com_向右",false),
-                ("设置","","wd_帖子","com_向右",false)]
+    lazy var _sectionsHead:[(type: JH_MyCellType,txtR: String,imgL: String,imgR: String,on_off: Bool)] = {
+        return [(.t用户,"", "", "", false),
+                (.t我的持仓, "","","com_向右",false),
+                (.t当日成交, "", "wd_帖子", "com_向右", false),
+                (.t当日委托, "", "wd_帖子", "com_向右", false),
+                (.t历史成交, "", "wd_帖子", "com_向右", false),
+                (.t历史委托, "", "wd_帖子", "com_向右", false),
+                (.t设置,"", "wd_帖子", "com_向右", false)]
     }()
 }
 
@@ -33,6 +46,7 @@ extension JH_My {
         makeNavigation()
         makeImage_Bg()
         makeTableView()
+        makeLogin()
     }
     fileprivate func makeNavigation() {
         n_view.n_btn_L1_Image = ""
@@ -61,6 +75,12 @@ extension JH_My {
         image_Bg.frame = rect
     }
     
+    fileprivate func makeLogin() {
+        SP_Login.show(self) { (isOk) in
+            
+        }
+    }
+    
 }
 
 extension JH_My:UITableViewDelegate,UITableViewDataSource {
@@ -68,49 +88,59 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         return _sectionsHead.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch _sectionsHead[section].txtL {
-        case "用户":
+        switch _sectionsHead[section].type {
+        case .t用户:
             return 1
         default:
             return 0
         }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch _sectionsHead[section].txtL {
-        case "用户":
+        switch _sectionsHead[section].type {
+        case .t用户:
             return sp_SectionH_Min
         default:
             return sp_SectionH_Top
         }
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch _sectionsHead[section].txtL {
-        case "用户":
+        switch _sectionsHead[section].type {
+        case .t用户, .t我的持仓, .t历史委托, .t设置:
             return sp_SectionH_Foot
         default:
-            return sp_SectionH_Foot
+            return sp_SectionH_Min
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch _sectionsHead[indexPath.section].txtL {
-        case "用户":
+        switch _sectionsHead[indexPath.section].type {
+        case .t用户:
             return _height_Top
         default:
             return 0
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch _sectionsHead[section].txtL {
-        case "用户":
+        switch _sectionsHead[section].type {
+        case .t用户:
             return nil
         default:
-            let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (_sectionsHead[section].txtL,""), hiddenLine: false)
+            
+            let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (_sectionsHead[section].type.rawValue,_sectionsHead[section].txtR), hiddenLine: false)
             headView.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: 50)
             headView._tapBlock = { [unowned self]() in
-                self.didSelectAt(self._sectionsHead[section].txtL, section:section)
+                self.didSelectAt(self._sectionsHead[section].type, section:section)
             }
-            headView.updateUI(labelL:(font: SP_Info.sp_fontFit(withSize: 15), color: UIColor.mainText_1))
+            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 17), color: UIColor.mainText_1))
+            
+            switch _sectionsHead[section].type {
+            case .t我的持仓, .t设置, .t历史委托:
+                headView.view_Line.isHidden = true
+            default:
+                headView.view_Line.isHidden = false
+            }
+            
             return headView
+            
         }
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -119,8 +149,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         return view
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch _sectionsHead[indexPath.section].txtL {
-        case "用户":
+        switch _sectionsHead[indexPath.section].type {
+        case .t用户:
             let cell = JH_MyCell_User.show(tableView, indexPath)
             return cell
         default:
@@ -128,8 +158,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         }
         
     }
-    func didSelectAt(_ text:String, section:Int) {
-        if text == "设置"{
+    func didSelectAt(_ type:JH_MyCellType, section:Int) {
+        if type == .t设置 {
             
         }else{
             /*
@@ -153,6 +183,17 @@ class JH_MyCell_User: UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "JH_MyCell_User", for: indexPath) as! JH_MyCell_User
         return cell
     }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        view_logoBg.layer.borderColor = UIColor.white.cgColor
+        view_logoBg.layer.borderWidth = 0.5
+        
+    }
+    @IBOutlet weak var view_logoBg: UIView!
+    @IBOutlet weak var img_Logo: UIImageView!
+    @IBOutlet weak var lab_name: UILabel!
+    @IBOutlet weak var lab_subName: UILabel!
+    
 }
 
 

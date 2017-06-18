@@ -1,17 +1,17 @@
 //
-//  LCDToolClass.m
+//  SP_ToolOC.m
 //  ihg
 //
 //  Created by sifenzi on 15/12/17.
 //  Copyright © 2015年 Robin Zhang. All rights reserved.
 //
 
-#import "LCDToolClass.h"
+#import "SP_ToolOC.h"
 #import <CoreText/CoreText.h>
 
 
-@implementation LCDToolClass
-+ (NSArray *) xzReturnCategoryStringWithType:(NSString *)mallType{
+@implementation SP_ToolOC
++ (NSArray *) sp_returnTuPianStringWithType:(NSString *)mallType{
     NSString* path = [[NSBundle mainBundle] pathForResource:@"TuPian.plist" ofType:nil];
     NSDictionary * Dic = [NSDictionary dictionaryWithContentsOfFile:path];
     NSArray * CategoryArr = [Dic valueForKey:mallType];
@@ -19,7 +19,7 @@
 }
 
 #pragma mark ------------------------------ 筛除富文本
-+(NSString *)subStringWithString:(NSString *)string withRegex:(NSString *)regexString{
++(NSString *)sp_subStringWithString:(NSString *)string withRegex:(NSString *)regexString{
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:0 error:&error];
     if (error != nil) {
@@ -38,19 +38,19 @@
     }
     return @"";
 }
-+ (NSString*) xzRemoveStringWithString:(NSString *)string withRegex:(NSString *)regexString{
++ (NSString*) sp_removeStringWithString:(NSString *)string withRegex:(NSString *)regexString{
     //----------内容
     NSString * xzStr = string;
     
-    while (![[self subStringWithString:xzStr withRegex:regexString] isEqualToString: @""]) {
-        NSString * str = [self subStringWithString:xzStr withRegex:regexString];
+    while (![[self sp_subStringWithString:xzStr withRegex:regexString] isEqualToString: @""]) {
+        NSString * str = [self sp_subStringWithString:xzStr withRegex:regexString];
         NSArray *arr = [xzStr componentsSeparatedByString:str];
         xzStr = [arr componentsJoinedByString:@""];
     }
     return xzStr;
 }
 
-+ (NSString *)getIPAddress{
++ (NSString *)sp_getIPAddress{
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;
     struct ifaddrs *temp_addr = NULL;
@@ -78,7 +78,7 @@
 
 
 //获取当前屏幕显示的viewcontroller
-+ (UIViewController *)getCurrentVC
++ (UIViewController *)sp_getCurrentVC
 {
     UIViewController *result = nil;
     
@@ -107,7 +107,7 @@
     return result;
 }
 //获取当前屏幕中present出来的viewcontroller
-+ (UIViewController *)getPresentedViewController
++ (UIViewController *)sp_getPresentedVC
 {
     UIViewController *appRootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *topVC = appRootVC;
@@ -555,7 +555,7 @@
     NSMutableAttributedString *mutableString = [[NSMutableAttributedString alloc] init];
     for (NSString *string in stringList) {
         //如果含有Emoji表情，不做处理
-        if ([LCDToolClass stringContainsEmoji:string]) {
+        if ([SP_ToolOC stringContainsEmoji:string]) {
             NSMutableAttributedString *contentEmojistring = [[NSMutableAttributedString alloc] initWithString:string];
             [mutableString appendAttributedString:contentEmojistring];
         }else { //否则设置段落样式，行高为4（这个高度要根据自己的需求慢慢的试）

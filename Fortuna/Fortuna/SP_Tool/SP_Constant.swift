@@ -15,6 +15,9 @@ import RxCocoa
 
 
 let sp_Notification = NotificationCenter.default
+let sp_ntfNameKeyboardWillShow = NSNotification.Name.UIKeyboardWillShow
+let sp_ntfNameKeyboardWillHide = NSNotification.Name.UIKeyboardWillHide
+
 //import SnapKit
 //MARK:---- 打印
 func print_SP(_ items:Any){
@@ -99,6 +102,11 @@ func sp_ViewHeight_Navi_Tab(view: AnyObject) -> CGFloat {
 let sp_SectionH_Top: CGFloat = 50.0
 let sp_SectionH_Foot: CGFloat = 5.0
 let sp_SectionH_Min: CGFloat = 0.0001
+//--- 间距
+let sp_Space_L: CGFloat = 15.0
+let sp_Space_R: CGFloat = 15.0
+let sp_Space_T: CGFloat = 15.0
+let sp_Space_B: CGFloat = 15.0
 
 /// 是否安装微信
 //var haveWeixin:Bool {

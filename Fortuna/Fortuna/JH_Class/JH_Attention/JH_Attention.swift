@@ -11,21 +11,56 @@ import UIKit
 class JH_Attention: SP_ParentVC {
 
     
-
+    @IBOutlet weak var tableView: UITableView!
     
-
+    
 }
 
 extension JH_Attention {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sp_makeNavigation()
+        makeNavigation()
+        makeUI()
         
     }
-    fileprivate func sp_makeNavigation() {
+    fileprivate func makeNavigation() {
         n_view.n_btn_L1_Image = ""
-        n_view._detailTitle = "自选股票"
+        n_view.n_btn_L1_Text = "编辑"
+        n_view.n_btn_R1_Text = "搜索"
+    }
+    
+    fileprivate func makeUI() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    override func clickN_btn_L1() {
+        JH_AttentionEdit.show(self)
+    }
+    override func clickN_btn_R1() {
+        JH_Search.show(self)
+    }
+    
+}
+
+extension JH_Attention:UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sp_SectionH_Min
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return sp_SectionH_Min
+    }
+}
+extension JH_Attention:UITableViewDataSource{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JH_AttentionCell_Normal.show(tableView, indexPath)
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
 }

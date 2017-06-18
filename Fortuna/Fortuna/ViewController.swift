@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        label.font = SP_Info.sp_fontFit(withSize: 20)
+        label.font = SP_InfoOC.sp_fontFit(withSize: 20)
     }
     
     override func didReceiveMemoryWarning() {

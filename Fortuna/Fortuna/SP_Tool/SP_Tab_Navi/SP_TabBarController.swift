@@ -91,6 +91,8 @@ class SP_TabBarController: UITabBarController {
         super.viewDidLoad()
         
         
+        self._colorNormal = UIColor.main_string("#a6a6a6")
+        self._colorSelected = UIColor.main_string("#e30e44")
     }
     ///tabbar标签对应的控制器
     fileprivate var _viewControllers:[UIViewController] = [] {
