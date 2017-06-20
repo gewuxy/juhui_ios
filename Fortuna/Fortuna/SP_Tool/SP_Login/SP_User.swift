@@ -34,7 +34,7 @@ open class SP_User {
     
     
     var userIsLogin: Bool {
-        let isLogin = M_UserData.shared.userId.isEmpty ? false : true
+        let isLogin = M_UserData.shared.userId.isEmpty ? true : true
         return isLogin
         
     }

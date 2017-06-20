@@ -17,18 +17,23 @@ class JH_Attention: SP_ParentVC {
 }
 
 extension JH_Attention {
-    
+    override class func initSPVC() -> JH_Attention {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_Attention") as! JH_Attention
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         makeNavigation()
         makeUI()
-        
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     fileprivate func makeNavigation() {
+        
         n_view.n_btn_L1_Image = ""
         n_view.n_btn_L1_Text = "编辑"
-        n_view.n_btn_R1_Text = "搜索"
+        n_view.n_btn_R1_Image = "Attention搜索w"
+        n_view.n_btn_L1_L.constant = 15
+        n_view.n_btn_R1_R.constant = 15
     }
     
     fileprivate func makeUI() {

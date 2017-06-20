@@ -37,6 +37,8 @@ class SP_TextField: UIView {
         super.awakeFromNib()
         text_field.showOkButton()
         text_field.delegate = self
+        view_Line.backgroundColor = UIColor.main_line
+        text_field.tintColor = UIColor.main_1
     }
     
     @IBOutlet weak var label_L: UILabel!
@@ -49,9 +51,16 @@ class SP_TextField: UIView {
     @IBOutlet weak var button_R_W: NSLayoutConstraint!
     
     @IBOutlet weak var text_field: UITextField!
+    @IBOutlet weak var text_field_L: NSLayoutConstraint!
+    @IBOutlet weak var text_field_R: NSLayoutConstraint!
     
     @IBOutlet weak var view_textBg: UIView!
+    @IBOutlet weak var view_textBg_L: NSLayoutConstraint!
+    @IBOutlet weak var view_textBg_R: NSLayoutConstraint!
+    
     @IBOutlet weak var view_Line: UIView!
+    @IBOutlet weak var view_Line_L: NSLayoutConstraint!
+    @IBOutlet weak var view_Line_R: NSLayoutConstraint!
     
     var _block:((_ type:SP_TextField_Type, _ text:String)->Void)?
     var _shouldChangeCharactersBlock:((_ textField: UITextField, _ range: NSRange, _ string: String)->Bool)?

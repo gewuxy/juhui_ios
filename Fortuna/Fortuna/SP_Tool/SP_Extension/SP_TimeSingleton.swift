@@ -36,32 +36,40 @@ class SP_TimeSingleton {
         label.textColor = UIColor.white
         return label
     }()
-    fileprivate lazy var _color:UIColor = {
-        let color = UIColor.clear
-        return color
-    }()
+    
     weak var _button:UIButton?
+    fileprivate  var _title = ""
+    fileprivate  var _normalColor:(bg:UIColor,text:UIColor)?
+    fileprivate  var _enabledColor:(bg:UIColor,text:UIColor)?
     
-    
-    
-    
-    func starCountDown(_ button:UIButton, countTime:Int, color:(normal:UIColor,select:UIColor)) {
+    func starCountDown(_ button:UIButton, countTime:Int, enabledColor:(bg:UIColor,text:UIColor)? = nil) {
+        
         _button = button
-        _color = color.normal
-        _label.textColor = color.select
+        _title = button.titleLabel!.text!
+        _normalColor = (bg:button.backgroundColor!,text:button.titleLabel!.textColor)
+        _enabledColor = (bg:button.backgroundColor!,text:button.titleLabel!.textColor)
+        if enabledColor != nil {
+            _enabledColor = enabledColor
+        }
         _countTime = countTime
         _time = 0
         _button?.isEnabled = false
-        _button?.isSelected = true
-        _button?.tintColor = UIColor.clear
-        _button?.backgroundColor = _color
+        
+        
+        //_button?.setTitle("", for: .normal)
+        
+        //_button?.tintColor = UIColor.clear
+        //_button?.backgroundColor = _color
         
         //_label.text = "\(countTime)s 重新获取"
+        
+//        _button?.addSubview(_label)
+//        _label.textColor = color.select
+//        _label.font = button.titleLabel?.font
+//        _label.frame = button.bounds
+        
         makeLabelText(countTime)
-        _label.font = button.titleLabel?.font
-        _button?.addSubview(_label)
-        _label.frame = button.bounds
-        _button?.setTitle("", for: .normal)
+        
         RunLoop.current.add(_timer!, forMode: .commonModes)
     }
     @objc private func timerClosure(_ timer: Timer) {
@@ -69,11 +77,12 @@ class SP_TimeSingleton {
         if _time >= _countTime{
             _timer?.invalidate()
             //_timer = nil
-            _button?.isEnabled = true
-            _button?.isSelected = false
-            _button?.backgroundColor = _color
-            _button?.setTitle("点击获取验证码", for: .normal)
-            _label.text = ""
+            
+            
+            //_button?.backgroundColor = _color
+            //_button?.setTitle(_title, for: .normal)
+            //_label.text = ""
+            makeLabelText(0)
         }
         else{
             makeLabelText(_countTime - _time)
@@ -84,12 +93,25 @@ class SP_TimeSingleton {
     }
     
     func makeLabelText(_ time:Int) {
+        guard time != 0 else {
+            _button?.setTitleColor(_normalColor?.text, for: .normal)
+            _button?.backgroundColor = _normalColor?.bg
+            let textt = _title
+            let attributedString = NSMutableAttributedString(string: textt)
+            _button?.setAttributedTitle(attributedString, for: .normal)
+            _button?.isEnabled = true
+            return
+        }
+        _button?.setTitleColor(_enabledColor?.text, for: .normal)
+        _button?.backgroundColor = _enabledColor?.bg
         let timeStr = String(format: "%d", time)
         let textt = "\(time)s 重新获取"
         let attributedString = NSMutableAttributedString(string: textt)
+        
         attributedString.addAttributes([NSForegroundColorAttributeName : UIColor.main_1], range: NSMakeRange(0, timeStr.characters.count + 1))
         
-        _label.attributedText = attributedString
+        _button?.setAttributedTitle(attributedString, for: .normal)
+        //_label.attributedText = attributedString
     }
     
 }

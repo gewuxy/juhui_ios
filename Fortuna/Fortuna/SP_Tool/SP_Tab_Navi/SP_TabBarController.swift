@@ -90,9 +90,16 @@ class SP_TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //状态栏全局样式
+        //setupGlobalStyle()
         
-        self._colorNormal = UIColor.main_string("#a6a6a6")
-        self._colorSelected = UIColor.main_string("#e30e44")
+        //self._colorNormal = UIColor.main_string("#a6a6a6")
+        //self._colorSelected = UIColor.main_string("#e30e44")
+    }
+    //MARK:----------- 状态栏全局样式
+    func setupGlobalStyle() {
+        UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     ///tabbar标签对应的控制器
     fileprivate var _viewControllers:[UIViewController] = [] {
@@ -193,9 +200,12 @@ class SP_TabBarController: UITabBarController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        //print(item.tag)
+        
         
     }
+    
 }
 

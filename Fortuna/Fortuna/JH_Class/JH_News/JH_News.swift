@@ -16,6 +16,9 @@ class JH_News: SP_ParentVC {
 }
 
 extension JH_News {
+    override class func initSPVC() -> JH_News {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_News") as! JH_News
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

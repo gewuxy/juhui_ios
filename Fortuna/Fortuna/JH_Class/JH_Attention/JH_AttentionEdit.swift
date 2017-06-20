@@ -11,6 +11,9 @@ import UIKit
 class JH_AttentionEdit: SP_ParentVC {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var view_toolBar: UIView!
+    @IBOutlet weak var btn_allSelect: UIButton!
+    @IBOutlet weak var btn_remove: UIButton!
     
 }
 
@@ -66,3 +69,6 @@ extension JH_AttentionEdit:UITableViewDataSource{
         
     }
 }
+
+
+

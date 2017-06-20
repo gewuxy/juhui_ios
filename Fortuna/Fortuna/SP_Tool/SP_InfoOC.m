@@ -76,6 +76,7 @@ static SP_InfoOC* shared = nil;
 }
 #pragma mark ---------- 当前设备 ----------
 + (SP_DeviceModel)sp_deviceModel {
+    /*
     int mib[2];
     size_t len;
     char *machine;
@@ -88,7 +89,7 @@ static SP_InfoOC* shared = nil;
     
     NSString *platform = [NSString stringWithCString:machine encoding:NSASCIIStringEncoding];
     free(machine);
-    
+    NSLog(@"%@",platform);
     if ([platform isEqualToString:@"iPhone1,1"]) return tiPhone4;
     if ([platform isEqualToString:@"iPhone1,2"]) return tiPhone4;
     if ([platform isEqualToString:@"iPhone2,1"]) return tiPhone4;
@@ -137,7 +138,22 @@ static SP_InfoOC* shared = nil;
     
     if ([platform isEqualToString:@"i386"])      return tiPhone;
     if ([platform isEqualToString:@"x86_64"])    return tiPhone;
+    return tiPhone;*/
+    
+    //.main.bounds
+    CGFloat ww =  [UIScreen mainScreen].bounds.size.width;
+    CGFloat hh =  [UIScreen mainScreen].bounds.size.height;
+    
+    if (hh == 480)
+        return tiPhone4;
+    if (hh == 568)
+        return tiPhone;
+    if (hh == 667)
+        return tiPhoneA;
+    if (hh == 736)
+        return tiPhoneP;
     return tiPhone;
+    
 }
 
 #pragma mark ---------- 字号适配 ----------
@@ -145,6 +161,7 @@ static SP_InfoOC* shared = nil;
     return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size]];
 }
 + (CGFloat) sp_fitWithSize:(CGFloat)size {
+    
     switch ([SP_InfoOC sp_deviceModel]) {
         case tiPhone:
             return size;

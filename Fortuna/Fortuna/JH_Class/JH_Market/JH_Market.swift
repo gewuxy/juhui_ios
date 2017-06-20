@@ -18,6 +18,9 @@ class JH_Market: SP_ParentVC {
 }
 
 extension JH_Market {
+    override class func initSPVC() -> JH_Market {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_Market") as! JH_Market
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

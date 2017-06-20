@@ -9,7 +9,7 @@ import UIKit
 extension UIColor {
     ///主题色 -- 界面主色
     open class var main_1: UIColor {
-        return UIColor.main_string("#e30e44")
+        return UIColor.main_string("#fe6c72")
     }
     ///第二主题色 -- 界面辅助色
     open class var main_2: UIColor {
@@ -22,15 +22,15 @@ extension UIColor {
     
     ///第1字色 -- 字体主色
     open class var mainText_1: UIColor {
-        return UIColor.main_string("#4c4c4c")
+        return UIColor.main_string("#4d4d4d")
     }
     ///第2字色 -- 字体副色
     open class var mainText_2: UIColor {
-        return UIColor.main_string("#b2b2b2")
+        return UIColor.main_string("#8c8c8c")
     }
     ///第3字色 -- 字体辅助色
     open class var mainText_3: UIColor {
-        return UIColor.main_string("#8c8c8c")
+        return UIColor.main_string("#b2b2b2")
     }
     
     ///第4字色 -- 字体辅助色
@@ -39,12 +39,20 @@ extension UIColor {
     }
     ///第5字色 -- 字体辅助色
     open class var mainText_5: UIColor {
-        return UIColor.main_string("#14cd48")
+        return UIColor.main_string("#15cd48")
     }
     
     ///按钮不可点
     open class var main_btnNotEnb: UIColor {
         return UIColor.main_string("#b2b2b2")
+    }
+    ///按钮不可点
+    open class var main_btnNormal: UIColor {
+        return UIColor.main_string("#5c86ff")
+    }
+    ///按钮不可点
+    open class var main_btnSelect: UIColor {
+        return UIColor.main_string("#2860ff")
     }
     
     ///背景色
@@ -54,7 +62,7 @@ extension UIColor {
     }
     ///线条颜色
     open class var main_line: UIColor {
-        return UIColor.black.withAlphaComponent(0.1)
+        return UIColor.main_string("#cccccc")
     }
     
     

@@ -35,31 +35,53 @@ class SP_Signin: SP_ParentVC {
     @IBOutlet weak var img_logo_T: NSLayoutConstraint!
     @IBOutlet weak var img_logo_B: NSLayoutConstraint!
     @IBOutlet weak var btn_login_T: NSLayoutConstraint!
-    @IBOutlet weak var view_other_T: NSLayoutConstraint!
+    
     
     
     lazy var _text_phone:SP_TextField = {
         let text = SP_TextField.show(self.view_phone)
-        text.text_field.placeholder = "请输入有效的手机号"
-        text.button_L.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        text.button_R.setImage(UIImage(named:"navi_search_gray"), for: .normal)
+        text.text_field.placeholder = "手机号"
+        text.text_field.textColor = UIColor.mainText_1
+        text.text_field.keyboardType = .numberPad
+        text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
+        text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
+        text.text_field_L.constant = 15
+        text.text_field_R.constant = 15
+        text.view_Line_L.constant = 5
+        text.view_Line_R.constant = 5
         
         return text
     }()
     lazy var _text_pwd:SP_TextField = {
         let text = SP_TextField.show(self.view_pwd)
-        text.text_field.placeholder = "请输入密码"
-        text.button_L.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        text.button_R.setImage(UIImage(named:"navi_search_gray"), for: .normal)
+        text.text_field.placeholder = "密码"
+        text.text_field.textColor = UIColor.mainText_1
+        text.text_field.keyboardType = .asciiCapable
+        text.text_field.isSecureTextEntry = true
+        text.button_L.setImage(UIImage(named:"sp_login密码"), for: .normal)
+        text.button_R.setImage(UIImage(named:"sp_login闭眼"), for: .selected)
+        text.button_R.setImage(UIImage(named:"sp_login可见"), for: .normal)
+        text.button_R.isSelected = true
+        text.backgroundColor = UIColor.clear
+        text.text_field_L.constant = 15
+        text.text_field_R.constant = 15
+        text.view_Line_L.constant = 5
+        text.view_Line_R.constant = 5
         
         return text
     }()
     lazy var _text_verifi:SP_TextField = {
         let text = SP_TextField.show(self.view_verification)
         text.text_field.placeholder = "请输入验证码"
-        text.button_L.setImage(UIImage(named:"navi_search_gray"), for: .normal)
         text.button_R.setTitle("发送验证码",for:.normal)
+        text.button_R.setTitleColor(UIColor.mainText_2,for:.normal)
+        text.button_R.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        text.button_R.layer.cornerRadius = 6.0
+        text.button_R.clipsToBounds = true
+        text.button_R.backgroundColor = UIColor.main_string("#e5e5e5")
         text.button_R_W.constant = 100
+        text.button_L_W.constant = 0
+        text.text_field_L.constant = 0
         return text
     }()
 }
@@ -84,33 +106,54 @@ extension SP_Signin {
         makeTextFieldDelegate()
         showKeyboard()
         
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
-        
+        UIApplication.shared.statusBarStyle = .default
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyBoardHidden()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        UIApplication.shared.statusBarStyle = .default
+        
+        UIApplication.shared.statusBarStyle = .lightContent
     }
-    override func clickN_btn_L1() {
+    override func clickN_btn_R1() {
+        
         _ = self.navigationController?.popViewController(animated: true)
     }
     fileprivate func makeNavigatin(){
-        n_view._title = _vcType == .t注册 ? "注册" : "忘记密码"
+        n_view.backgroundColor = UIColor.clear
+        n_view.n_view_NaviLine.isHidden = true
+        n_view._title = ""
+        n_view.n_btn_L1_Image = ""
+        n_view.n_btn_R1_Image = "sp_login叉"
+        n_view.n_btn_R1_R.constant = 15
         
     }
     fileprivate func makeUI() {
+        
         if SP_InfoOC.sp_deviceModel() == tiPhone4 {
-            img_logo_T.constant = 15
+            img_logo_T.constant = 68
             img_logo_B.constant = 15
-            btn_login_T.constant = 15
-            view_other_T.constant = 15
             _keyBoardHeightRatio = 2.0
         }
-        btn_login.setTitle(_vcType == .t注册 ? "注册" : "重置密码", for: .normal)
+        
+        btn_login.setTitle(_vcType == .t注册 ? "注  册" : "重置密码", for: .normal)
         view_agreement.isHidden = _vcType != .t注册
+        btn_login_T.constant = _vcType == .t注册 ? 60 : 30
+        
+        view_phone.backgroundColor = UIColor.clear
+        view_pwd.backgroundColor = UIColor.clear
+        view_verification.backgroundColor = UIColor.clear
+        view_agreement.backgroundColor = UIColor.clear
+        
+        //btn_agreementSelect.setImage(UIImage(named:"sp_login没选中"), for: .normal)
+        //btn_agreementSelect.setImage(UIImage(named:"sp_login勾"), for: .selected)
+        btn_agreementSelect.isSelected = true
     }
     fileprivate func makeTextFieldDelegate() {
         _text_phone._shouldChangeCharactersBlock = { [weak self](textField,range,str) -> Bool in
@@ -141,7 +184,7 @@ extension SP_Signin {
         }
         
         _text_verifi._shouldChangeCharactersBlock = { [weak self](textField,range,str) -> Bool in
-            let bool = textField.sp_limitForPwd(range, string: str, stringLength: 16, errorType: { (type) in
+            let bool = textField.sp_limitForNumbers(range, string: str, stringLength: 6, errorType: { (type) in
                 switch type {
                 case .tOutRange:
                     break
@@ -163,6 +206,7 @@ extension SP_Signin {
         
         let pwdValid = _text_pwd.text_field.rx.text.map { $0!.characters.count <= 16 && $0!.characters.count >= 6 }.shareReplay(1)
         let verifiValid = _text_verifi.text_field.rx.text.map { $0!.characters.count > 0 }.shareReplay(1)
+        
         let allValid = Observable.combineLatest(phoneValid_2, pwdValid,verifiValid) { $0 && $1 && $2}.shareReplay(1)
         
         phoneValid_1
@@ -171,16 +215,31 @@ extension SP_Signin {
                 self?._text_phone.button_R_W.constant = isOk ? 0 : 30
                 self?._text_phone.button_R.isHidden = isOk
             }).addDisposableTo(disposeBag)
-        
+        phoneValid_2
+            .asObservable()
+            .subscribe(onNext: { [weak self](isOk) in
+                self?._text_verifi.button_R.isEnabled = isOk
+                self?._text_verifi.button_R.setTitleColor(isOk ? UIColor.mainText_2 : UIColor.mainText_3, for: .normal)
+            }).addDisposableTo(disposeBag)
         
         allValid
             .asObservable()
             .subscribe(onNext: { [weak self](isOk) in
                 self?.btn_login.isEnabled = isOk
-                self?.btn_login.backgroundColor = isOk ? UIColor.main_3 : UIColor.main_btnNotEnb
+                self?.btn_login.backgroundColor = isOk ? UIColor.main_btnNormal : UIColor.main_btnNotEnb
             }).addDisposableTo(disposeBag)
         
-        
+        _text_phone.button_R.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [unowned self](isOK) in
+                self._text_phone.text_field.text = ""
+            }).addDisposableTo(disposeBag)
+        _text_pwd.button_R.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [unowned self](isOK) in
+                self._text_pwd.button_R.isSelected = !self._text_pwd.button_R.isSelected
+                self._text_pwd.text_field.isSecureTextEntry = self._text_pwd.button_R.isSelected
+            }).addDisposableTo(disposeBag)
         
         btn_login.rx.tap
             .asObservable()
@@ -205,7 +264,8 @@ extension SP_Signin {
     }
     //MARK:--- 发送验证码 -----------------------------
     fileprivate func clickVerifi()  {
-        SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,color:(normal:UIColor.white,select:UIColor.mainText_2))
+        
+        SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
     }
     //MARK:--- 用户协议 -----------------------------
     fileprivate func clickAgreement()  {
@@ -214,7 +274,11 @@ extension SP_Signin {
     
     
     //MARK:--- 键盘
-    
+    fileprivate func keyBoardHidden(){
+        _text_phone.text_field.resignFirstResponder()
+        _text_pwd.text_field.resignFirstResponder()
+        _text_verifi.text_field.resignFirstResponder()
+    }
     fileprivate func showKeyboard(){
         sp_Notification.rx
             .notification(sp_ntfNameKeyboardWillShow, object: nil)

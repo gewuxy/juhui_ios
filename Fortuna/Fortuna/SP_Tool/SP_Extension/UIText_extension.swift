@@ -37,7 +37,7 @@ extension UITextField {
     
     
     //MARK:---------- 价格类
-    fileprivate func sp_limitForPrice(_ range: NSRange,  string: String, stringLength:Int = 7, errorType:((UITextLimitErrorType) ->Void)? = nil ) -> Bool {
+    func sp_limitForPrice(_ range: NSRange,  string: String, stringLength:Int = 7, errorType:((UITextLimitErrorType) ->Void)? = nil ) -> Bool {
         print("-->\(string)")
         
         if Int(string) == nil && string != "." && string != ""{

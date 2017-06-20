@@ -41,11 +41,15 @@ class JH_My: SP_ParentVC {
 }
 
 extension JH_My {
+    override class func initSPVC() -> JH_My {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_My") as! JH_My
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         makeNavigation()
         makeImage_Bg()
         makeTableView()
+        
         makeLogin()
     }
     fileprivate func makeNavigation() {
@@ -130,7 +134,7 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             headView._tapBlock = { [unowned self]() in
                 self.didSelectAt(self._sectionsHead[section].type, section:section)
             }
-            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 17), color: UIColor.mainText_1))
+            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 17), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 17,R:17))
             
             switch _sectionsHead[section].type {
             case .t我的持仓, .t设置, .t历史委托:
@@ -162,13 +166,21 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         if type == .t设置 {
             
         }else{
-            /*
+            
             guard SP_User.shared.userIsLogin else{
                 SP_Login.show(self, block: { [weak self](isOk) in
-                    self?.myTableView.reloadData()
+                    self?.tableView.reloadData()
                 })
                 return
-            }*/
+            }
+            
+            switch type {
+            case .t当日委托:
+                JH_BuyAndSell.show(self, type: .t卖出)
+            default:
+                break
+            }
+            
             
         }
     }

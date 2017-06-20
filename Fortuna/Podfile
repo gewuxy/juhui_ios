@@ -39,7 +39,7 @@ target ‘Fortuna’ do
     
     #pod 'YYKit'
     #pod 'YYModel'
-    pod 'YYWebImage'
+    #pod 'YYWebImage'
     pod 'YYCache'
     pod 'YYImage'
     pod 'YYWebImage'

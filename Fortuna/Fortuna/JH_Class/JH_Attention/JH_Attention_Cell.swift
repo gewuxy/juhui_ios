@@ -17,7 +17,8 @@ class JH_AttentionCell_Normal: UITableViewCell {
         super.awakeFromNib()
         view_line.backgroundColor = UIColor.main_bg
         lab_name.textColor = UIColor.mainText_1
-        lab_code.textColor = UIColor.mainText_2
+        lab_code.textColor = UIColor.mainText_3
+        
         lab_range.textColor = UIColor.mainText_4
     }
     

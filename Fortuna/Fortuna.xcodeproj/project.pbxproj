@@ -16,6 +16,21 @@
 		AB0235851EE55659007AB6BB /* FortunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235841EE55659007AB6BB /* FortunaUITests.swift */; };
 		AB0235B21EE55F70007AB6BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0235B41EE55F70007AB6BB /* InfoPlist.strings */; };
 		AB0235B81EE55F93007AB6BB /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0235BA1EE55F93007AB6BB /* Localization.strings */; };
+		AB02DA5F1EF77E2000FFC3E8 /* sp_login闭眼@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA571EF77E2000FFC3E8 /* sp_login闭眼@2x.png */; };
+		AB02DA601EF77E2000FFC3E8 /* sp_login叉@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA581EF77E2000FFC3E8 /* sp_login叉@2x.png */; };
+		AB02DA611EF77E2000FFC3E8 /* sp_login第三方微信@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA591EF77E2000FFC3E8 /* sp_login第三方微信@2x.png */; };
+		AB02DA621EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA5A1EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png */; };
+		AB02DA631EF77E2000FFC3E8 /* sp_login密码@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA5B1EF77E2000FFC3E8 /* sp_login密码@2x.png */; };
+		AB02DA641EF77E2000FFC3E8 /* sp_login删除@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA5C1EF77E2000FFC3E8 /* sp_login删除@2x.png */; };
+		AB02DA651EF77E2000FFC3E8 /* sp_login手机@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA5D1EF77E2000FFC3E8 /* sp_login手机@2x.png */; };
+		AB02DA661EF77E2000FFC3E8 /* sp_loginLOGO@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA5E1EF77E2000FFC3E8 /* sp_loginLOGO@2x.png */; };
+		AB02DA691EF7ABC100FFC3E8 /* sp_login勾@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA671EF7ABC100FFC3E8 /* sp_login勾@2x.png */; };
+		AB02DA6A1EF7ABC100FFC3E8 /* sp_login可见@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA681EF7ABC100FFC3E8 /* sp_login可见@2x.png */; };
+		AB02DA6C1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA6B1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png */; };
+		AB42C7BD1EF6BDDB00C51669 /* JH_BuyAndSell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */; };
+		AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */; };
+		AB42C7C21EF6D3DA00C51669 /* JH_HUD_Deal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7C11EF6D3DA00C51669 /* JH_HUD_Deal.swift */; };
+		AB42C7C41EF6D3EB00C51669 /* JH_HUD_Deal.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB42C7C31EF6D3EB00C51669 /* JH_HUD_Deal.xib */; };
 		AB4A75BD1EEF77B10014F633 /* SP_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4A75BC1EEF77B10014F633 /* SP_User.swift */; };
 		AB4A75BF1EEF7E550014F633 /* JH_AttentionEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */; };
 		AB4A75C11EEF86470014F633 /* JH_Attention_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */; };
@@ -147,6 +162,21 @@
 		AB0235BB1EE55F95007AB6BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		AB0235BC1EE55F96007AB6BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
 		AB0235BD1EE55F97007AB6BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localization.strings"; sourceTree = "<group>"; };
+		AB02DA571EF77E2000FFC3E8 /* sp_login闭眼@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login闭眼@2x.png"; sourceTree = "<group>"; };
+		AB02DA581EF77E2000FFC3E8 /* sp_login叉@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login叉@2x.png"; sourceTree = "<group>"; };
+		AB02DA591EF77E2000FFC3E8 /* sp_login第三方微信@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login第三方微信@2x.png"; sourceTree = "<group>"; };
+		AB02DA5A1EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login第三方QQ@2x.png"; sourceTree = "<group>"; };
+		AB02DA5B1EF77E2000FFC3E8 /* sp_login密码@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login密码@2x.png"; sourceTree = "<group>"; };
+		AB02DA5C1EF77E2000FFC3E8 /* sp_login删除@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login删除@2x.png"; sourceTree = "<group>"; };
+		AB02DA5D1EF77E2000FFC3E8 /* sp_login手机@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login手机@2x.png"; sourceTree = "<group>"; };
+		AB02DA5E1EF77E2000FFC3E8 /* sp_loginLOGO@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_loginLOGO@2x.png"; sourceTree = "<group>"; };
+		AB02DA671EF7ABC100FFC3E8 /* sp_login勾@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login勾@2x.png"; sourceTree = "<group>"; };
+		AB02DA681EF7ABC100FFC3E8 /* sp_login可见@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login可见@2x.png"; sourceTree = "<group>"; };
+		AB02DA6B1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login没选中@2x.png"; sourceTree = "<group>"; };
+		AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_BuyAndSell.swift; sourceTree = "<group>"; };
+		AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_BuyAndSell_Cell.swift; sourceTree = "<group>"; };
+		AB42C7C11EF6D3DA00C51669 /* JH_HUD_Deal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_HUD_Deal.swift; sourceTree = "<group>"; };
+		AB42C7C31EF6D3EB00C51669 /* JH_HUD_Deal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JH_HUD_Deal.xib; sourceTree = "<group>"; };
 		AB4A75BC1EEF77B10014F633 /* SP_User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_User.swift; sourceTree = "<group>"; };
 		AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionEdit.swift; sourceTree = "<group>"; };
 		AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_Attention_Cell.swift; sourceTree = "<group>"; };
@@ -352,6 +382,42 @@
 			name = Other;
 			sourceTree = "<group>";
 		};
+		AB02DA561EF77DDA00FFC3E8 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				AB02DA6B1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png */,
+				AB02DA671EF7ABC100FFC3E8 /* sp_login勾@2x.png */,
+				AB02DA681EF7ABC100FFC3E8 /* sp_login可见@2x.png */,
+				AB02DA571EF77E2000FFC3E8 /* sp_login闭眼@2x.png */,
+				AB02DA581EF77E2000FFC3E8 /* sp_login叉@2x.png */,
+				AB02DA591EF77E2000FFC3E8 /* sp_login第三方微信@2x.png */,
+				AB02DA5A1EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png */,
+				AB02DA5B1EF77E2000FFC3E8 /* sp_login密码@2x.png */,
+				AB02DA5C1EF77E2000FFC3E8 /* sp_login删除@2x.png */,
+				AB02DA5D1EF77E2000FFC3E8 /* sp_login手机@2x.png */,
+				AB02DA5E1EF77E2000FFC3E8 /* sp_loginLOGO@2x.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		AB42C7BB1EF6BDC700C51669 /* JH_BuyAndSell */ = {
+			isa = PBXGroup;
+			children = (
+				AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */,
+				AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */,
+			);
+			path = JH_BuyAndSell;
+			sourceTree = "<group>";
+		};
+		AB42C7C01EF6D3AA00C51669 /* JH_HUD */ = {
+			isa = PBXGroup;
+			children = (
+				AB42C7C11EF6D3DA00C51669 /* JH_HUD_Deal.swift */,
+				AB42C7C31EF6D3EB00C51669 /* JH_HUD_Deal.xib */,
+			);
+			path = JH_HUD;
+			sourceTree = "<group>";
+		};
 		AB4A75C71EEFE8580014F633 /* JH_Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +431,8 @@
 			isa = PBXGroup;
 			children = (
 				AB5901471EE9331200826A37 /* JH_API */,
+				AB42C7C01EF6D3AA00C51669 /* JH_HUD */,
+				AB42C7BB1EF6BDC700C51669 /* JH_BuyAndSell */,
 				AB4A75C71EEFE8580014F633 /* JH_Search */,
 				AB5901481EE9331200826A37 /* JH_Attention */,
 				AB59014B1EE9331200826A37 /* JH_News */,
@@ -626,6 +694,7 @@
 		ABFC47D31EEE487D0057BD58 /* SP_Login */ = {
 			isa = PBXGroup;
 			children = (
+				AB02DA561EF77DDA00FFC3E8 /* Image */,
 				AB4A75BC1EEF77B10014F633 /* SP_User.swift */,
 				ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */,
 				ABFC47D81EEE49550057BD58 /* SP_Signin.swift */,
@@ -759,24 +828,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB02DA631EF77E2000FFC3E8 /* sp_login密码@2x.png in Resources */,
+				AB02DA6C1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png in Resources */,
 				AB5901F01EE94B9200826A37 /* navi_back_white@2x.png in Resources */,
+				AB02DA651EF77E2000FFC3E8 /* sp_login手机@2x.png in Resources */,
+				AB02DA611EF77E2000FFC3E8 /* sp_login第三方微信@2x.png in Resources */,
 				AB5901DD1EE94B9200826A37 /* tanhuang.mp3 in Resources */,
+				AB02DA661EF77E2000FFC3E8 /* sp_loginLOGO@2x.png in Resources */,
 				AB5901EE1EE94B9200826A37 /* navi_add_white@2x.png in Resources */,
 				AB5901ED1EE94B9200826A37 /* navi_add_gray@2x.png in Resources */,
 				AB5901FC1EE94B9200826A37 /* SP_TextField.xib in Resources */,
 				AB02356F1EE55659007AB6BB /* LaunchScreen.storyboard in Resources */,
+				AB02DA691EF7ABC100FFC3E8 /* sp_login勾@2x.png in Resources */,
 				AB77788A1EEA3362000DF065 /* SP_ComCell.xib in Resources */,
 				AB5901F31EE94B9200826A37 /* navi_share_gray@2x.png in Resources */,
 				AB5902081EE952E300826A37 /* SP_NavigationView.xib in Resources */,
 				AB5901DF1EE94B9200826A37 /* iconfont.ttf in Resources */,
+				AB02DA6A1EF7ABC100FFC3E8 /* sp_login可见@2x.png in Resources */,
+				AB02DA641EF77E2000FFC3E8 /* sp_login删除@2x.png in Resources */,
 				AB5901BE1EE94B9200826A37 /* SP_AdsColleCell.xib in Resources */,
 				AB5901F21EE94B9200826A37 /* navi_search_gray@2x.png in Resources */,
 				AB0235B21EE55F70007AB6BB /* InfoPlist.strings in Resources */,
+				AB02DA621EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png in Resources */,
 				AB5901F11EE94B9200826A37 /* navi_scanCode_white@2x.png in Resources */,
+				AB02DA5F1EF77E2000FFC3E8 /* sp_login闭眼@2x.png in Resources */,
 				AB0235B81EE55F93007AB6BB /* Localization.strings in Resources */,
+				AB42C7C41EF6D3EB00C51669 /* JH_HUD_Deal.xib in Resources */,
 				AB02356C1EE55659007AB6BB /* Assets.xcassets in Resources */,
 				AB02356A1EE55659007AB6BB /* Main.storyboard in Resources */,
 				ABFC47D71EEE48EB0057BD58 /* SP_Login.storyboard in Resources */,
+				AB02DA601EF77E2000FFC3E8 /* sp_login叉@2x.png in Resources */,
 				AB5901EF1EE94B9200826A37 /* navi_back_gray@2x.png in Resources */,
 				AB5901DC1EE94B9200826A37 /* SP_TabMenuView.xib in Resources */,
 			);
@@ -902,7 +983,10 @@
 				AB5901C61EE94B9200826A37 /* Date_extension.swift in Sources */,
 				AB5901C01EE94B9200826A37 /* SP_AdsCollectionViewModel.swift in Sources */,
 				AB5901E81EE94B9200826A37 /* SP_MJDIYBackFooter.swift in Sources */,
+				AB42C7C21EF6D3DA00C51669 /* JH_HUD_Deal.swift in Sources */,
 				AB5901551EE9338D00826A37 /* My_API.swift in Sources */,
+				AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */,
+				AB42C7BD1EF6BDDB00C51669 /* JH_BuyAndSell.swift in Sources */,
 				AB5901D01EE94B9200826A37 /* UIButton_extension.swift in Sources */,
 				AB5901C21EE94B9200826A37 /* SP_Constant.swift in Sources */,
 				AB5901F41EE94B9200826A37 /* Navigation_Extension.swift in Sources */,
@@ -1103,7 +1187,7 @@
 				INFOPLIST_FILE = Fortuna/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.friendsHome.Fortuna;
+				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1121,7 +1205,7 @@
 				INFOPLIST_FILE = Fortuna/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.friendsHome.Fortuna;
+				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

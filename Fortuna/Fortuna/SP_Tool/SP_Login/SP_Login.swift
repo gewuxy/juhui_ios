@@ -28,33 +28,48 @@ class SP_Login: SP_ParentVC {
     @IBOutlet weak var btn_login: UIButton!
     @IBOutlet weak var btn_signin: UIButton!
     @IBOutlet weak var btn_forgetPwd: UIButton!
-    @IBOutlet weak var btn_Wx: UIButton!
-    @IBOutlet weak var btn_QQ: UIButton!
     
     @IBOutlet weak var view_phone: UIView!
     @IBOutlet weak var view_pwd: UIView!
     
-    
     @IBOutlet weak var img_logo_T: NSLayoutConstraint!
     @IBOutlet weak var img_logo_B: NSLayoutConstraint!
     @IBOutlet weak var btn_login_T: NSLayoutConstraint!
-    @IBOutlet weak var view_other_T: NSLayoutConstraint!
     
+    @IBOutlet weak var view_other: UIView!
     
-    lazy var _text_pwd:SP_TextField = {
-        let text = SP_TextField.show(self.view_pwd)
-        text.text_field.placeholder = "请输入有效的手机号"
-        text.button_L.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        text.button_R.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        
-        return text
-    }()
+    @IBOutlet weak var lab_otherAccount: UILabel!
+    @IBOutlet weak var btn_Wx: UIButton!
+    @IBOutlet weak var btn_QQ: UIButton!
+    
     lazy var _text_phone:SP_TextField = {
         let text = SP_TextField.show(self.view_phone)
-        text.text_field.placeholder = "请输入密码"
-        text.button_L.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        text.button_R.setImage(UIImage(named:"navi_search_gray"), for: .normal)
-        
+        text.text_field.placeholder = "手机号"
+        text.text_field.textColor = UIColor.mainText_1
+        text.text_field.keyboardType = .numberPad
+        text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
+        text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
+        text.text_field_L.constant = 15
+        text.text_field_R.constant = 15
+        text.view_Line_L.constant = 5
+        text.view_Line_R.constant = 5
+        return text
+    }()
+    lazy var _text_pwd:SP_TextField = {
+        let text = SP_TextField.show(self.view_pwd)
+        text.text_field.placeholder = "密码"
+        text.text_field.textColor = UIColor.mainText_1
+        text.text_field.keyboardType = .asciiCapable
+        text.text_field.isSecureTextEntry = true
+        text.button_L.setImage(UIImage(named:"sp_login密码"), for: .normal)
+        text.button_R.setImage(UIImage(named:"sp_login闭眼"), for: .selected)
+        text.button_R.setImage(UIImage(named:"sp_login可见"), for: .normal)
+        text.button_R.isSelected = true
+        text.backgroundColor = UIColor.clear
+        text.text_field_L.constant = 15
+        text.text_field_R.constant = 15
+        text.view_Line_L.constant = 5
+        text.view_Line_R.constant = 5
         return text
     }()
     
@@ -80,32 +95,53 @@ extension SP_Login {
         makeTextFieldDelegate()
         showKeyboard()
         
+        
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyBoardHidden()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        UIApplication.shared.statusBarStyle = .default
+        
+        UIApplication.shared.statusBarStyle = .lightContent
     }
-    override func clickN_btn_L1() {
-        self.dismiss(animated: true) { 
+    override func clickN_btn_R1() {
+        self.dismiss(animated: true) {
             
         }
     }
     fileprivate func makeNavigatin(){
-        n_view._title = "登录"
+        n_view.backgroundColor = UIColor.clear
+        n_view.n_view_NaviLine.isHidden = true
+        n_view._title = ""
+        n_view.n_btn_L1_Image = ""
+        n_view.n_btn_R1_Image = "sp_login叉"
+        n_view.n_btn_R1_R.constant = 15
+        
     }
+    
     fileprivate func makeUI() {
         if SP_InfoOC.sp_deviceModel() == tiPhone4 {
-            img_logo_T.constant = 15
+            img_logo_T.constant = 68
             img_logo_B.constant = 15
-            btn_login_T.constant = 15
-            view_other_T.constant = 15
+            btn_login_T.constant = 20
             _keyBoardHeightRatio = 2.0
         }
+        
+        view_phone.backgroundColor = UIColor.clear
+        view_pwd.backgroundColor = UIColor.clear
+        lab_otherAccount.backgroundColor = UIColor.main_bg
+        lab_otherAccount.textColor = UIColor.mainText_3
+        btn_signin.setTitleColor(UIColor.mainText_2, for: .normal)
+        btn_forgetPwd.setTitleColor(UIColor.mainText_2, for: .normal)
+        
     }
     fileprivate func makeTextFieldDelegate() {
         _text_phone._shouldChangeCharactersBlock = { [weak self](textField,range,str) -> Bool in
@@ -157,8 +193,23 @@ extension SP_Login {
             .asObservable()
             .subscribe(onNext: { [weak self](isOk) in
                 self?.btn_login.isEnabled = isOk
-                self?.btn_login.backgroundColor = isOk ? UIColor.main_3 : UIColor.main_btnNotEnb
+                self?.btn_login.backgroundColor = isOk ? UIColor.main_btnNormal : UIColor.main_btnNotEnb
             }).addDisposableTo(disposeBag)
+        
+        
+        _text_phone.button_R.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [unowned self](isOK) in
+                self._text_phone.text_field.text = ""
+            }).addDisposableTo(disposeBag)
+        _text_pwd.button_R.rx.tap
+            .asObservable()
+            .subscribe(onNext: { [unowned self](isOK) in
+                self._text_pwd.button_R.isSelected = !self._text_pwd.button_R.isSelected
+                self._text_pwd.text_field.isSecureTextEntry = self._text_pwd.button_R.isSelected
+                
+            }).addDisposableTo(disposeBag)
+        
         
         
         
@@ -233,6 +284,10 @@ extension SP_Login {
     
     
     //MARK:--- 键盘
+    fileprivate func keyBoardHidden(){
+        _text_phone.text_field.resignFirstResponder()
+        _text_pwd.text_field.resignFirstResponder()
+    }
     fileprivate func showKeyboard(){
         sp_Notification.rx
             .notification(sp_ntfNameKeyboardWillShow, object: nil)

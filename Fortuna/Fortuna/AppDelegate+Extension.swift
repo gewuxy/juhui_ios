@@ -41,25 +41,25 @@ extension AppDelegate {
             
             
         }*/
-        let vc = SP_TabBarController.initSPVC()
-        window?.rootViewController = vc
+        //let vc = SP_TabBarController.initSPVC()
+        window?.rootViewController = AppDelegate.tabBar
         window?.makeKeyAndVisible()
         
         setupGlobalStyle()
     }
     
-    /*
+    
     private static var tabBar:SP_TabBarController = {
-        let viewControllers = [SP_MainVC.initSPVC(),SP_AdsVC.initSPVC(),SP_AdsVC.initSPVC(),SP_AdsVC.initSPVC(),SP_AdsVC.initSPVC()]
-        let titles = ["1","2","","4","5"]
-        let images = ["30x30","30x30","","30x30","30x30"]
-        let selectedImages = ["30x30","30x30","","30x30","30x30"]
+        let viewControllers = [JH_Attention.initSPVC(),JH_News.initSPVC(),JH_Market.initSPVC(),JH_My.initSPVC()]
+        let titles = ["自选","资讯","行情","我的"]
+        let images = ["N自选","N资讯","N行情","N我的"]
+        let selectedImages = ["S自选","S资讯","S行情","S我的"]
         let vc = SP_TabBarController.initTabbar(viewControllers, titles: titles, images: images, selectedImages: selectedImages, selectedIndex: 0)
-        vc.setProperty(true, colorNormal: UIColor.maintext_darkgray, colorSelected: UIColor.main_1, titleFontNormal: 12.0, titleFontSelected: 12.0, imageInsets: UIEdgeInsetsMake(0, 0, 0, 0))
-        vc.centerMenuButton()
+        vc.setProperty(true, colorNormal: UIColor.mainText_2, colorSelected: UIColor.main_1, titleFontNormal: 10.0, titleFontSelected: 10.0, imageInsets: UIEdgeInsetsMake(0, 0, 0, 0))
+        
         return vc
     }()
-    */
+    
     //MARK:----------- 判断是否是新版本
     private func isNewVersion() -> Bool {
         // 获取当前的版本号

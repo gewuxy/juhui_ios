@@ -42,7 +42,7 @@
                                 <constraint firstAttribute="width" constant="44" id="qPH-V5-TjM"/>
                                 <constraint firstAttribute="height" constant="44" id="rT5-U9-yN4"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -62,7 +62,7 @@
                                 <constraint firstAttribute="height" constant="44" id="Ae9-Z1-7ZQ"/>
                                 <constraint firstAttribute="width" constant="44" id="crE-p2-23B"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -82,7 +82,7 @@
                                 <constraint firstAttribute="width" constant="44" id="Cgo-KO-sDl"/>
                                 <constraint firstAttribute="height" constant="44" id="HHn-5r-T1w"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -102,7 +102,7 @@
                                 <constraint firstAttribute="width" constant="44" id="9HC-hm-T1N"/>
                                 <constraint firstAttribute="height" constant="44" id="KfE-G2-zJ6"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -122,7 +122,7 @@
                                 <constraint firstAttribute="width" constant="44" id="7ao-LB-Ldz"/>
                                 <constraint firstAttribute="height" constant="44" id="WE2-I2-rHj"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -137,8 +137,8 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-2J-Vxl">
-                            <rect key="frame" x="150.5" y="0.0" width="75" height="647"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                            <rect key="frame" x="147" y="0.0" width="82" height="647"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                             <state key="normal" title="SupApp">
                                 <color key="titleColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -153,7 +153,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TTu-gA-8v0">
-                            <rect key="frame" x="125.5" y="314" width="20" height="20"/>
+                            <rect key="frame" x="122" y="314" width="20" height="20"/>
                         </activityIndicatorView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXy-th-M9H">
                             <rect key="frame" x="96" y="0.0" width="139" height="647"/>
