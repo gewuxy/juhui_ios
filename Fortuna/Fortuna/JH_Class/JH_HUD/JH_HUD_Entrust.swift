@@ -1,5 +1,5 @@
 //
-//  JH_HUD_Deal.swift
+//  JH_HUD_Entrust.swift
 //  Fortuna
 //
 //  Created by 刘才德 on 2017/6/18.
@@ -9,7 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
-class JH_HUD_Deal: UIView {
+class JH_HUD_Entrust: UIView {
 
     @IBOutlet weak var img_bg: UIImageView!
     
@@ -35,7 +35,7 @@ class JH_HUD_Deal: UIView {
     let disposeBag = DisposeBag()
     var _clickBlock:(()->Void)?
 
-    var model:JH_HUD_DealModel = JH_HUD_DealModel() {
+    var model:JH_HUD_EntrustModel = JH_HUD_EntrustModel() {
         didSet{
             lab_No.text = model.no
             lab_name.text = model.name
@@ -48,18 +48,26 @@ class JH_HUD_Deal: UIView {
             
         }
     }
+    @IBAction func btnClick(_ sender: UIButton) {
+        switch sender {
+        case btn_cancel:
+            hiddenUI()
+        default:
+            _clickBlock?()
+        }
+    }
 }
 
-extension JH_HUD_Deal {
-    class func show(_ model:JH_HUD_DealModel, block:(()->Void)? = nil) {
+extension JH_HUD_Entrust {
+    class func show(_ model:JH_HUD_EntrustModel, block:(()->Void)? = nil) {
         for item in sp_MainWindow.subviews {
-            if let view = item as? JH_HUD_Deal {
+            if let view = item as? JH_HUD_Entrust {
                 view.model = model
                 view._clickBlock = block
                 return
             }
         }
-        let view = (Bundle.main.loadNibNamed("JH_HUD_Deal", owner: nil, options: nil)!.first as? JH_HUD_Deal)!
+        let view = (Bundle.main.loadNibNamed("JH_HUD_Entrust", owner: nil, options: nil)!.first as? JH_HUD_Entrust)!
         sp_MainWindow.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -72,6 +80,10 @@ extension JH_HUD_Deal {
     override func awakeFromNib() {
         super.awakeFromNib()
         makeUI()
+    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        showUI()
     }
     fileprivate func makeUI(){
         
@@ -94,18 +106,26 @@ extension JH_HUD_Deal {
         view_hud_B.constant = 20+SP_InfoOC.sp_fit(withSize: 0)*2
     }
     
-    @IBAction func btnClick(_ sender: UIButton) {
-        switch sender {
-        case btn_cancel:
+    
+    
+    fileprivate func showUI() {
+        UIView.animate(withDuration: 0, animations: { [weak self]_ in
+            self?.view_bg.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        }) { (isOk) in
+        }
+        
+    }
+    fileprivate func hiddenUI() {
+        UIView.animate(withDuration: 0, animations: { [weak self]_ in
+            self?.view_bg.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+        }) { (isOk) in
             self.removeFromSuperview()
-        default:
-            _clickBlock?()
         }
     }
 }
 
 
-struct JH_HUD_DealModel {
+struct JH_HUD_EntrustModel {
     var type = JH_BuyAndSellType.t买入
     var no = ""
     var name = ""

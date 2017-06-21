@@ -260,7 +260,9 @@ extension SP_Signin {
     }
     //MARK:--- 注册、忘记密码 -----------------------------
     fileprivate func clickLogin()  {
-        
+        SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { (isOk, error) in
+            
+        }
     }
     //MARK:--- 发送验证码 -----------------------------
     fileprivate func clickVerifi()  {

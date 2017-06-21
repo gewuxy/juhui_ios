@@ -12,6 +12,7 @@ class JH_Attention: SP_ParentVC {
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var lab_range_W: NSLayoutConstraint!
     
     
 }
@@ -26,19 +27,31 @@ extension JH_Attention {
         makeNavigation()
         makeUI()
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        
+        
+        
+        
+        
+        
     }
     fileprivate func makeNavigation() {
         
         n_view.n_btn_L1_Image = ""
         n_view.n_btn_L1_Text = "编辑"
         n_view.n_btn_R1_Image = "Attention搜索w"
+        
         n_view.n_btn_L1_L.constant = 15
         n_view.n_btn_R1_R.constant = 15
+        
+        
     }
     
     fileprivate func makeUI() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        lab_range_W.constant = sp_fitSize((95,110,125))
     }
     override func clickN_btn_L1() {
         JH_AttentionEdit.show(self)
@@ -59,6 +72,10 @@ extension JH_Attention:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return sp_fitSize((70,75,80))
+    }
 }
 extension JH_Attention:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,6 +83,6 @@ extension JH_Attention:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        JH_AttentionDetails.show(self)
     }
 }

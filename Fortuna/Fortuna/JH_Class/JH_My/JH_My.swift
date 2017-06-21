@@ -23,7 +23,7 @@ enum JH_MyCellType:String {
 
 class JH_My: SP_ParentVC {
 
-    lazy var _height_Top:CGFloat = sp_ScreenWidth/1.4
+    lazy var _height_Top:CGFloat = sp_ScreenWidth/1.465
     
     lazy var _imgae_Bg_Rate:CGFloat = 2
     @IBOutlet weak var image_Bg: UIImageView!
@@ -31,12 +31,12 @@ class JH_My: SP_ParentVC {
     
     lazy var _sectionsHead:[(type: JH_MyCellType,txtR: String,imgL: String,imgR: String,on_off: Bool)] = {
         return [(.t用户,"", "", "", false),
-                (.t我的持仓, "","","com_向右",false),
-                (.t当日成交, "", "wd_帖子", "com_向右", false),
-                (.t当日委托, "", "wd_帖子", "com_向右", false),
-                (.t历史成交, "", "wd_帖子", "com_向右", false),
-                (.t历史委托, "", "wd_帖子", "com_向右", false),
-                (.t设置,"", "wd_帖子", "com_向右", false)]
+                (.t我的持仓, "","","my进入",false),
+                (.t当日成交, "", "my当日成交", "my进入", false),
+                (.t当日委托, "", "my当日委托", "my进入", false),
+                (.t历史成交, "", "my历史成交", "my进入", false),
+                (.t历史委托, "", "my历史委托", "my进入", false),
+                (.t设置,    "", "my设置", "my进入", false)]
     }()
 }
 
@@ -134,8 +134,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             headView._tapBlock = { [unowned self]() in
                 self.didSelectAt(self._sectionsHead[section].type, section:section)
             }
-            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 17), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 17,R:17))
-            
+            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 18), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 24,R:24))
+            headView.label_L_ConstrL.constant = 20
             switch _sectionsHead[section].type {
             case .t我的持仓, .t设置, .t历史委托:
                 headView.view_Line.isHidden = true
@@ -200,9 +200,16 @@ class JH_MyCell_User: UITableViewCell {
         view_logoBg.layer.borderColor = UIColor.white.cgColor
         view_logoBg.layer.borderWidth = 0.5
         
+        lab_name.font = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 25))
+        lab_subName.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 14))
+        img_logo_W.constant = 80 + SP_InfoOC.sp_fit(withSize: 0) * 5
+        
+        img_Logo.layer.cornerRadius = img_logo_W.constant/2
+        view_logoBg.layer.cornerRadius = (img_logo_W.constant + 20)/2
     }
     @IBOutlet weak var view_logoBg: UIView!
     @IBOutlet weak var img_Logo: UIImageView!
+    @IBOutlet weak var img_logo_W: NSLayoutConstraint!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var lab_subName: UILabel!
     

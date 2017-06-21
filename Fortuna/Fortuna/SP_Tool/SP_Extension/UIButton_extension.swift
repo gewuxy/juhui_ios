@@ -17,13 +17,13 @@ extension UIButton {
         
         if blod {
             if xzFont {
-                button.titleLabel!.font = UIFont.xzFontBold(font)
+                button.titleLabel!.font = UIFont.sp_fontBold(font)
             }else{
                 button.titleLabel!.font = UIFont.boldSystemFont(ofSize: font)
             }
         }else{
             if xzFont {
-                button.titleLabel!.font = UIFont.xzFont(font)
+                button.titleLabel!.font = UIFont.sp_font(font)
             }else{
                 button.titleLabel!.font = UIFont.systemFont(ofSize: font)
             }
@@ -47,13 +47,13 @@ extension UIButton {
         
         if blod {
             if xzFont {
-                button.titleLabel!.font = UIFont.xzFontBold(font)
+                button.titleLabel!.font = UIFont.sp_fontBold(font)
             }else{
                 button.titleLabel!.font = UIFont.boldSystemFont(ofSize: font)
             }
         }else{
             if xzFont {
-                button.titleLabel!.font = UIFont.xzFont(font)
+                button.titleLabel!.font = UIFont.sp_font(font)
             }else{
                 button.titleLabel!.font = UIFont.systemFont(ofSize: font)
             }

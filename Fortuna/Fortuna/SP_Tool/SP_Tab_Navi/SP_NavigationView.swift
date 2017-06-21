@@ -50,6 +50,7 @@ class SP_NavigationView: UIView {
     @IBOutlet weak var n_btn_R2: UIButton!
     @IBOutlet weak var n_btn_R3: UIButton!
     
+    @IBOutlet weak var n_label_C1_H: NSLayoutConstraint!
     @IBOutlet weak var n_label_C1_B: NSLayoutConstraint!
     
     @IBOutlet weak var n_btn_L1_H: NSLayoutConstraint!
@@ -134,20 +135,24 @@ class SP_NavigationView: UIView {
     open var n_btn_R1_Image:String = "" {
         didSet{
             if n_btn_R1_Image.isEmpty {
-                //n_btn_R1_W.constant = 0
+                n_btn_R1_W.constant = 0
+                n_btn_R1_R.constant = 44
             }else {
                 n_btn_R1.setImage(UIImage(named: n_btn_R1_Image), for: .normal)
-                //n_btn_R1_W.constant = 44
+                n_btn_R1_W.constant = 44
+                n_btn_R1_R.constant = 0
             }
         }
     }
     open var n_btn_R1_Text = "" {
         didSet{
             if n_btn_R1_Text.isEmpty {
-                //n_btn_R1_W.constant = 0
+                n_btn_R1_W.constant = 0
+                n_btn_R1_R.constant = 44
             }else {
                 n_btn_R1.setTitle(n_btn_R1_Text, for: .normal)
-                //n_btn_R1_W.constant = 44
+                n_btn_R1_W.constant = 44
+                n_btn_R1_R.constant = 0
             }
         }
     }

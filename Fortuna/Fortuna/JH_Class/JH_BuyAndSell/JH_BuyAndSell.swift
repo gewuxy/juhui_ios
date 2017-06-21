@@ -80,7 +80,7 @@ extension JH_BuyAndSell:UITableViewDataSource{
         default:
             let cell = JH_BuyAndSellCell_Deal.show(tableView, indexPath)
             cell._clickBlock = {
-                JH_HUD_Deal.show(JH_HUD_DealModel(), block: {
+                JH_HUD_Entrust.show(JH_HUD_EntrustModel(), block: {
                     
                 })
             }

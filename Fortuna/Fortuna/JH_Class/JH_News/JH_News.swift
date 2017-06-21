@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SafariServices
 class JH_News: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +24,10 @@ extension JH_News {
         
         makeNavigation()
         makeUI()
+        
+        
+        
+        
     }
     fileprivate func makeNavigation() {
         n_view.n_btn_L1_Image = ""
@@ -52,6 +56,7 @@ extension JH_News:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         JH_NewsDetials.show(self)
     }
     

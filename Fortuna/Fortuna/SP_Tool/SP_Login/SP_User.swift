@@ -10,16 +10,19 @@ import Foundation
 import SwiftyJSON
 import RxCocoa
 import RxSwift
+import Moya
+
 //LogInApi,Foreign_Login
-let SP_Url登录接口 = "LogInApi"
+let sp_Url登录接口 = "apis/account/login/"
 /// 用户账号
-let SP_UserAccount     =  "SP_UserAccount"
+let sp_UserAccount     =  "SP_UserAccount"
 /// 用户密码
-let SP_UserPwd       =  "SP_UserPwd"
+let sp_UserPwd       =  "SP_UserPwd"
 /// 是否微信登录
-let SP_UserLoginWX       =  "SP_UserLoginWX"
+let sp_UserLoginType       =  "SP_UserLoginType"
 /// 是否微信登录
-let SP_UserWXUnionId       =  "SP_UserWXUnionId"
+let sp_UserWXUnionId       =  "SP_UserWXUnionId"
+
 
 open class SP_User {
     private static let sharedInstance = SP_User()
@@ -38,51 +41,65 @@ open class SP_User {
         return isLogin
         
     }
-    var userLoginWX:Bool {
-        set{
-            sp_UserDefaultsSet(SP_UserLoginWX, obj: newValue)
-            sp_UserDefaultsSyn()
-        }
-        get{
-            return sp_UserDefaultsGet(SP_UserLoginWX) as? Bool ?? false
-        }
+    enum sp_LoginType:Int {
+        case tOther = 0
+        case tUser
+        case tWX
+        case tQQ
         
     }
-    var userWXUnionId:String {
+    var userLoginType:sp_LoginType {
         set{
-            sp_UserDefaultsSet(SP_UserWXUnionId, obj: newValue)
+            sp_UserDefaultsSet(sp_UserLoginType, obj: newValue.rawValue)
             sp_UserDefaultsSyn()
         }
         get{
-            return sp_UserDefaultsGet(SP_UserWXUnionId) as? String ?? ""
+            return (sp_UserDefaultsGet(sp_UserLoginType) as? Int ?? 0).map { SP_User.sp_LoginType(rawValue: $0) }! ?? .tOther
         }
         
     }
     
-    var userAccount:[String:String] {
+    
+    
+    var userWXUnionId:String {
         set{
-            sp_UserDefaultsSet(SP_UserAccount, obj: newValue)
+            sp_UserDefaultsSet(sp_UserWXUnionId, obj: newValue)
             sp_UserDefaultsSyn()
         }
         get{
-            return sp_UserDefaultsGet(SP_UserAccount) as? [String:String] ?? ["Account":""]
+            return sp_UserDefaultsGet(sp_UserWXUnionId) as? String ?? ""
         }
         
     }
-    var userPwd:[String:String] {
+    
+    var userAccount:String {
         set{
-            sp_UserDefaultsSet(SP_UserPwd, obj: newValue)
+            sp_UserDefaultsSet(sp_UserAccount, obj: newValue)
             sp_UserDefaultsSyn()
         }
         get{
-            return sp_UserDefaultsGet(SP_UserPwd) as? [String:String] ?? ["Pwd":""]
+            return sp_UserDefaultsGet(sp_UserAccount) as? String ?? ""
         }
         
     }
+    var userPwd:String {
+        set{
+            sp_UserDefaultsSet(sp_UserPwd, obj: newValue)
+            sp_UserDefaultsSyn()
+        }
+        get{
+            return sp_UserDefaultsGet(sp_UserPwd) as? String ?? ""
+        }
+        
+    }
+    
+    let disposeBag = DisposeBag()
+    let userProvider = RxMoyaProvider<SP_UserAPI>()
+    
     func removeUser(_ notification:Bool = true) {
-        self.userPwd = ["":""]
-        //self.userAccount = ""
-        self.userLoginWX = false
+        self.userPwd = ""
+        
+        self.userLoginType = .tOther
         self.userWXUnionId = ""
         
         M_UserData.shared.remove()
@@ -93,20 +110,37 @@ open class SP_User {
         
         //JPUSHService.setAlias("", callbackSelector: nil, object: self)
     }
-    func setUser(userAccount:[String:String] = ["":""],pwd:[String:String] = ["":""]) {
-        for item in userAccount {
-            if !item.value.isEmpty {
-                self.userAccount = userAccount
-            }
-        }
-        for item in pwd {
-            if !item.value.isEmpty {
-                self.userPwd = pwd
-            }
-        }
+    
+    
+    func setUser(userAccount:String = "",pwd:String = "") {
+        self.userAccount = userAccount
+        self.userPwd = pwd
     }
     
-    func login(_ notification:Bool = false , block:@escaping ((Bool,String)->Void)) {
+    
+    func login(_ type:sp_LoginType = SP_User.shared.userLoginType , block: ((Bool,String)->Void)? = nil) {
+        switch type {
+        case .tUser:
+            userProvider
+                .request(.tLogin(mobile: userAccount,pwd: userPwd))
+                .filterSuccessfulStatusCodes()
+                .mapJSON()
+                .mapObject(SP_UserListModel.self)
+                .subscribe(onNext: { (datas) in
+                    print_SP(datas)
+                }).addDisposableTo(disposeBag)
+        case .tWX:
+            break
+        case .tQQ:
+            break
+        default:
+            break
+        }
+        
+        
+        
+        
+        
         /*
         if self.userLoginWX {
             let prame:[String:Any] = ["unionid":userWXUnionId]
@@ -176,6 +210,27 @@ open class SP_User {
             })
         }
         */
+    }
+    
+    
+    func signin(_ param:(mobile: String,pwd: String, code:String), block:((Bool,String)->Void)? = nil) {
+        /*
+        SP_Alamofire.post(main_url+"/api/account/register/", param: ["mobile": param.mobile, "password": param.pwd, "code": param.code], block: { (isOk, data, error) in
+            print_SP("url_注册\n\(JSON(datas))")
+            print_SP(error)
+        })
+        */
+        
+        userProvider
+            .request(.tSignin(mobile: param.mobile,pwd: param.pwd, code:param.code))
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .mapSwiftyJsonObj(SP_M_User.self)
+            //.mapObject(SP_UserListModel.self)
+            .subscribe(onNext: { (datas) in
+                //print_SP("url_注册\n\(JSON(datas))")
+                print_SP(datas)
+            }).addDisposableTo(disposeBag)
     }
     
     //极光推送注册别名 回调#selector(SP_User.tagsAliasCallBack(_:))
@@ -381,4 +436,7 @@ class M_UserData {
     }
     
 }
+
+
+
 

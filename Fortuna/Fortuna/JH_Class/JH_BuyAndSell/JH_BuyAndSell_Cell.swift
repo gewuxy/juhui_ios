@@ -21,12 +21,46 @@ class JH_BuyAndSellCell_Data: UITableViewCell {
         
     }
     
-    @IBOutlet weak var view_line: UIView!
-    @IBOutlet weak var lab_name: UILabel!
-    @IBOutlet weak var lab_num: UILabel!
-    @IBOutlet weak var btn_select: UIButton!
     
+    @IBOutlet weak var lab_sell5: UILabel!
+    @IBOutlet weak var lab_sell5_P: UILabel!
+    @IBOutlet weak var lab_sell5_N: UILabel!
     
+    @IBOutlet weak var lab_sell4: UILabel!
+    @IBOutlet weak var lab_sell4_P: UILabel!
+    @IBOutlet weak var lab_sell4_N: UILabel!
+    
+    @IBOutlet weak var lab_sell3: UILabel!
+    @IBOutlet weak var lab_sell3_P: UILabel!
+    @IBOutlet weak var lab_sell3_N: UILabel!
+    
+    @IBOutlet weak var lab_sell2: UILabel!
+    @IBOutlet weak var lab_sell2_P: UILabel!
+    @IBOutlet weak var lab_sell2_N: UILabel!
+    
+    @IBOutlet weak var lab_sell1: UILabel!
+    @IBOutlet weak var lab_sell1_P: UILabel!
+    @IBOutlet weak var lab_sell1_N: UILabel!
+    
+    @IBOutlet weak var lab_buy1: UILabel!
+    @IBOutlet weak var lab_buy1_P: UILabel!
+    @IBOutlet weak var lab_buy1_N: UILabel!
+    
+    @IBOutlet weak var lab_buy2: UILabel!
+    @IBOutlet weak var lab_buy2_P: UILabel!
+    @IBOutlet weak var lab_buy2_N: UILabel!
+    
+    @IBOutlet weak var lab_buy3: UILabel!
+    @IBOutlet weak var lab_buy3_P: UILabel!
+    @IBOutlet weak var lab_buy3_N: UILabel!
+    
+    @IBOutlet weak var lab_buy4: UILabel!
+    @IBOutlet weak var lab_buy4_P: UILabel!
+    @IBOutlet weak var lab_buy4_N: UILabel!
+    
+    @IBOutlet weak var lab_buy5: UILabel!
+    @IBOutlet weak var lab_buy5_P: UILabel!
+    @IBOutlet weak var lab_buy5_N: UILabel!
     
 }
 
@@ -61,7 +95,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         let text = SP_TextField.show(self.view_pice)
         text.text_field.placeholder = "0.0"
         text.text_field.textColor = UIColor.mainText_1
-        text.text_field.keyboardType = .numberPad
+        text.text_field.keyboardType = .numbersAndPunctuation
         text.text_field.textAlignment = .center
         text.button_L.setImage(UIImage(named:"Attention减N"), for: .normal)
         text.button_R.setImage(UIImage(named:"Attention加N"), for: .normal)
@@ -84,7 +118,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
     }()
     lazy var _text_num:SP_TextField = {
         let text = SP_TextField.show(self.view_num)
-        text.text_field.placeholder = "0.0"
+        text.text_field.placeholder = "0"
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
         text.text_field.textAlignment = .center

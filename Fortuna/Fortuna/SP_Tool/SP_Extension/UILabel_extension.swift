@@ -18,13 +18,13 @@ extension UILabel {
         titleLabel.textColor = textColor
         if blod {
             if xzFont {
-                titleLabel.font = UIFont.xzFontBold(font)
+                titleLabel.font = UIFont.sp_fontBold(font)
             }else{
                 titleLabel.font = UIFont.boldSystemFont(ofSize: font)
             }
         }else{
             if xzFont {
-                titleLabel.font = UIFont.xzFont(font)
+                titleLabel.font = UIFont.sp_font(font)
             }else{
                 titleLabel.font = UIFont.systemFont(ofSize: font)
             }
@@ -42,13 +42,13 @@ extension UILabel {
         titleLabel.textColor = textColor
         if blod {
             if xzFont {
-                titleLabel.font = UIFont.xzFontBold(font)
+                titleLabel.font = UIFont.sp_fontBold(font)
             }else{
                 titleLabel.font = UIFont.boldSystemFont(ofSize: font)
             }
         }else{
             if xzFont {
-                titleLabel.font = UIFont.xzFont(font)
+                titleLabel.font = UIFont.sp_font(font)
             }else{
                 titleLabel.font = UIFont.systemFont(ofSize: font)
             }

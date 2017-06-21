@@ -143,16 +143,17 @@ static SP_InfoOC* shared = nil;
     //.main.bounds
     CGFloat ww =  [UIScreen mainScreen].bounds.size.width;
     CGFloat hh =  [UIScreen mainScreen].bounds.size.height;
+    CGFloat ww_hh = ww/hh;
     
-    if (hh == 480)
+    if (ww_hh == 320.0/480.0 || ww_hh == 480.0/320.0)
         return tiPhone4;
-    if (hh == 568)
+    if (ww_hh == 320.0/568.0 || ww_hh == 568.0/320.0)
         return tiPhone;
-    if (hh == 667)
+    if (ww_hh == 375.0/667.0 || ww_hh == 667.0/375.0)
         return tiPhoneA;
-    if (hh == 736)
+    if (ww_hh == 414.0/736.0 || ww_hh == 736.0/414.0)
         return tiPhoneP;
-    return tiPhone;
+    return tiPad;
     
 }
 
@@ -160,20 +161,56 @@ static SP_InfoOC* shared = nil;
 + (UIFont*) sp_fontFitWithSize:(CGFloat)size {
     return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size]];
 }
+
++ (UIFont*) sp_fontFitWithSize:(CGFloat)size weightType:(SP_UIFontWeight)weightType {
+    switch (weightType) {
+            case tUltraLight:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightUltraLight];
+            break;
+            case tThin:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightThin];
+            break;
+            case tLight:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightLight];
+            break;
+            case tRegular:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightRegular];
+            break;
+            case tMedium:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightMedium];
+            break;
+            case tSemibold:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightSemibold];
+            break;
+            case tBold:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightBold];
+            break;
+            case tHeavy:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightHeavy];
+            break;
+            case tBlack:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightBlack];
+            break;
+            default:
+            return [UIFont systemFontOfSize:[SP_InfoOC sp_fitWithSize:size] weight:UIFontWeightRegular];
+    }
+}
+
++ (UIFont*) sp_fontBoldFitWithSize:(CGFloat)size {
+    return [UIFont boldSystemFontOfSize:[SP_InfoOC sp_fitWithSize:size]];
+}
+
 + (CGFloat) sp_fitWithSize:(CGFloat)size {
-    
+    //CGFloat multiple = 1;
     switch ([SP_InfoOC sp_deviceModel]) {
         case tiPhone:
-            return size;
+            return size-2;
             break;
         case tiPhoneA:
-            return size+1;
+            return size;
             break;
         case tiPhoneP:
             return size+2;
-            break;
-        case tiPod:
-            return size;
             break;
         case tiPad:
             return size+2;

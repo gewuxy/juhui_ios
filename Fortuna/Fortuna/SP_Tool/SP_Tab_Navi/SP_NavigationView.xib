@@ -136,7 +136,7 @@
                                 <action selector="click_NaviButton:" destination="QIc-mq-RQP" eventType="touchUpInside" id="Dhf-YN-Wce"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-2J-Vxl">
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-2J-Vxl">
                             <rect key="frame" x="147" y="0.0" width="82" height="647"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                             <state key="normal" title="SupApp">
@@ -148,6 +148,9 @@
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvW-3G-5dc">
                             <rect key="frame" x="188" y="647" width="0.0" height="0.0"/>
+                            <constraints>
+                                <constraint firstAttribute="height" id="HOm-8S-Pp5"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -156,7 +159,7 @@
                             <rect key="frame" x="122" y="314" width="20" height="20"/>
                         </activityIndicatorView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXy-th-M9H">
-                            <rect key="frame" x="96" y="0.0" width="139" height="647"/>
+                            <rect key="frame" x="88" y="0.0" width="155" height="647"/>
                         </view>
                     </subviews>
                     <constraints>
@@ -166,7 +169,7 @@
                         <constraint firstItem="TTu-gA-8v0" firstAttribute="centerY" secondItem="eZz-2J-Vxl" secondAttribute="centerY" id="830-Od-O0j"/>
                         <constraint firstItem="3my-6z-Lip" firstAttribute="leading" secondItem="IgE-3m-cYa" secondAttribute="leading" id="9el-Jk-sNm"/>
                         <constraint firstItem="cVu-2b-ReX" firstAttribute="top" secondItem="IgE-3m-cYa" secondAttribute="top" id="CEC-2a-HYO"/>
-                        <constraint firstItem="4HH-he-g1w" firstAttribute="leading" secondItem="WXy-th-M9H" secondAttribute="trailing" constant="8" id="Eid-Jw-pJk"/>
+                        <constraint firstItem="4HH-he-g1w" firstAttribute="leading" secondItem="WXy-th-M9H" secondAttribute="trailing" id="Eid-Jw-pJk"/>
                         <constraint firstItem="cVu-2b-ReX" firstAttribute="leading" secondItem="IgE-3m-cYa" secondAttribute="leading" id="FYl-zq-zad"/>
                         <constraint firstAttribute="bottom" secondItem="WXy-th-M9H" secondAttribute="bottom" id="G1r-Xc-Ffe"/>
                         <constraint firstItem="4HH-he-g1w" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kvW-3G-5dc" secondAttribute="trailing" id="JE9-9t-aJ8"/>
@@ -191,7 +194,7 @@
                         <constraint firstItem="TTu-gA-8v0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yF6-WD-ClI" secondAttribute="trailing" constant="5" id="wz7-5n-f70"/>
                         <constraint firstAttribute="trailing" secondItem="cVu-2b-ReX" secondAttribute="trailing" id="xZr-rF-2lW"/>
                         <constraint firstItem="qlr-EB-sBv" firstAttribute="leading" secondItem="IgE-3m-cYa" secondAttribute="leading" id="xrV-lB-Qgk"/>
-                        <constraint firstItem="WXy-th-M9H" firstAttribute="leading" secondItem="yF6-WD-ClI" secondAttribute="trailing" constant="8" id="yGb-CJ-KtB"/>
+                        <constraint firstItem="WXy-th-M9H" firstAttribute="leading" secondItem="yF6-WD-ClI" secondAttribute="trailing" id="yGb-CJ-KtB"/>
                     </constraints>
                 </view>
             </subviews>
@@ -232,6 +235,7 @@
                 <outlet property="n_img_NaviBar" destination="cVu-2b-ReX" id="Jul-H6-vKZ"/>
                 <outlet property="n_label_C1" destination="kvW-3G-5dc" id="ejV-Ji-klX"/>
                 <outlet property="n_label_C1_B" destination="nSa-Cz-JH6" id="lPT-XP-PQU"/>
+                <outlet property="n_label_C1_H" destination="HOm-8S-Pp5" id="F9A-yv-J5M"/>
                 <outlet property="n_viewStatus_T" destination="Dx7-Ip-qUF" id="SJI-Xw-rua"/>
                 <outlet property="n_view_Act" destination="TTu-gA-8v0" id="heF-pc-1L2"/>
                 <outlet property="n_view_NaviBar" destination="IgE-3m-cYa" id="B0X-UY-NgW"/>
