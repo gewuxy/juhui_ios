@@ -1,7 +1,41 @@
 /* 
-  Localization.strings
+  Localizationsss.strings
   Fortuna
 
-  Created by 刘才德 on 2017/6/5.
+  Created by 刘才德 on 2017/6/23.
   Copyright © 2017年 Friends-Home. All rights reserved.
 */
+
+
+/*
+ Navigation&TabBar
+ */
+
+"自选" = "Attention";
+"资讯" = "News";
+"行情" = "Market";
+"我的" = "Me";
+
+"个人信息" = "My information";
+"头像" = "My logo";
+"昵称" = "My name";
+"手机号码" = "My phone number";
+
+"设置" = "Settings";
+"意见反馈" = "Feedback";
+"关于我们" = "About us";
+"检查更新" = "Check the update";
+"当前版本：" = "The current version:";
+
+/*
+ 错误信息
+ */
+"000000" = "The request is successful";
+"000001" = "Request method error";
+"000002" = "Parameter error";
+"000003" = "The user has registered";
+"000004" = "Users are not registered";
+"000005" = "Failed to send verification code";
+"000006" = "Account or password error";
+"000007" = "Need to log in to";
+"011111" = "Server error";

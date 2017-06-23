@@ -83,6 +83,7 @@ extension JH_Attention:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        JH_AttentionDetails.show(self)
+        //JH_AttentionDetails.show(self)
+        SP_HUD.show(text:"这是一条测试消息")
     }
 }

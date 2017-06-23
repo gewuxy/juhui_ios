@@ -23,11 +23,13 @@ let sp_ntfNameKeyboardWillHide = NSNotification.Name.UIKeyboardWillHide
 func print_SP(_ items:Any){
     print(items)
 }
-
+func print_Json(_ items:Any){
+    print(items)
+}
 //MARK:------------- sp_UserDefaults
 //全局设置 简化 NSUserDefaults 的写法
-func sp_UserDefaultsSet(_ key:String, obj:Any) -> Void {
-    return UserDefaults.standard.set(obj, forKey: key)
+func sp_UserDefaultsSet(_ key:String, value:Any) -> Void {
+    return UserDefaults.standard.set(value, forKey: key)
 }
 func sp_UserDefaultsGet(_ key:String) -> Any {
     return UserDefaults.standard.value(forKey: key) ?? ""
@@ -39,10 +41,6 @@ func sp_UserDefaultsBool(_ key:String) -> Bool {
     
     return UserDefaults.standard.bool(forKey: key)
 }
-func sp_UserDefaultsSetBool(_ key:String, value:Bool) -> Void {
-    
-    return UserDefaults.standard.set(value, forKey: key)
-}
 func sp_UserDefaultsSyn() {
     UserDefaults.standard.synchronize()
 }
@@ -53,7 +51,7 @@ func += <KeyType, ValueType> ( left: inout Dictionary<KeyType, ValueType>, right
     }
 }
 //MARK:----------- 屏幕  屏幕宽高 宽高比
-var sp_MainWindow:UIWindow!// = UIApplication.shared.delegate!.window!!
+var sp_MainWindow: UIWindow!// = UIApplication.shared.delegate!.window!!
 let sp_ScreenMidX: CGFloat = UIScreen.main.bounds.midX
 let sp_ScreenMidY: CGFloat = UIScreen.main.bounds.midY
 let sp_ScreenWidth:CGFloat = UIScreen.main.bounds.size.width
@@ -102,7 +100,10 @@ let sp_fitFontB16 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16)
 let sp_fitFontB18 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 18))
 let sp_fitFontB20 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))
 let sp_fitFontB22 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 22))
-
+//MARK:--- 语言适配 -----------------------------
+func sp_localized(_ key:String) -> String {
+    return SP_InfoOC.sp_localizedString(forKey: key)
+}
 
 //MARK:----------- 导航栏 底部栏 和各减去 高度
 let sp_NaviHeight: CGFloat = 64.0

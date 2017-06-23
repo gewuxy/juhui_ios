@@ -7,12 +7,7 @@
 //
 
 import UIKit
-enum SP_TextField_Type {
-    case tBegin
-    case tChange
-    case tEnd
-    case tReturn
-}
+
 
 class SP_TextField: UIView {
 
@@ -39,6 +34,13 @@ class SP_TextField: UIView {
         text_field.delegate = self
         view_Line.backgroundColor = UIColor.main_line
         text_field.tintColor = UIColor.main_1
+    }
+    
+    enum SP_TextField_Type {
+        case tBegin
+        case tChange
+        case tEnd
+        case tReturn
     }
     
     @IBOutlet weak var label_L: UILabel!

@@ -32,12 +32,12 @@ open class SP_User {
         return self.sharedInstance
     }
     
-    lazy var notification成功登陆了 = NSNotification.Name(rawValue: "CP_My成功登陆了")
-    lazy var notification退出登陆了 = NSNotification.Name(rawValue: "CP_My退出登陆了")
-    
+    lazy var ntfName_成功登陆了 = NSNotification.Name(rawValue: "ntfName_成功登陆了")
+    lazy var ntfName_退出登陆了 = NSNotification.Name(rawValue: "ntfName_退出登陆了")
+    lazy var ntfName_更新用户信息 = NSNotification.Name(rawValue: "ntfName_更新用户信息")
     
     var userIsLogin: Bool {
-        let isLogin = M_UserData.shared.userId.isEmpty ? true : true
+        let isLogin = SP_UserModel.read().userId.isEmpty ? false : true
         return isLogin
         
     }
@@ -50,7 +50,7 @@ open class SP_User {
     }
     var userLoginType:sp_LoginType {
         set{
-            sp_UserDefaultsSet(sp_UserLoginType, obj: newValue.rawValue)
+            sp_UserDefaultsSet(sp_UserLoginType, value: newValue.rawValue)
             sp_UserDefaultsSyn()
         }
         get{
@@ -59,11 +59,9 @@ open class SP_User {
         
     }
     
-    
-    
     var userWXUnionId:String {
         set{
-            sp_UserDefaultsSet(sp_UserWXUnionId, obj: newValue)
+            sp_UserDefaultsSet(sp_UserWXUnionId, value: newValue)
             sp_UserDefaultsSyn()
         }
         get{
@@ -74,7 +72,7 @@ open class SP_User {
     
     var userAccount:String {
         set{
-            sp_UserDefaultsSet(sp_UserAccount, obj: newValue)
+            sp_UserDefaultsSet(sp_UserAccount, value: newValue)
             sp_UserDefaultsSyn()
         }
         get{
@@ -84,7 +82,7 @@ open class SP_User {
     }
     var userPwd:String {
         set{
-            sp_UserDefaultsSet(sp_UserPwd, obj: newValue)
+            sp_UserDefaultsSet(sp_UserPwd, value: newValue)
             sp_UserDefaultsSyn()
         }
         get{
@@ -98,14 +96,12 @@ open class SP_User {
     
     func removeUser(_ notification:Bool = true) {
         self.userPwd = ""
-        
         self.userLoginType = .tOther
         self.userWXUnionId = ""
-        
-        M_UserData.shared.remove()
+        SP_UserModel.remove()
         //M_UserMessageData.shared.remove()
         if notification {
-            sp_Notification.post(name: SP_User.shared.notification退出登陆了, object: false)
+            sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
         }
         
         //JPUSHService.setAlias("", callbackSelector: nil, object: self)
@@ -121,14 +117,30 @@ open class SP_User {
     func login(_ type:sp_LoginType = SP_User.shared.userLoginType , block: ((Bool,String)->Void)? = nil) {
         switch type {
         case .tUser:
+            
+            SP_UserAPI.t_登录(mobile: userAccount, pwd: userPwd).post({ (isOk, datas, error) in
+                //开始计时
+                self.timeStart()
+                if isOk{
+                    sp_Notification.post(name: SP_User.shared.ntfName_成功登陆了, object: nil)
+                    self.url_用户信息()
+                }
+                block?(isOk, error)
+            })
+             /*
             userProvider
-                .request(.tLogin(mobile: userAccount,pwd: userPwd))
+                .request(.t_登录(mobile: userAccount,pwd: userPwd))
                 .filterSuccessfulStatusCodes()
                 .mapJSON()
-                .mapObject(SP_UserListModel.self)
+                //.mapSwiftyJsonObj(SP_UserModel.self)
+                //.mapObject(SP_UserListModel.self)
                 .subscribe(onNext: { (datas) in
-                    print_SP(datas)
-                }).addDisposableTo(disposeBag)
+                    print_SP("url_登录\n\(JSON(datas))")
+                    block?(true,"")
+                }, onError: { (error) in
+                    print_SP(SP_MoyaReturnError(error))
+                    block?(false,SP_MoyaReturnError(error))
+                }).addDisposableTo(disposeBag)*/
         case .tWX:
             break
         case .tQQ:
@@ -136,10 +148,6 @@ open class SP_User {
         default:
             break
         }
-        
-        
-        
-        
         
         /*
         if self.userLoginWX {
@@ -215,22 +223,39 @@ open class SP_User {
     
     func signin(_ param:(mobile: String,pwd: String, code:String), block:((Bool,String)->Void)? = nil) {
         /*
-        SP_Alamofire.post(main_url+"/api/account/register/", param: ["mobile": param.mobile, "password": param.pwd, "code": param.code], block: { (isOk, data, error) in
+        SP_UserAPI.t_注册(mobile: param.mobile, pwd: param.pwd, code: param.code).post { (isOk, datas, error) in
             print_SP("url_注册\n\(JSON(datas))")
             print_SP(error)
-        })
-        */
+        }*/
         
         userProvider
-            .request(.tSignin(mobile: param.mobile,pwd: param.pwd, code:param.code))
+            .request(.t_注册(mobile: param.mobile,pwd: param.pwd, code:param.code))
             .filterSuccessfulStatusCodes()
             .mapJSON()
-            .mapSwiftyJsonObj(SP_M_User.self)
+            .mapSwiftyJsonObj(SP_UserModel.self)
             //.mapObject(SP_UserListModel.self)
             .subscribe(onNext: { (datas) in
                 //print_SP("url_注册\n\(JSON(datas))")
-                print_SP(datas)
+                block?(true,"")
+            }, onError: { (error) in
+                block?(false,SP_MoyaReturnError(error))
             }).addDisposableTo(disposeBag)
+    }
+    
+    func resetPwd(_ param:(mobile: String,pwd: String, code:String), block:((Bool,String)->Void)? = nil) {
+        SP_UserAPI
+            .t_重置密码(mobile: param.mobile, pwd: param.pwd, code: param.code)
+            .post { (isOk, datas, error) in
+                block?(isOk,error)
+        }
+    }
+    
+    func sendSMS(_ param:(mobile: String,type: String), block:((Bool,String)->Void)? = nil) {
+        SP_UserAPI
+            .t_短信(mobile: param.mobile, type: param.type)
+            .post { (isOk, datas, error) in
+                block?(isOk,error)
+        }
     }
     
     //极光推送注册别名 回调#selector(SP_User.tagsAliasCallBack(_:))
@@ -240,8 +265,18 @@ open class SP_User {
     
     
     
-    func url_用户中心详细内容(_ block:(()->Void)? = nil) {
-        let prame:[String:Any] = [:]
+    func url_用户信息(_ block:(()->Void)? = nil) {
+        SP_UserAPI
+            .t_用户信息获取(mobile: userAccount)
+            .post { (isOk, datas, error) in
+                sp_Notification.post(name: SP_User.shared.ntfName_更新用户信息, object: nil)
+                block?()
+        }
+        
+        
+        
+        
+        
         /*
         CP_APIHelp.shared.net_Help(.url_用户中心详细内容, pram:prame) { (isOk, data, error) in
             switch isOk {
@@ -343,100 +378,4 @@ open class SP_User {
 
     
 }
-
-//MARK:--- 用户模型
-class M_UserLogin{
-    
-    var code = 1
-    var data = M_UserData.shared
-    var time = ""
-    var msg = ""
-    init(){}
-    init(fromJson json: JSON!){
-        if json.isEmpty{
-            return
-        }
-        code = json["Code"].intValue
-        let dataJson = json["Data"]
-        if !dataJson.isEmpty{
-            M_UserData.shared.write(dataJson)
-        }
-        time = json["Time"].stringValue
-        msg = json["msg"].stringValue
-    }
-    
-}
-
-class M_UserData {
-    private static let sharedInstance = M_UserData()
-    private init() {}
-    //提供静态访问方法
-    open static var shared: M_UserData {
-        return self.sharedInstance
-    }
-    
-    var loginStatue = false
-    var statueCode = 0
-    
-    var statue = false
-    
-    var userLogo = ""
-    var userName = ""
-    var phone = ""
-    var loginTime = ""
-    var unionid = ""
-    var expireTime = ""
-    var signText = ""
-    var userId = ""
-    
-    func remove(){
-        loginStatue = false
-        statueCode = 0
-        statue = false
-        
-        userLogo = ""
-        userName = ""
-        phone = ""
-        loginTime = ""
-        
-        expireTime = ""
-        signText = ""
-        userId = ""
-        
-        unionid = ""
-    }
-    func write(_ json: JSON!) {
-        if json.isEmpty{
-            return
-        }
-        unionid = json["unionid"].stringValue
-        userId = json["UserId"].stringValue
-        loginStatue = json["LoginStatue"].boolValue
-        loginTime = json["LoginTime"].stringValue
-        phone = json["Phone"].stringValue
-        statueCode = json["StatueCode"].intValue
-        userLogo = json["UserLogo"].stringValue
-        userName = json["UserName"].stringValue
-        statue = json["Statue"].boolValue
-        expireTime = json["ExpireTime"].stringValue
-        signText = json["SignText"].stringValue
-        
-        print_SP(expireTime)
-        
-        let strArray = expireTime.components(separatedBy: "/Date(")
-        expireTime = strArray.joined(separator: "")
-        let strArray2 = expireTime.components(separatedBy: ")/")
-        expireTime = strArray2.joined(separator: "")
-        
-        let strArray3 = expireTime.components(separatedBy: "/Date(")
-        loginTime = strArray3.joined(separator: "")
-        let strArray4 = expireTime.components(separatedBy: ")/")
-        loginTime = strArray4.joined(separator: "")
-        
-    }
-    
-}
-
-
-
 

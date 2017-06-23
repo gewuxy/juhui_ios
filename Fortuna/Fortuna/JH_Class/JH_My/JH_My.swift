@@ -7,28 +7,27 @@
 //
 
 import UIKit
-
-enum JH_MyCellType:String {
-    case t用户 = "用户"
-    case t我的持仓 = "我的持仓"
-    case t当日成交 = "当日成交"
-    case t当日委托 = "当日委托"
-    case t历史成交 = "历史成交"
-    case t历史委托 = "历史委托"
-    case t设置 = "设置"
-}
-
-
-
+import RxCocoa
+import RxSwift
 
 class JH_My: SP_ParentVC {
 
+    let disposeBag = DisposeBag()
     lazy var _height_Top:CGFloat = sp_ScreenWidth/1.465
     
     lazy var _imgae_Bg_Rate:CGFloat = 2
     @IBOutlet weak var image_Bg: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    enum JH_MyCellType:String {
+        case t用户 = "用户"
+        case t我的持仓 = "我的持仓"
+        case t当日成交 = "当日成交"
+        case t当日委托 = "当日委托"
+        case t历史成交 = "历史成交"
+        case t历史委托 = "历史委托"
+        case t设置 = "设置"
+    }
     lazy var _sectionsHead:[(type: JH_MyCellType,txtR: String,imgL: String,imgR: String,on_off: Bool)] = {
         return [(.t用户,"", "", "", false),
                 (.t我的持仓, "","","my进入",false),
@@ -49,7 +48,7 @@ extension JH_My {
         makeNavigation()
         makeImage_Bg()
         makeTableView()
-        
+        makeNotification()
         makeLogin()
     }
     fileprivate func makeNavigation() {
@@ -83,6 +82,15 @@ extension JH_My {
         SP_Login.show(self) { (isOk) in
             
         }
+    }
+    fileprivate func makeNotification() {
+        sp_Notification.rx
+            .notification(SP_User.shared.ntfName_更新用户信息)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+            self?.tableView.reloadData()
+        }).addDisposableTo(disposeBag)
     }
     
 }
@@ -132,9 +140,9 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (_sectionsHead[section].type.rawValue,_sectionsHead[section].txtR), hiddenLine: false)
             headView.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: 50)
             headView._tapBlock = { [unowned self]() in
-                self.didSelectAt(self._sectionsHead[section].type, section:section)
+                self.didSelectAt(section)
             }
-            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 18), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 24,R:24))
+            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 18), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 24,R:17))
             headView.label_L_ConstrL.constant = 20
             switch _sectionsHead[section].type {
             case .t我的持仓, .t设置, .t历史委托:
@@ -156,15 +164,16 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         switch _sectionsHead[indexPath.section].type {
         case .t用户:
             let cell = JH_MyCell_User.show(tableView, indexPath)
+            cell.relod()
             return cell
         default:
             return UITableViewCell()
         }
         
     }
-    func didSelectAt(_ type:JH_MyCellType, section:Int) {
-        if type == .t设置 {
-            
+    func didSelectAt(_ section:Int) {
+        if _sectionsHead[section].type == .t设置 {
+            JH_MySetting.show(self)
         }else{
             
             guard SP_User.shared.userIsLogin else{
@@ -174,9 +183,11 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
                 return
             }
             
-            switch type {
+            switch _sectionsHead[section].type {
             case .t当日委托:
                 JH_BuyAndSell.show(self, type: .t卖出)
+            case .t我的持仓:
+                makeLogin()
             default:
                 break
             }
@@ -206,12 +217,19 @@ class JH_MyCell_User: UITableViewCell {
         
         img_Logo.layer.cornerRadius = img_logo_W.constant/2
         view_logoBg.layer.cornerRadius = (img_logo_W.constant + 20)/2
+        
     }
     @IBOutlet weak var view_logoBg: UIView!
     @IBOutlet weak var img_Logo: UIImageView!
     @IBOutlet weak var img_logo_W: NSLayoutConstraint!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var lab_subName: UILabel!
+    
+    func relod(){
+        img_Logo.sp_ImageName(SP_UserModel.read().imgUrl)
+        lab_name.text = SP_UserModel.read().nickname.isEmpty ? SP_UserModel.read().mobile : SP_UserModel.read().nickname
+        lab_subName.text = SP_UserModel.read().email
+    }
     
 }
 

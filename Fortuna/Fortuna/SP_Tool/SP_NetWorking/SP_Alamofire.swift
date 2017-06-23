@@ -190,7 +190,7 @@ extension SP_Alamofire {
                     SP_Alamofire.disposeResponse(response, block:block)
                 }
             case .failure(let error):
-                block?(false,"",sp_returnNSError(error as NSError))
+                block?(false,"",sp_returnNSError(error))
             }
         })
     }
@@ -244,7 +244,7 @@ extension SP_Alamofire {
             isOk = false
             //let err:NSError = error as NSError
             //error = getError(ErrorCodeType(rawValue: err.code)!)
-            block?(isOk,"",sp_returnNSError(error as NSError))
+            block?(isOk,"",sp_returnNSError(error))
         }
     }
 }

@@ -105,7 +105,7 @@ extension SP_AFSwift {
         }, success: { (DataTask, obj) in
             block?(true,obj, nil)
         }, failure: { (DataTask, error) in
-            block?(false,"", sp_returnNSError(error as NSError))
+            block?(false,"", sp_returnNSError(error))
         })
     }
     //MARK:---- post 请求
@@ -118,7 +118,7 @@ extension SP_AFSwift {
             block?(true,obj, nil)
         }) { (DataTask, error) in
             print(error)
-            block?(false,"", sp_returnNSError(error as NSError))
+            block?(false,"", sp_returnNSError(error))
         }
     }
     //MARK:---- 上传
@@ -148,7 +148,7 @@ extension SP_AFSwift {
         }, success: { (dataTask, obj) in
             block?(true,obj, nil);
         }) { (dataTask, error) in
-            block?(false,"", sp_returnNSError(error as NSError));
+            block?(false,"", sp_returnNSError(error));
         }
         
     }
@@ -179,7 +179,7 @@ extension SP_AFSwift {
             print("下载完成")
             print("\(response)-->\(filePath)")
             let result:[String:Any] = ["response":response,"filePath":filePath as Any? ?? "" as Any]
-            block?(true,result, sp_returnNSError(error as! NSError));
+            block?(true,result, sp_returnNSError(error!));
             
         }
         downLoadTask.resume()

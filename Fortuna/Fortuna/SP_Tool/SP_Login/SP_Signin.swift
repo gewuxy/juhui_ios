@@ -73,6 +73,8 @@ class SP_Signin: SP_ParentVC {
     lazy var _text_verifi:SP_TextField = {
         let text = SP_TextField.show(self.view_verification)
         text.text_field.placeholder = "请输入验证码"
+        text.text_field.textColor = UIColor.mainText_1
+        text.text_field.keyboardType = .numberPad
         text.button_R.setTitle("发送验证码",for:.normal)
         text.button_R.setTitleColor(UIColor.mainText_2,for:.normal)
         text.button_R.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -233,6 +235,7 @@ extension SP_Signin {
             .asObservable()
             .subscribe(onNext: { [unowned self](isOK) in
                 self._text_phone.text_field.text = ""
+                self._text_phone.text_field.becomeFirstResponder()
             }).addDisposableTo(disposeBag)
         _text_pwd.button_R.rx.tap
             .asObservable()
@@ -260,18 +263,46 @@ extension SP_Signin {
     }
     //MARK:--- 注册、忘记密码 -----------------------------
     fileprivate func clickLogin()  {
-        SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { (isOk, error) in
-            
+        keyBoardHidden()
+        switch _vcType {
+        case .t注册:
+            SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
+                if isOk {
+                    SP_HUD.show(text:"注册成功,正在登录")
+                    self?.clickN_btn_R1()
+                }else{
+                    SP_HUD.show(detailText:error)
+                }
+            }
+        case .t忘记密码:
+            SP_User.shared.resetPwd((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
+                if isOk {
+                    SP_HUD.show(text:"修改成功,重新登录")
+                    self?.clickN_btn_R1()
+                }else{
+                    SP_HUD.show(detailText:error)
+                }
+            }
         }
+        
     }
     //MARK:--- 发送验证码 -----------------------------
     fileprivate func clickVerifi()  {
-        
-        SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
+        keyBoardHidden()
+        SP_User.shared.sendSMS((mobile: _text_phone.text_field.text!, type: _vcType == .t注册 ? "1" : "2")) { (isOk, error) in
+            if isOk {
+                SP_HUD.show(text:"验证码已发送,60秒后过期")
+                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
+            }else{
+                SP_HUD.show(detailText:error)
+            }
+        }
     }
+    
+    
     //MARK:--- 用户协议 -----------------------------
     fileprivate func clickAgreement()  {
-        
+        keyBoardHidden()
     }
     
     

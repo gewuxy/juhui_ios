@@ -15,7 +15,6 @@
 		AB02357A1EE55659007AB6BB /* FortunaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235791EE55659007AB6BB /* FortunaTests.swift */; };
 		AB0235851EE55659007AB6BB /* FortunaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235841EE55659007AB6BB /* FortunaUITests.swift */; };
 		AB0235B21EE55F70007AB6BB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0235B41EE55F70007AB6BB /* InfoPlist.strings */; };
-		AB0235B81EE55F93007AB6BB /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0235BA1EE55F93007AB6BB /* Localization.strings */; };
 		AB02DA5F1EF77E2000FFC3E8 /* sp_login闭眼@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA571EF77E2000FFC3E8 /* sp_login闭眼@2x.png */; };
 		AB02DA601EF77E2000FFC3E8 /* sp_login叉@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA581EF77E2000FFC3E8 /* sp_login叉@2x.png */; };
 		AB02DA611EF77E2000FFC3E8 /* sp_login第三方微信@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB02DA591EF77E2000FFC3E8 /* sp_login第三方微信@2x.png */; };
@@ -44,6 +43,12 @@
 		AB556F791EF8FF5B00B9881C /* navi_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AB556F781EF8FF5B00B9881C /* navi_back_white@2x.png */; };
 		AB556F7B1EF9803000B9881C /* JH_HUD_PlaceOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB556F7A1EF9803000B9881C /* JH_HUD_PlaceOrder.swift */; };
 		AB556F7D1EF980C100B9881C /* JH_HUD_PlaceOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB556F7C1EF980C100B9881C /* JH_HUD_PlaceOrder.xib */; };
+		AB564F2E1EFB930A005E3ABB /* SP_HUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AB564F1D1EFB930A005E3ABB /* SP_HUD.bundle */; };
+		AB564F2F1EFB930A005E3ABB /* SP_HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB564F1E1EFB930A005E3ABB /* SP_HUD.swift */; };
+		AB564F301EFB930A005E3ABB /* SP_HUD_Bg.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB564F1F1EFB930A005E3ABB /* SP_HUD_Bg.xib */; };
+		AB564F311EFB930A005E3ABB /* SP_MBHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB564F201EFB930A005E3ABB /* SP_MBHUD.swift */; };
+		AB564F321EFB930A005E3ABB /* SP_SVHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB564F211EFB930A005E3ABB /* SP_SVHUD.swift */; };
+		AB564F3B1EFBA29E005E3ABB /* SP_MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AB564F3A1EFBA29E005E3ABB /* SP_MBProgressHUD.m */; };
 		AB59014D1EE9335A00826A37 /* JH_News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59014C1EE9335A00826A37 /* JH_News.swift */; };
 		AB59014F1EE9336900826A37 /* JH_My.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59014E1EE9336900826A37 /* JH_My.swift */; };
 		AB5901511EE9337400826A37 /* JH_Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5901501EE9337400826A37 /* JH_Market.swift */; };
@@ -120,6 +125,8 @@
 		AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82CEBC1EEE334400D015B1 /* My_Info.swift */; };
 		AB82CEBF1EEE35F900D015B1 /* SP_Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82CEBE1EEE35F900D015B1 /* SP_Tool.swift */; };
 		AB82CED81EEE3E0000D015B1 /* SP_ToolOC.m in Sources */ = {isa = PBXBuildFile; fileRef = AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */; };
+		AB8B21E61EFCC16300B944AA /* JH_MySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8B21E51EFCC16300B944AA /* JH_MySetting.swift */; };
+		AB8B21E91EFCF07100B944AA /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B21EB1EFCF07100B944AA /* Localization.strings */; };
 		ABD009E41EFA93F200728B1D /* SP_ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD009E31EFA93F200728B1D /* SP_ErrorType.swift */; };
 		ABFC47D51EEE48AF0057BD58 /* SP_Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */; };
 		ABFC47D71EEE48EB0057BD58 /* SP_Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABFC47D61EEE48EB0057BD58 /* SP_Login.storyboard */; };
@@ -161,18 +168,12 @@
 		AB0235841EE55659007AB6BB /* FortunaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortunaUITests.swift; sourceTree = "<group>"; };
 		AB0235861EE55659007AB6BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB0235921EE55668007AB6BB /* Fortuna-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fortuna-Bridging-Header.h"; sourceTree = "<group>"; };
-		AB0235AA1EE55EFE007AB6BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		AB0235AB1EE55EFE007AB6BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		AB0235AC1EE55F06007AB6BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		AB0235AD1EE55F06007AB6BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		AB0235B31EE55F70007AB6BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB0235B51EE55F71007AB6BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB0235B61EE55F72007AB6BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		AB0235B71EE55F7B007AB6BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		AB0235B91EE55F93007AB6BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localization.strings; sourceTree = "<group>"; };
-		AB0235BB1EE55F95007AB6BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
-		AB0235BC1EE55F96007AB6BB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
-		AB0235BD1EE55F97007AB6BB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localization.strings"; sourceTree = "<group>"; };
 		AB02DA571EF77E2000FFC3E8 /* sp_login闭眼@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login闭眼@2x.png"; sourceTree = "<group>"; };
 		AB02DA581EF77E2000FFC3E8 /* sp_login叉@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login叉@2x.png"; sourceTree = "<group>"; };
 		AB02DA591EF77E2000FFC3E8 /* sp_login第三方微信@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sp_login第三方微信@2x.png"; sourceTree = "<group>"; };
@@ -201,6 +202,13 @@
 		AB556F781EF8FF5B00B9881C /* navi_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navi_back_white@2x.png"; sourceTree = "<group>"; };
 		AB556F7A1EF9803000B9881C /* JH_HUD_PlaceOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_HUD_PlaceOrder.swift; sourceTree = "<group>"; };
 		AB556F7C1EF980C100B9881C /* JH_HUD_PlaceOrder.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JH_HUD_PlaceOrder.xib; sourceTree = "<group>"; };
+		AB564F1D1EFB930A005E3ABB /* SP_HUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SP_HUD.bundle; sourceTree = "<group>"; };
+		AB564F1E1EFB930A005E3ABB /* SP_HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_HUD.swift; sourceTree = "<group>"; };
+		AB564F1F1EFB930A005E3ABB /* SP_HUD_Bg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_HUD_Bg.xib; sourceTree = "<group>"; };
+		AB564F201EFB930A005E3ABB /* SP_MBHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_MBHUD.swift; sourceTree = "<group>"; };
+		AB564F211EFB930A005E3ABB /* SP_SVHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_SVHUD.swift; sourceTree = "<group>"; };
+		AB564F391EFBA29E005E3ABB /* SP_MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_MBProgressHUD.h; sourceTree = "<group>"; };
+		AB564F3A1EFBA29E005E3ABB /* SP_MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_MBProgressHUD.m; sourceTree = "<group>"; };
 		AB59014C1EE9335A00826A37 /* JH_News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_News.swift; sourceTree = "<group>"; };
 		AB59014E1EE9336900826A37 /* JH_My.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_My.swift; sourceTree = "<group>"; };
 		AB5901501EE9337400826A37 /* JH_Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_Market.swift; sourceTree = "<group>"; };
@@ -287,6 +295,10 @@
 		AB82CEBE1EEE35F900D015B1 /* SP_Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Tool.swift; sourceTree = "<group>"; };
 		AB82CED51EEE3E0000D015B1 /* SP_ToolOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_ToolOC.h; sourceTree = "<group>"; };
 		AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_ToolOC.m; sourceTree = "<group>"; };
+		AB8B21E51EFCC16300B944AA /* JH_MySetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_MySetting.swift; sourceTree = "<group>"; };
+		AB8B21EA1EFCF07100B944AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		AB8B21EC1EFCF07400B944AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
+		AB8B21ED1EFCF07500B944AA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localization.strings"; sourceTree = "<group>"; };
 		ABD009E31EFA93F200728B1D /* SP_ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_ErrorType.swift; sourceTree = "<group>"; };
 		ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Login.swift; sourceTree = "<group>"; };
 		ABFC47D61EEE48EB0057BD58 /* SP_Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SP_Login.storyboard; sourceTree = "<group>"; };
@@ -398,7 +410,7 @@
 				AB02356B1EE55659007AB6BB /* Assets.xcassets */,
 				AB0235701EE55659007AB6BB /* Info.plist */,
 				AB0235B41EE55F70007AB6BB /* InfoPlist.strings */,
-				AB0235BA1EE55F93007AB6BB /* Localization.strings */,
+				AB8B21EB1EFCF07100B944AA /* Localization.strings */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -459,6 +471,36 @@
 			path = JH_Search;
 			sourceTree = "<group>";
 		};
+		AB564F181EFB930A005E3ABB /* SP_HUD */ = {
+			isa = PBXGroup;
+			children = (
+				AB564F191EFB930A005E3ABB /* image */,
+				AB564F1D1EFB930A005E3ABB /* SP_HUD.bundle */,
+				AB564F1E1EFB930A005E3ABB /* SP_HUD.swift */,
+				AB564F1F1EFB930A005E3ABB /* SP_HUD_Bg.xib */,
+				AB564F201EFB930A005E3ABB /* SP_MBHUD.swift */,
+				AB564F211EFB930A005E3ABB /* SP_SVHUD.swift */,
+				AB564F381EFBA29E005E3ABB /* MBProgressHUD */,
+			);
+			path = SP_HUD;
+			sourceTree = "<group>";
+		};
+		AB564F191EFB930A005E3ABB /* image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		AB564F381EFBA29E005E3ABB /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				AB564F391EFBA29E005E3ABB /* SP_MBProgressHUD.h */,
+				AB564F3A1EFBA29E005E3ABB /* SP_MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		AB5901461EE9331200826A37 /* JH_Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				AB59014E1EE9336900826A37 /* JH_My.swift */,
+				AB8B21E51EFCC16300B944AA /* JH_MySetting.swift */,
 			);
 			path = JH_My;
 			sourceTree = "<group>";
@@ -529,6 +572,7 @@
 				AB5901991EE94B9100826A37 /* SP_InfoOC.m */,
 				AB82CED51EEE3E0000D015B1 /* SP_ToolOC.h */,
 				AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */,
+				AB564F181EFB930A005E3ABB /* SP_HUD */,
 				AB6824201EFA20730079C58B /* SP_NetWorking */,
 				AB24882B1EF8DFCD004CE6BD /* SP_UpdateVersion */,
 				ABFC47D31EEE487D0057BD58 /* SP_Login */,
@@ -878,6 +922,7 @@
 				AB02DA631EF77E2000FFC3E8 /* sp_login密码@2x.png in Resources */,
 				AB02DA6C1EF7ABEB00FFC3E8 /* sp_login没选中@2x.png in Resources */,
 				AB02DA651EF77E2000FFC3E8 /* sp_login手机@2x.png in Resources */,
+				AB8B21E91EFCF07100B944AA /* Localization.strings in Resources */,
 				AB02DA611EF77E2000FFC3E8 /* sp_login第三方微信@2x.png in Resources */,
 				AB5901DD1EE94B9200826A37 /* tanhuang.mp3 in Resources */,
 				AB02DA661EF77E2000FFC3E8 /* sp_loginLOGO@2x.png in Resources */,
@@ -896,13 +941,14 @@
 				AB5901BE1EE94B9200826A37 /* SP_AdsColleCell.xib in Resources */,
 				AB5901F21EE94B9200826A37 /* navi_search_gray@2x.png in Resources */,
 				AB0235B21EE55F70007AB6BB /* InfoPlist.strings in Resources */,
+				AB564F301EFB930A005E3ABB /* SP_HUD_Bg.xib in Resources */,
 				AB02DA621EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png in Resources */,
 				AB5901F11EE94B9200826A37 /* navi_scanCode_white@2x.png in Resources */,
 				AB02DA5F1EF77E2000FFC3E8 /* sp_login闭眼@2x.png in Resources */,
-				AB0235B81EE55F93007AB6BB /* Localization.strings in Resources */,
 				AB42C7C41EF6D3EB00C51669 /* JH_HUD_Entrust.xib in Resources */,
 				AB02356C1EE55659007AB6BB /* Assets.xcassets in Resources */,
 				AB02356A1EE55659007AB6BB /* Main.storyboard in Resources */,
+				AB564F2E1EFB930A005E3ABB /* SP_HUD.bundle in Resources */,
 				ABFC47D71EEE48EB0057BD58 /* SP_Login.storyboard in Resources */,
 				AB02DA601EF77E2000FFC3E8 /* sp_login叉@2x.png in Resources */,
 				AB556F791EF8FF5B00B9881C /* navi_back_white@2x.png in Resources */,
@@ -984,11 +1030,14 @@
 				AB7778891EEA3362000DF065 /* SP_ComCell.swift in Sources */,
 				AB5901D91EE94B9200826A37 /* SP_GridView.swift in Sources */,
 				AB5901E41EE94B9200826A37 /* SP_InfoOC.m in Sources */,
+				AB564F311EFB930A005E3ABB /* SP_MBHUD.swift in Sources */,
 				AB5901C51EE94B9200826A37 /* CGSize_extension.swift in Sources */,
 				AB68242C1EFA4FAC0079C58B /* SP_UserAPI.swift in Sources */,
 				AB4A75BD1EEF77B10014F633 /* SP_User.swift in Sources */,
+				AB564F3B1EFBA29E005E3ABB /* SP_MBProgressHUD.m in Sources */,
 				AB5901D51EE94B9200826A37 /* UIText_extension.swift in Sources */,
 				AB4A75C51EEFCC920014F633 /* JH_NewsDetials.swift in Sources */,
+				AB564F2F1EFB930A005E3ABB /* SP_HUD.swift in Sources */,
 				AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */,
 				AB5901C31EE94B9200826A37 /* Bool_extension.swift in Sources */,
 				AB6824281EFA20950079C58B /* SP_Alamofire.swift in Sources */,
@@ -1000,6 +1049,7 @@
 				AB5901D81EE94B9200826A37 /* UIViewController+Extension.swift in Sources */,
 				AB5902071EE952E300826A37 /* SP_NavigationView.swift in Sources */,
 				AB5901F91EE94B9200826A37 /* TabBar_Extension.swift in Sources */,
+				AB564F321EFB930A005E3ABB /* SP_SVHUD.swift in Sources */,
 				AB5901E11EE94B9200826A37 /* LBPIconFont.m in Sources */,
 				AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */,
 				AB5901CC1EE94B9200826A37 /* NSTimer_extension.swift in Sources */,
@@ -1009,6 +1059,7 @@
 				ABFC47D91EEE49550057BD58 /* SP_Signin.swift in Sources */,
 				AB4A75CB1EEFE8EF0014F633 /* JH_Search_Cell.swift in Sources */,
 				AB82CEBF1EEE35F900D015B1 /* SP_Tool.swift in Sources */,
+				AB8B21E61EFCC16300B944AA /* JH_MySetting.swift in Sources */,
 				AB82CED81EEE3E0000D015B1 /* SP_ToolOC.m in Sources */,
 				AB5901D71EE94B9200826A37 /* UIView_extension.swift in Sources */,
 				AB5901E31EE94B9200826A37 /* UIImage+LBPIconFont.m in Sources */,
@@ -1101,8 +1152,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				AB0235691EE55659007AB6BB /* Base */,
-				AB0235AA1EE55EFE007AB6BB /* zh-Hans */,
-				AB0235AC1EE55F06007AB6BB /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1128,13 +1177,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		AB0235BA1EE55F93007AB6BB /* Localization.strings */ = {
+		AB8B21EB1EFCF07100B944AA /* Localization.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AB0235B91EE55F93007AB6BB /* Base */,
-				AB0235BB1EE55F95007AB6BB /* en */,
-				AB0235BC1EE55F96007AB6BB /* zh-Hans */,
-				AB0235BD1EE55F97007AB6BB /* zh-Hant */,
+				AB8B21EA1EFCF07100B944AA /* en */,
+				AB8B21EC1EFCF07400B944AA /* zh-Hans */,
+				AB8B21ED1EFCF07500B944AA /* zh-Hant */,
 			);
 			name = Localization.strings;
 			sourceTree = "<group>";

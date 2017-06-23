@@ -2,6 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+#import "SP_MBProgressHUD.h"
 #import "SP_InfoOC.h"
 
 #import "CLLocation+YCLocation.h"

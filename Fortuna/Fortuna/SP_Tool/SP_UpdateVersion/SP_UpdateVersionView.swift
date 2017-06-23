@@ -26,12 +26,12 @@ class SP_UpdateVersionView: UIView {
         print_SP("url_版本控制==>"+SP_UpdateVersionViewModel.shared.v版本号)
         if thisVersion > SP_UpdateVersionViewModel.shared.v版本号 //.compare(newVersion) == .OrderedDescending // 审核期
         {
-            sp_UserDefaultsSetBool(sp_isNewVersion, value: true)
+            sp_UserDefaultsSet(sp_isNewVersion, value: true)
             sp_UserDefaultsSyn()
         }
         if thisVersion < SP_UpdateVersionViewModel.shared.v版本号 //.compare(newVersion) == .OrderedAscending // 已过审核期-更新期
         {
-            sp_UserDefaultsSetBool(sp_isNewVersion, value: false)
+            sp_UserDefaultsSet(sp_isNewVersion, value: false)
             sp_UserDefaultsSyn()
             SP_UpdateVersionViewModel.shared.isUpdateShow = true
             for item in sp_MainWindow.subviews {
@@ -47,7 +47,7 @@ class SP_UpdateVersionView: UIView {
         }
         if thisVersion == SP_UpdateVersionViewModel.shared.v版本号 //.compare(newVersion) == .OrderedSame      // 用户
         {
-            sp_UserDefaultsSetBool(sp_isNewVersion, value: false)
+            sp_UserDefaultsSet(sp_isNewVersion, value: false)
             sp_UserDefaultsSyn()
         }
     }
@@ -100,7 +100,7 @@ class SP_UpdateVersionViewModel {
     var isUpdateShow:Bool {
         set{
             let today = Date.sp_ReturnDateFormat("YYYY-MM-dd")
-            sp_UserDefaultsSet("UpdateVersionTime", obj: today)
+            sp_UserDefaultsSet("UpdateVersionTime", value: today)
             sp_UserDefaultsSyn()
         }
         get{

@@ -201,6 +201,8 @@ extension SP_Login {
             .asObservable()
             .subscribe(onNext: { [unowned self](isOK) in
                 self._text_phone.text_field.text = ""
+                self._text_phone.text_field.becomeFirstResponder()
+                
             }).addDisposableTo(disposeBag)
         _text_pwd.button_R.rx.tap
             .asObservable()
@@ -249,24 +251,35 @@ extension SP_Login {
     
     //MARK:--- 登录 -----------------------------
     fileprivate func clickLogin()  {
-        
+        keyBoardHidden()
+        SP_User.shared.setUser(userAccount: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!)
+        SP_User.shared.login(.tUser) { [weak self](isOk, error) in
+            if isOk {
+                SP_HUD.show(text:"登录成功")
+                self?.clickN_btn_R1()
+            }else{
+                SP_HUD.show(detailText:error)
+            }
+        }
     }
     //MARK:--- 微信登录 -----------------------------
     fileprivate func clickWeiXin()  {
-        
+        keyBoardHidden()
     }
     //MARK:--- QQ登录 -----------------------------
     fileprivate func clickQQ()  {
-        
+        keyBoardHidden()
     }
     //MARK:--- 注册 -----------------------------
     fileprivate func clickSignin() {
+        keyBoardHidden()
         SP_Signin.show(self, type: .t注册) { (isOk) in
             
         }
     }
     //MARK:--- 忘记密码 -----------------------------
     fileprivate func clickForgetPwd() {
+        keyBoardHidden()
         SP_Signin.show(self, type: .t忘记密码) { (isOk) in
             
         }

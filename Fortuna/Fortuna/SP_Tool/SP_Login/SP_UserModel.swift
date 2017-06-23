@@ -13,24 +13,16 @@ import SwiftyJSON
 import Moya
 
 
-//MARK:--- ObjectMapper 版本 -----------------------------
+//MARK:--- SP_UserListModel -----------------------------
 struct SP_UserListModel {
     var users = [SP_UserModel]()
 }
-
-struct SP_UserModel {
-    var name = ""
-    var age = ""
-}
-
-
 extension SP_UserListModel: Mappable {
     init?(map: Map) { }
     mutating func mapping(map: Map) {
         users <- map["users"]
     }
 }
-
 extension SP_UserListModel: Hashable {
     var hashValue: Int {
         return users.description.hashValue
@@ -48,16 +40,112 @@ func ==(lhs: SP_UserListModel, rhs: SP_UserListModel) -> Bool {
 }
 
 
-
-extension SP_UserModel: Mappable {
-    init?(map: Map) { }
-    
-    mutating func mapping(map: Map) {
-        name <- map["name"]
-        age <- map["age"]
+//MARK:--- SP_UserModel -----------------------------
+enum SP_UserModelKey:String {
+    case createdAt = "SP_User_createdAt"
+    case email = "SP_User_email"
+    case userId = "SP_User_userId"
+    case imgUrl = "SP_User_imgUrl"
+    case isDelete = "SP_User_isDelete"
+    case mobile = "SP_User_mobile"
+    case nickname = "SP_User_nickname"
+    case role = "SP_User_role"
+    case unionId = "SP_User_unionId"
+    case updatedAt = "SP_User_updatedAt"
+    case user = "SP_User_user"
+}
+struct SP_UserModel {
+    var createdAt = ""
+    var email = ""
+    var userId = ""
+    var imgUrl = ""
+    var isDelete = false
+    var mobile = ""
+    var nickname = ""
+    var role = ""
+    var unionId = ""
+    var updatedAt = ""
+    var user = ""
+}
+////--- ObjectMapper 版本
+//extension SP_UserModel: Mappable {
+//    init?(map: Map) { }
+//    
+//    mutating func mapping(map: Map) {
+//        
+//    }
+//}
+//--- SwiftyJSON 版本
+extension SP_UserModel: Mapable {
+    init?(jsonData: JSON) {
+        
+    }
+}
+extension SP_UserModel: SP_JsonModel {
+    init?(_ json: JSON) {
+        if json.isEmpty{
+            return
+        }
+        createdAt = json["created_at"].stringValue
+        email = json["email"].stringValue
+        userId = json["id"].stringValue
+        imgUrl = json["img_url"].stringValue
+        isDelete = json["is_delete"].boolValue
+        mobile = json["mobile"].stringValue
+        nickname = json["nickname"].stringValue
+        role = json["role"].stringValue
+        unionId = json["union_id"].stringValue
+        updatedAt = json["updated_at"].stringValue
+        user = json["user"].stringValue
+    }
+}
+extension SP_UserModel {
+    static func write(_ model:SP_UserModel) {
+        sp_UserDefaultsSet(SP_UserModelKey.createdAt.rawValue, value: model.createdAt)
+        sp_UserDefaultsSet(SP_UserModelKey.email.rawValue, value: model.email)
+        sp_UserDefaultsSet(SP_UserModelKey.userId.rawValue, value: model.userId)
+        sp_UserDefaultsSet(SP_UserModelKey.imgUrl.rawValue, value: model.imgUrl)
+        sp_UserDefaultsSet(SP_UserModelKey.isDelete.rawValue, value: model.isDelete)
+        sp_UserDefaultsSet(SP_UserModelKey.mobile.rawValue, value: model.mobile)
+        sp_UserDefaultsSet(SP_UserModelKey.nickname.rawValue, value: model.nickname)
+        sp_UserDefaultsSet(SP_UserModelKey.role.rawValue, value: model.role)
+        sp_UserDefaultsSet(SP_UserModelKey.unionId.rawValue, value: model.unionId)
+        sp_UserDefaultsSet(SP_UserModelKey.updatedAt.rawValue, value: model.updatedAt)
+        sp_UserDefaultsSet(SP_UserModelKey.user.rawValue, value: model.user)
+        sp_UserDefaultsSyn()
+    }
+    static func read() -> SP_UserModel {
+        var model = SP_UserModel()
+        model.createdAt = sp_UserDefaultsGet(SP_UserModelKey.createdAt.rawValue) as? String ?? ""
+        model.email = sp_UserDefaultsGet(SP_UserModelKey.email.rawValue) as? String ?? ""
+        model.userId = sp_UserDefaultsGet(SP_UserModelKey.userId.rawValue) as? String ?? ""
+        model.imgUrl = sp_UserDefaultsGet(SP_UserModelKey.imgUrl.rawValue) as? String ?? ""
+        model.isDelete = sp_UserDefaultsGet(SP_UserModelKey.isDelete.rawValue)as? Bool ?? false
+        model.mobile = sp_UserDefaultsGet(SP_UserModelKey.mobile.rawValue) as? String ?? ""
+        model.nickname = sp_UserDefaultsGet(SP_UserModelKey.nickname.rawValue) as? String ?? ""
+        model.role = sp_UserDefaultsGet(SP_UserModelKey.role.rawValue) as? String ?? ""
+        model.unionId = sp_UserDefaultsGet(SP_UserModelKey.unionId.rawValue) as? String ?? ""
+        model.updatedAt = sp_UserDefaultsGet(SP_UserModelKey.updatedAt.rawValue) as? String ?? ""
+        model.user = sp_UserDefaultsGet(SP_UserModelKey.user.rawValue) as? String ?? ""
+        return model
+    }
+    static func remove() {
+        sp_UserDefaultsSet("SP_User_createdAt", value: "")
+        sp_UserDefaultsSet("SP_User_email", value: "")
+        sp_UserDefaultsSet("SP_User_id", value: "")
+        sp_UserDefaultsSet("SP_User_imgUrl", value: "")
+        sp_UserDefaultsSet("SP_User_isDelete", value: false)
+        sp_UserDefaultsSet("SP_User_mobile", value: "")
+        sp_UserDefaultsSet("SP_User_nickname", value: "")
+        sp_UserDefaultsSet("SP_User_role", value: "")
+        sp_UserDefaultsSet("SP_User_unionId", value: "")
+        sp_UserDefaultsSet("SP_User_updatedAt", value: "")
+        sp_UserDefaultsSet("SP_User_user", value: "")
+        sp_UserDefaultsSyn()
     }
 }
 
+/*
 extension SP_UserModel: Hashable {
     var hashValue: Int {
         return name.hashValue
@@ -73,31 +161,5 @@ extension SP_UserModel: IdentifiableType {
 func ==(lhs: SP_UserModel, rhs: SP_UserModel) -> Bool {
     return lhs.name == rhs.name
 }
+*/
 
-
-//MARK:--- SwiftyJSON 版本 -----------------------------
-
-struct SP_M_User: Mapable {
-    var name = ""
-    init?(jsonData: JSON) {
-        self.name = jsonData["name"].stringValue
-    }
-}
-extension SP_M_User {
-    
-}
-extension SP_M_User: Hashable {
-    var hashValue: Int {
-        return name.hashValue
-    }
-}
-
-extension SP_M_User: IdentifiableType {
-    var identity: Int {
-        return hashValue
-    }
-}
-
-func ==(lhs: SP_M_User, rhs: SP_M_User) -> Bool {
-    return lhs.name == rhs.name
-}

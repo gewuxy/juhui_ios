@@ -51,7 +51,7 @@ extension AppDelegate {
     
     private static var tabBar:SP_TabBarController = {
         let viewControllers = [JH_Attention.initSPVC(),JH_News.initSPVC(),JH_Market.initSPVC(),JH_My.initSPVC()]
-        let titles = ["自选","资讯","行情","我的"]
+        let titles = [sp_localized("自选"),sp_localized("资讯"),sp_localized("行情"),sp_localized("我的")]
         let images = ["N自选","N资讯","N行情","N我的"]
         let selectedImages = ["S自选","S资讯","S行情","S我的"]
         let vc = SP_TabBarController.initTabbar(viewControllers, titles: titles, images: images, selectedImages: selectedImages, selectedIndex: 0)
@@ -75,7 +75,7 @@ extension AppDelegate {
         // 获取当前的版本号
         let nowVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "1.0.0"
         // 保存当前版本号
-        sp_UserDefaultsSet("key_OldVersionKey", obj:nowVersion as AnyObject)
+        sp_UserDefaultsSet("key_OldVersionKey", value:nowVersion as AnyObject)
         sp_UserDefaultsSyn()
     }
     /*

@@ -8,10 +8,10 @@
 
 import Foundation
 
+
 /// 网络请求回调闭包 success:是否成功 result:数据 progress:请求进度 error:错误信息
 typealias sp_netComBlock = (_ success: Bool, _ result: Any?, _ error: String?) -> Void
 typealias sp_netProgressBlock = (_ progress:Progress?) -> Void
-
 
 //MARK:--- 罗列错误类型(自定义) -----------------------------
 enum SP_ErrorType:Int {
@@ -108,8 +108,8 @@ enum SP_ErrorType:Int {
 }
 
 //MARK:--- 罗列错误类型（系统） -----------------------------
-func sp_returnNSError(_ error:NSError) -> String {
-    switch error.code {
+func sp_returnNSError(_ error:Error) -> String {
+    switch (error as NSError).code {
     case NSURLErrorUnknown:                                 return "未知错误"
     case NSURLErrorCancelled:                               return "取消了网址"
     case NSURLErrorBadURL:                                  return "错误URL"

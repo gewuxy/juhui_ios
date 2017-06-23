@@ -59,6 +59,7 @@ extension JH_AttentionDetails {
         n_view.n_btn_R1_Image = "Attention分享"
         n_view.n_btn_R1_R.constant = 15
         
+        
     }
     
     fileprivate func makeUI() {
