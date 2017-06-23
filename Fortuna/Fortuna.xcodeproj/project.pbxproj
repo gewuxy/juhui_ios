@@ -29,6 +29,7 @@
 		AB24882E1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24882C1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift */; };
 		AB24882F1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24882D1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib */; };
 		AB2488311EF8E276004CE6BD /* JH_AttentionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */; };
+		AB3F28C41EFD01690021DA1C /* SP_Login.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB3F28C61EFD01690021DA1C /* SP_Login.strings */; };
 		AB42C7BD1EF6BDDB00C51669 /* JH_BuyAndSell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */; };
 		AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */; };
 		AB42C7C21EF6D3DA00C51669 /* JH_HUD_Entrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7C11EF6D3DA00C51669 /* JH_HUD_Entrust.swift */; };
@@ -188,6 +189,12 @@
 		AB24882C1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UpdateVersionView.swift; sourceTree = "<group>"; };
 		AB24882D1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_UpdateVersionView.xib; sourceTree = "<group>"; };
 		AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails.swift; sourceTree = "<group>"; };
+		AB3F28BD1EFCFAF20021DA1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		AB3F28BF1EFCFAFF0021DA1C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		AB3F28C11EFCFB0E0021DA1C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		AB3F28C51EFD01690021DA1C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SP_Login.strings"; sourceTree = "<group>"; };
+		AB3F28C71EFD016F0021DA1C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SP_Login.strings"; sourceTree = "<group>"; };
+		AB3F28C81EFD01710021DA1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SP_Login.strings; sourceTree = "<group>"; };
 		AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_BuyAndSell.swift; sourceTree = "<group>"; };
 		AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_BuyAndSell_Cell.swift; sourceTree = "<group>"; };
 		AB42C7C11EF6D3DA00C51669 /* JH_HUD_Entrust.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_HUD_Entrust.swift; sourceTree = "<group>"; };
@@ -789,6 +796,7 @@
 				AB68243F1EFA6A070079C58B /* SP_UserModel.swift */,
 				ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */,
 				ABFC47D81EEE49550057BD58 /* SP_Signin.swift */,
+				AB3F28C61EFD01690021DA1C /* SP_Login.strings */,
 				ABFC47D61EEE48EB0057BD58 /* SP_Login.storyboard */,
 			);
 			path = SP_Login;
@@ -930,6 +938,7 @@
 				AB5901ED1EE94B9200826A37 /* navi_add_gray@2x.png in Resources */,
 				AB5901FC1EE94B9200826A37 /* SP_TextField.xib in Resources */,
 				AB02356F1EE55659007AB6BB /* LaunchScreen.storyboard in Resources */,
+				AB3F28C41EFD01690021DA1C /* SP_Login.strings in Resources */,
 				AB02DA691EF7ABC100FFC3E8 /* sp_login勾@2x.png in Resources */,
 				AB77788A1EEA3362000DF065 /* SP_ComCell.xib in Resources */,
 				AB5901F31EE94B9200826A37 /* navi_share_gray@2x.png in Resources */,
@@ -1152,6 +1161,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				AB0235691EE55659007AB6BB /* Base */,
+				AB3F28BD1EFCFAF20021DA1C /* en */,
+				AB3F28BF1EFCFAFF0021DA1C /* zh-Hans */,
+				AB3F28C11EFCFB0E0021DA1C /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1175,6 +1187,16 @@
 				AB0235B71EE55F7B007AB6BB /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AB3F28C61EFD01690021DA1C /* SP_Login.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB3F28C51EFD01690021DA1C /* zh-Hans */,
+				AB3F28C71EFD016F0021DA1C /* zh-Hant */,
+				AB3F28C81EFD01710021DA1C /* en */,
+			);
+			name = SP_Login.strings;
 			sourceTree = "<group>";
 		};
 		AB8B21EB1EFCF07100B944AA /* Localization.strings */ = {

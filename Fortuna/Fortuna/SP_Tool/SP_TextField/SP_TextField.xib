@@ -25,6 +25,7 @@
                     <rect key="frame" x="0.0" y="317" width="30" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="an6-3T-IAt"/>
+                        <constraint firstAttribute="height" constant="34" id="x0k-tS-vKo"/>
                     </constraints>
                     <state key="normal">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,6 +62,7 @@
                     <rect key="frame" x="345" y="317" width="30" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="VhW-bm-Ynj"/>
+                        <constraint firstAttribute="height" constant="34" id="h5R-nC-wbU"/>
                     </constraints>
                     <state key="normal">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,8 +92,10 @@
             </constraints>
             <connections>
                 <outlet property="button_L" destination="fj2-GB-2EQ" id="BfS-qe-uat"/>
+                <outlet property="button_L_H" destination="x0k-tS-vKo" id="S5b-7m-OiJ"/>
                 <outlet property="button_L_W" destination="an6-3T-IAt" id="7Xy-aG-3mO"/>
                 <outlet property="button_R" destination="Cd3-xz-JJx" id="BON-CE-knP"/>
+                <outlet property="button_R_H" destination="h5R-nC-wbU" id="PPS-EA-fLQ"/>
                 <outlet property="button_R_W" destination="VhW-bm-Ynj" id="Xlq-9u-S7L"/>
                 <outlet property="label_L" destination="50b-rv-A4A" id="DP1-jT-9aL"/>
                 <outlet property="label_error" destination="YvZ-MP-Ljv" id="hTQ-cy-JjZ"/>

@@ -86,14 +86,14 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 社交账号直接登录 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZy-Tk-ja0">
-                                        <rect key="frame" x="107" y="0.0" width="131" height="18"/>
+                                        <rect key="frame" x="107.5" y="0.0" width="131" height="18"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jf-FV-x1F">
-                                        <rect key="frame" x="92" y="29" width="40" height="40"/>
+                                        <rect key="frame" x="92.5" y="29" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="YIL-1a-Pbt"/>
                                             <constraint firstAttribute="width" secondItem="4Jf-FV-x1F" secondAttribute="height" multiplier="1:1" id="YbZ-JT-xOK"/>
@@ -101,7 +101,7 @@
                                         <state key="normal" image="sp_login第三方微信.png"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kEe-gy-NdG">
-                                        <rect key="frame" x="213" y="29" width="40" height="40"/>
+                                        <rect key="frame" x="213.5" y="29" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="kEe-gy-NdG" secondAttribute="height" multiplier="1:1" id="3RT-t3-F2R"/>
                                             <constraint firstAttribute="width" constant="40" id="HhO-73-3Cc"/>
@@ -211,7 +211,7 @@
                                 <rect key="frame" x="30" y="393" width="315" height="25"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0y-UX-oxd">
-                                        <rect key="frame" x="0.0" y="1.5" width="22" height="22"/>
+                                        <rect key="frame" x="0.0" y="2" width="22" height="22"/>
                                         <color key="tintColor" red="0.99607843139999996" green="0.42352941179999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="sp_login勾.png"/>
                                         <state key="selected" image="sp_login勾.png"/>
@@ -223,7 +223,7 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册代表您已同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fat-tZ-zxi">
-                                        <rect key="frame" x="42" y="3.5" width="123" height="18"/>
+                                        <rect key="frame" x="42" y="4" width="123" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.74901960784313726" green="0.74901960784313726" blue="0.74901960784313726" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -296,6 +296,7 @@
                         <outlet property="btn_login_T" destination="kvz-R1-a7P" id="GyE-3T-LdV"/>
                         <outlet property="img_logo_B" destination="TNL-0s-uLJ" id="G5e-8s-Nre"/>
                         <outlet property="img_logo_T" destination="ixs-8v-pM7" id="YZU-3e-YpY"/>
+                        <outlet property="lab_agreement" destination="fat-tZ-zxi" id="AJ4-1b-6wQ"/>
                         <outlet property="lab_error" destination="Wb1-wo-OMg" id="B2A-Iv-Xz3"/>
                         <outlet property="view_agreement" destination="Jmy-KQ-NPZ" id="o98-1b-QuO"/>
                         <outlet property="view_phone" destination="MgC-ZV-8xS" id="uj0-WP-1sM"/>

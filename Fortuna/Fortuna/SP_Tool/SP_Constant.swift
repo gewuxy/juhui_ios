@@ -101,8 +101,8 @@ let sp_fitFontB18 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 18)
 let sp_fitFontB20 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))
 let sp_fitFontB22 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 22))
 //MARK:--- 语言适配 -----------------------------
-func sp_localized(_ key:String) -> String {
-    return SP_InfoOC.sp_localizedString(forKey: key)
+func sp_localized(_ key:String, from:String = "Localization") -> String {
+    return SP_InfoOC.sp_localizedString(forKey: key, from:from)
 }
 
 //MARK:----------- 导航栏 底部栏 和各减去 高度

@@ -63,7 +63,8 @@ extension JH_MySetting {
     
 
     @IBAction func clickExitLogin(_ sender: UIButton) {
-        
+        SP_User.shared.removeUser()
+        makeUI()
     }
 }
 
@@ -81,13 +82,13 @@ extension JH_MySetting:UITableViewDelegate,UITableViewDataSource {
         return sp_SectionH_Min
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (_sectionsHead[section].type.rawValue,_sectionsHead[section].txtR), hiddenLine: false)
+        let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (sp_localized(_sectionsHead[section].type.rawValue),_sectionsHead[section].txtR), hiddenLine: false)
         headView.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: 50)
         headView._tapBlock = { [unowned self]() in
             self.didSelectAt(section)
         }
         headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 18), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 24,R:17))
-        headView.label_L_ConstrL.constant = 15
+        headView.label_L_ConstrL.constant = 0
         
         return headView
     }

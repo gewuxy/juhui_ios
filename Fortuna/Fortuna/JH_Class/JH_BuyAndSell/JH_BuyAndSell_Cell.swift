@@ -105,6 +105,8 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         text.text_field_R.constant = 1
         text.view_Line_L.constant = 0
         text.view_Line_R.constant = 0
+        text.button_L_H.constant = 40
+        text.button_R_H.constant = 40
         text.view_Line.isHidden = true
         text.layer.cornerRadius = 8
         text.layer.borderWidth = 1.0
@@ -130,6 +132,8 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         text.text_field_R.constant = 1
         text.view_Line_L.constant = 0
         text.view_Line_R.constant = 0
+        text.button_L_H.constant = 40
+        text.button_R_H.constant = 40
         text.view_Line.isHidden = true
         text.layer.cornerRadius = 8
         text.layer.borderWidth = 1.0
@@ -158,8 +162,8 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         view_name.layer.borderWidth = 1.0
         view_name.layer.borderColor = UIColor.main_line.cgColor
         
-        view_pice.backgroundColor = UIColor.clear
-        view_num.backgroundColor = UIColor.clear
+        view_pice.backgroundColor = UIColor.white
+        view_num.backgroundColor = UIColor.white
         
         //阴影
         btn_deal.layer.shadowColor = UIColor.main_1.cgColor

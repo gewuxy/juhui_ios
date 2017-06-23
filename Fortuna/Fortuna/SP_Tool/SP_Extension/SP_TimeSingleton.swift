@@ -39,13 +39,15 @@ class SP_TimeSingleton {
     
     weak var _button:UIButton?
     fileprivate  var _title = ""
+    fileprivate  var _enabText = ""
     fileprivate  var _normalColor:(bg:UIColor,text:UIColor)?
     fileprivate  var _enabledColor:(bg:UIColor,text:UIColor)?
     
-    func starCountDown(_ button:UIButton, countTime:Int, enabledColor:(bg:UIColor,text:UIColor)? = nil) {
+    func starCountDown(_ button:UIButton, countTime:Int,enabText:String, enabledColor:(bg:UIColor,text:UIColor)? = nil) {
         
         _button = button
         _title = button.titleLabel!.text!
+        _enabText = enabText
         _normalColor = (bg:button.backgroundColor!,text:button.titleLabel!.textColor)
         _enabledColor = (bg:button.backgroundColor!,text:button.titleLabel!.textColor)
         if enabledColor != nil {
@@ -56,17 +58,7 @@ class SP_TimeSingleton {
         _button?.isEnabled = false
         
         
-        //_button?.setTitle("", for: .normal)
         
-        //_button?.tintColor = UIColor.clear
-        //_button?.backgroundColor = _color
-        
-        //_label.text = "\(countTime)s 重新获取"
-        
-//        _button?.addSubview(_label)
-//        _label.textColor = color.select
-//        _label.font = button.titleLabel?.font
-//        _label.frame = button.bounds
         
         makeLabelText(countTime)
         
@@ -76,19 +68,12 @@ class SP_TimeSingleton {
         _time += 1
         if _time >= _countTime{
             _timer?.invalidate()
-            //_timer = nil
             
-            
-            //_button?.backgroundColor = _color
-            //_button?.setTitle(_title, for: .normal)
-            //_label.text = ""
             makeLabelText(0)
         }
         else{
             makeLabelText(_countTime - _time)
-            //_label.text = "\(_countTime - _time)s 重新获取"
             
-            //self.setTitle("\(_countTime - _time) 重新获取", for: .normal)
         }
     }
     
@@ -105,13 +90,13 @@ class SP_TimeSingleton {
         _button?.setTitleColor(_enabledColor?.text, for: .normal)
         _button?.backgroundColor = _enabledColor?.bg
         let timeStr = String(format: "%d", time)
-        let textt = "\(time)s 重新获取"
+        let textt = "\(time)s " + _enabText
         let attributedString = NSMutableAttributedString(string: textt)
         
         attributedString.addAttributes([NSForegroundColorAttributeName : UIColor.main_1], range: NSMakeRange(0, timeStr.characters.count + 1))
         
         _button?.setAttributedTitle(attributedString, for: .normal)
-        //_label.attributedText = attributedString
+        
     }
     
 }

@@ -53,6 +53,8 @@ enum SP_UserModelKey:String {
     case unionId = "SP_User_unionId"
     case updatedAt = "SP_User_updatedAt"
     case user = "SP_User_user"
+    case personalSelect = "SP_User_personalSelect"
+    case tradePasswd = "SP_User_tradePasswd"
 }
 struct SP_UserModel {
     var createdAt = ""
@@ -66,6 +68,10 @@ struct SP_UserModel {
     var unionId = ""
     var updatedAt = ""
     var user = ""
+    var personalSelect = ""
+    var tradePasswd = ""
+    
+    var token = ""
 }
 ////--- ObjectMapper 版本
 //extension SP_UserModel: Mappable {
@@ -97,6 +103,11 @@ extension SP_UserModel: SP_JsonModel {
         unionId = json["union_id"].stringValue
         updatedAt = json["updated_at"].stringValue
         user = json["user"].stringValue
+        
+        personalSelect = json["personal_select"].stringValue
+        tradePasswd = json["trade_passwd"].stringValue
+        token = json["token"].stringValue
+        
     }
 }
 extension SP_UserModel {
@@ -112,6 +123,8 @@ extension SP_UserModel {
         sp_UserDefaultsSet(SP_UserModelKey.unionId.rawValue, value: model.unionId)
         sp_UserDefaultsSet(SP_UserModelKey.updatedAt.rawValue, value: model.updatedAt)
         sp_UserDefaultsSet(SP_UserModelKey.user.rawValue, value: model.user)
+        sp_UserDefaultsSet(SP_UserModelKey.personalSelect.rawValue, value: model.personalSelect)
+        sp_UserDefaultsSet(SP_UserModelKey.tradePasswd.rawValue, value: model.tradePasswd)
         sp_UserDefaultsSyn()
     }
     static func read() -> SP_UserModel {
@@ -127,20 +140,25 @@ extension SP_UserModel {
         model.unionId = sp_UserDefaultsGet(SP_UserModelKey.unionId.rawValue) as? String ?? ""
         model.updatedAt = sp_UserDefaultsGet(SP_UserModelKey.updatedAt.rawValue) as? String ?? ""
         model.user = sp_UserDefaultsGet(SP_UserModelKey.user.rawValue) as? String ?? ""
+        
+        model.personalSelect = sp_UserDefaultsGet(SP_UserModelKey.personalSelect.rawValue) as? String ?? ""
+        model.tradePasswd =  sp_UserDefaultsGet(SP_UserModelKey.tradePasswd.rawValue) as? String ?? ""
         return model
     }
     static func remove() {
-        sp_UserDefaultsSet("SP_User_createdAt", value: "")
-        sp_UserDefaultsSet("SP_User_email", value: "")
-        sp_UserDefaultsSet("SP_User_id", value: "")
-        sp_UserDefaultsSet("SP_User_imgUrl", value: "")
-        sp_UserDefaultsSet("SP_User_isDelete", value: false)
-        sp_UserDefaultsSet("SP_User_mobile", value: "")
-        sp_UserDefaultsSet("SP_User_nickname", value: "")
-        sp_UserDefaultsSet("SP_User_role", value: "")
-        sp_UserDefaultsSet("SP_User_unionId", value: "")
-        sp_UserDefaultsSet("SP_User_updatedAt", value: "")
-        sp_UserDefaultsSet("SP_User_user", value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.createdAt.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.email.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.userId.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.imgUrl.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.isDelete.rawValue, value: false)
+        sp_UserDefaultsSet(SP_UserModelKey.mobile.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.nickname.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.role.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.unionId.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.updatedAt.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.user.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.personalSelect.rawValue, value: "")
+        sp_UserDefaultsSet(SP_UserModelKey.tradePasswd.rawValue, value: "")
         sp_UserDefaultsSyn()
     }
 }

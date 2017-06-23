@@ -71,8 +71,8 @@ static SP_InfoOC* shared = nil;
     NSLog(@"mutebleCopySingleton:\n%@",mutebleCopySingleton);
 }
 #pragma mark ---------- 国际化文字 ----------
-+ (NSString *)sp_localizedStringForKey:(NSString *)key {
-    return NSLocalizedStringFromTable(key, @"Localization", @"");
++ (NSString *)sp_localizedStringForKey:(NSString *)key from:(NSString *)from {
+    return NSLocalizedStringFromTable(key, from, @"");
 }
 #pragma mark ---------- 当前设备 ----------
 + (SP_DeviceModel)sp_deviceModel {

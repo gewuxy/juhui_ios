@@ -44,7 +44,7 @@ class SP_Login: SP_ParentVC {
     
     lazy var _text_phone:SP_TextField = {
         let text = SP_TextField.show(self.view_phone)
-        text.text_field.placeholder = "手机号"
+        text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
@@ -57,7 +57,7 @@ class SP_Login: SP_ParentVC {
     }()
     lazy var _text_pwd:SP_TextField = {
         let text = SP_TextField.show(self.view_pwd)
-        text.text_field.placeholder = "密码"
+        text.text_field.placeholder = sp_localized("密码",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .asciiCapable
         text.text_field.isSecureTextEntry = true
@@ -141,7 +141,10 @@ extension SP_Login {
         lab_otherAccount.textColor = UIColor.mainText_3
         btn_signin.setTitleColor(UIColor.mainText_2, for: .normal)
         btn_forgetPwd.setTitleColor(UIColor.mainText_2, for: .normal)
-        
+        btn_login.setTitle(sp_localized("登  录",from: "SP_Login"), for: .normal)
+        btn_signin.setTitle(sp_localized("新用户注册",from: "SP_Login"), for: .normal)
+        btn_forgetPwd.setTitle(sp_localized("忘记密码？",from: "SP_Login"), for: .normal)
+        lab_otherAccount.text = sp_localized("社交账号直接登录",from: "SP_Login")
     }
     fileprivate func makeTextFieldDelegate() {
         _text_phone._shouldChangeCharactersBlock = { [weak self](textField,range,str) -> Bool in
@@ -150,7 +153,7 @@ extension SP_Login {
                 case .tOutRange:
                     break
                 case .tUnlawful:
-                    self?.lab_error.text = "*请输入正确的手机号"
+                    self?.lab_error.text = sp_localized("*请输入正确的手机号",from: "SP_Login")
                 case .tNormal:
                     self?.lab_error.text = ""
                 }
@@ -163,7 +166,7 @@ extension SP_Login {
                 case .tOutRange:
                     break
                 case .tUnlawful:
-                    self?.lab_error.text = "*密码限6~16位字母、数字、_"
+                    self?.lab_error.text = sp_localized("*密码限6~16位字母、数字、_",from: "SP_Login")
                 case .tNormal:
                     self?.lab_error.text = ""
                 }
@@ -255,7 +258,7 @@ extension SP_Login {
         SP_User.shared.setUser(userAccount: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!)
         SP_User.shared.login(.tUser) { [weak self](isOk, error) in
             if isOk {
-                SP_HUD.show(text:"登录成功")
+                SP_HUD.show(text:sp_localized("登录成功",from: "SP_Login"))
                 self?.clickN_btn_R1()
             }else{
                 SP_HUD.show(detailText:error)
@@ -273,15 +276,19 @@ extension SP_Login {
     //MARK:--- 注册 -----------------------------
     fileprivate func clickSignin() {
         keyBoardHidden()
-        SP_Signin.show(self, type: .t注册) { (isOk) in
-            
+        SP_Signin.show(self, type: .t注册) { [weak self](isOk,phone,pwd) in
+            self?._text_phone.text_field.text = phone
+            self?._text_pwd.text_field.text = pwd
+            self?.clickLogin()
         }
     }
     //MARK:--- 忘记密码 -----------------------------
     fileprivate func clickForgetPwd() {
         keyBoardHidden()
-        SP_Signin.show(self, type: .t忘记密码) { (isOk) in
-            
+        SP_Signin.show(self, type: .t忘记密码) { [weak self](isOk,phone,pwd) in
+            self?._text_phone.text_field.text = phone
+            self?._text_pwd.text_field.text = pwd
+            self?.clickLogin()
         }
     }
     

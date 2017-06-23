@@ -1,0 +1,28 @@
+/* 
+  SP_Login.strings
+  Fortuna
+
+  Created by 刘才德 on 2017/6/23.
+  Copyright © 2017年 Friends-Home. All rights reserved.
+*/
+
+"手机号" = "Phone number";
+"密码" = "Password";
+"*请输入正确的手机号" = "* Phone number is wrong";
+"*密码限6~16位字母、数字、_" = "* Password limit of 6 to 16 letters, Numbers, _";
+"*请输入正确的验证码" = "* Verification code is wrong";
+"登录成功" = "Successful";
+"请输入验证码" = "Verification code";
+"发送验证码" = "Send code";
+"登  录" = "Sign in";
+"新用户注册" = "Create an account";
+"忘记密码？" = "Forgot password?";
+"注  册" = "Create an account";
+"重置密码" = "Reset password";
+"注册成功,正在登录" = "Successful, is to log in";
+"修改成功,重新登录" = "Successful, is to log in";
+"验证码已发送,60秒后过期" = "Successful,60 seconds after the expiration";
+"重新获取" = "To obtain";
+"社交账号直接登录" = "Other account login";
+"注册代表您已同意" = "Agree ";
+"用户协议" = "User agreement";

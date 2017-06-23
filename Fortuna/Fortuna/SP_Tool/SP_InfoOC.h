@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger) {
 + (id)shared;
 + (void)sp_print;
 #pragma mark ---------- 国际化文字 ----------
-+ (NSString *)sp_localizedStringForKey:(NSString *)key;
++ (NSString *)sp_localizedStringForKey:(NSString *)key from:(NSString *)from;
 #pragma mark ---------- 字号适配 ----------
 + (UIFont*) sp_fontFitWithSize:(CGFloat)size;
 + (UIFont*) sp_fontFitWithSize:(CGFloat)size weightType:(SP_UIFontWeight)weightType;

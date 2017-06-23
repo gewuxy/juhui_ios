@@ -21,11 +21,11 @@ enum SP_UserAPI {
     static let url_短信 = "api/account/sendsms/"
     case t_短信(mobile: String, type: String)
     
-    static let url_重置密码 = "apis/account/resetpw/"
+    static let url_重置密码 = "api/account/resetpw/"
     case t_重置密码(mobile: String, pwd: String, code: String)
     
     static let url_用户信息获取 = "api/account/info/"
-    case t_用户信息获取(mobile: String)
+    case t_用户信息获取(mobile: String, token:String)
 }
 
 //MARK:--- 自己的版本 -----------------------------
@@ -65,16 +65,17 @@ extension SP_UserAPI {
                     block?(isOk, datas ?? "", error)
                 })
             })
-        case .t_用户信息获取(let mobile):
-            let param = ["mobile": mobile]
+        case .t_用户信息获取(let mobile,let token):
+            let param = ["mobile": mobile,"token":token]
             SP_Alamofire.post(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
                 print_Json("url_用户信息获取=>\(JSON(data!))")
-                My_API.map_Array(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     //print_Json(datas)
-                    if isOk && datas.count > 0 {
-                        SP_UserModel.write(datas.first!)
+                    if (datas != nil) {
+                        print_SP(datas)
+                        SP_UserModel.write(datas ?? SP_UserModel())
                     }
-                    block?(isOk, datas, error)
+                    block?(isOk, datas ?? SP_UserModel(), error)
                 })
                 
             })
@@ -141,7 +142,7 @@ extension SP_UserAPI: TargetType {
             return SP_UserAPI.url_短信
         case .t_重置密码(_, _, _):
             return SP_UserAPI.url_重置密码
-        case .t_用户信息获取(_):
+        case .t_用户信息获取(_,_):
             return SP_UserAPI.url_用户信息获取
         }
     }
@@ -156,7 +157,7 @@ extension SP_UserAPI: TargetType {
             return .post
         case .t_重置密码(_, _, _):
             return .post
-        case .t_用户信息获取(_):
+        case .t_用户信息获取(_,_):
             return .post
         }
     }
@@ -171,8 +172,8 @@ extension SP_UserAPI: TargetType {
             return ["mobile": mobile, "sms_type": type]
         case .t_重置密码(let mobile, let password, let code):
             return ["mobile": mobile, "password": password, "code": code]
-        case .t_用户信息获取(let mobile):
-            return ["mobile": mobile]
+        case .t_用户信息获取(let mobile,let token):
+            return ["mobile": mobile,"token":token]
         }
     }
     

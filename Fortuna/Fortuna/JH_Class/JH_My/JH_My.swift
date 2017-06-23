@@ -137,7 +137,7 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             return nil
         default:
             
-            let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (_sectionsHead[section].type.rawValue,_sectionsHead[section].txtR), hiddenLine: false)
+            let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (sp_localized(_sectionsHead[section].type.rawValue),_sectionsHead[section].txtR), hiddenLine: false)
             headView.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: 50)
             headView._tapBlock = { [unowned self]() in
                 self.didSelectAt(section)

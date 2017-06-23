@@ -16,6 +16,8 @@ import Moya
 let sp_Url登录接口 = "apis/account/login/"
 /// 用户账号
 let sp_UserAccount     =  "SP_UserAccount"
+/// 用户Token
+let sp_UserToken     =  "SP_UserToken"
 /// 用户密码
 let sp_UserPwd       =  "SP_UserPwd"
 /// 是否微信登录
@@ -80,6 +82,17 @@ open class SP_User {
         }
         
     }
+    var userToken:String {
+        set{
+            sp_UserDefaultsSet(sp_UserToken, value: newValue)
+            sp_UserDefaultsSyn()
+        }
+        get{
+            return sp_UserDefaultsGet(sp_UserToken) as? String ?? ""
+        }
+        
+    }
+    
     var userPwd:String {
         set{
             sp_UserDefaultsSet(sp_UserPwd, value: newValue)
@@ -94,15 +107,14 @@ open class SP_User {
     let disposeBag = DisposeBag()
     let userProvider = RxMoyaProvider<SP_UserAPI>()
     
-    func removeUser(_ notification:Bool = true) {
+    func removeUser() {
+        self.userToken = ""
         self.userPwd = ""
         self.userLoginType = .tOther
         self.userWXUnionId = ""
         SP_UserModel.remove()
-        //M_UserMessageData.shared.remove()
-        if notification {
-            sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
-        }
+        
+        sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
         
         //JPUSHService.setAlias("", callbackSelector: nil, object: self)
     }
@@ -123,6 +135,8 @@ open class SP_User {
                 self.timeStart()
                 if isOk{
                     sp_Notification.post(name: SP_User.shared.ntfName_成功登陆了, object: nil)
+                    SP_User.shared.userToken = (datas as? SP_UserModel)?.token ?? ""
+                    print_SP(SP_User.shared.userToken)
                     self.url_用户信息()
                 }
                 block?(isOk, error)
@@ -222,12 +236,12 @@ open class SP_User {
     
     
     func signin(_ param:(mobile: String,pwd: String, code:String), block:((Bool,String)->Void)? = nil) {
-        /*
-        SP_UserAPI.t_注册(mobile: param.mobile, pwd: param.pwd, code: param.code).post { (isOk, datas, error) in
-            print_SP("url_注册\n\(JSON(datas))")
-            print_SP(error)
-        }*/
         
+        SP_UserAPI.t_注册(mobile: param.mobile, pwd: param.pwd, code: param.code).post { (isOk, datas, error) in
+            
+            block?(isOk, error)
+        }
+        /*
         userProvider
             .request(.t_注册(mobile: param.mobile,pwd: param.pwd, code:param.code))
             .filterSuccessfulStatusCodes()
@@ -239,7 +253,7 @@ open class SP_User {
                 block?(true,"")
             }, onError: { (error) in
                 block?(false,SP_MoyaReturnError(error))
-            }).addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)*/
     }
     
     func resetPwd(_ param:(mobile: String,pwd: String, code:String), block:((Bool,String)->Void)? = nil) {
@@ -267,7 +281,7 @@ open class SP_User {
     
     func url_用户信息(_ block:(()->Void)? = nil) {
         SP_UserAPI
-            .t_用户信息获取(mobile: userAccount)
+            .t_用户信息获取(mobile: userAccount,token:userToken)
             .post { (isOk, datas, error) in
                 sp_Notification.post(name: SP_User.shared.ntfName_更新用户信息, object: nil)
                 block?()

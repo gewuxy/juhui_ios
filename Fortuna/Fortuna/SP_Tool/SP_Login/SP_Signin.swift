@@ -17,7 +17,7 @@ enum SP_SigninType {
 
 class SP_Signin: SP_ParentVC {
     
-    var _isOkBlock:((Bool)->Void)?
+    var _isOkBlock:((Bool,String,String)->Void)?
     lazy var _vcType = SP_SigninType.t注册
     lazy var _keyBoardHeightRatio:CGFloat = 1.7
     let disposeBag = DisposeBag()
@@ -26,6 +26,7 @@ class SP_Signin: SP_ParentVC {
     @IBOutlet weak var btn_login: UIButton!
     @IBOutlet weak var btn_agreement: UIButton!
     @IBOutlet weak var btn_agreementSelect: UIButton!
+    @IBOutlet weak var lab_agreement: UILabel!
     
     @IBOutlet weak var view_phone: UIView!
     @IBOutlet weak var view_pwd: UIView!
@@ -40,7 +41,7 @@ class SP_Signin: SP_ParentVC {
     
     lazy var _text_phone:SP_TextField = {
         let text = SP_TextField.show(self.view_phone)
-        text.text_field.placeholder = "手机号"
+        text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
@@ -54,7 +55,7 @@ class SP_Signin: SP_ParentVC {
     }()
     lazy var _text_pwd:SP_TextField = {
         let text = SP_TextField.show(self.view_pwd)
-        text.text_field.placeholder = "密码"
+        text.text_field.placeholder = sp_localized("密码",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .asciiCapable
         text.text_field.isSecureTextEntry = true
@@ -72,10 +73,10 @@ class SP_Signin: SP_ParentVC {
     }()
     lazy var _text_verifi:SP_TextField = {
         let text = SP_TextField.show(self.view_verification)
-        text.text_field.placeholder = "请输入验证码"
+        text.text_field.placeholder = sp_localized("请输入验证码",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
-        text.button_R.setTitle("发送验证码",for:.normal)
+        text.button_R.setTitle(sp_localized("发送验证码",from: "SP_Login"),for:.normal)
         text.button_R.setTitleColor(UIColor.mainText_2,for:.normal)
         text.button_R.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         text.button_R.layer.cornerRadius = 6.0
@@ -94,7 +95,7 @@ extension SP_Signin {
         return UIStoryboard(name: "SP_Login", bundle: nil).instantiateViewController(withIdentifier: "SP_Signin") as! SP_Signin
     }
     
-    class func show(_ parentVC:UIViewController?, type:SP_SigninType = .t注册, block: ((Bool) -> Void)? = nil) {
+    class func show(_ parentVC:UIViewController?, type:SP_SigninType = .t注册, block: ((Bool,String,String) -> Void)? = nil) {
         let vc = SP_Signin.initSPVC()
         vc._isOkBlock = block
         vc._vcType = type
@@ -143,8 +144,9 @@ extension SP_Signin {
             img_logo_B.constant = 15
             _keyBoardHeightRatio = 2.0
         }
-        
-        btn_login.setTitle(_vcType == .t注册 ? "注  册" : "重置密码", for: .normal)
+        lab_agreement.text = sp_localized("注册代表您已同意",from: "SP_Login")
+        btn_agreement.setTitle(sp_localized("用户协议",from: "SP_Login"), for: .normal)
+        btn_login.setTitle(_vcType == .t注册 ? sp_localized("注  册",from: "SP_Login") : sp_localized("重置密码",from: "SP_Login"), for: .normal)
         view_agreement.isHidden = _vcType != .t注册
         btn_login_T.constant = _vcType == .t注册 ? 60 : 30
         
@@ -164,7 +166,7 @@ extension SP_Signin {
                 case .tOutRange:
                     break
                 case .tUnlawful:
-                    self?.lab_error.text = "*请输入正确的手机号"
+                    self?.lab_error.text = sp_localized("*请输入正确的手机号",from: "SP_Login")
                 case .tNormal:
                     self?.lab_error.text = ""
                 }
@@ -177,7 +179,7 @@ extension SP_Signin {
                 case .tOutRange:
                     break
                 case .tUnlawful:
-                    self?.lab_error.text = "*密码限6~16位字母、数字、_"
+                    self?.lab_error.text = sp_localized("*密码限6~16位字母、数字、_",from: "SP_Login")
                 case .tNormal:
                     self?.lab_error.text = ""
                 }
@@ -191,7 +193,7 @@ extension SP_Signin {
                 case .tOutRange:
                     break
                 case .tUnlawful:
-                    self?.lab_error.text = "*请输入正确的验证码"
+                    self?.lab_error.text = sp_localized("*请输入正确的验证码",from: "SP_Login")
                 case .tNormal:
                     self?.lab_error.text = ""
                 }
@@ -268,7 +270,9 @@ extension SP_Signin {
         case .t注册:
             SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
                 if isOk {
-                    SP_HUD.show(text:"注册成功,正在登录")
+                    SP_HUD.show(text:sp_localized("注册成功,正在登录",from: "SP_Login"))
+                    
+                    self?._isOkBlock?(true,self!._text_phone.text_field.text!,self!._text_pwd.text_field.text!)
                     self?.clickN_btn_R1()
                 }else{
                     SP_HUD.show(detailText:error)
@@ -277,7 +281,9 @@ extension SP_Signin {
         case .t忘记密码:
             SP_User.shared.resetPwd((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
                 if isOk {
-                    SP_HUD.show(text:"修改成功,重新登录")
+                    SP_HUD.show(text:sp_localized("修改成功,重新登录",from: "SP_Login"))
+                    
+                    self?._isOkBlock?(true,self!._text_phone.text_field.text!,self!._text_pwd.text_field.text!)
                     self?.clickN_btn_R1()
                 }else{
                     SP_HUD.show(detailText:error)
@@ -291,8 +297,8 @@ extension SP_Signin {
         keyBoardHidden()
         SP_User.shared.sendSMS((mobile: _text_phone.text_field.text!, type: _vcType == .t注册 ? "1" : "2")) { (isOk, error) in
             if isOk {
-                SP_HUD.show(text:"验证码已发送,60秒后过期")
-                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
+                SP_HUD.show(text:sp_localized("验证码已发送,60秒后过期",from: "SP_Login"))
+                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabText: sp_localized("重新获取",from: "SP_Login"),enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
             }else{
                 SP_HUD.show(detailText:error)
             }

@@ -16,7 +16,7 @@ import SwiftyJSON
 //#endif
 
 //测试环境
-let main_url = "http://39.108.142.204/"
+let main_url = "https://jh.qiuxiaokun.com/"
 //生产环境
 //let main_url = ""
 

@@ -51,6 +51,8 @@ class SP_TextField: UIView {
     @IBOutlet weak var button_R: UIButton!
     @IBOutlet weak var button_L_W: NSLayoutConstraint!
     @IBOutlet weak var button_R_W: NSLayoutConstraint!
+    @IBOutlet weak var button_L_H: NSLayoutConstraint!
+    @IBOutlet weak var button_R_H: NSLayoutConstraint!
     
     @IBOutlet weak var text_field: UITextField!
     @IBOutlet weak var text_field_L: NSLayoutConstraint!
