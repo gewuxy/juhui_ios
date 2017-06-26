@@ -39,7 +39,7 @@
                 <navigationController id="cGZ-2I-ZWE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自选" image="N自选" selectedImage="S自选" id="oZV-Ke-FYP"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Haa-Lw-Gqg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Haa-Lw-Gqg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2914,7 +2914,7 @@
                 <navigationController id="VFo-sN-GKW" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="资讯" image="N资讯" selectedImage="S资讯" id="qGA-hZ-OxF"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uLl-gY-lSR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uLl-gY-lSR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2932,7 +2932,7 @@
                 <navigationController id="Qdk-sb-5fL" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="行情" image="N行情" selectedImage="S行情" id="Ume-lJ-gs2"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wE6-0f-gpk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wE6-0f-gpk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2951,7 +2951,7 @@
                     <tabBarItem key="tabBarItem" tag="3" title="我的" image="N我的" selectedImage="S我的" id="pTU-qs-yUw"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c98-HW-nCW">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c98-HW-nCW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

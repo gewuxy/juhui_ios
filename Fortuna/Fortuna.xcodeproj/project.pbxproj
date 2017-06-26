@@ -115,6 +115,8 @@
 		AB5901FC1EE94B9200826A37 /* SP_TextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5901B91EE94B9200826A37 /* SP_TextField.xib */; };
 		AB5902071EE952E300826A37 /* SP_NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5902051EE952E300826A37 /* SP_NavigationView.swift */; };
 		AB5902081EE952E300826A37 /* SP_NavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB5902061EE952E300826A37 /* SP_NavigationView.xib */; };
+		AB67EBFC1F00A389009FF2DC /* M_Attention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EBFB1F00A389009FF2DC /* M_Attention.swift */; };
+		AB67EBFF1F00A3B2009FF2DC /* VM_Attention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EBFE1F00A3B2009FF2DC /* VM_Attention.swift */; };
 		AB6824241EFA20730079C58B /* SP_AFSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824211EFA20730079C58B /* SP_AFSwift.swift */; };
 		AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824231EFA20730079C58B /* SP_UploadParam.swift */; };
 		AB6824281EFA20950079C58B /* SP_Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824271EFA20950079C58B /* SP_Alamofire.swift */; };
@@ -290,6 +292,8 @@
 		AB5901B91EE94B9200826A37 /* SP_TextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_TextField.xib; sourceTree = "<group>"; };
 		AB5902051EE952E300826A37 /* SP_NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_NavigationView.swift; sourceTree = "<group>"; };
 		AB5902061EE952E300826A37 /* SP_NavigationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_NavigationView.xib; sourceTree = "<group>"; };
+		AB67EBFB1F00A389009FF2DC /* M_Attention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_Attention.swift; sourceTree = "<group>"; };
+		AB67EBFE1F00A3B2009FF2DC /* VM_Attention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VM_Attention.swift; sourceTree = "<group>"; };
 		AB6824211EFA20730079C58B /* SP_AFSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_AFSwift.swift; sourceTree = "<group>"; };
 		AB6824231EFA20730079C58B /* SP_UploadParam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UploadParam.swift; sourceTree = "<group>"; };
 		AB6824271EFA20950079C58B /* SP_Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Alamofire.swift; sourceTree = "<group>"; };
@@ -539,6 +543,8 @@
 				AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */,
 				AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */,
 				AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */,
+				AB67EBFD1F00A39D009FF2DC /* V_M */,
+				AB67EBFA1F00A389009FF2DC /* Model */,
 			);
 			path = JH_Attention;
 			sourceTree = "<group>";
@@ -764,6 +770,22 @@
 				AB5901B91EE94B9200826A37 /* SP_TextField.xib */,
 			);
 			path = SP_TextField;
+			sourceTree = "<group>";
+		};
+		AB67EBFA1F00A389009FF2DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB67EBFB1F00A389009FF2DC /* M_Attention.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB67EBFD1F00A39D009FF2DC /* V_M */ = {
+			isa = PBXGroup;
+			children = (
+				AB67EBFE1F00A3B2009FF2DC /* VM_Attention.swift */,
+			);
+			path = V_M;
 			sourceTree = "<group>";
 		};
 		AB6824201EFA20730079C58B /* SP_NetWorking */ = {
@@ -1057,6 +1079,7 @@
 				AB5901E91EE94B9200826A37 /* SP_MJDIYHeader.swift in Sources */,
 				AB5901D81EE94B9200826A37 /* UIViewController+Extension.swift in Sources */,
 				AB5902071EE952E300826A37 /* SP_NavigationView.swift in Sources */,
+				AB67EBFF1F00A3B2009FF2DC /* VM_Attention.swift in Sources */,
 				AB5901F91EE94B9200826A37 /* TabBar_Extension.swift in Sources */,
 				AB564F321EFB930A005E3ABB /* SP_SVHUD.swift in Sources */,
 				AB5901E11EE94B9200826A37 /* LBPIconFont.m in Sources */,
@@ -1069,6 +1092,7 @@
 				AB4A75CB1EEFE8EF0014F633 /* JH_Search_Cell.swift in Sources */,
 				AB82CEBF1EEE35F900D015B1 /* SP_Tool.swift in Sources */,
 				AB8B21E61EFCC16300B944AA /* JH_MySetting.swift in Sources */,
+				AB67EBFC1F00A389009FF2DC /* M_Attention.swift in Sources */,
 				AB82CED81EEE3E0000D015B1 /* SP_ToolOC.m in Sources */,
 				AB5901D71EE94B9200826A37 /* UIView_extension.swift in Sources */,
 				AB5901E31EE94B9200826A37 /* UIImage+LBPIconFont.m in Sources */,

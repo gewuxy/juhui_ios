@@ -15,7 +15,7 @@
 "3DY-jC-sxr.text" = "成交量";
 
 /* Class = "UILabel"; text = "涨跌幅"; ObjectID = "3YC-6J-GpB"; */
-"3YC-6J-GpB.text" = "涨跌幅";
+"3YC-6J-GpB.text" = "Change";
 
 /* Class = "UILabel"; text = "00.00"; ObjectID = "3mQ-62-80m"; */
 "3mQ-62-80m.text" = "00.00";
@@ -24,7 +24,7 @@
 "4TP-nB-UPL.text" = "0000000";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "5II-dF-JnU"; */
-"5II-dF-JnU.text" = "名称";
+"5II-dF-JnU.text" = "Name";
 
 /* Class = "UILabel"; text = "名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称"; ObjectID = "5We-7e-kqS"; */
 "5We-7e-kqS.text" = "名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称";
@@ -33,7 +33,7 @@
 "5gl-eq-Mwr.text" = "0000000";
 
 /* Class = "UILabel"; text = "最新价"; ObjectID = "6Ai-mb-MwY"; */
-"6Ai-mb-MwY.text" = "最新价";
+"6Ai-mb-MwY.text" = "Latest Price";
 
 /* Class = "UILabel"; text = "总市值"; ObjectID = "6Qp-6G-ANO"; */
 "6Qp-6G-ANO.text" = "总市值";
@@ -96,7 +96,7 @@
 "ELZ-Mh-sdN.text" = "00.00";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "EiG-2O-jOA"; */
-"EiG-2O-jOA.text" = "名称";
+"EiG-2O-jOA.text" = "Name";
 
 /* Class = "UILabel"; text = "卖3"; ObjectID = "FBO-Qi-E6q"; */
 "FBO-Qi-E6q.text" = "Sell 3";
@@ -201,7 +201,7 @@
 "StJ-d1-odn.normalTitle" = "全选（取消）";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "TOt-tT-Xb7"; */
-"TOt-tT-Xb7.text" = "名称";
+"TOt-tT-Xb7.text" = "Name";
 
 /* Class = "UILabel"; text = "00.00"; ObjectID = "To2-TN-CFl"; */
 "To2-TN-CFl.text" = "00.00";
@@ -261,7 +261,7 @@
 "bV5-Z7-Im4.text" = "00";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "cKr-JW-aNf"; */
-"cKr-JW-aNf.text" = "name";
+"cKr-JW-aNf.text" = "Name";
 
 /* Class = "UILabel"; text = "买1"; ObjectID = "cxc-Zo-X2q"; */
 "cxc-Zo-X2q.text" = "Buy 1";
@@ -291,7 +291,7 @@
 "fbq-eI-mMd.title" = "News";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "fed-of-C5z"; */
-"fed-of-C5z.text" = "name";
+"fed-of-C5z.text" = "Name";
 
 /* Class = "UILabel"; text = "涨停"; ObjectID = "fjz-hT-RGz"; */
 "fjz-hT-RGz.text" = "涨停";
@@ -333,7 +333,7 @@
 "hgU-Xa-kBN.text" = "Sell 1";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "htv-AG-ha4"; */
-"htv-AG-ha4.text" = "名称";
+"htv-AG-ha4.text" = "Name";
 
 /* Class = "UIButton"; normalTitle = "60分"; ObjectID = "iPh-FI-oJa"; */
 "iPh-FI-oJa.normalTitle" = "60分";
@@ -486,7 +486,7 @@
 "xyX-eZ-C56.text" = "量比";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "y9D-ZM-aZJ"; */
-"y9D-ZM-aZJ.text" = "name";
+"y9D-ZM-aZJ.text" = "Name";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ywx-D1-N9Q"; */
 "ywx-D1-N9Q.text" = "Label";

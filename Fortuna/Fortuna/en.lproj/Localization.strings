@@ -12,8 +12,19 @@
  */
 
 "自选" = "Attention";
+"编辑" = "Edit";
+
+
+
+
 "资讯" = "News";
+
+
+
 "行情" = "Market";
+
+
+
 "我的" = "Me";
 
 "我的持仓" = "My positions";

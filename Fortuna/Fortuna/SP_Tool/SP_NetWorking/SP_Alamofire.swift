@@ -146,17 +146,20 @@ open class SP_Alamofire {
     }
     
     var uploadCancel = false
+    
+    var _headers:[String:String] = [:]
 }
 
 extension SP_Alamofire {
     //MARK:--- 网络请求 -----------------------------
     static func get(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
-        SP_Alamofire.shared._manager.request(url, method: .get, parameters: param).responseJSON { (response) in
+        SP_Alamofire.shared._manager.request(url, method: .get, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { (response) in
             SP_Alamofire.disposeResponse(response, block:block)
         }
+        
     }
     static func post(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
-        SP_Alamofire.shared._manager.request(url, method: .post, parameters: param).responseJSON { response in
+        SP_Alamofire.shared._manager.request(url, method: .post, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { response in
             SP_Alamofire.disposeResponse(response, block:block)
         }
     }

@@ -31,6 +31,7 @@ enum SP_UserAPI {
 //MARK:--- 自己的版本 -----------------------------
 extension SP_UserAPI {
     func post(_ block:((Bool,Any,String) -> Void)? = nil) {
+        SP_Alamofire.shared._headers = ["token":""]
         switch self {
         case .t_登录(let mobile, let pwd):
             let param = ["mobile": mobile, "password": pwd]
@@ -70,9 +71,9 @@ extension SP_UserAPI {
             SP_Alamofire.post(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
                 print_Json("url_用户信息获取=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    //print_Json(datas)
+                    print_Json(datas)
                     if (datas != nil) {
-                        print_SP(datas)
+                        print_Json(datas)
                         SP_UserModel.write(datas ?? SP_UserModel())
                     }
                     block?(isOk, datas ?? SP_UserModel(), error)

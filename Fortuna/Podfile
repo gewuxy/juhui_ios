@@ -52,6 +52,8 @@ target ‘Fortuna’ do
     pod 'WebViewJavascriptBridge'
     pod 'IMYWebView'
     
+    pod 'DZNEmptyDataSet'
+    
 end
 
 post_install do |installer|

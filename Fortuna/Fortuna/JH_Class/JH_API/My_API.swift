@@ -20,16 +20,37 @@ let main_url = "https://jh.qiuxiaokun.com/"
 //生产环境
 //let main_url = ""
 
-
+let my_pageSize = "20"
 
 enum My_API {
     static let url_用户信息修改 = "api/account/info/"
-    case t_用户信息修改(mobile:String)
+    case t_用户信息修改(mobile:String,nickname:String,email:String,img_url:String)
     
+    static let url_获取自选列表 = "api/wine/getopt/"
+    case t_获取自选列表(pageIndex:Int,pageSize:String)
     
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
+        var parame:[String:Any] = ["token":SP_User.shared.userToken]
+        switch self {
+        case .t_获取自选列表(let pageIndex, let pageSize):
+            parame += ["pageIndex":pageIndex,"pageSize":pageSize]
+            SP_Alamofire.post(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取自选列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_用户信息修改(let mobile,let nickname,let email,let img_url):
+            parame += ["mobile":mobile,"nickname":nickname,"email":email,"img_url":img_url]
+            SP_Alamofire.post(main_url+My_API.url_用户信息修改, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取自选列表=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? T(), error)
+                })
+            })
+        }
         
     }
     
@@ -41,7 +62,9 @@ extension My_API {
 //MARK:--- 数据初步处理 -----------------------------
 public protocol SP_JsonModel {
     //所有的转模型通过遵循 SP_JsonModel 协议
+    init()
     init?(_ json:JSON)
+    
 }
 extension My_API {
     

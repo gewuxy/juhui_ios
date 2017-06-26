@@ -21,22 +21,22 @@ func addMJHeaderAndFooter() {
     tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
         // 模拟延迟加载数据，2秒后才调用（
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) {
-            self.tableView.mj_header.endRefreshing()
+            self.tableView.mj_header?.endRefreshing()
         }
     })
     tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) {
-            self.tableView.mj_footer.endRefreshingWithNoMoreData()
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
         }
     })
 }
 func EndRefresh()  {
-    tableView.mj_header.endRefreshing()
-    tableView.mj_footer.endRefreshing()
+    tableView.mj_header?.endRefreshing()
+    tableView.mj_footer?.endRefreshing()
     
 }
 func footerEndRefreshNoMoreData() {
-    tableView.mj_footer.endRefreshingWithNoMoreData()
+    tableView.mj_footer?.endRefreshingWithNoMoreData()
 }
 //添加这个扩展类之后使用 MJRefresh 方法如下，（只是使MJRefresh使用更加清晰，统一管理）
 func addMJHeaderAndFooter() {
@@ -128,28 +128,28 @@ extension UIScrollView {
     }
     //MARK:----------- 调用顶部刷新
     func sp_headerBeginRefresh() {
-        self.mj_header.beginRefreshing()
+        self.mj_header?.beginRefreshing()
     }
     //MARK:----------- 取消顶部刷新状态
     func sp_headerEndRefresh() {
-        self.mj_header.endRefreshing()
+        self.mj_header?.endRefreshing()
     }
     //MARK:----------- 调用底部刷新
     func sp_footerBeginRefresh() {
-        self.mj_footer.beginRefreshing()
+        self.mj_footer?.beginRefreshing()
     }
     
     //MARK:----------- 取消底部刷新状态
     func sp_footerEndRefresh() {
-        self.mj_footer.endRefreshing()
+        self.mj_footer?.endRefreshing()
     }
     //MARK:----------- 取消底部刷新状态并显示无数据并停用上拉刷新
     func sp_footerEndRefreshNoMoreData() {
-        self.mj_footer.endRefreshingWithNoMoreData()
+        self.mj_footer?.endRefreshingWithNoMoreData()
     }
     //MARK: 重置无数据状态(如果执行了footerEndRefreshNoMoreData(),可用此方法开启上拉)
     func sp_footerResetNoMoreData() {
-        self.mj_footer.resetNoMoreData()
+        self.mj_footer?.resetNoMoreData()
     }
    
 }
