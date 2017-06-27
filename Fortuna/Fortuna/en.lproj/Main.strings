@@ -33,7 +33,7 @@
 "5gl-eq-Mwr.text" = "0000000";
 
 /* Class = "UILabel"; text = "最新价"; ObjectID = "6Ai-mb-MwY"; */
-"6Ai-mb-MwY.text" = "Latest Price";
+"6Ai-mb-MwY.text" = "Price";
 
 /* Class = "UILabel"; text = "总市值"; ObjectID = "6Qp-6G-ANO"; */
 "6Qp-6G-ANO.text" = "总市值";
@@ -369,7 +369,7 @@
 "mRe-MF-7C3.text" = "00.00";
 
 /* Class = "UIViewController"; title = "自选"; ObjectID = "mTh-gb-yha"; */
-"mTh-gb-yha.title" = "Attention";
+"mTh-gb-yha.title" = "Follow";
 
 /* Class = "UILabel"; text = "0000000"; ObjectID = "nAT-k4-5DC"; */
 "nAT-k4-5DC.text" = "0000000";
@@ -384,7 +384,7 @@
 "oIe-g7-Ni4.text" = "00.00";
 
 /* Class = "UITabBarItem"; title = "自选"; ObjectID = "oZV-Ke-FYP"; */
-"oZV-Ke-FYP.title" = "Attention";
+"oZV-Ke-FYP.title" = "Follow";
 
 /* Class = "UILabel"; text = "00"; ObjectID = "obz-LP-VlX"; */
 "obz-LP-VlX.text" = "00";
@@ -414,7 +414,7 @@
 "rFw-KV-YNt.text" = "00";
 
 /* Class = "UIButton"; normalTitle = "+ 自选"; ObjectID = "sN0-cq-mDs"; */
-"sN0-cq-mDs.normalTitle" = "+ Attention";
+"sN0-cq-mDs.normalTitle" = "+ Follow";
 
 /* Class = "UIButton"; normalTitle = "买 入"; ObjectID = "szL-yj-n82"; */
 "szL-yj-n82.normalTitle" = "Buy";

@@ -46,7 +46,8 @@ class SP_Login: SP_ParentVC {
         let text = SP_TextField.show(self.view_phone)
         text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
-        text.text_field.keyboardType = .numberPad
+        text.text_field.keyboardType = .phonePad
+        text.text_field.showOkButton()
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
         text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
         text.text_field_L.constant = 15

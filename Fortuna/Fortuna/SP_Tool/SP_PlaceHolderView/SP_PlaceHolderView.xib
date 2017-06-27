@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SP_PlaceHolderView" customModule="Fortuna" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kht-Ba-67k">
+                    <rect key="frame" x="118" y="107" width="138" height="155"/>
+                    <state key="normal" image="Attention杯子"/>
+                    <state key="selected" image="Attention杯子"/>
+                    <state key="highlighted" image="Attention杯子"/>
+                    <connections>
+                        <action selector="clickButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="iCQ-Nc-0Mx"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还没有自选酒" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2g-Dd-SdN">
+                    <rect key="frame" x="20" y="289" width="335" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddE-in-QdU">
+                    <rect key="frame" x="20" y="344" width="335" height="34"/>
+                    <state key="normal" title="点击添加">
+                        <color key="titleColor" red="0.99607843139999996" green="0.42352941179999998" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clickButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="0MF-wR-3x8"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVq-tw-MzA">
+                    <rect key="frame" x="20" y="326" width="335" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ddE-in-QdU" secondAttribute="trailing" constant="20" id="5XT-ix-QD6"/>
+                <constraint firstItem="ddE-in-QdU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="D2m-yk-YfD"/>
+                <constraint firstAttribute="trailing" secondItem="D2g-Dd-SdN" secondAttribute="trailing" constant="20" id="Zuz-MS-8MM"/>
+                <constraint firstItem="D2g-Dd-SdN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="chq-Gi-mD0"/>
+                <constraint firstItem="D2g-Dd-SdN" firstAttribute="top" secondItem="kht-Ba-67k" secondAttribute="bottom" constant="27" id="iij-vy-Qzn"/>
+                <constraint firstItem="kht-Ba-67k" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="oiw-F5-5DM"/>
+                <constraint firstAttribute="trailing" secondItem="HVq-tw-MzA" secondAttribute="trailing" constant="20" id="p5f-Sn-WZr"/>
+                <constraint firstItem="HVq-tw-MzA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="uhG-VH-AjR"/>
+                <constraint firstItem="ddE-in-QdU" firstAttribute="top" secondItem="HVq-tw-MzA" secondAttribute="bottom" constant="18" id="ult-16-qOd"/>
+                <constraint firstItem="kht-Ba-67k" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="107" id="xNM-QX-nxf"/>
+                <constraint firstItem="HVq-tw-MzA" firstAttribute="top" secondItem="D2g-Dd-SdN" secondAttribute="bottom" constant="15" id="zZV-xV-DXf"/>
+            </constraints>
+            <connections>
+                <outlet property="btn_Image" destination="kht-Ba-67k" id="ftW-U8-JLe"/>
+                <outlet property="btn_Image_T" destination="xNM-QX-nxf" id="9AJ-SW-S4o"/>
+                <outlet property="btn_title" destination="ddE-in-QdU" id="TLY-1T-M95"/>
+                <outlet property="btn_title_T" destination="ult-16-qOd" id="Wan-dq-Oby"/>
+                <outlet property="lab_detalTitle" destination="HVq-tw-MzA" id="5Cc-oe-dbx"/>
+                <outlet property="lab_detalTitle_T" destination="zZV-xV-DXf" id="cIc-hG-odv"/>
+                <outlet property="lab_title" destination="D2g-Dd-SdN" id="5dp-0S-bz3"/>
+                <outlet property="lab_title_T" destination="iij-vy-Qzn" id="Fao-Qx-rbA"/>
+                <outletCollection property="gestureRecognizers" destination="jTD-I9-Ij3" appends="YES" id="p7R-TV-mJe"/>
+            </connections>
+        </view>
+        <tapGestureRecognizer id="jTD-I9-Ij3">
+            <connections>
+                <action selector="clickTap:" destination="iN0-l3-epB" id="odx-AP-hx8"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="Attention杯子" width="138" height="155"/>
+    </resources>
+</document>

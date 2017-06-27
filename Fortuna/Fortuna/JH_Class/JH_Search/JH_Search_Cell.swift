@@ -15,9 +15,12 @@ class JH_SearchCell_List: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        view_line.backgroundColor = UIColor.main_bg
+        view_line.backgroundColor = UIColor.main_line
         lab_name.textColor = UIColor.mainText_1
-        
+        lab_num.textColor = UIColor.mainText_1
+        lab_name.font = sp_fitFont16
+        lab_num.font = sp_fitFont16
+        btn_select.titleLabel?.font = sp_fitFont16
     }
     
     @IBOutlet weak var view_line: UIView!
@@ -25,6 +28,9 @@ class JH_SearchCell_List: UITableViewCell {
     @IBOutlet weak var lab_num: UILabel!
     @IBOutlet weak var btn_select: UIButton!
     
-    
+    var _clickBlock:(()->Void)?
+    @IBAction func clickButton(_ sender: UIButton) {
+        _clickBlock?()
+    }
     
 }

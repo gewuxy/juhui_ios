@@ -108,6 +108,7 @@ open class SP_User {
     let userProvider = RxMoyaProvider<SP_UserAPI>()
     
     func removeUser() {
+        
         self.userToken = ""
         self.userPwd = ""
         self.userLoginType = .tOther
@@ -268,6 +269,16 @@ open class SP_User {
         SP_UserAPI
             .t_短信(mobile: param.mobile, type: param.type)
             .post { (isOk, datas, error) in
+                block?(isOk,error)
+        }
+    }
+    
+    func loginOut(_ block:((Bool,String)->Void)? = nil) {
+        SP_UserAPI
+            .t_退出登录
+            .post { (isOk, datas, error) in
+                SP_User.shared.removeUser()
+                self.url_用户信息()
                 block?(isOk,error)
         }
     }

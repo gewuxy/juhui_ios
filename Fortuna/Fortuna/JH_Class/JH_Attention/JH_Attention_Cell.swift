@@ -51,15 +51,16 @@ class JH_AttentionCell_Edit: UITableViewCell {
         view_line.backgroundColor = UIColor.main_line
         lab_name.textColor = UIColor.mainText_1
         
-        lab_name.font = sp_fitFont20
+        lab_name.font = sp_fitFont18
         
         btn_select.setTitleColor(UIColor.mainText_1, for: .normal)
-        btn_select.titleLabel?.font = sp_fitFont20
+        btn_select.titleLabel?.font = sp_fitFont18
     }
     
     @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var btn_select: UIButton!
+    @IBOutlet weak var btn_tap: UIButton!
     @IBOutlet weak var btn_toTop: UIButton!
     enum clickType {
         case tSelect
@@ -69,6 +70,8 @@ class JH_AttentionCell_Edit: UITableViewCell {
     @IBAction func clickBtn(_ sender: UIButton) {
         switch sender {
         case btn_select:
+            _block?(.tSelect)
+        case btn_tap:
             _block?(.tSelect)
         case btn_toTop:
             _block?(.tToTop)

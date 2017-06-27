@@ -27,22 +27,48 @@ enum My_API {
     case t_用户信息修改(mobile:String,nickname:String,email:String,img_url:String)
     
     static let url_获取自选列表 = "api/wine/getopt/"
-    case t_获取自选列表(pageIndex:Int,pageSize:Int)
+    case t_获取自选列表(page:Int)
+    
+    static let url_添加自选数据 = "api/wine/setopt/"
+    case t_添加自选数据(code:String)
     
     static let url_删除自选数据 = "api/wine/delopt/"
     case t_删除自选数据(code:String)
+    
+    static let url_自选搜索 = "api/wine/search/"
+    case t_自选搜索(key:String, page:Int)
+    
+    static let url_自选数据排序 = "api/wine/sortopt/"
+    case t_自选数据排序(code:String, sort_no:String)
+    
     
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
         var parame:[String:Any] = ["token":SP_User.shared.userToken]
         switch self {
-        case .t_获取自选列表(let pageIndex, let pageSize):
-            parame += ["pageIndex":pageIndex,"pageSize":pageSize]
+        case .t_获取自选列表(let page):
+            parame += ["page":page,"page_num":my_pageSize]
             SP_Alamofire.post(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
                 print_Json("url_获取自选列表=>\(JSON(res!))")
                 My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas, error)
+                })
+            })
+        case .t_自选搜索(let key, let page):
+            parame += ["key":key, "page":page,"page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_自选搜索, param: parame, block: { (isOk, res, error) in
+                print_Json("url_自选搜索=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_添加自选数据(let code):
+            parame += ["code":code]
+            SP_Alamofire.post(main_url+My_API.url_添加自选数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_添加自选数据=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? T(), error)
                 })
             })
         case .t_删除自选数据(let code):
@@ -53,6 +79,15 @@ extension My_API {
                     block?(isOk, datas ?? T(), error)
                 })
             })
+        case .t_自选数据排序(let code, let sort_no):
+            parame += ["code":code, "sort_no":sort_no]
+            SP_Alamofire.post(main_url+My_API.url_自选数据排序, param: parame, block: { (isOk, res, error) in
+                print_Json("url_自选数据排序=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            
         case .t_用户信息修改(let mobile,let nickname,let email,let img_url):
             parame += ["mobile":mobile,"nickname":nickname,"email":email,"img_url":img_url]
             SP_Alamofire.post(main_url+My_API.url_用户信息修改, param: parame, block: { (isOk, res, error) in
@@ -145,6 +180,9 @@ enum My_NetCodeError: String {
     case t发送验证码失败 = "000005"
     case t密码错误     = "000006"
     case t需要登录     = "000007"
+    case t无效用户     = "000008"
+    case t已添加     = "100001"
+    
     case t没有数据    = "011110"
     case tError      = "011111"
     
@@ -159,6 +197,8 @@ enum My_NetCodeError: String {
         case .t密码错误: return sp_localized(My_NetCodeError.t密码错误.rawValue)
         case .t需要登录: return sp_localized(My_NetCodeError.t需要登录.rawValue)
         case .t没有数据: return sp_localized(My_NetCodeError.t没有数据.rawValue)
+        case .t无效用户:  return sp_localized(My_NetCodeError.t无效用户.rawValue)
+        case .t已添加:  return sp_localized(My_NetCodeError.t已添加.rawValue)
         default: return sp_localized(My_NetCodeError.tError.rawValue)
         }
     }

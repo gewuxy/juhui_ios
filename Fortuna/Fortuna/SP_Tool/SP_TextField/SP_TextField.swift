@@ -30,7 +30,6 @@ class SP_TextField: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        text_field.showOkButton()
         text_field.delegate = self
         view_Line.backgroundColor = UIColor.main_line
         text_field.tintColor = UIColor.main_1

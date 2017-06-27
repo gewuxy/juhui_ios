@@ -15,6 +15,9 @@ enum SP_UserAPI {
     static let url_登录 = "api/account/login/"
     case t_登录(mobile:String, pwd:String)
     
+    static let url_退出登录 = "api/account/logout/"
+    case t_退出登录
+    
     static let url_注册 = "api/account/register/"
     case t_注册(mobile: String, pwd: String, code: String)
     
@@ -37,6 +40,15 @@ extension SP_UserAPI {
             let param = ["mobile": mobile, "password": pwd]
             SP_Alamofire.post(main_url + SP_UserAPI.url_登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_登录=>\(JSON(data!))")
+                My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? "", error)
+                })
+                
+            })
+        case .t_退出登录:
+            let param = ["token":SP_User.shared.userToken]
+            SP_Alamofire.post(main_url + SP_UserAPI.url_退出登录, param: param, block: { (isOk, data, error) in
+                print_Json("url_退出登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas ?? "", error)
                 })
@@ -137,6 +149,8 @@ extension SP_UserAPI: TargetType {
         switch self {
         case .t_登录(_,_):
             return SP_UserAPI.url_登录
+        case .t_退出登录:
+            return SP_UserAPI.url_退出登录
         case .t_注册(_, _, _):
             return SP_UserAPI.url_注册
         case .t_短信(_, _):
@@ -151,6 +165,8 @@ extension SP_UserAPI: TargetType {
     var method: Moya.Method {
         switch self {
         case .t_登录(_,_):
+            return .post
+        case .t_退出登录:
             return .post
         case .t_注册(_, _, _):
             return .post
@@ -167,6 +183,8 @@ extension SP_UserAPI: TargetType {
         switch self {
         case .t_登录(let mobile, let password):
             return ["mobile": mobile, "password": password]
+        case .t_退出登录:
+            return ["token":SP_User.shared.userToken]
         case .t_注册(let mobile, let password, let code):
             return ["mobile": mobile, "password": password, "code": code]
         case .t_短信(let mobile, let type):

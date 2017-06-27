@@ -10,9 +10,11 @@ import UIKit
 import DZNEmptyDataSet
 import RxCocoa
 import RxSwift
+import CYLTableViewPlaceHolder
 
 class JH_AttentionEdit: SP_ParentVC {
     
+    let disposeBag = DisposeBag()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var view_toolBar: UIView!
     @IBOutlet weak var btn_allSelect: UIButton!
@@ -21,12 +23,6 @@ class JH_AttentionEdit: SP_ParentVC {
     fileprivate var _datas = [M_Attention]()
     
     fileprivate var _allSelect = false
-    enum emptyDataOpenType {
-        case tOff
-        case tNoData
-        case tNetError(text:String)
-    }
-    fileprivate var _emptyDataOpen = emptyDataOpenType.tOff
     
 }
 
@@ -46,7 +42,7 @@ extension JH_AttentionEdit {
         
         makeNavigation()
         makeUI()
-        
+        makeRx()
     }
     fileprivate func makeNavigation() {
         
@@ -55,12 +51,30 @@ extension JH_AttentionEdit {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.setEditing(true, animated: true)
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
-        tableView.emptyDataSetDelegate = self
-        tableView.emptyDataSetSource = self
+        
+        //tableView.emptyDataSetDelegate = self
+        //tableView.emptyDataSetSource = self
         
     }
-    
+    fileprivate func makeRx() {
+        sp_Notification.rx
+            .notification(ntf_Name_自选添加)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                guard let data = n.object as? M_Attention else{
+                    self?._pageIndex = 1
+                    self?.t_获取自选列表()
+                    return
+                }
+                self?._datas.insert(data, at: 0)
+                self?.tableView.cyl_reloadData()
+                if self?._datas.count == 0 {
+                    self?._pageIndex = 1
+                    self?.t_获取自选列表()
+                }
+            }).addDisposableTo(disposeBag)
+    }
     fileprivate func allSelect() {
         _allSelect = true
         for item in _datas {
@@ -74,17 +88,19 @@ extension JH_AttentionEdit {
         var code = ""
         for item in _datas {
             if item.isSelect {
-                code += ","+item.code
+                code += ";"+item.code
             }
         }
         guard !code.isEmpty else {
             return code
         }
         code[0..<1] = ""
+        print_Json(code)
         return code
     }
     
     fileprivate func removeDatas() {
+        _allSelect = false
         var data = [M_Attention]()
         for item in _datas {
             if !item.isSelect {
@@ -92,14 +108,22 @@ extension JH_AttentionEdit {
             }
         }
         _datas = data
-        tableView.reloadData()
+        tableView.cyl_reloadData()
         
         sp_Notification.post(name: ntf_Name_自选删除, object: _datas)
         
         if _datas.count == 0 {
-            _pageIndex = 0
+            _pageIndex = 1
             t_获取自选列表()
         }
+    }
+    
+    fileprivate func sortDatas(_ from:Int, _ to:Int) {
+        let model = _datas[from]
+        self._datas.remove(at: from)
+        self._datas.insert(model, at: to)
+        self.tableView.cyl_reloadData()
+        sp_Notification.post(name: ntf_Name_自选排序, object: _datas)
     }
     
     @IBAction func clickButton(_ sender: UIButton) {
@@ -113,11 +137,30 @@ extension JH_AttentionEdit {
                 data.append(item)
             }
             _datas = data
-            tableView.reloadData()
+            tableView.cyl_reloadData()
         case btn_remove:
-            t_删除自选数据()
+            UIAlertController.showAler(self, btnText: [sp_localized("取消") ,sp_localized("删除")], title: sp_localized("您将删除所选自选酒"), block: { [weak self](text) in
+                if text == sp_localized("删除") {
+                    self?.t_删除自选数据()
+                    
+                }
+            })
+            
         default:
             break
+        }
+    }
+    
+    override func placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            JH_Search.show(self)
+            //self.navigationController?.tabBarController?.selectedIndex = 2
+        case .tNetError(_):
+            _placeHolderType = .tOnlyImage
+            t_获取自选列表()
         }
     }
 }
@@ -140,7 +183,7 @@ extension JH_AttentionEdit:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_AttentionCell_Edit.show(tableView, indexPath)
         let model = _datas[indexPath.row]
-        cell.btn_select.setTitle("    "+model.name, for: .normal)
+        cell.lab_name.text = model.name
         cell.btn_select.setImage(UIImage(named:model.isSelect ? "Attention选中" : "Attention没选中"), for: .normal)
         cell._block = { [weak self] type in
             switch type {
@@ -149,12 +192,11 @@ extension JH_AttentionEdit:UITableViewDataSource{
                 self?._datas[indexPath.row].isSelect = !model.isSelect
                 
                 self?.allSelect()
+            case .tToTop:
+                self?.t_自选数据排序(indexPath.row,0)
                 
-            default:
-                self?._datas.remove(at: indexPath.row)
-                self?._datas.insert(model, at: 0)
             }
-            tableView.reloadData()
+            tableView.cyl_reloadData()
         }
         return cell
     }
@@ -168,64 +210,12 @@ extension JH_AttentionEdit:UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
-    }
-}
-
-extension JH_AttentionEdit:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
-    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        print("\(sourceIndexPath.row) ==> \(destinationIndexPath.row)")
         
-        let attributes = [NSFontAttributeName:sp_fitFont20,
-                          NSForegroundColorAttributeName:UIColor.mainText_3]
-        switch _emptyDataOpen {
-        case .tOff:
-            return NSAttributedString(string: "", attributes: attributes)
-        case .tNoData:
-            return NSAttributedString(string:  sp_localized("还没有自选酒"), attributes: attributes)
-        case .tNetError(let text):
-            return NSAttributedString(string:  text, attributes: attributes)
-        }
-        
-    }
-    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
-        
-        let attributes = [NSFontAttributeName:sp_fitFont20,
-                          NSForegroundColorAttributeName:UIColor.main_1]
-        switch _emptyDataOpen {
-        case .tOff:
-            return NSAttributedString(string: "", attributes: attributes)
-        case .tNoData:
-            return NSAttributedString(string:  sp_localized("点击添加"), attributes: attributes)
-        case .tNetError(_):
-            return NSAttributedString(string:  sp_localized("点击刷新"), attributes: attributes)
-        }
-        
-    }
-    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "Attention杯子")
-    }
-    func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
-        switch _emptyDataOpen {
-        case .tOff:
-            break
-        case .tNoData:
-            self.navigationController?.tabBarController?.selectedIndex = 2
-        case .tNetError(_):
-            t_获取自选列表()
-            
-        }
-        
-        
+        t_自选数据排序(sourceIndexPath.row,destinationIndexPath.row)
     }
     
-    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
-        return true
-    }
-    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
-        return true
-    }
-    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
-        return true
-    }
+    
     
 }
 
@@ -236,13 +226,12 @@ extension JH_AttentionEdit:DZNEmptyDataSetSource,DZNEmptyDataSetDelegate {
 extension JH_AttentionEdit {
     
     fileprivate func t_获取自选列表() {
-        SP_HUD.show(view: self.view, type: .tLoading, text: "加载更多")
-        My_API.t_获取自选列表(pageIndex:_pageIndex,pageSize:my_pageSize).post(M_Attention.self) { [weak self](isOk, data, error) in
+        SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("加载更多"))
+        My_API.t_获取自选列表(page:_pageIndex).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()
             print_Json(data)
             if isOk {
                 guard var datas = data as? [M_Attention] else{return}
-                //datas = self!.testData()
                 
                 if self?._allSelect == true {
                     var data = [M_Attention]()
@@ -255,46 +244,45 @@ extension JH_AttentionEdit {
                 }
                 self?._datas = datas
                 if datas.count == 0 {
-                    self?._emptyDataOpen = emptyDataOpenType.tNoData
+                    self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有自选酒"), btnTitle:sp_localized("点击添加"))
                 }
-                self?.tableView.reloadData()
+                self?.tableView.cyl_reloadData()
                 
             }else{
                 SP_HUD.show(text:error)
-                self?._emptyDataOpen = emptyDataOpenType.tNetError(text: error)
-                self?.tableView.reloadData()
+                self?._placeHolderType = .tNetError(labTitle: error)
+                self?.tableView.cyl_reloadData()
             }
             
         }
     }
     
-    
-    fileprivate func testData() -> [M_Attention] {
-        guard _pageIndex < 5 else {
-            return []
-        }
-        var datas = [M_Attention]()
-        for i in 0 ..< 20 {
-            datas.append(M_Attention(code: "\(_pageIndex)-\(i)", id: "", isDelete: false, name: "自选\(_pageIndex)-\(i)", proposedPrice: "\(_pageIndex)-\(i)", quoteChange: "\(_pageIndex)-\(i)", winery: "\(_pageIndex)-\(i)", isSelect:false))
-        }
-        return datas
-    }
-    
-    
     fileprivate func t_删除自选数据() {
         
         guard !returnCode().isEmpty else {
-            SP_HUD.show(text: "请选择要删除的自选酒")
+            SP_HUD.show(text: sp_localized("请选择要删除的自选酒"))
             return
         }
-        SP_HUD.show(view: self.view, type: .tLoading, text: "正在提交")
+        SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
         My_API.t_删除自选数据(code:returnCode()).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
-                SP_HUD.show(text:"已删除")
+                SP_HUD.show(text:sp_localized("已删除"))
                 self?.removeDatas()
             }else{
                 SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    
+    fileprivate func t_自选数据排序(_ from:Int, _ to:Int) {
+        My_API.t_自选数据排序(code:_datas[from].code, sort_no: String(format: "%d", to)).post(M_Attention.self) { [weak self](isOk, data, error) in
+            if isOk {
+                self?.sortDatas(from,to)
+            }else{
+                SP_HUD.show(text:error)
+                self?.tableView?.cyl_reloadData()
             }
             
         }

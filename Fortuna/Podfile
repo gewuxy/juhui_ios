@@ -53,7 +53,7 @@ target ‘Fortuna’ do
     pod 'IMYWebView'
     
     pod 'DZNEmptyDataSet'
-    
+    pod 'CYLTableViewPlaceHolder'
 end
 
 post_install do |installer|

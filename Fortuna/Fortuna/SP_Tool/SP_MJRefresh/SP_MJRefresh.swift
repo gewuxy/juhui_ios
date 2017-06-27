@@ -67,7 +67,7 @@ func footerEndRefreshNoMoreData() {
 //MARK:----------- 顶部下拉刷新
 extension UIScrollView {
     //MARK:----------- 添加顶部刷新 -- 普通
-    func sp_headerAddMJRefresh(_ block:@escaping MJRefreshComponentRefreshingBlock)  {
+    func sp_headerAddMJRefresh(_ titles:(String,String,String) = (MJRefreshDIY_Title_Idle_Down,MJRefreshDIY_Title_Pulling_Down,MJRefreshDIY_Title_Refreshing_Down), block:@escaping MJRefreshComponentRefreshingBlock)  {
         let header = MJRefreshNormalHeader(refreshingBlock: block)
         //是否隐藏
         header?.stateLabel.isHidden = MJRefreshDIY_StateLabelHidden_Down
@@ -75,9 +75,9 @@ extension UIScrollView {
         
         if !MJRefreshDIY_StateLabelHidden_Down {
             //设置文字
-            header?.setTitle(MJRefreshDIY_Title_Idle_Down, for: .idle)
-            header?.setTitle(MJRefreshDIY_Title_Pulling_Down, for: .pulling)
-            header?.setTitle(MJRefreshDIY_Title_Refreshing_Down, for: .refreshing)
+            header?.setTitle(titles.0, for: .idle)
+            header?.setTitle(titles.1, for: .pulling)
+            header?.setTitle(titles.2, for: .refreshing)
             ///设置字体
             header?.stateLabel.font = MJRefreshDIY_StateLabelFont
             //设置颜色

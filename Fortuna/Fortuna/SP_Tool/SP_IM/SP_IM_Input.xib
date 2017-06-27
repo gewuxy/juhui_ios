@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QaK-mA-r5e" customClass="SP_IM_Input" customModule="Fortuna" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我想说一句" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxa-wV-0cV">
+                    <rect key="frame" x="58" y="16" width="275" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMz-Xr-elF">
+                    <rect key="frame" x="0.0" y="617" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="atS-h1-4gG"/>
+                        <constraint firstAttribute="height" constant="50" id="ieQ-MO-dRb"/>
+                    </constraints>
+                    <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="none杯子"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaT-jl-XDu">
+                    <rect key="frame" x="325" y="617" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Nrj-dG-W5s"/>
+                        <constraint firstAttribute="width" constant="50" id="yPu-DL-mOt"/>
+                    </constraints>
+                    <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="none杯子"/>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2zf-Sl-9Wi">
+                    <rect key="frame" x="50" y="8" width="275" height="651"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.70071703770000004" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hv0-7s-SAq">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="3h8-0g-C3y"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="hv0-7s-SAq" firstAttribute="top" secondItem="QaK-mA-r5e" secondAttribute="top" id="4Rz-nb-Vqm"/>
+                <constraint firstItem="2zf-Sl-9Wi" firstAttribute="leading" secondItem="sMz-Xr-elF" secondAttribute="trailing" id="4zG-Yx-Mop"/>
+                <constraint firstAttribute="bottom" secondItem="gaT-jl-XDu" secondAttribute="bottom" id="6Zp-QA-9Tf"/>
+                <constraint firstItem="gaT-jl-XDu" firstAttribute="leading" secondItem="2zf-Sl-9Wi" secondAttribute="trailing" id="7L7-aj-z64"/>
+                <constraint firstItem="2zf-Sl-9Wi" firstAttribute="top" secondItem="hv0-7s-SAq" secondAttribute="bottom" constant="8" id="FZI-o1-6JA"/>
+                <constraint firstAttribute="bottom" secondItem="sMz-Xr-elF" secondAttribute="bottom" id="Tgj-Zc-PID"/>
+                <constraint firstAttribute="bottom" secondItem="2zf-Sl-9Wi" secondAttribute="bottom" constant="8" id="Vfc-n1-pi1"/>
+                <constraint firstItem="sMz-Xr-elF" firstAttribute="leading" secondItem="QaK-mA-r5e" secondAttribute="leading" id="WF2-Ta-8Pt"/>
+                <constraint firstAttribute="trailing" secondItem="hv0-7s-SAq" secondAttribute="trailing" id="Y5E-Fn-1HT"/>
+                <constraint firstItem="hxa-wV-0cV" firstAttribute="trailing" secondItem="2zf-Sl-9Wi" secondAttribute="trailing" constant="8" id="YKY-0P-AX7"/>
+                <constraint firstAttribute="trailing" secondItem="gaT-jl-XDu" secondAttribute="trailing" id="dJ6-wZ-A3I"/>
+                <constraint firstItem="hxa-wV-0cV" firstAttribute="top" secondItem="2zf-Sl-9Wi" secondAttribute="top" constant="8" id="eSt-2n-Pea"/>
+                <constraint firstItem="hv0-7s-SAq" firstAttribute="leading" secondItem="QaK-mA-r5e" secondAttribute="leading" id="gnb-Zt-BaC"/>
+                <constraint firstItem="hxa-wV-0cV" firstAttribute="leading" secondItem="2zf-Sl-9Wi" secondAttribute="leading" constant="8" id="sAU-3C-sR0"/>
+            </constraints>
+            <connections>
+                <outlet property="button_L" destination="sMz-Xr-elF" id="Fhb-eF-6HC"/>
+                <outlet property="button_L_H" destination="ieQ-MO-dRb" id="w1c-JL-b6l"/>
+                <outlet property="button_L_W" destination="atS-h1-4gG" id="iLW-X2-UgN"/>
+                <outlet property="button_R" destination="gaT-jl-XDu" id="68P-Tb-WfP"/>
+                <outlet property="button_R_H" destination="Nrj-dG-W5s" id="2xe-oQ-e8Y"/>
+                <outlet property="button_R_W" destination="yPu-DL-mOt" id="xkl-is-HK1"/>
+                <outlet property="lab_phlace" destination="hxa-wV-0cV" id="hXQ-Un-S3s"/>
+                <outlet property="text_View" destination="2zf-Sl-9Wi" id="ywe-wR-MhY"/>
+                <outlet property="text_View_L" destination="4zG-Yx-Mop" id="9iK-Da-AZn"/>
+                <outlet property="text_View_R" destination="7L7-aj-z64" id="ALM-12-rLH"/>
+            </connections>
+            <point key="canvasLocation" x="113.5" y="792.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="none杯子" width="138" height="155"/>
+    </resources>
+</document>

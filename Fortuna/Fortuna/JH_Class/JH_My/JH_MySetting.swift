@@ -63,7 +63,9 @@ extension JH_MySetting {
     
 
     @IBAction func clickExitLogin(_ sender: UIButton) {
-        SP_User.shared.removeUser()
+        SP_User.shared.loginOut { (isOk, error) in
+            
+        }
         makeUI()
     }
 }

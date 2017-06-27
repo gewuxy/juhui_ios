@@ -79,6 +79,9 @@ extension JH_My {
     }
     
     fileprivate func makeLogin() {
+        guard !SP_User.shared.userIsLogin else {
+            return
+        }
         SP_Login.show(self) { (isOk) in
             
         }

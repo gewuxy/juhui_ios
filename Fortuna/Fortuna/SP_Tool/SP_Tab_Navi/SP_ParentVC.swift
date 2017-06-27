@@ -18,9 +18,74 @@
 
 import UIKit
 
-
+import CYLTableViewPlaceHolder
+enum sp_PlaceHolderType {
+    case tOnlyImage
+    case tNoData(labTitle:String, btnTitle:String)
+    case tNetError(labTitle:String)
+}
 
 class SP_ParentVC: UIViewController {
+    
+    var _placeHolderType = sp_PlaceHolderType.tOnlyImage {
+        didSet{
+            switch _placeHolderType {
+            case .tOnlyImage:
+                _placeHolderView.lab_title.text = ""
+                _placeHolderView.btn_title.setTitle("", for: .normal)
+            case .tNoData(let lab, let btn):
+                _placeHolderView.lab_title.text = lab
+                _placeHolderView.btn_title.setTitle(btn, for: .normal)
+            case .tNetError(let lab):
+                _placeHolderView.lab_title.text = lab
+                _placeHolderView.btn_title.setTitle(sp_localized("点击刷新"), for: .normal)
+            }
+        }
+    }
+    lazy var _placeHolderView:SP_PlaceHolderView = {
+        let view = SP_PlaceHolderView.show()
+        view.lab_detalTitle_T.constant = 0
+        view.lab_title.font = sp_fitFont20
+        view.lab_title.textColor = UIColor.mainText_3
+        view.btn_title.setTitleColor(UIColor.main_1, for: .normal)
+        view.btn_title.titleLabel?.font = sp_fitFont20
+        view._titleBlock = { [weak self]_ in
+            self?.placeHolderViewClick()
+        }
+        return view
+    }()
+    
+    
+    lazy var n_view:SP_NavigationView = {
+        let view = SP_NavigationView.show(self.view)
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+        
+    
+    
+    
+}
+
+extension SP_ParentVC:CYLTableViewPlaceHolderDelegate {
+    func makePlaceHolderView() -> UIView! {
+        return _placeHolderView
+    }
+    
+    func enableScrollWhenPlaceHolderViewShowing() -> Bool {
+        return true
+    }
+    
+    func placeHolderViewClick() {
+        
+    }
+    
+}
+
+
+
+extension SP_ParentVC {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -59,17 +124,6 @@ class SP_ParentVC: UIViewController {
         
         
     }
-    
-    
-    
-    lazy var n_view:SP_NavigationView = {
-        let view = SP_NavigationView.show(self.view)
-        view.backgroundColor = UIColor.white
-        return view
-    }()
-    
-        
-    
     //MARK:--- 设置各按钮默认值 -----------------------------
     open func sp_makeNaviDefault() {
         n_view._title = self.title ?? ""
@@ -95,10 +149,6 @@ class SP_ParentVC: UIViewController {
         n_view._tintColor = UIColor.white
         n_view._titleColor = UIColor.white
     }
-    
-}
-
-extension SP_ParentVC {
     //MARK:--- 响应事件
     open func clickN_btn_L1()  {
         if (navigationController?.popViewController(animated: true)) != nil {

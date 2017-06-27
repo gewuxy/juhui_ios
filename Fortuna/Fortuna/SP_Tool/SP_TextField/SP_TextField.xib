@@ -38,7 +38,7 @@
                     <rect key="frame" x="35" y="0.0" width="310" height="667"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                     <connections>
                         <action selector="begin:" destination="iN0-l3-epB" eventType="editingDidBegin" id="A9f-hM-ZiN"/>
                         <action selector="changed:" destination="iN0-l3-epB" eventType="editingChanged" id="v9Z-SV-rRS"/>

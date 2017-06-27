@@ -75,6 +75,8 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         makeUI()
         makeTextFieldDelegate()
         makeRx()
+        
+        _text_price.text_field.keyboardType = .decimalPad
     }
     let disposeBag = DisposeBag()
     @IBOutlet weak var view_name: UIView!
@@ -95,7 +97,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         let text = SP_TextField.show(self.view_pice)
         text.text_field.placeholder = "0.0"
         text.text_field.textColor = UIColor.mainText_1
-        text.text_field.keyboardType = .numbersAndPunctuation
+        text.text_field.keyboardType = .decimalPad
         text.text_field.textAlignment = .center
         text.button_L.setImage(UIImage(named:"Attention减N"), for: .normal)
         text.button_R.setImage(UIImage(named:"Attention加N"), for: .normal)

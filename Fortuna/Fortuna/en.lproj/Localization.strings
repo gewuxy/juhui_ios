@@ -10,23 +10,29 @@
 /*
  Navigation&TabBar
  */
-
-"自选" = "Attention";
-"编辑" = "Edit";
-
-
-
-
+"自选" = "Follow";
 "资讯" = "News";
-
-
-
 "行情" = "Market";
-
-
-
 "我的" = "Me";
 
+
+/*
+ 自选
+ */
+"编辑" = "Edit";
+"+ 自选" = "+ Follow";
+"已加自选" = "Following";
+"删除自选" = "Unfollow";
+"请选择要删除的自选酒" = "Please choose to delete";
+"正在删除" = "Cancel";
+"已删除" = "Successful";
+"您还没有自选酒" = "You haven't follow data";
+"您将删除所选自选酒" = "You will delete the selected";
+
+
+/*
+ 我的
+ */
 "我的持仓" = "My positions";
 "当日成交" = "Today, The deal";
 "当日委托" = "Today, The delegate";
@@ -44,6 +50,7 @@
 "检查更新" = "Check the update";
 "当前版本：" = "Now version:";
 
+
 /*
  错误信息
  */
@@ -55,16 +62,22 @@
 "000005" = "Failed to send verification code";
 "000006" = "Account or password error";
 "000007" = "Need to log in to";
+"000008" = "User account does not exist";
+"100001" = "Has been added";
 "011111" = "Server error";
 "011110" = "There is no data";
 
 /*
  操作类型
  */
-"还没有自选酒" = "No attention";
+"还没有自选酒" = "No follow";
 "点击添加" = "Click on add";
 "点击刷新" = "Click or drop-down refresh";
 "全部加载完毕,下拉可以刷新！" = "All loaded, the drop-down refresh!";
-
-
+"没有搜到" = "No search to the data";
+"搜其他的" = "Search other";
+"加载更多" = "Loading";
+"取消" = "Cancel";
+"去添加" = "To Follow";
+"删除" = "Delete";
 

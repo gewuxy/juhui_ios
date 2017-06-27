@@ -118,7 +118,6 @@
 		AB67EBFC1F00A389009FF2DC /* M_Attention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EBFB1F00A389009FF2DC /* M_Attention.swift */; };
 		AB67EBFF1F00A3B2009FF2DC /* VM_Attention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EBFE1F00A3B2009FF2DC /* VM_Attention.swift */; };
 		AB67EC021F00DA03009FF2DC /* SP_ErrorType.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB67EC041F00DA03009FF2DC /* SP_ErrorType.strings */; };
-		AB67EC091F00F099009FF2DC /* SP_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EC081F00F099009FF2DC /* SP_Alert.swift */; };
 		AB67EC0B1F00F0D0009FF2DC /* UIAlert_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB67EC0A1F00F0D0009FF2DC /* UIAlert_Extension.swift */; };
 		AB6824241EFA20730079C58B /* SP_AFSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824211EFA20730079C58B /* SP_AFSwift.swift */; };
 		AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824231EFA20730079C58B /* SP_UploadParam.swift */; };
@@ -133,6 +132,13 @@
 		AB82CED81EEE3E0000D015B1 /* SP_ToolOC.m in Sources */ = {isa = PBXBuildFile; fileRef = AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */; };
 		AB8B21E61EFCC16300B944AA /* JH_MySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8B21E51EFCC16300B944AA /* JH_MySetting.swift */; };
 		AB8B21E91EFCF07100B944AA /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B21EB1EFCF07100B944AA /* Localization.strings */; };
+		ABCDFDFB1F01EDE100EA2F7A /* SP_PlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFDFA1F01EDE100EA2F7A /* SP_PlaceHolderView.swift */; };
+		ABCDFDFD1F01EDE900EA2F7A /* SP_PlaceHolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCDFDFC1F01EDE900EA2F7A /* SP_PlaceHolderView.xib */; };
+		ABCDFE061F023DAC00EA2F7A /* SP_IM_Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFE051F023DAC00EA2F7A /* SP_IM_Tab.swift */; };
+		ABCDFE081F023E3100EA2F7A /* SP_IM_Tab.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCDFE071F023E3100EA2F7A /* SP_IM_Tab.xib */; };
+		ABCDFE0A1F02446C00EA2F7A /* SP_IM_Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFE091F02446C00EA2F7A /* SP_IM_Input.swift */; };
+		ABCDFE0C1F02447600EA2F7A /* SP_IM_Input.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCDFE0B1F02447600EA2F7A /* SP_IM_Input.xib */; };
+		ABCDFE0F1F02514000EA2F7A /* JH_IM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFE0E1F02514000EA2F7A /* JH_IM.swift */; };
 		ABD009E41EFA93F200728B1D /* SP_ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD009E31EFA93F200728B1D /* SP_ErrorType.swift */; };
 		ABFC47D51EEE48AF0057BD58 /* SP_Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */; };
 		ABFC47D71EEE48EB0057BD58 /* SP_Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABFC47D61EEE48EB0057BD58 /* SP_Login.storyboard */; };
@@ -300,7 +306,6 @@
 		AB67EC031F00DA03009FF2DC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SP_ErrorType.strings"; sourceTree = "<group>"; };
 		AB67EC051F00DA08009FF2DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SP_ErrorType.strings; sourceTree = "<group>"; };
 		AB67EC061F00DA0A009FF2DC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SP_ErrorType.strings"; sourceTree = "<group>"; };
-		AB67EC081F00F099009FF2DC /* SP_Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Alert.swift; sourceTree = "<group>"; };
 		AB67EC0A1F00F0D0009FF2DC /* UIAlert_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlert_Extension.swift; sourceTree = "<group>"; };
 		AB6824211EFA20730079C58B /* SP_AFSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_AFSwift.swift; sourceTree = "<group>"; };
 		AB6824231EFA20730079C58B /* SP_UploadParam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UploadParam.swift; sourceTree = "<group>"; };
@@ -318,6 +323,13 @@
 		AB8B21EA1EFCF07100B944AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		AB8B21EC1EFCF07400B944AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localization.strings"; sourceTree = "<group>"; };
 		AB8B21ED1EFCF07500B944AA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localization.strings"; sourceTree = "<group>"; };
+		ABCDFDFA1F01EDE100EA2F7A /* SP_PlaceHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_PlaceHolderView.swift; sourceTree = "<group>"; };
+		ABCDFDFC1F01EDE900EA2F7A /* SP_PlaceHolderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_PlaceHolderView.xib; sourceTree = "<group>"; };
+		ABCDFE051F023DAC00EA2F7A /* SP_IM_Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_IM_Tab.swift; sourceTree = "<group>"; };
+		ABCDFE071F023E3100EA2F7A /* SP_IM_Tab.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_IM_Tab.xib; sourceTree = "<group>"; };
+		ABCDFE091F02446C00EA2F7A /* SP_IM_Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_IM_Input.swift; sourceTree = "<group>"; };
+		ABCDFE0B1F02447600EA2F7A /* SP_IM_Input.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_IM_Input.xib; sourceTree = "<group>"; };
+		ABCDFE0E1F02514000EA2F7A /* JH_IM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_IM.swift; sourceTree = "<group>"; };
 		ABD009E31EFA93F200728B1D /* SP_ErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_ErrorType.swift; sourceTree = "<group>"; };
 		ABFC47D41EEE48AF0057BD58 /* SP_Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Login.swift; sourceTree = "<group>"; };
 		ABFC47D61EEE48EB0057BD58 /* SP_Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SP_Login.storyboard; sourceTree = "<group>"; };
@@ -525,6 +537,7 @@
 			children = (
 				AB5901471EE9331200826A37 /* JH_API */,
 				AB42C7C01EF6D3AA00C51669 /* JH_HUD */,
+				ABCDFE0D1F02512200EA2F7A /* JH_IM */,
 				AB42C7BB1EF6BDC700C51669 /* JH_BuyAndSell */,
 				AB4A75C71EEFE8580014F633 /* JH_Search */,
 				AB5901481EE9331200826A37 /* JH_Attention */,
@@ -593,7 +606,7 @@
 				AB5901991EE94B9100826A37 /* SP_InfoOC.m */,
 				AB82CED51EEE3E0000D015B1 /* SP_ToolOC.h */,
 				AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */,
-				AB67EC071F00F08D009FF2DC /* SP_Alert */,
+				ABCDFDF91F01EDD200EA2F7A /* SP_PlaceHolderView */,
 				AB564F181EFB930A005E3ABB /* SP_HUD */,
 				AB6824201EFA20730079C58B /* SP_NetWorking */,
 				AB24882B1EF8DFCD004CE6BD /* SP_UpdateVersion */,
@@ -610,6 +623,7 @@
 				AB5901A41EE94B9100826A37 /* SP_Reachability */,
 				AB5901A61EE94B9100826A37 /* SP_Tab_Navi */,
 				AB5901B71EE94B9200826A37 /* SP_TextField */,
+				ABCDFDFE1F023A3C00EA2F7A /* SP_IM */,
 			);
 			path = SP_Tool;
 			sourceTree = "<group>";
@@ -798,14 +812,6 @@
 			path = V_M;
 			sourceTree = "<group>";
 		};
-		AB67EC071F00F08D009FF2DC /* SP_Alert */ = {
-			isa = PBXGroup;
-			children = (
-				AB67EC081F00F099009FF2DC /* SP_Alert.swift */,
-			);
-			path = SP_Alert;
-			sourceTree = "<group>";
-		};
 		AB6824201EFA20730079C58B /* SP_NetWorking */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +832,34 @@
 				AB7778881EEA3362000DF065 /* SP_ComCell.xib */,
 			);
 			path = SP_ComCell;
+			sourceTree = "<group>";
+		};
+		ABCDFDF91F01EDD200EA2F7A /* SP_PlaceHolderView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCDFDFA1F01EDE100EA2F7A /* SP_PlaceHolderView.swift */,
+				ABCDFDFC1F01EDE900EA2F7A /* SP_PlaceHolderView.xib */,
+			);
+			path = SP_PlaceHolderView;
+			sourceTree = "<group>";
+		};
+		ABCDFDFE1F023A3C00EA2F7A /* SP_IM */ = {
+			isa = PBXGroup;
+			children = (
+				ABCDFE051F023DAC00EA2F7A /* SP_IM_Tab.swift */,
+				ABCDFE071F023E3100EA2F7A /* SP_IM_Tab.xib */,
+				ABCDFE091F02446C00EA2F7A /* SP_IM_Input.swift */,
+				ABCDFE0B1F02447600EA2F7A /* SP_IM_Input.xib */,
+			);
+			path = SP_IM;
+			sourceTree = "<group>";
+		};
+		ABCDFE0D1F02512200EA2F7A /* JH_IM */ = {
+			isa = PBXGroup;
+			children = (
+				ABCDFE0E1F02514000EA2F7A /* JH_IM.swift */,
+			);
+			path = JH_IM;
 			sourceTree = "<group>";
 		};
 		ABFC47D31EEE487D0057BD58 /* SP_Login */ = {
@@ -988,9 +1022,11 @@
 				AB5901DF1EE94B9200826A37 /* iconfont.ttf in Resources */,
 				AB02DA6A1EF7ABC100FFC3E8 /* sp_login可见@2x.png in Resources */,
 				AB24882F1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib in Resources */,
+				ABCDFE081F023E3100EA2F7A /* SP_IM_Tab.xib in Resources */,
 				AB02DA641EF77E2000FFC3E8 /* sp_login删除@2x.png in Resources */,
 				AB5901BE1EE94B9200826A37 /* SP_AdsColleCell.xib in Resources */,
 				AB5901F21EE94B9200826A37 /* navi_search_gray@2x.png in Resources */,
+				ABCDFDFD1F01EDE900EA2F7A /* SP_PlaceHolderView.xib in Resources */,
 				AB0235B21EE55F70007AB6BB /* InfoPlist.strings in Resources */,
 				AB564F301EFB930A005E3ABB /* SP_HUD_Bg.xib in Resources */,
 				AB02DA621EF77E2000FFC3E8 /* sp_login第三方QQ@2x.png in Resources */,
@@ -1005,6 +1041,7 @@
 				AB556F791EF8FF5B00B9881C /* navi_back_white@2x.png in Resources */,
 				AB5901EF1EE94B9200826A37 /* navi_back_gray@2x.png in Resources */,
 				AB556F7D1EF980C100B9881C /* JH_HUD_PlaceOrder.xib in Resources */,
+				ABCDFE0C1F02447600EA2F7A /* SP_IM_Input.xib in Resources */,
 				AB5901DC1EE94B9200826A37 /* SP_TabMenuView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1088,11 +1125,11 @@
 				AB564F3B1EFBA29E005E3ABB /* SP_MBProgressHUD.m in Sources */,
 				AB5901D51EE94B9200826A37 /* UIText_extension.swift in Sources */,
 				AB4A75C51EEFCC920014F633 /* JH_NewsDetials.swift in Sources */,
+				ABCDFE0F1F02514000EA2F7A /* JH_IM.swift in Sources */,
 				AB564F2F1EFB930A005E3ABB /* SP_HUD.swift in Sources */,
 				AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */,
 				AB5901C31EE94B9200826A37 /* Bool_extension.swift in Sources */,
 				AB6824281EFA20950079C58B /* SP_Alamofire.swift in Sources */,
-				AB67EC091F00F099009FF2DC /* SP_Alert.swift in Sources */,
 				AB5901BD1EE94B9200826A37 /* SP_AdsColleCell.swift in Sources */,
 				AB0235671EE55659007AB6BB /* ViewController.swift in Sources */,
 				AB5901E51EE94B9200826A37 /* CLLocation+YCLocation.m in Sources */,
@@ -1106,6 +1143,7 @@
 				AB5901E11EE94B9200826A37 /* LBPIconFont.m in Sources */,
 				AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */,
 				AB5901CC1EE94B9200826A37 /* NSTimer_extension.swift in Sources */,
+				ABCDFE0A1F02446C00EA2F7A /* SP_IM_Input.swift in Sources */,
 				AB5901E21EE94B9200826A37 /* UIColor+picker.m in Sources */,
 				AB5901CE1EE94B9200826A37 /* SP_TimeSingleton.swift in Sources */,
 				AB5901EC1EE94B9200826A37 /* Reachability.swift in Sources */,
@@ -1118,6 +1156,7 @@
 				AB5901D71EE94B9200826A37 /* UIView_extension.swift in Sources */,
 				AB5901E31EE94B9200826A37 /* UIImage+LBPIconFont.m in Sources */,
 				AB5901D41EE94B9200826A37 /* UILabel_extension.swift in Sources */,
+				ABCDFDFB1F01EDE100EA2F7A /* SP_PlaceHolderView.swift in Sources */,
 				ABD009E41EFA93F200728B1D /* SP_ErrorType.swift in Sources */,
 				AB5901F71EE94B9200826A37 /* SP_ParentVC.swift in Sources */,
 				AB5901571EE94ACD00826A37 /* AppDelegate+Extension.swift in Sources */,
@@ -1167,6 +1206,7 @@
 				AB556F7B1EF9803000B9881C /* JH_HUD_PlaceOrder.swift in Sources */,
 				AB5901EA1EE94B9200826A37 /* SP_MJRefresh.swift in Sources */,
 				AB5901511EE9337400826A37 /* JH_Market.swift in Sources */,
+				ABCDFE061F023DAC00EA2F7A /* SP_IM_Tab.swift in Sources */,
 				AB5901C11EE94B9200826A37 /* SP_AdsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

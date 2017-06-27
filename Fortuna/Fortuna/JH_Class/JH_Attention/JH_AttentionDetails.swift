@@ -22,24 +22,17 @@ class JH_AttentionDetails: SP_ParentVC {
     }
     lazy var _tUnfoldOpen = false
     
-    @IBAction func clickToolBarBtn(_ sender: UIButton) {
-        switch sender {
-        case btn_placeOrder:
-            JH_HUD_PlaceOrder.show({ _ in
-                
-            })
-        default:
-            break
-        }
-    }
+    lazy var _datas = M_Attention()
+    
 }
 
 extension JH_AttentionDetails {
     override class func initSPVC() -> JH_AttentionDetails {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_AttentionDetails") as! JH_AttentionDetails
     }
-    class func show(_ parentVC:UIViewController?) {
+    class func show(_ parentVC:UIViewController?, data:M_Attention) {
         let vc = JH_AttentionDetails.initSPVC()
+        vc._datas = data
         vc.hidesBottomBarWhenPushed = true
         parentVC?.navigationController?.show(vc, sender: nil)
     }
@@ -63,8 +56,29 @@ extension JH_AttentionDetails {
     }
     
     fileprivate func makeUI() {
+        btn_remove.setTitle(sp_localized(_datas.isFollow ? "删除自选" : "+ 自选") , for: .normal)
+        btn_remove.setTitleColor(_datas.isFollow ? UIColor.mainText_3 : UIColor.mainText_1, for: .normal)
+        
+        makeTableView()
+    }
+    fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    @IBAction func clickToolBarBtn(_ sender: UIButton) {
+        switch sender {
+        case btn_placeOrder:
+            JH_HUD_PlaceOrder.show({ _ in
+                
+            })
+        case btn_chateau:
+            JH_IM.show(self)
+        case btn_remove:
+            break
+        default:
+            break
+        }
     }
 }
 extension JH_AttentionDetails:UITableViewDelegate {
@@ -129,6 +143,34 @@ extension JH_AttentionDetails:UITableViewDataSource{
         
     }
 }
+
+//MARK:--- 网络 -----------------------------
+extension JH_AttentionDetails {
+    
+    fileprivate func t_删除自选数据() {
+        SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
+        My_API.t_删除自选数据(code:_datas.code).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text: sp_localized("已删除"))
+                self?.removeDatas()
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    fileprivate func removeDatas() {
+        _datas.isFollow = false
+        sp_Notification.post(name: ntf_Name_自选删除, object: _datas)
+        self.tableView.reloadData()
+    }
+    
+}
+
+
+
+
 
 
 

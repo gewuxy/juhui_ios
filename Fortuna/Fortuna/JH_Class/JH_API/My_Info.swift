@@ -11,8 +11,8 @@ import Foundation
 let key_APPID  = ""
 let key_UMengAppKey  = "58d9fbbfbbea832efc001890"
 let key_JPushKey     = "99875be9517257493bc38da8"
-let key_WXappID      = "wx0a92d39012e81d0a"
-let key_WXappSecret  = "88d47cc2c76637e4c4102f14b2f102bb"
+let key_WXappID      = "wx53502d888764b329"
+let key_WXappSecret  = "018d5c10649a2eae7356013549f9fab1"
 let key_QQappID      = "1105975319"
 let key_QQappSecret  = "SvyXcDOSaIyIQiZP"
 let key_SinaappID      = "1691952433"
@@ -25,6 +25,7 @@ let my_ShareDownUrl  = "https:/wancheleyuan.com"
 
 //MARK:--- NotificationName -----------------------------
 let ntf_Name_自选删除 = Notification.Name(rawValue: "ntf_Name_自选删除")
-
+let ntf_Name_自选添加 = Notification.Name(rawValue: "ntf_Name_自选添加")
+let ntf_Name_自选排序 = Notification.Name(rawValue: "ntf_Name_自选排序")
 
 

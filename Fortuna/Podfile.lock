@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.4.0)
+  - CYLTableViewPlaceHolder (1.0.8)
   - DZNEmptyDataSet (1.8.1)
   - IMYWebView (0.8.1)
   - Masonry (1.0.2)
@@ -62,6 +63,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Alamofire
+  - CYLTableViewPlaceHolder
   - DZNEmptyDataSet
   - IMYWebView
   - Masonry
@@ -90,6 +92,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IMYWebView: a6a9a52718ba6a44fb927d65f6d60930a8218cea
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -116,6 +119,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 425b50c0b7149619c52e9e56a9ca98f02a1f925c
+PODFILE CHECKSUM: 7401c2674ccc9b12406a2bab85bcde4117d9bf3c
 
 COCOAPODS: 1.0.1

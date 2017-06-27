@@ -43,7 +43,8 @@ class SP_Signin: SP_ParentVC {
         let text = SP_TextField.show(self.view_phone)
         text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
-        text.text_field.keyboardType = .numberPad
+        text.text_field.keyboardType = .phonePad
+        text.text_field.showOkButton()
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
         text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
         text.text_field_L.constant = 15
@@ -75,7 +76,8 @@ class SP_Signin: SP_ParentVC {
         let text = SP_TextField.show(self.view_verification)
         text.text_field.placeholder = sp_localized("请输入验证码",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
-        text.text_field.keyboardType = .numberPad
+        text.text_field.keyboardType = .decimalPad
+        text.text_field.showOkButton()
         text.button_R.setTitle(sp_localized("发送验证码",from: "SP_Login"),for:.normal)
         text.button_R.setTitleColor(UIColor.mainText_2,for:.normal)
         text.button_R.titleLabel?.font = UIFont.systemFont(ofSize: 15)
