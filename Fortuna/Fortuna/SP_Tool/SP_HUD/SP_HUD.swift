@@ -53,6 +53,7 @@ class SP_HUD: UIView {
         
         view._block = block
         
+        
     }
     var _block:(()->Void)?
     @IBOutlet weak var image_bg: UIImageView!
@@ -73,16 +74,13 @@ class SP_HUD: UIView {
         label_text.attributedText = attributedString
     }
     
-    
-    
-    
-    
-    
 }
 
 extension SP_HUD {
+    static var _bg = SP_HUDBG.tMB
     static func show(_ bg:SP_HUDBG = .tMB,view:UIView = sp_MainWindow, type:SP_HUDType = .tNone, text:String = "", detailText:String="", image:String = "", time:TimeInterval = 20, block:(()->Void)? = nil) {
-        switch bg {
+        SP_HUD._bg = bg
+        switch SP_HUD._bg {
         case .tMB:
             SP_MBHUD.showHUD(view: view, type: type, text: text, detailText: detailText, image: image, time: time) {
                 block?()
@@ -95,6 +93,16 @@ extension SP_HUD {
             break
         }
         
+    }
+    static func hidden() {
+        switch SP_HUD._bg {
+        case .tMB:
+            SP_MBHUD.hideHUD()
+        case .tSV:
+            SP_SVHUD.dismiss()
+        default:
+            break
+        }
     }
 }
 

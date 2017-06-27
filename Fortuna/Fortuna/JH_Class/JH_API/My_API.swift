@@ -20,14 +20,17 @@ let main_url = "https://jh.qiuxiaokun.com/"
 //生产环境
 //let main_url = ""
 
-let my_pageSize = "20"
+let my_pageSize = 20
 
 enum My_API {
     static let url_用户信息修改 = "api/account/info/"
     case t_用户信息修改(mobile:String,nickname:String,email:String,img_url:String)
     
     static let url_获取自选列表 = "api/wine/getopt/"
-    case t_获取自选列表(pageIndex:Int,pageSize:String)
+    case t_获取自选列表(pageIndex:Int,pageSize:Int)
+    
+    static let url_删除自选数据 = "api/wine/delopt/"
+    case t_删除自选数据(code:String)
     
 }
 extension My_API {
@@ -42,10 +45,18 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        case .t_删除自选数据(let code):
+            parame += ["code":code]
+            SP_Alamofire.post(main_url+My_API.url_删除自选数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_删除自选数据=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? T(), error)
+                })
+            })
         case .t_用户信息修改(let mobile,let nickname,let email,let img_url):
             parame += ["mobile":mobile,"nickname":nickname,"email":email,"img_url":img_url]
             SP_Alamofire.post(main_url+My_API.url_用户信息修改, param: parame, block: { (isOk, res, error) in
-                print_Json("url_获取自选列表=>\(JSON(res!))")
+                print_Json("url_用户信息修改=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas ?? T(), error)
                 })
@@ -81,7 +92,7 @@ extension My_API {
                 return
             }
             guard let array:[JSON] = json[My_Net_Data].array else{
-                block?(true,[],"没有数据！")
+                block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
                 return
             }
             var objects = [T]()
@@ -94,7 +105,7 @@ extension My_API {
                 }
                 block?(true,objects,"")
             } else {
-                block?(true,[],"没有数据！")
+                block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
             }
         }else{
             block?(false,[],error!)
@@ -110,7 +121,7 @@ extension My_API {
                 return
             }
             guard !json[My_Net_Data].isEmpty else{
-                block?(true,nil,"没有数据！")
+                block?(true,nil,sp_localized(My_NetCodeError.t没有数据.rawValue))
                 return
             }
             let obj = My_API.map_FromJSON(json[My_Net_Data], classType:type)!
@@ -134,6 +145,7 @@ enum My_NetCodeError: String {
     case t发送验证码失败 = "000005"
     case t密码错误     = "000006"
     case t需要登录     = "000007"
+    case t没有数据    = "011110"
     case tError      = "011111"
     
     var stringValue:String {
@@ -146,6 +158,7 @@ enum My_NetCodeError: String {
         case .t发送验证码失败: return sp_localized(My_NetCodeError.t发送验证码失败.rawValue)
         case .t密码错误: return sp_localized(My_NetCodeError.t密码错误.rawValue)
         case .t需要登录: return sp_localized(My_NetCodeError.t需要登录.rawValue)
+        case .t没有数据: return sp_localized(My_NetCodeError.t没有数据.rawValue)
         default: return sp_localized(My_NetCodeError.tError.rawValue)
         }
     }

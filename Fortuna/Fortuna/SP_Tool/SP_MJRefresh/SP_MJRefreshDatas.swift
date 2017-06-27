@@ -11,17 +11,17 @@ import Foundation
 
 //MARK:----------- 下拉刷新文字组
 ///上下拉闲置状态
-let MJRefreshDIY_Title_Idle_Down         = "下拉可以刷新"
-let MJRefreshDIY_Title_Idle_Up           = "点击或上拉加载更多"
+let MJRefreshDIY_Title_Idle_Down         = ""
+let MJRefreshDIY_Title_Idle_Up           = ""
 ///上下拉提示松开状态
-let MJRefreshDIY_Title_Pulling_Down      = "放手是一种态度"
-let MJRefreshDIY_Title_Pulling_Up        = "放手是一种态度"
+let MJRefreshDIY_Title_Pulling_Down      = ""
+let MJRefreshDIY_Title_Pulling_Up        = ""
 ///上下拉松开正在刷新状态
-let MJRefreshDIY_Title_Refreshing_Down   = "洗刷刷洗刷刷"
-let MJRefreshDIY_Title_Refreshing_Up     = "洗刷刷洗刷刷"
+let MJRefreshDIY_Title_Refreshing_Down   = "Loading"
+let MJRefreshDIY_Title_Refreshing_Up     = "Loading"
 ///上下拉数据加载完毕状态
-let MJRefreshDIY_Title_NoMoreData_Down   = "刷新完毕"
-let MJRefreshDIY_Title_NoMoreData_Up     = "加载完毕"
+let MJRefreshDIY_Title_NoMoreData_Down   = ""
+let MJRefreshDIY_Title_NoMoreData_Up     = sp_localized("全部加载完毕,下拉可以刷新！")
 ///显示刷新状态的Label字体
 let MJRefreshDIY_StateLabelFont = UIFont.systemFont(ofSize: 15.0)
 ///显示刷新状态的Label颜色

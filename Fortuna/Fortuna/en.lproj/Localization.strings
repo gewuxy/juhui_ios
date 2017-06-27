@@ -56,3 +56,15 @@
 "000006" = "Account or password error";
 "000007" = "Need to log in to";
 "011111" = "Server error";
+"011110" = "There is no data";
+
+/*
+ 操作类型
+ */
+"还没有自选酒" = "No attention";
+"点击添加" = "Click on add";
+"点击刷新" = "Click or drop-down refresh";
+"全部加载完毕,下拉可以刷新！" = "All loaded, the drop-down refresh!";
+
+
+

@@ -24,7 +24,7 @@ let my_ShareDownUrl  = "https:/wancheleyuan.com"
 
 
 //MARK:--- NotificationName -----------------------------
-let ntf_Name_ = Notification.Name(rawValue: "ntf_Name_")
+let ntf_Name_自选删除 = Notification.Name(rawValue: "ntf_Name_自选删除")
 
 
 
