@@ -39,3 +39,37 @@ extension M_Attention:SP_JsonModel {
         isSelect = false
     }
 }
+
+
+
+struct M_AttentionDetail {
+    var code =  ""
+    var id =  ""
+    var isDelete =  false
+    var name =  ""
+    var proposedPrice =  "--"
+    var quoteChange =  ""
+    var winery =  ""
+    
+    var isFollow = false
+    var isSelect = false
+    
+}
+
+extension M_AttentionDetail:SP_JsonModel {
+    init?(_ json: JSON) {
+        if json.isEmpty{
+            return
+        }
+        code = json["code"].stringValue
+        id = json["id"].stringValue
+        isDelete = json["is_delete"].boolValue
+        name = json["name"].stringValue
+        proposedPrice = json["proposed_price"].stringValue
+        quoteChange = json["quote_change"].stringValue
+        winery = json["winery"].stringValue
+        isFollow = json["isFollow"].boolValue
+        isSelect = false
+    }
+}
+

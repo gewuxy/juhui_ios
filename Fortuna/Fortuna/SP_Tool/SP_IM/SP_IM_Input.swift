@@ -30,14 +30,22 @@ class SP_IM_Input: UIView {
         
         return view
     }
-    
+    deinit {
+        removekeyBoard()
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         
         text_View.delegate = self
+        lab_phlace.text = _placeholderText
+        showkeyBoard()
     }
     
-    var _placeholderText = ""
+    var _placeholderText = "" {
+        didSet{
+            lab_phlace.text = _placeholderText
+        }
+    }
     let disposeBag = DisposeBag()
     
     @IBOutlet weak var text_View: UITextView!
@@ -58,14 +66,29 @@ class SP_IM_Input: UIView {
         case tChange
         case tEnd
         case tReturn
+        case tBtn_L
+        case tBtn_R
     }
     var _block:((_ type:SP_IM_Input_Type, _ text:String)->Void)?
     
     enum heightType {
         case tH
         case tB
+        case tFinish
     }
     var _heightBlock:((heightType,CGFloat)->Void)?
+    
+    
+    @IBAction func clickButton(_ sender: UIButton) {
+        switch sender {
+        case button_L:
+            _block?(.tBtn_L,"")
+        case button_R:
+            _block?(.tBtn_R,"")
+        default:
+            break
+        }
+    }
 }
 
 extension SP_IM_Input:UITextViewDelegate {
@@ -93,9 +116,6 @@ extension SP_IM_Input:UITextViewDelegate {
     func endInput() {
         text_View.resignFirstResponder()
         
-        if text_View.text!.isEmpty {
-            _heightBlock?(.tH,50)
-        }
         changePlaceholderText()
     }
     func changeTextViewHeight() {
@@ -104,40 +124,23 @@ extension SP_IM_Input:UITextViewDelegate {
         let maxSize = CGSize(width:textBounds.size.width, height:CGFloat.greatestFiniteMagnitude)
         let newSize = text_View.sizeThatFits(maxSize)
         textBounds.size = newSize
-        let textHeight = textBounds.size.height + 16
+        let textHeight = textBounds.size.height
         //print(textBounds.size.height)
         
          _heightBlock?(.tH,textHeight)
-//        if self.bounds.size.height != textHeight && textHeight >= 50 && textHeight <= 106 {
-//            
-//        }else{
-//            
-//        }
-        
-        
+
     }
     
     
     //MARK:--- 键盘
-    func showNotification(){
-        /*
-        sp_Notification.rx
-            .notification(sp_ntfNameKeyboardWillShow, object: nil)
-            .takeUntil(self.rx.deallocated)
-            .asObservable()
-            .subscribe(onNext: { [weak self](n) in
-                self?.keyBoardWillShow(n)
-            })
-            .addDisposableTo(disposeBag)
-        sp_Notification.rx
-            .notification(sp_ntfNameKeyboardWillHide, object: nil)
-            .takeUntil(self.rx.deallocated)
-            .asObservable()
-            .subscribe(onNext: { [weak self](n) in
-                self?.keyBoardWillHide(n)
-            })
-            .addDisposableTo(disposeBag)
-        */
+    func showkeyBoard(){
+        sp_Notification.addObserver(self, selector:#selector(SP_IM_Input.keyBoardWillShow(_:)), name:sp_ntfNameKeyboardWillShow, object: nil)
+        sp_Notification.addObserver(self, selector:#selector(SP_IM_Input.keyBoardWillHide(_:)), name:sp_ntfNameKeyboardWillHide, object: nil)
+    }
+    func removekeyBoard() {
+        sp_Notification.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        sp_Notification.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        sp_Notification.removeObserver(self)
     }
     
     func keyBoardWillShow(_ note:NSNotification) {
@@ -166,7 +169,7 @@ extension SP_IM_Input:UITextViewDelegate {
             animations()
         }
         changeTextViewHeight()
-        
+        _heightBlock?(.tFinish,0)
         
     }
     

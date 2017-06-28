@@ -34,7 +34,7 @@ enum SP_UserAPI {
 //MARK:--- 自己的版本 -----------------------------
 extension SP_UserAPI {
     func post(_ block:((Bool,Any,String) -> Void)? = nil) {
-        SP_Alamofire.shared._headers = ["token":""]
+        //SP_Alamofire.shared._headers = ["token":""]
         switch self {
         case .t_登录(let mobile, let pwd):
             let param = ["mobile": mobile, "password": pwd]

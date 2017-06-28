@@ -41,6 +41,14 @@ enum My_API {
     static let url_自选数据排序 = "api/wine/sortopt/"
     case t_自选数据排序(code:String, sort_no:String)
     
+    static let url_买入 = "api/wine/buy/"
+    case t_买入(code:String, price:String, num:String)
+    
+    static let url_卖出 = "api/wine/sell/"
+    case t_卖出(code:String, price:String, num:String)
+    
+    
+    
     
 }
 extension My_API {
@@ -96,6 +104,23 @@ extension My_API {
                     block?(isOk, datas ?? T(), error)
                 })
             })
+        case .t_买入(let code,let price,let num):
+            parame += ["code":code,"price":price,"num":num]
+            SP_Alamofire.post(main_url+My_API.url_买入, param: parame, block: { (isOk, res, error) in
+                print_Json("url_买入=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? T(), error)
+                })
+            })
+        case .t_卖出(let code,let price,let num):
+            parame += ["code":code,"price":price,"num":num]
+            SP_Alamofire.post(main_url+My_API.url_卖出, param: parame, block: { (isOk, res, error) in
+                print_Json("url_卖出=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas ?? T(), error)
+                })
+            })
+        
         }
         
     }

@@ -23,11 +23,12 @@ class JH_HUD_PlaceOrder: UIView {
         hiddenUI()
     }
     @IBAction func clickBtn(_ sender: UIButton) {
+        hiddenUI()
         _clickBlock?(sender.tag)
     }
 }
 extension JH_HUD_PlaceOrder {
-    class func show(_ block:((Int)->Void)? = nil) {
+    static func show(_ block:((Int)->Void)? = nil) {
         for item in sp_MainWindow.subviews {
             if let view = item as? JH_HUD_PlaceOrder {
                 view._clickBlock = block
@@ -54,6 +55,10 @@ extension JH_HUD_PlaceOrder {
     fileprivate func makeUI(){
         view_bg.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         view_bottom_B.constant = -85
+        
+        btn_buy.setTitle(sp_localized("买入"), for: .normal)
+        btn_sell.setTitle(sp_localized("卖出"), for: .normal)
+        btn_Revoke.setTitle(sp_localized("撤单"), for: .normal)
     }
     fileprivate func showUI() {
         view_bottom_B.constant = 0
@@ -69,11 +74,12 @@ extension JH_HUD_PlaceOrder {
     fileprivate func hiddenUI() {
         view_bottom_B.constant = -85
         view_bottom.setNeedsLayout()
-        UIView.animate(withDuration: 0.3, animations: { [weak self]_ in
+        UIView.animate(withDuration: 0.2, animations: { [weak self]_ in
             self?.view_bg.backgroundColor = UIColor.black.withAlphaComponent(0.0)
             self?.view_bottom.layoutIfNeeded()
         }) { (isOk) in
             self.removeFromSuperview()
+            
         }
     }
     

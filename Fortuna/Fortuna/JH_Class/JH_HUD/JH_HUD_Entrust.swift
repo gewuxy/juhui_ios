@@ -89,21 +89,23 @@ extension JH_HUD_Entrust {
         
         btn_cancel.setTitleColor(UIColor.main_btnNotEnb, for: .normal)
         btn_ok.setTitleColor(UIColor.main_btnNormal, for: .normal)
+        btn_cancel.titleLabel?.font = sp_fitFont18
+        btn_ok.titleLabel?.font = sp_fitFont18
         
-        lab_title.font = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))
+        lab_title.font = sp_fitFont20
         
-        lab_No.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_No0.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_name.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_name0.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_pice.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_pice0.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_num.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_num0.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
+        lab_No.font = sp_fitFont15
+        lab_No0.font = sp_fitFont15
+        lab_name.font = sp_fitFont15
+        lab_name0.font = sp_fitFont15
+        lab_pice.font = sp_fitFont15
+        lab_pice0.font = sp_fitFont15
+        lab_num.font = sp_fitFont15
+        lab_num0.font = sp_fitFont15
         
-        view_hud_W.constant = sp_ScreenWidth-(0+SP_InfoOC.sp_fit(withSize: 1)*30)
+        view_hud_W.constant = sp_ScreenWidth - sp_fitSize((30,60,90))
         
-        view_hud_B.constant = 20+SP_InfoOC.sp_fit(withSize: 0)*2
+        view_hud_B.constant = 20 + sp_fitSize((0,10,20))
     }
     
     

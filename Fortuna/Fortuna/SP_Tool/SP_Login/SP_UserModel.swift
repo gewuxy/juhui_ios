@@ -81,12 +81,12 @@ struct SP_UserModel {
 //        
 //    }
 //}
-//--- SwiftyJSON 版本
-extension SP_UserModel: Mapable {
-    init?(jsonData: JSON) {
-        
-    }
-}
+////--- SwiftyJSON 版本
+//extension SP_UserModel: Mapable {
+//    init?(jsonData: JSON) {
+//        
+//    }
+//}
 extension SP_UserModel: SP_JsonModel {
     init?(_ json: JSON) {
         if json.isEmpty{

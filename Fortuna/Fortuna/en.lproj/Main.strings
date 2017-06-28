@@ -132,7 +132,7 @@
 "Hs9-Mb-aWD.text" = "Buy 4";
 
 /* Class = "UIButton"; normalTitle = "虚拟酒庄"; ObjectID = "Igr-Wv-gNM"; */
-"Igr-Wv-gNM.normalTitle" = "虚拟酒庄";
+"Igr-Wv-gNM.normalTitle" = "Chat Room";
 
 /* Class = "UILabel"; text = "000.00"; ObjectID = "IoV-Kc-BAA"; */
 "IoV-Kc-BAA.text" = "000.00";
@@ -276,7 +276,7 @@
 "dbj-Xz-BPw.text" = "00";
 
 /* Class = "UIButton"; normalTitle = "下单"; ObjectID = "e3Y-vh-cbM"; */
-"e3Y-vh-cbM.normalTitle" = "下单";
+"e3Y-vh-cbM.normalTitle" = "Orders";
 
 /* Class = "UILabel"; text = "卖1"; ObjectID = "eJW-KG-Svy"; */
 "eJW-KG-Svy.text" = "Sell 1";

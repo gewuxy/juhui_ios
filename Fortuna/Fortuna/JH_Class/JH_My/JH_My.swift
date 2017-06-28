@@ -15,7 +15,7 @@ class JH_My: SP_ParentVC {
     let disposeBag = DisposeBag()
     lazy var _height_Top:CGFloat = sp_ScreenWidth/1.465
     
-    lazy var _imgae_Bg_Rate:CGFloat = 2
+    
     @IBOutlet weak var image_Bg: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -73,6 +73,7 @@ extension JH_My {
         if(point.y >= 0 ){
             rect.origin.y = -point.y/1.5
         }else{
+            rect.origin.y = 0
             rect.size.height = _height_Top - point.y
         }
         image_Bg.frame = rect
@@ -188,7 +189,7 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             
             switch _sectionsHead[section].type {
             case .t当日委托:
-                JH_BuyAndSell.show(self, type: .t卖出)
+                JH_BuyAndSell.show(self, type: .t卖出, data:M_Attention())
             case .t我的持仓:
                 makeLogin()
             default:
@@ -200,6 +201,9 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        
+        n_view.sp_setBgAlpha(UIColor.main_1,textColor:UIColor.white, offsetY: scrollView.contentOffset.y, maxOffsetY: _height_Top,btnBgAlpha:false)
         changeImage_Bg(scrollView.contentOffset)
     }
 }

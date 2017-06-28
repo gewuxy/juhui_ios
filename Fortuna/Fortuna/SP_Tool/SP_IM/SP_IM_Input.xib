@@ -27,7 +27,10 @@
                         <constraint firstAttribute="height" constant="50" id="ieQ-MO-dRb"/>
                     </constraints>
                     <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" image="none杯子"/>
+                    <state key="normal" image="IM语音"/>
+                    <connections>
+                        <action selector="clickButton:" destination="QaK-mA-r5e" eventType="touchUpInside" id="7cK-FX-L32"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaT-jl-XDu">
                     <rect key="frame" x="325" y="617" width="50" height="50"/>
@@ -36,12 +39,16 @@
                         <constraint firstAttribute="width" constant="50" id="yPu-DL-mOt"/>
                     </constraints>
                     <color key="tintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" image="none杯子"/>
+                    <state key="normal" image="IM展开加号"/>
+                    <connections>
+                        <action selector="clickButton:" destination="QaK-mA-r5e" eventType="touchUpInside" id="KSQ-Ob-s26"/>
+                    </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2zf-Sl-9Wi">
                     <rect key="frame" x="50" y="8" width="275" height="651"/>
                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.70071703770000004" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -91,6 +98,7 @@
         </view>
     </objects>
     <resources>
-        <image name="none杯子" width="138" height="155"/>
+        <image name="IM展开加号" width="29" height="29"/>
+        <image name="IM语音" width="29" height="29"/>
     </resources>
 </document>

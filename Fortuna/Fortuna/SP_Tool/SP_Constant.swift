@@ -89,6 +89,7 @@ func sp_fitSize(_ size:(CGFloat,CGFloat,CGFloat)) -> CGFloat {
 }
 let sp_fitFont12 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 12))
 let sp_fitFont14 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 14))
+let sp_fitFont15 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
 let sp_fitFont16 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
 let sp_fitFont18 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 18))
 let sp_fitFont20 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))
@@ -96,6 +97,7 @@ let sp_fitFont22 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 22))
 
 let sp_fitFontB12 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 12))
 let sp_fitFontB14 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 14))
+let sp_fitFontB15 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
 let sp_fitFontB16 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
 let sp_fitFontB18 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 18))
 let sp_fitFontB20 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))

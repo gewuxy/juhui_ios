@@ -18,7 +18,7 @@ class JH_BuyAndSellCell_Data: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        makeUI()
     }
     
     
@@ -61,6 +61,32 @@ class JH_BuyAndSellCell_Data: UITableViewCell {
     @IBOutlet weak var lab_buy5: UILabel!
     @IBOutlet weak var lab_buy5_P: UILabel!
     @IBOutlet weak var lab_buy5_N: UILabel!
+    
+    @IBOutlet weak var view_L: UIView!
+    @IBOutlet weak var view_R: UIView!
+    @IBOutlet weak var lab_sell5_W: NSLayoutConstraint!
+    @IBOutlet weak var lab_buy1_W: NSLayoutConstraint!
+    @IBOutlet weak var lab_sell5N_W: NSLayoutConstraint!
+    @IBOutlet weak var lab_buy1N_W: NSLayoutConstraint!
+    
+    func makeUI() {
+        lab_sell5_W.constant = sp_fitSize((37,40,45))
+        lab_buy1_W.constant = sp_fitSize((37,40,45))
+        lab_sell5N_W.constant = sp_fitSize((40,45,50))
+        lab_buy1N_W.constant = sp_fitSize((40,45,50))
+        for item in view_L.subviews {
+            if let lab = item as? UILabel {
+                lab.font = sp_fitFont16
+                lab.textColor = UIColor.mainText_1
+            }
+        }
+        for item in view_R.subviews {
+            if let lab = item as? UILabel {
+                lab.font = sp_fitFont16
+                lab.textColor = UIColor.mainText_1
+            }
+        }
+    }
     
 }
 
@@ -153,7 +179,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
     }
     
     
-    fileprivate func makeUI() {
+    func makeUI(_ type:JH_BuyAndSellType = .t买入) {
         lab_down.textColor = UIColor.mainText_5
         lab_up.textColor = UIColor.mainText_4
         
@@ -167,8 +193,11 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         view_pice.backgroundColor = UIColor.white
         view_num.backgroundColor = UIColor.white
         
+        
+        btn_deal.setTitle(sp_localized(type == .t买入 ? "买入" : "卖出") , for: .normal)
+        btn_deal.backgroundColor = type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal
         //阴影
-        btn_deal.layer.shadowColor = UIColor.main_1.cgColor
+        btn_deal.layer.shadowColor = (type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal).cgColor
         btn_deal.layer.shadowOffset = CGSize(width: 0, height: 1)
         btn_deal.layer.shadowOpacity = 0.5
     }

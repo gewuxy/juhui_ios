@@ -80,4 +80,8 @@
 "取消" = "Cancel";
 "去添加" = "To Follow";
 "删除" = "Delete";
-
+"图片" = "Picture";
+"视频" = "Picture";
+"买入" = "Buy";
+"卖出" = "Sell";
+"撤单" = "Revoke";

@@ -20,6 +20,7 @@ class JH_BuyAndSell: SP_ParentVC {
     
     lazy var _vcType = JH_BuyAndSellType.t买入
     
+    lazy var _datas = M_Attention()
     
 
 }
@@ -28,9 +29,10 @@ extension JH_BuyAndSell {
     override class func initSPVC() -> JH_BuyAndSell {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_BuyAndSell") as! JH_BuyAndSell
     }
-    class func show(_ parentVC:UIViewController?, type:JH_BuyAndSellType) {
+    class func show(_ parentVC:UIViewController?, type:JH_BuyAndSellType, data:M_Attention) {
         let vc = JH_BuyAndSell.initSPVC()
         vc._vcType = type
+        vc._datas = data
         vc.hidesBottomBarWhenPushed = true
         parentVC?.show(vc, sender: nil)
     }
@@ -45,6 +47,10 @@ extension JH_BuyAndSell {
     }
     
     fileprivate func makeUI() {
+        
+        makeTableView()
+    }
+    fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -79,8 +85,14 @@ extension JH_BuyAndSell:UITableViewDataSource{
             return cell
         default:
             let cell = JH_BuyAndSellCell_Deal.show(tableView, indexPath)
-            cell._clickBlock = {
-                JH_HUD_Entrust.show(JH_HUD_EntrustModel(), block: {
+            cell.makeUI(_vcType)
+            cell.lab_name.text = _datas.name
+            cell.lab_no.text = _datas.code
+            cell._text_price.text_field.text = _datas.proposedPrice
+            cell._text_num.text_field.text = "10"
+            cell._clickBlock = { [unowned self] _ in
+                let model = JH_HUD_EntrustModel(type: self._vcType, no: self._datas.code, name: self._datas.name, price: cell._text_price.text_field.text!, num: cell._text_num.text_field.text!)
+                JH_HUD_Entrust.show(model, block: {
                     
                 })
             }

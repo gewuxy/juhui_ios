@@ -39,7 +39,7 @@ open class SP_User {
     lazy var ntfName_更新用户信息 = NSNotification.Name(rawValue: "ntfName_更新用户信息")
     
     var userIsLogin: Bool {
-        let isLogin = SP_UserModel.read().userId.isEmpty ? false : true
+        let isLogin = userToken.isEmpty ? false : true
         return isLogin
         
     }
@@ -142,7 +142,7 @@ open class SP_User {
                 }
                 block?(isOk, error)
             })
-             /*
+             /* Moye + RxSwift 版本
             userProvider
                 .request(.t_登录(mobile: userAccount,pwd: userPwd))
                 .filterSuccessfulStatusCodes()

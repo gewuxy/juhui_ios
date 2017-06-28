@@ -8,30 +8,7 @@
 
 import UIKit
 
-class SP_IM_Tab: UIView {
-    static func show(_ supView:UIView) -> SP_IM_Tab {
-        for item in supView.subviews {
-            if let sub = item as? SP_IM_Tab {
-                return sub
-            }
-        }
-        let view = (Bundle.main.loadNibNamed("SP_IM_Tab", owner: nil, options: nil)!.first as? SP_IM_Tab)!
-        supView.addSubview(view)
-        view.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-        return view
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
+class SP_IM_Tab: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -40,10 +17,29 @@ class SP_IM_Tab: UIView {
     var _heightForHeaderInSection:((Int)->CGFloat)?
     var _heightForFooterInSection:((Int)->CGFloat)?
     var _heightForRow:((IndexPath)->CGFloat)?
-    var _cellForRowAt:((IndexPath)->UITableViewCell)?
+    var _cellForRowAt:((UITableView,IndexPath)->UITableViewCell)?
     var _viewForHeaderInSection:((Int)->UIView)?
     var _viewForFooterInSection:((Int)->UIView)?
 }
+extension SP_IM_Tab {
+    override class func initSPVC() -> SP_IM_Tab {
+        return UIStoryboard(name: "SP_IM", bundle: nil).instantiateViewController(withIdentifier: "SP_IM_Tab") as! SP_IM_Tab
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        makeTableView()
+    }
+    
+    func makeTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+    }
+}
+
 
 extension SP_IM_Tab:UITableViewDelegate,UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,13 +58,14 @@ extension SP_IM_Tab:UITableViewDelegate,UITableViewDataSource {
         return _viewForFooterInSection?(section) ?? nil
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return _heightForRow?(indexPath) ?? 0
+        return _heightForRow?(indexPath) ?? UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _numberOfRowsInSection?(section) ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        return _cellForRowAt?(tableView,indexPath) ?? UITableViewCell()
     }
 }
+

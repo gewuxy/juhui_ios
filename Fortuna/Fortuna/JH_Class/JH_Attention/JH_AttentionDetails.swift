@@ -69,13 +69,25 @@ extension JH_AttentionDetails {
     @IBAction func clickToolBarBtn(_ sender: UIButton) {
         switch sender {
         case btn_placeOrder:
-            JH_HUD_PlaceOrder.show({ _ in
-                
+            JH_HUD_PlaceOrder.show({ [unowned self]tag in
+                switch tag {
+                case 0:
+                    JH_BuyAndSell.show(self, type: .t买入, data:self._datas)
+                case 1:
+                    JH_BuyAndSell.show(self, type: .t卖出, data:self._datas)
+                case 2:
+                    break
+                default:break
+                }
             })
         case btn_chateau:
             JH_IM.show(self)
         case btn_remove:
-            break
+            if _datas.isFollow {
+                t_删除自选数据()
+            }else{
+                t_添加自选数据()
+            }
         default:
             break
         }
@@ -165,6 +177,25 @@ extension JH_AttentionDetails {
         sp_Notification.post(name: ntf_Name_自选删除, object: _datas)
         self.tableView.reloadData()
     }
+    
+    fileprivate func t_添加自选数据() {
+        
+        SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("+ 自选") )
+        My_API.t_添加自选数据(code:_datas.code).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text:sp_localized("已加自选"))
+                self?._datas.isFollow = true
+                sp_Notification.post(name: ntf_Name_自选添加, object: self != nil ? self!._datas : nil)
+                
+                self?.tableView.cyl_reloadData()
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    
     
 }
 

@@ -67,6 +67,20 @@ extension JH_Attention {
     
     fileprivate func makeRx() {
         sp_Notification.rx
+            .notification(SP_User.shared.ntfName_成功登陆了)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.tableView.sp_headerBeginRefresh()
+            }).addDisposableTo(disposeBag)
+        sp_Notification.rx
+            .notification(SP_User.shared.ntfName_退出登陆了)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.tableView.sp_headerBeginRefresh()
+            }).addDisposableTo(disposeBag)
+        sp_Notification.rx
             .notification(ntf_Name_自选删除)
             .takeUntil(self.rx.deallocated)
             .asObservable()
