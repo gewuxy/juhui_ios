@@ -46,6 +46,8 @@ extension AppDelegate {
         window?.makeKeyAndVisible()
         
         setupGlobalStyle()
+        
+        userLogin()
     }
     
     
@@ -98,14 +100,13 @@ extension AppDelegate {
         // ----- 设置支付宝
         
         
-    }
-
+    }*/
     //MARK:--- 登录
-    func userLogin(_ new:Bool) {
+    func userLogin(_ new:Bool = true) {
         //var result = gregorian!.components(NSCalendar.Unit.CalendarUnitHour, fromDate: dateresult!, toDate: NSDate(), options: NSCalendarOptions(0))
         //let dateresult = Date.xzReturnDateFormat("yyyy-MM-dd hh:mm:ss")
         
-        
+        /*
         if SP_User.shared.userIsLogin {
             SP_User.shared.url_用户中心详细内容()
         }else{
@@ -123,7 +124,7 @@ extension AppDelegate {
             guard result.minute! >= -10 else {
                 return
             }
-        }
+        }*/
         SP_User.shared.login( block:{ (isOk, error) in
             if isOk {
                 
@@ -132,7 +133,7 @@ extension AppDelegate {
     }
     
     
-    
+    /*
     //MARK:---- 版本更新
     func updateVersions() {
         JH_APIHelp.shared.net_Help(.url_版本控制, pram:[:]) { (isOk, data, error) in

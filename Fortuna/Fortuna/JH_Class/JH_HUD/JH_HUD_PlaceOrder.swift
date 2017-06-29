@@ -28,7 +28,7 @@ class JH_HUD_PlaceOrder: UIView {
     }
 }
 extension JH_HUD_PlaceOrder {
-    static func show(_ block:((Int)->Void)? = nil) {
+    class func show(_ block:((Int)->Void)? = nil) {
         for item in sp_MainWindow.subviews {
             if let view = item as? JH_HUD_PlaceOrder {
                 view._clickBlock = block

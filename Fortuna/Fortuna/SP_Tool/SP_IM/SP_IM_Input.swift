@@ -12,7 +12,7 @@ import RxSwift
 
 class SP_IM_Input: UIView {
 
-    static func show(_ supView:UIView) -> SP_IM_Input {
+    class func show(_ supView:UIView) -> SP_IM_Input {
         for item in supView.subviews {
             if let sub = item as? SP_IM_Input {
                 
@@ -138,8 +138,8 @@ extension SP_IM_Input:UITextViewDelegate {
         sp_Notification.addObserver(self, selector:#selector(SP_IM_Input.keyBoardWillHide(_:)), name:sp_ntfNameKeyboardWillHide, object: nil)
     }
     func removekeyBoard() {
-        sp_Notification.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        sp_Notification.removeObserver(self, name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        sp_Notification.removeObserver(self, name: sp_ntfNameKeyboardWillShow, object: nil)
+        sp_Notification.removeObserver(self, name:sp_ntfNameKeyboardWillHide, object: nil)
         sp_Notification.removeObserver(self)
     }
     
@@ -179,11 +179,10 @@ extension SP_IM_Input:UITextViewDelegate {
         let userInfo  = note.userInfo
         
         let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        _heightBlock?(.tB,0.0)
         
+        _heightBlock?(.tB,0.0)
         self.superview?.setNeedsLayout()
         let animations:(() -> Void) = {
-            //self.transform = .identity
             self.superview?.layoutIfNeeded()
         }
         if duration > 0 {

@@ -98,7 +98,7 @@ open class SP_AFSwift {
 
 extension SP_AFSwift {
     //MARK:---- get 请求
-    static func get(_ url:String, param:[String:Any], cerName:String = "", block: sp_netComBlock? = nil) {
+    class func get(_ url:String, param:[String:Any], cerName:String = "", block: sp_netComBlock? = nil) {
         guard SP_AFSwift.shared.netWorkReachability() else {return}
         SP_AFSwift.shared.makeSSL(cerName)
         SP_AFSwift.shared._manager.get(url, parameters: param, progress: { (Progress) in
@@ -109,7 +109,7 @@ extension SP_AFSwift {
         })
     }
     //MARK:---- post 请求
-    static func post(_ url:String, param:[String:Any], cerName:String = "", block: sp_netComBlock? = nil) {
+    class func post(_ url:String, param:[String:Any], cerName:String = "", block: sp_netComBlock? = nil) {
         guard SP_AFSwift.shared.netWorkReachability() else {return}
         SP_AFSwift.shared.makeSSL(cerName)
         SP_AFSwift.shared._manager.post(url, parameters: param, progress: { (Progress) in
@@ -122,7 +122,7 @@ extension SP_AFSwift {
         }
     }
     //MARK:---- 上传
-    static func upload(_ url:String, param:[String:Any], uploadParams:[SP_UploadParam], cerName:String = "",progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
+    class func upload(_ url:String, param:[String:Any], uploadParams:[SP_UploadParam], cerName:String = "",progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
         guard SP_AFSwift.shared.netWorkReachability() else {return}
         SP_AFSwift.shared.makeSSL(cerName)
         SP_AFSwift.shared.uploadCancel = false
@@ -154,7 +154,7 @@ extension SP_AFSwift {
     }
     
     //MARK:---- 下载
-    static func downLoad(_ url:String, param:[String:Any], cerName:String = "", progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
+    class func downLoad(_ url:String, param:[String:Any], cerName:String = "", progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
         
         guard SP_AFSwift.shared.netWorkReachability() else {return}
         SP_AFSwift.shared.makeSSL(cerName)

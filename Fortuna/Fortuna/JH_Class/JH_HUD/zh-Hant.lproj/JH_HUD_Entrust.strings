@@ -1,0 +1,33 @@
+
+/* Class = "UIButton"; normalTitle = "确定"; ObjectID = "0Nd-yz-VRz"; */
+"0Nd-yz-VRz.normalTitle" = "確定";
+
+/* Class = "UILabel"; text = "名称："; ObjectID = "Ajc-82-Amx"; */
+"Ajc-82-Amx.text" = "名稱：";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Cs4-Ob-brq"; */
+"Cs4-Ob-brq.text" = "0";
+
+/* Class = "UILabel"; text = "代码："; ObjectID = "MPL-aT-kfo"; */
+"MPL-aT-kfo.text" = "代碼：";
+
+/* Class = "UILabel"; text = "数量："; ObjectID = "O6U-hs-O3X"; */
+"O6U-hs-O3X.text" = "數量：";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "YaK-bP-jcg"; */
+"YaK-bP-jcg.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "ZAR-Ny-0wa"; */
+"ZAR-Ny-0wa.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "coc-SQ-Btc"; */
+"coc-SQ-Btc.text" = "0";
+
+/* Class = "UILabel"; text = "价格："; ObjectID = "j83-Kv-fjt"; */
+"j83-Kv-fjt.text" = "價格：";
+
+/* Class = "UILabel"; text = "委托"; ObjectID = "qst-aE-EFl"; */
+"qst-aE-EFl.text" = "委托";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "vzK-1K-bGZ"; */
+"vzK-1K-bGZ.text" = "0";

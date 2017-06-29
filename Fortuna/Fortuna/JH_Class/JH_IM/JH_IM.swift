@@ -57,7 +57,7 @@ extension JH_IM {
     override class func initSPVC() -> JH_IM {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_IM") as! JH_IM
     }
-    static func show(_ parentVC:UIViewController?) {
+    class func show(_ parentVC:UIViewController?) {
         let vc = JH_IM.initSPVC()
         vc.hidesBottomBarWhenPushed = true
         parentVC?.show(vc, sender: nil)

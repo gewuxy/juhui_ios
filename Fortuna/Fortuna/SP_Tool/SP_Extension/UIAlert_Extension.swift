@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIAlertController {
-    static func showAler(_ pVc:UIViewController?,btnText:[String], title:String = "", message:String = "", block:((String)->Void)? = nil) {
+    class func showAler(_ pVc:UIViewController?,btnText:[String], title:String = "", message:String = "", block:((String)->Void)? = nil) {
         let aler = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         for item in btnText {

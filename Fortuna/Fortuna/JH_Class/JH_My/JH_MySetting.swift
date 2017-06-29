@@ -38,7 +38,7 @@ extension JH_MySetting {
     override class func initSPVC() -> JH_MySetting {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_MySetting") as! JH_MySetting
     }
-    static func show(_ parentVC:UIViewController?) {
+    class func show(_ parentVC:UIViewController?) {
         let vc = JH_MySetting.initSPVC()
         vc.hidesBottomBarWhenPushed = true
         parentVC?.navigationController?.show(vc, sender: nil)

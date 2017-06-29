@@ -126,6 +126,10 @@ open class SP_User {
         self.userPwd = pwd
     }
     
+    //登录失效处理
+    func needLogin() {
+        removeUser()
+    }
     
     func login(_ type:sp_LoginType = SP_User.shared.userLoginType , block: ((Bool,String)->Void)? = nil) {
         switch type {

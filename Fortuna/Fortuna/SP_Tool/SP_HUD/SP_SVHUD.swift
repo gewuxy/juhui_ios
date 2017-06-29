@@ -25,7 +25,7 @@ import Foundation
 import SVProgressHUD
 extension SP_SVHUD {
     //MARK:--- 显示
-    static func show(_ type:SP_HUDType, text:String = "", time:TimeInterval = 20.0, progressEnd:Float = 10.0, block:SVProgressHUDDismissCompletion? = nil) {
+    class func show(_ type:SP_HUDType, text:String = "", time:TimeInterval = 20.0, progressEnd:Float = 10.0, block:SVProgressHUDDismissCompletion? = nil) {
         
         SP_SVHUD.setStyle(.dark)
         

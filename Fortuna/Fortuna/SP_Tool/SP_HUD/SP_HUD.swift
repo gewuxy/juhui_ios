@@ -30,7 +30,7 @@ enum SP_HUDType {
 }
 class SP_HUD: UIView {
 
-    static func shows(_ supView:(UIView,Bool) = (sp_MainWindow,false),
+    class func shows(_ supView:(UIView,Bool) = (sp_MainWindow,false),
                     type:SP_HUDType = .tBg,
                     text:String = "",
                     textMake:(UIColor,(Int,Int),UIColor) = (UIColor.mainText_1,(0,0),UIColor.main_1),
@@ -78,7 +78,7 @@ class SP_HUD: UIView {
 
 extension SP_HUD {
     static var _bg = SP_HUDBG.tMB
-    static func show(_ bg:SP_HUDBG = .tMB,view:UIView = sp_MainWindow, type:SP_HUDType = .tNone, text:String = "", detailText:String="", image:String = "", time:TimeInterval = 20, block:(()->Void)? = nil) {
+    class func show(_ bg:SP_HUDBG = .tMB,view:UIView = sp_MainWindow, type:SP_HUDType = .tNone, text:String = "", detailText:String="", image:String = "", time:TimeInterval = 20, block:(()->Void)? = nil) {
         SP_HUD._bg = bg
         switch SP_HUD._bg {
         case .tMB:
@@ -94,7 +94,7 @@ extension SP_HUD {
         }
         
     }
-    static func hidden() {
+    class func hidden() {
         switch SP_HUD._bg {
         case .tMB:
             SP_MBHUD.hideHUD()

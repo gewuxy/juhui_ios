@@ -42,19 +42,21 @@ class JH_HUD_Entrust: UIView {
             lab_pice.text = model.price
             lab_num.text = model.num
             
-            lab_title.text = model.type == .t买入 ? "买入委托" : "卖出委托"
+            lab_title.text = sp_localized(model.type == .t买入 ? "买入委托" : "卖出委托")
             
-            btn_ok.setTitle(model.type == .t买入 ? "确定买入" : "确定卖出", for: .normal)
+            btn_ok.setTitle(sp_localized(model.type == .t买入 ? "确定买入" : "确定卖出"), for: .normal)
+            
             
         }
     }
     @IBAction func btnClick(_ sender: UIButton) {
         switch sender {
-        case btn_cancel:
-            hiddenUI()
-        default:
+        case btn_ok:
             _clickBlock?()
+        default:
+            break
         }
+        hiddenUI()
     }
 }
 
@@ -86,26 +88,34 @@ extension JH_HUD_Entrust {
         showUI()
     }
     fileprivate func makeUI(){
-        
-        btn_cancel.setTitleColor(UIColor.main_btnNotEnb, for: .normal)
-        btn_ok.setTitleColor(UIColor.main_btnNormal, for: .normal)
         btn_cancel.titleLabel?.font = sp_fitFont18
         btn_ok.titleLabel?.font = sp_fitFont18
         
+        btn_cancel.setTitleColor(UIColor.main_btnNotEnb, for: .normal)
+        btn_ok.setTitleColor(UIColor.main_btnNormal, for: .normal)
+        btn_cancel.setTitle(sp_localized("取消"), for: .normal)
+        
+        lab_No0.text = sp_localized("代码：")
+        lab_name0.text = sp_localized("名称：")
+        lab_pice0.text = sp_localized("价格：")
+        lab_num0.text = sp_localized("数量：")
+        
         lab_title.font = sp_fitFont20
+        lab_No0.font = sp_fitFont15
+        lab_name0.font = sp_fitFont15
+        lab_pice0.font = sp_fitFont15
+        lab_num0.font = sp_fitFont15
+        
         
         lab_No.font = sp_fitFont15
-        lab_No0.font = sp_fitFont15
         lab_name.font = sp_fitFont15
-        lab_name0.font = sp_fitFont15
         lab_pice.font = sp_fitFont15
-        lab_pice0.font = sp_fitFont15
         lab_num.font = sp_fitFont15
-        lab_num0.font = sp_fitFont15
+        
         
         view_hud_W.constant = sp_ScreenWidth - sp_fitSize((30,60,90))
         
-        view_hud_B.constant = 20 + sp_fitSize((0,10,20))
+        view_hud_B.constant = 20 //+ sp_fitSize((0,5,10))
     }
     
     

@@ -37,7 +37,7 @@ extension SP_UserAPI {
         //SP_Alamofire.shared._headers = ["token":""]
         switch self {
         case .t_登录(let mobile, let pwd):
-            let param = ["mobile": mobile, "password": pwd]
+            let param = ["mobile": mobile, "password": pwd,"client_id":"","client_secret":""]
             SP_Alamofire.post(main_url + SP_UserAPI.url_登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in

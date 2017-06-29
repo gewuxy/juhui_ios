@@ -17,12 +17,20 @@ enum JH_BuyAndSellType {
 class JH_BuyAndSell: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView_B: NSLayoutConstraint!
     
     lazy var _vcType = JH_BuyAndSellType.t买入
     
     lazy var _datas = M_Attention()
     
-
+    
+    @IBAction func clickViewTap(_ sender: UITapGestureRecognizer) {
+        
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? JH_BuyAndSellCell_Deal {
+            cell.keyBoardHidden()
+        }
+        
+    }
 }
 
 extension JH_BuyAndSell {
@@ -86,23 +94,78 @@ extension JH_BuyAndSell:UITableViewDataSource{
         default:
             let cell = JH_BuyAndSellCell_Deal.show(tableView, indexPath)
             cell.makeUI(_vcType)
-            cell.lab_name.text = _datas.name
-            cell.lab_no.text = _datas.code
-            cell._text_price.text_field.text = _datas.proposedPrice
-            cell._text_num.text_field.text = "10"
+            cell._model = _datas
             cell._clickBlock = { [unowned self] _ in
                 let model = JH_HUD_EntrustModel(type: self._vcType, no: self._datas.code, name: self._datas.name, price: cell._text_price.text_field.text!, num: cell._text_num.text_field.text!)
-                JH_HUD_Entrust.show(model, block: {
-                    
+                JH_HUD_Entrust.show(model, block: {[weak self] _ in
+                    SP_HUD.show(text:"模块开发中，下面是模拟")
+                    self?.goBuyOrSell()
                 })
+            }
+            cell._heightBlock = { [weak self](type,height) in
+                switch type {
+                case .tB:
+                    self?.tableView_B.constant = height
+                case .tFinish:
+                    self?.toRowTop()
+                default:break
+                }
             }
             return cell
         }
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
+    fileprivate func toRowTop(_ animated:Bool = false){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [weak self] _ in
+            let indexPath = IndexPath(row: 0, section: 1)
+            self?.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+        }
+        
+    }
 }
-
+//MARK:--- 网络 -----------------------------
+extension JH_BuyAndSell {
+    fileprivate func goBuyOrSell(){
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? JH_BuyAndSellCell_Deal {
+            if _vcType == .t买入 {
+                t_买入(cell._text_price.text_field.text!,cell._text_num.text_field.text!)
+            }else{
+                t_卖出(cell._text_price.text_field.text!,cell._text_num.text_field.text!)
+            }
+        }
+        
+    }
+    fileprivate func t_买入(_ price:String, _ num:String) {
+        SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("正在买入") )
+        My_API.t_买入(code: _datas.code, price: price, num: num).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text:sp_localized("已买入"))
+                
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    fileprivate func t_卖出(_ price:String, _ num:String) {
+        SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("正在卖出") )
+        My_API.t_卖出(code: _datas.code, price: price, num: num).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text:sp_localized("已卖出"))
+                
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    
+}
 

@@ -10,7 +10,7 @@ import UIKit
 
 class SP_PlaceHolderView: UIView {
 
-    static func show() -> SP_PlaceHolderView {
+    class func show() -> SP_PlaceHolderView {
         let view = (Bundle.main.loadNibNamed("SP_PlaceHolderView", owner: nil, options: nil)!.first as? SP_PlaceHolderView)!
         return view
     }

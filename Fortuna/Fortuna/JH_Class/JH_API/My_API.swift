@@ -149,6 +149,11 @@ extension My_API {
             guard json[My_Net_Code].stringValue == My_NetCodeError.t成功.rawValue else{
                 let message = (My_NetCodeError(rawValue: json[My_Net_Code].stringValue) ?? .tError).stringValue
                 block?(false,[],message)
+                
+                if json[My_Net_Code].stringValue == My_NetCodeError.t需要登录.rawValue {
+                    My_API.needLogin()
+                }
+                
                 return
             }
             guard let array:[JSON] = json[My_Net_Data].array else{
@@ -178,6 +183,11 @@ extension My_API {
             guard json[My_Net_Code].stringValue == My_NetCodeError.t成功.rawValue else{
                 let message = (My_NetCodeError(rawValue: json[My_Net_Code].stringValue) ?? .tError).stringValue
                 block?(false,nil,message)
+                
+                if json[My_Net_Code].stringValue == My_NetCodeError.t需要登录.rawValue {
+                    My_API.needLogin()
+                }
+                
                 return
             }
             guard !json[My_Net_Data].isEmpty else{
@@ -190,6 +200,12 @@ extension My_API {
             block?(false,nil,error!)
         }
     }
+    
+    //登录失效处理
+    static func needLogin() {
+        SP_User.shared.needLogin()
+    }
+    
 }
 
 let My_Net_Code = "code"
@@ -206,25 +222,54 @@ enum My_NetCodeError: String {
     case t密码错误     = "000006"
     case t需要登录     = "000007"
     case t无效用户     = "000008"
+    case t验证码错误   = "000009"
+    case t获取access_token错误   = "000010"
+    case tClient数据错误   = "000011"
+   
     case t已添加     = "100001"
+    case t持仓量不足     = "100002"
     
-    case t没有数据    = "011110"
-    case tError      = "011111"
+    case t未知错误   = "999999"
+    
+    case t没有数据    = "9011110"
+    case tError      = "9011111"
     
     var stringValue:String {
         switch self {
-        case .t成功:       return sp_localized(My_NetCodeError.t成功.rawValue)
-        case .t请求方法错误: return sp_localized(My_NetCodeError.t请求方法错误.rawValue)
-        case .t参数错误:    return sp_localized(My_NetCodeError.t参数错误.rawValue)
-        case .t用户已注册:   return sp_localized(My_NetCodeError.t用户已注册.rawValue)
-        case .t用户未注册:   return sp_localized(My_NetCodeError.t用户未注册.rawValue)
-        case .t发送验证码失败: return sp_localized(My_NetCodeError.t发送验证码失败.rawValue)
-        case .t密码错误: return sp_localized(My_NetCodeError.t密码错误.rawValue)
-        case .t需要登录: return sp_localized(My_NetCodeError.t需要登录.rawValue)
-        case .t没有数据: return sp_localized(My_NetCodeError.t没有数据.rawValue)
-        case .t无效用户:  return sp_localized(My_NetCodeError.t无效用户.rawValue)
-        case .t已添加:  return sp_localized(My_NetCodeError.t已添加.rawValue)
-        default: return sp_localized(My_NetCodeError.tError.rawValue)
+        case .t成功:
+            return sp_localized(My_NetCodeError.t成功.rawValue)
+        case .t请求方法错误:
+            return sp_localized(My_NetCodeError.t请求方法错误.rawValue)
+        case .t参数错误:
+            return sp_localized(My_NetCodeError.t参数错误.rawValue)
+        case .t用户已注册:
+            return sp_localized(My_NetCodeError.t用户已注册.rawValue)
+        case .t用户未注册:
+            return sp_localized(My_NetCodeError.t用户未注册.rawValue)
+        case .t发送验证码失败:
+            return sp_localized(My_NetCodeError.t发送验证码失败.rawValue)
+        case .t密码错误:
+            return sp_localized(My_NetCodeError.t密码错误.rawValue)
+        case .t需要登录:
+            return sp_localized(My_NetCodeError.t需要登录.rawValue)
+        case .t没有数据:
+            return sp_localized(My_NetCodeError.t没有数据.rawValue)
+        case .t无效用户:
+            return sp_localized(My_NetCodeError.t无效用户.rawValue)
+        case .t验证码错误:
+            return sp_localized(My_NetCodeError.t验证码错误.rawValue)
+        case .t获取access_token错误:
+            return sp_localized(My_NetCodeError.t获取access_token错误.rawValue)
+        case .tClient数据错误:
+            return sp_localized(My_NetCodeError.tClient数据错误.rawValue)
+        case .t已添加:
+            return sp_localized(My_NetCodeError.t已添加.rawValue)
+        case .t持仓量不足:
+            return sp_localized(My_NetCodeError.t持仓量不足.rawValue)
+        case .t未知错误:
+            return sp_localized(My_NetCodeError.t未知错误.rawValue)
+        default:
+            return sp_localized(My_NetCodeError.tError.rawValue)
         }
     }
 }

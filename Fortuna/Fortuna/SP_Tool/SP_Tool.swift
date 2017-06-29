@@ -23,7 +23,7 @@ open class SP_Tool {
 extension SP_Tool {
     
     //MARK:--- 获取本地文件 -----------------------------
-    static func sp_ReturnBundleArray(_ path:String, name:String) -> [AnyObject] {
+    class func sp_ReturnBundleArray(_ path:String, name:String) -> [AnyObject] {
         let path:String = Bundle.main.path(forResource: path, ofType: nil)!
         let dic = NSDictionary(contentsOfFile: path)
         let arr = dic!["\(name)"]

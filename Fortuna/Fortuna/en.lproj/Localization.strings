@@ -28,7 +28,10 @@
 "已删除" = "Successful";
 "您还没有自选酒" = "You haven't follow data";
 "您将删除所选自选酒" = "You will delete the selected";
-
+"代码：" = "Code：";
+"名称：" = "Name：";
+"价格：" = "Price：";
+"数量：" = "Number：";
 
 /*
  我的
@@ -63,10 +66,17 @@
 "000006" = "Account or password error";
 "000007" = "Need to log in to";
 "000008" = "User account does not exist";
-"100001" = "Has been added";
-"011111" = "Server error";
-"011110" = "There is no data";
+"000009" = "Verification code error";
+"000010" = "Get access_token errors";
+"000011" = "The Client data errors";
 
+"100001" = "Has been added";
+"100002" = "Insufficient holdings";
+
+"999999" = "An unknown error";
+
+"9011111" = "Server error";
+"9011110" = "There is no data";
 /*
  操作类型
  */
@@ -78,6 +88,7 @@
 "搜其他的" = "Search other";
 "加载更多" = "Loading";
 "取消" = "Cancel";
+"确定" = "OK";
 "去添加" = "To Follow";
 "删除" = "Delete";
 "图片" = "Picture";
@@ -85,3 +96,7 @@
 "买入" = "Buy";
 "卖出" = "Sell";
 "撤单" = "Revoke";
+"买入委托" = "Buy";
+"卖出委托" = "Sell";
+"确定买入" = "Buy";
+"确定卖出" = "Sell";

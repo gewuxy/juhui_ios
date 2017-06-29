@@ -152,18 +152,18 @@ open class SP_Alamofire {
 
 extension SP_Alamofire {
     //MARK:--- 网络请求 -----------------------------
-    static func get(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
+    class func get(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
         SP_Alamofire.shared._manager.request(url, method: .get, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { (response) in
             SP_Alamofire.disposeResponse(response, block:block)
         }
         
     }
-    static func post(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
+    class func post(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
         SP_Alamofire.shared._manager.request(url, method: .post, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { response in
             SP_Alamofire.disposeResponse(response, block:block)
         }
     }
-    static func upload(_ url:String, param:[String:String], uploadParams:[SP_UploadParam], progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
+    class func upload(_ url:String, param:[String:String], uploadParams:[SP_UploadParam], progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
         SP_Alamofire.shared.uploadCancel = false
         SP_Alamofire.shared._manager.upload(multipartFormData: { (formData) in
             for item in uploadParams {
@@ -197,7 +197,7 @@ extension SP_Alamofire {
             }
         })
     }
-    static func downLoad(_ url:String, param:[String:Any], progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
+    class func downLoad(_ url:String, param:[String:Any], progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
         /*
         Alamofire.download("https://httpbin.org/image/png").responseData { response in
             if let data = response.result.value {
@@ -230,7 +230,7 @@ extension SP_Alamofire {
         
     }
     
-    static func disposeResponse(_ response:DataResponse<Any>, block:sp_netComBlock? = nil) {
+    class func disposeResponse(_ response:DataResponse<Any>, block:sp_netComBlock? = nil) {
         var error = ""
         var isOk = false
         switch response.result {

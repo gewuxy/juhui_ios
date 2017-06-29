@@ -29,12 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
+    //MARK:---- 应用程序将要进入活动状态，即将进入前台运行
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        //极光推送，清除通知栏和角标
+        //application.applicationIconBadgeNumber = 0
+        application.cancelAllLocalNotifications()
+        
+        
     }
 
+    //MARK:---------- 应用由后台恢复到前台,应用程序已进入前台
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        userLogin(false)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
