@@ -18,10 +18,7 @@ class SP_TimeSingleton {
     
     
     //MARK:--- 秒表倒计时
-    fileprivate lazy var _timer:Timer? = {
-        let tim = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(SP_TimeSingleton.timerClosure(_:)), userInfo: nil, repeats: true)
-        return tim
-    }()
+    fileprivate var _timer:Timer?
     fileprivate lazy var _countTime:Int = {
         let time = 60
         return time
@@ -57,18 +54,18 @@ class SP_TimeSingleton {
         _time = 0
         _button?.isEnabled = false
         
-        
-        
-        
         makeLabelText(countTime)
-        
+        _timer?.invalidate()
+        _timer = nil
+        _timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(SP_TimeSingleton.timerClosure(_:)), userInfo: nil, repeats: true)
         RunLoop.current.add(_timer!, forMode: .commonModes)
+        
     }
     @objc private func timerClosure(_ timer: Timer) {
         _time += 1
         if _time >= _countTime{
             _timer?.invalidate()
-            
+            _timer = nil
             makeLabelText(0)
         }
         else{

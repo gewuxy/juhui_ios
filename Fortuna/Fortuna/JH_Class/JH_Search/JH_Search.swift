@@ -59,25 +59,86 @@ extension JH_Search {
         super.viewDidLoad()
         
         makeNavigation()
-        makeUI()
-        makeRx()
+        makeTableView()
         makeTextDelegate()
     }
     fileprivate func makeNavigation() {
         n_view.n_btn_R1_R.constant = 15
         
-        
+        makeSearchRx()
     }
     
-    fileprivate func makeUI() {
+    fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
+        _placeHolderType = .tOnlyImage
+        tableView.cyl_reloadData()
         
         sp_addMJRefreshHeader()
         tableView.sp_headerBeginRefresh()
     }
-    fileprivate func makeRx() {
+    
+    override func placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            _text_search.text_field.becomeFirstResponder()
+        case .tNetError(_):
+            _placeHolderType = .tOnlyImage
+            tableView.sp_headerBeginRefresh()
+        }
+    }
+    
+    fileprivate func makeNotification() {
+        sp_Notification.rx
+            .notification(SP_User.shared.ntfName_成功登陆了)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.tableView.sp_headerBeginRefresh()
+            }).addDisposableTo(disposeBag)
+        sp_Notification.rx
+            .notification(SP_User.shared.ntfName_退出登陆了)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.tableView.sp_headerBeginRefresh()
+            }).addDisposableTo(disposeBag)
+        sp_Notification.rx
+            .notification(ntf_Name_自选删除)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                guard self != nil else{return}
+                guard let data = n.object as? M_Attention else{return}
+                for (i,item) in self!._datas.enumerated() {
+                    if data.code == item.code {
+                        self!._datas[i] = data
+                    }
+                }
+                self?.tableView.cyl_reloadData()
+            }).addDisposableTo(disposeBag)
+        
+        sp_Notification.rx
+            .notification(ntf_Name_自选添加)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                guard self != nil else{return}
+                guard let data = n.object as? M_Attention else{return}
+                for (i,item) in self!._datas.enumerated() {
+                    if data.code == item.code {
+                        self!._datas[i] = data
+                    }
+                }
+                self?.tableView.cyl_reloadData()
+            }).addDisposableTo(disposeBag)
+        
+    }
+}
+extension JH_Search {
+    fileprivate func makeSearchRx() {
         let phoneValid_1 = _text_search.text_field.rx.text.map { $0?.characters.count == 0 }.shareReplay(1)
         phoneValid_1
             .asObservable()
@@ -109,20 +170,7 @@ extension JH_Search {
             }
         }
     }
-    
-    override func placeHolderViewClick() {
-        switch _placeHolderType {
-        case .tOnlyImage:
-            break
-        case .tNoData(_,_):
-            _text_search.text_field.becomeFirstResponder()
-        case .tNetError(_):
-            _placeHolderType = .tOnlyImage
-            tableView.sp_headerBeginRefresh()
-        }
-    }
 }
-
 extension JH_Search:UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _datas.count
@@ -144,7 +192,7 @@ extension JH_Search:UITableViewDataSource{
         cell.btn_select.setTitleColor(model.isFollow ? UIColor.mainText_3 : UIColor.mainText_1, for: .normal)
         cell._clickBlock = { [weak self]_ in
             self?._text_search.text_field.resignFirstResponder()
-            self?.t_添加自选数据(indexPath.row)
+            self?.t_添加或删除(indexPath.row)
         }
         return cell
     }
@@ -167,7 +215,7 @@ extension JH_Search {
             self?.tableView.cyl_reloadData()
             self?._pageIndex += 1
             self?.t_自选搜索()
-            
+            self?.sp_EndRefresh()
         }
     }
     
@@ -214,6 +262,22 @@ extension JH_Search {
         }
     }
     
+    fileprivate func t_添加或删除(_ index:Int) {
+        guard SP_User.shared.userIsLogin else{
+            SP_Login.show(self)
+            return
+        }
+        
+        if !_datas[index].isFollow {
+            t_添加自选数据(index)
+        }else{
+            UIAlertController.showAler(self, btnText: [sp_localized("取消"),sp_localized("确定")], title: sp_localized("您将删除此自选酒"), message: "", block: { [weak self](str) in
+                if str == sp_localized("确定") {
+                    self?.t_删除自选数据(index)
+                }
+            })
+        }
+    }
     fileprivate func t_添加自选数据(_ index:Int) {
         
         SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("+ 自选") )
@@ -230,6 +294,25 @@ extension JH_Search {
             }
             
         }
+    }
+    
+    fileprivate func t_删除自选数据(_ index:Int) {
+        SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
+        My_API.t_删除自选数据(code:_datas[index].code).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text: sp_localized("已删除"))
+                self?.removeDatas(index)
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+    fileprivate func removeDatas(_ index:Int) {
+        _datas[index].isFollow = false
+        sp_Notification.post(name: ntf_Name_自选删除, object: _datas[index])
+        self.tableView.cyl_reloadData()
     }
 }
 

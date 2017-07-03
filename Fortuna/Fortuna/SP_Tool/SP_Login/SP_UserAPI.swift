@@ -34,10 +34,10 @@ enum SP_UserAPI {
 //MARK:--- 自己的版本 -----------------------------
 extension SP_UserAPI {
     func post(_ block:((Bool,Any,String) -> Void)? = nil) {
-        //SP_Alamofire.shared._headers = ["token":""]
+        SP_Alamofire.shared._headers = [:]
         switch self {
         case .t_登录(let mobile, let pwd):
-            let param = ["mobile": mobile, "password": pwd,"client_id":"","client_secret":""]
+            let param = ["mobile": mobile, "password": pwd,"client_id":"NEEF9MakoTu9k573c9ExiuMjEp8BZxJ5J0LUk1mr","client_secret":"9zShX4vdI7jggML2rE6TBmrtsXbAdIoBVeGHuDTQ2xdNaVqRLErct9Zh7UgICRkyHE5AkI9iKTwkLsLjPgrveUNSJBK9oPMxONSaxs3vzajeoOUR33YxgZ0ZpPfUAA6t"]
             SP_Alamofire.post(main_url + SP_UserAPI.url_登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -46,8 +46,9 @@ extension SP_UserAPI {
                 
             })
         case .t_退出登录:
+            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
             let param = ["token":SP_User.shared.userToken]
-            SP_Alamofire.post(main_url + SP_UserAPI.url_退出登录, param: param, block: { (isOk, data, error) in
+            SP_Alamofire.get(main_url + SP_UserAPI.url_退出登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_退出登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas ?? "", error)
@@ -63,7 +64,8 @@ extension SP_UserAPI {
                 })
             })
         case .t_短信(let mobile, let type):
-            let param = ["mobile": mobile, "sms_type": type]
+            //, "sms_type": type
+            let param = ["mobile": mobile]
             SP_Alamofire.post(main_url + SP_UserAPI.url_短信, param: param, block: { (isOk, data, error) in
                 print_Json("url_短信=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -79,8 +81,9 @@ extension SP_UserAPI {
                 })
             })
         case .t_用户信息获取(let mobile,let token):
+            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
             let param = ["mobile": mobile,"token":token]
-            SP_Alamofire.post(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
+            SP_Alamofire.get(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
                 print_Json("url_用户信息获取=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     print_Json(datas)

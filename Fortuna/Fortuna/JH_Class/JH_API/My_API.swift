@@ -53,11 +53,14 @@ enum My_API {
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
-        var parame:[String:Any] = ["token":SP_User.shared.userToken]
+        //"token":SP_User.shared.userToken
+        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+        var parame:[String:Any] = [:]
         switch self {
         case .t_获取自选列表(let page):
             parame += ["page":page,"page_num":my_pageSize]
-            SP_Alamofire.post(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
+            print_Json("url_获取自选列表 parame=>\(parame))")
+            SP_Alamofire.get(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
                 print_Json("url_获取自选列表=>\(JSON(res!))")
                 My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas, error)

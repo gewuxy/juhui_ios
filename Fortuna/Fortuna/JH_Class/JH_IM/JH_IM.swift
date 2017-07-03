@@ -7,9 +7,10 @@
 //
 
 import UIKit
-
+import SocketIO
+import YYKeyboardManager
+import IQKeyboardManager
 class JH_IM: SP_ParentVC {
-
     
     @IBOutlet weak var view_Top: UIView!
     @IBOutlet weak var view_Tab: UIView!
@@ -49,8 +50,12 @@ class JH_IM: SP_ParentVC {
         return man!
     }()
     
+    //
+    let socket = SocketIOClient(socketURL: URL(string: "http://localhost:8080")!, config: [.log(true), .forcePolling(true)])
     
-    
+    deinit{
+        IQKeyboardManager.shared().isEnabled = true
+    }
 }
 
 extension JH_IM {
@@ -78,7 +83,7 @@ extension JH_IM {
         
     }
     fileprivate func makeUI() {
-        
+        IQKeyboardManager.shared().isEnabled = false
         hiddenHudImg(0)
         makeHudImg()
     }
@@ -86,6 +91,24 @@ extension JH_IM {
     @IBAction func clickViewTap(_ sender: UITapGestureRecognizer) {
         hiddenHudImg()
         _inputView.text_View.resignFirstResponder()
+    }
+    
+    fileprivate func makeSocketIO() {
+        socket.on(clientEvent: .connect) {data, ack in
+            print("socket connected")
+        }
+        
+        socket.on("currentAmount") {data, ack in
+            if let cur = data[0] as? Double {
+                self.socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
+                    self.socket.emit("update", ["amount": cur + 2.50])
+                }
+                
+                ack.with("Got your currentAmount", "dude")
+            }
+        }
+        
+        socket.connect()
     }
 }
 extension JH_IM {
@@ -116,6 +139,10 @@ extension JH_IM {
                 self?.toRowBottom()
                 
             }
+        }
+        
+        _inputView._shouldReturnBlock = { [weak self]_ in
+            
         }
     }
 }

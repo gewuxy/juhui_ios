@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import IQKeyboardManager
 extension AppDelegate {
     //MARK:----------- 状态栏全局样式
     func setupGlobalStyle() {
@@ -48,8 +48,17 @@ extension AppDelegate {
         setupGlobalStyle()
         
         userLogin()
+        umShare()
     }
-    
+    fileprivate func makeIQKeyboardManager() {
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared().shouldToolbarUsesTextFieldTintColor = false
+        IQKeyboardManager.shared().toolbarTintColor = UIColor.main_1
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        IQKeyboardManager.shared().shouldShowTextFieldPlaceholder = false
+        //IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
+    }
     
     private static var tabBar:SP_TabBarController = {
         let viewControllers = [JH_Attention.initSPVC(),JH_News.initSPVC(),JH_Market.initSPVC(),JH_My.initSPVC()]
@@ -80,7 +89,7 @@ extension AppDelegate {
         sp_UserDefaultsSet("key_OldVersionKey", value:nowVersion as AnyObject)
         sp_UserDefaultsSyn()
     }
-    /*
+    
     //MARK:---------- 友盟分享
     func umShare() {
         // ----- 打开日志
@@ -89,18 +98,19 @@ extension AppDelegate {
         UMSocialManager.default().umSocialAppkey = key_UMengAppKey
         // ----- 获取友盟social版本号
         print("UMeng social version: \(UMSocialGlobal.umSocialSDKVersion())")
+        
         // ----- 设置微信
-        UMSocialManager.default().setPlaform(.wechatSession, appKey: key_WXappID, appSecret: key_WXappSecret, redirectURL: key_ShareUrl)
+        UMSocialManager.default().setPlaform(.wechatSession, appKey: key_WXappID, appSecret: key_WXappSecret, redirectURL: my_ShareUrl)
         // ----- 设置 QQ
-        UMSocialManager.default().setPlaform(.QQ, appKey: key_QQappID, appSecret: key_QQappSecret, redirectURL: key_ShareUrl)
+        //UMSocialManager.default().setPlaform(.QQ, appKey: key_QQappID, appSecret: key_QQappSecret, redirectURL: my_ShareUrl)
         //        UMSocialManager.defaultManager().setPlaform(.Qzone, appKey: QQappID, appSecret: QQappSecret, redirectURL: shareIhgUrl)
         //        UMSocialManager.defaultManager().setPlaform(.TencentWb, appKey: QQappID, appSecret: QQappSecret, redirectURL: shareIhgUrl)
         // ----- 设置新浪微博
-        UMSocialManager.default().setPlaform(.sina, appKey: key_SinaappID, appSecret: key_SinaappSecret, redirectURL: key_ShareUrl)
+        //UMSocialManager.default().setPlaform(.sina, appKey: key_SinaappID, appSecret: key_SinaappSecret, redirectURL: my_ShareUrl)
         // ----- 设置支付宝
         
         
-    }*/
+    }
     //MARK:--- 登录
     func userLogin(_ new:Bool = true) {
         //var result = gregorian!.components(NSCalendar.Unit.CalendarUnitHour, fromDate: dateresult!, toDate: NSDate(), options: NSCalendarOptions(0))

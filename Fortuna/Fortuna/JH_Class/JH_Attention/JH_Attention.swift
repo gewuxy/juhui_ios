@@ -32,10 +32,9 @@ extension JH_Attention {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         makeNavigation()
         makeUI()
-        makeRx()
+        makeNotification()
         
         
     }
@@ -60,12 +59,12 @@ extension JH_Attention {
         tableView.dataSource = self
         
         _placeHolderType = .tOnlyImage
-        
+        tableView.cyl_reloadData()
         sp_addMJRefreshHeader()
         tableView.sp_headerBeginRefresh()
     }
     
-    fileprivate func makeRx() {
+    fileprivate func makeNotification() {
         sp_Notification.rx
             .notification(SP_User.shared.ntfName_成功登陆了)
             .takeUntil(self.rx.deallocated)
@@ -85,7 +84,22 @@ extension JH_Attention {
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
-                guard let data = n.object as? [M_Attention] else{return}
+                guard self != nil else{return}
+                guard let data = n.object as? [M_Attention] else{
+                    if let dat = n.object as? M_Attention {
+                        for (i,item) in self!._datas.enumerated() {
+                            if item.code == dat.code {
+                                self!._datas.remove(at: i)
+                            }
+                        }
+                    }
+                    self?.tableView.cyl_reloadData()
+                    if self?._datas.count == 0 {
+                        self?._pageIndex = 1
+                        self?.t_获取自选列表()
+                    }
+                    return
+                }
                 self?._datas = data
                 self?.tableView.cyl_reloadData()
                 if self?._datas.count == 0 {
@@ -146,11 +160,18 @@ extension JH_Attention {
         case .tNoData(_,_):
             clickN_btn_R1()
             //self.navigationController?.tabBarController?.selectedIndex = 2
-        case .tNetError(_):
-            _placeHolderType = .tOnlyImage
-            tableView.sp_headerBeginRefresh()
+        case .tNetError(let lab):
+            if lab == My_NetCodeError.t需要登录.stringValue {
+                SP_Login.show(self)
+            }else{
+                _placeHolderType = .tOnlyImage
+                tableView.sp_headerBeginRefresh()
+            }
+            
         }
     }
+    
+    
 }
 
 extension JH_Attention:UITableViewDelegate {
@@ -180,7 +201,8 @@ extension JH_Attention:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        JH_AttentionDetails.show(self, data:_datas[indexPath.row])
+        //JH_AttentionDetails.show(self, data:_datas[indexPath.row])
+        JH_IM2.show(self)
     }
     
     
@@ -198,8 +220,10 @@ extension JH_Attention {
     fileprivate func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
             self?.tableView.cyl_reloadData()
+            self?.sp_EndRefresh()
             self?._pageIndex += 1
             self?.t_获取自选列表()
+            
             
         }
     }
@@ -212,10 +236,16 @@ extension JH_Attention {
     fileprivate func t_获取自选列表() {
         My_API.t_获取自选列表(page:_pageIndex).post(M_Attention.self) { [weak self](isOk, data, error) in
             self?.sp_EndRefresh()
-            print_Json(data)
+            
             if isOk {
-                guard let datas = data as? [M_Attention] else{return}
+                guard var datas = data as? [M_Attention] else{return}
                 self?.sp_addMJRefreshFooter()
+                var ddd = [M_Attention]()
+                for var item in datas {
+                    item.isFollow = true
+                    ddd.append(item)
+                }
+                datas = ddd
                 if self?._pageIndex == 1 {
                     self?._datas = datas
                     
@@ -226,7 +256,6 @@ extension JH_Attention {
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
                         self?.tableView.cyl_reloadData()
                     }else{
-                        
                         self?.tableView.cyl_reloadData()
                         self?._pageIndex += 1
                         self?.t_获取自选列表()
@@ -235,7 +264,7 @@ extension JH_Attention {
                 }else{
                     self?._datas += datas
                     
-                    if datas.count < 20{
+                    if datas.count < my_pageSize {
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
                     }
                 }

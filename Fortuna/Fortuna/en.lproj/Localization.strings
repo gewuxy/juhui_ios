@@ -28,6 +28,7 @@
 "已删除" = "Successful";
 "您还没有自选酒" = "You haven't follow data";
 "您将删除所选自选酒" = "You will delete the selected";
+"您将删除此自选酒" = "You will delete";
 "代码：" = "Code：";
 "名称：" = "Name：";
 "价格：" = "Price：";
@@ -82,7 +83,7 @@
  */
 "还没有自选酒" = "No follow";
 "点击添加" = "Click on add";
-"点击刷新" = "Click or drop-down refresh";
+"点击刷新" = "Click on me to refresh";
 "全部加载完毕,下拉可以刷新！" = "All loaded, the drop-down refresh!";
 "没有搜到" = "No search to the data";
 "搜其他的" = "Search other";
@@ -100,3 +101,15 @@
 "卖出委托" = "Sell";
 "确定买入" = "Buy";
 "确定卖出" = "Sell";
+"QQ" = "QQ";
+"新浪微博" = "Sina";
+"微信" = "WeChat";
+"微信朋友圈" = "Moments";
+"分享到" = "Share To";
+"点我登录" = "Click on me to log in";
+
+
+
+
+
+

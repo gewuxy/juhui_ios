@@ -15,7 +15,7 @@ class JH_NewsCell_List: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        view_line.backgroundColor = UIColor.main_bg
+        view_line.backgroundColor = UIColor.main_line
         lab_name.textColor = UIColor.mainText_1
         
     }

@@ -47,7 +47,7 @@ class SP_Login: SP_ParentVC {
         text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .phonePad
-        text.text_field.showOkButton()
+        //text.text_field.showOkButton()
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
         text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
         text.text_field_L.constant = 15
@@ -94,7 +94,7 @@ extension SP_Login {
         makeUI()
         makeRx()
         makeTextFieldDelegate()
-        showKeyboard()
+        //showKeyboard()
         
         
         
@@ -257,6 +257,7 @@ extension SP_Login {
     fileprivate func clickLogin()  {
         keyBoardHidden()
         SP_User.shared.setUser(userAccount: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!)
+        SP_HUD.show(view:self.view,type:.tLoading)
         SP_User.shared.login(.tUser) { [weak self](isOk, error) in
             if isOk {
                 SP_HUD.show(text:sp_localized("登录成功",from: "SP_Login"))
@@ -269,6 +270,16 @@ extension SP_Login {
     //MARK:--- 微信登录 -----------------------------
     fileprivate func clickWeiXin()  {
         keyBoardHidden()
+        SP_HUD.show(view:self.view,type:.tLoading)
+        SP_UMShare.shared.login(self, isLogin: true, platformType: .wechatSession, block: { [weak self](result, isOK) in
+            
+            if isOK {
+                guard let res = result as? UMSocialUserInfoResponse else{return}
+                SP_HUD.show(type: .tSuccess, text: "授权成功,"+res.name)
+            }else{
+                SP_MBHUD.showHUD(type: .tError, text: "授权失败，请重试！")
+            }
+        })
     }
     //MARK:--- QQ登录 -----------------------------
     fileprivate func clickQQ()  {

@@ -38,7 +38,12 @@ class SP_ParentVC: UIViewController {
                 _placeHolderView.btn_title.setTitle(btn, for: .normal)
             case .tNetError(let lab):
                 _placeHolderView.lab_title.text = lab
-                _placeHolderView.btn_title.setTitle(sp_localized("点击刷新"), for: .normal)
+                if lab == My_NetCodeError.t需要登录.stringValue {
+                    _placeHolderView.btn_title.setTitle(sp_localized("点我登录"), for: .normal)
+                }else{
+                    _placeHolderView.btn_title.setTitle(sp_localized("点击刷新"), for: .normal)
+                }
+                
             }
         }
     }
@@ -73,9 +78,9 @@ extension SP_ParentVC:CYLTableViewPlaceHolderDelegate {
         return _placeHolderView
     }
     
-    func enableScrollWhenPlaceHolderViewShowing() -> Bool {
-        return true
-    }
+//    func enableScrollWhenPlaceHolderViewShowing() -> Bool {
+//        return true
+//    }
     
     func placeHolderViewClick() {
         

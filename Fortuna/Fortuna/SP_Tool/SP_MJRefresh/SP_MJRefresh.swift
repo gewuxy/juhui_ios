@@ -144,7 +144,7 @@ extension UIScrollView {
         self.mj_footer?.endRefreshing()
     }
     //MARK:----------- 取消底部刷新状态并显示无数据并停用上拉刷新
-    func sp_footerEndRefreshNoMoreData() {
+    func sp_footerEndRefreshNoMoreData(_ text:String = MJRefreshDIY_Title_NoMoreData_Up) {
         self.mj_footer?.endRefreshingWithNoMoreData()
     }
     //MARK: 重置无数据状态(如果执行了footerEndRefreshNoMoreData(),可用此方法开启上拉)

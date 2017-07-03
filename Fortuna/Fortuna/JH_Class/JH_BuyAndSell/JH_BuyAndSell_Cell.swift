@@ -9,7 +9,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
-
+import IQKeyboardManager
 class JH_BuyAndSellCell_Data: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_BuyAndSellCell_Data {
         return tableView.dequeueReusableCell(withIdentifier: "JH_BuyAndSellCell_Data", for: indexPath) as! JH_BuyAndSellCell_Data
@@ -120,7 +120,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .decimalPad
         text.text_field.textAlignment = .center
-        text.text_field.showOkButton()
+        //text.text_field.showOkButton()
         text.label_error.font = UIFont.systemFont(ofSize: 8)
         text.button_L.setImage(UIImage(named:"Attention减N"), for: .normal)
         text.button_R.setImage(UIImage(named:"Attention加N"), for: .normal)
@@ -149,7 +149,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
         text.text_field.textAlignment = .center
-        text.text_field.showOkButton()
+        //text.text_field.showOkButton()
         text.label_error.font = UIFont.systemFont(ofSize: 8)
         text.button_L.setImage(UIImage(named:"Attention减N"), for: .normal)
         text.button_R.setImage(UIImage(named:"Attention加N"), for: .normal)
@@ -195,7 +195,8 @@ extension JH_BuyAndSellCell_Deal {
         makeUI()
         makeTextFieldDelegate()
         makeRx()
-        showKeyboard()
+        IQKeyboardManager.shared().shouldShowTextFieldPlaceholder = false
+        //showKeyboard()
         
     }
     @IBAction func btnClick(_ sender: UIButton) {

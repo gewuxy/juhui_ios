@@ -15,4 +15,5 @@
 //扩展-全屏幕右划返回手势
 #import "UINavigationController+FDFullscreenPopGesture.h"
 
-
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UShareUI.h>

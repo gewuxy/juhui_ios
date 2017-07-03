@@ -18,7 +18,7 @@ struct M_Attention {
     var quoteChange =  ""
     var winery =  ""
     
-    var isFollow = false
+    var isFollow = false//是否已加自选
     var isSelect = false
     
 }
@@ -35,7 +35,7 @@ extension M_Attention:SP_JsonModel {
         proposedPrice = json["proposed_price"].stringValue
         quoteChange = json["quote_change"].stringValue
         winery = json["winery"].stringValue
-        isFollow = json["isFollow"].boolValue
+        isFollow = json["is_select"].boolValue
         isSelect = false
     }
 }
@@ -68,7 +68,7 @@ extension M_AttentionDetail:SP_JsonModel {
         proposedPrice = json["proposed_price"].stringValue
         quoteChange = json["quote_change"].stringValue
         winery = json["winery"].stringValue
-        isFollow = json["isFollow"].boolValue
+        isFollow = json["is_select"].boolValue
         isSelect = false
     }
 }

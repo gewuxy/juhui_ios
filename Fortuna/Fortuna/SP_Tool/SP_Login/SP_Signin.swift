@@ -44,7 +44,7 @@ class SP_Signin: SP_ParentVC {
         text.text_field.placeholder = sp_localized("手机号",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .phonePad
-        text.text_field.showOkButton()
+        //text.text_field.showOkButton()
         text.button_L.setImage(UIImage(named:"sp_login手机"), for: .normal)
         text.button_R.setImage(UIImage(named:"sp_login删除"), for: .normal)
         text.text_field_L.constant = 15
@@ -77,7 +77,7 @@ class SP_Signin: SP_ParentVC {
         text.text_field.placeholder = sp_localized("请输入验证码",from: "SP_Login")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .decimalPad
-        text.text_field.showOkButton()
+        //text.text_field.showOkButton()
         text.button_R.setTitle(sp_localized("发送验证码",from: "SP_Login"),for:.normal)
         text.button_R.setTitleColor(UIColor.mainText_2,for:.normal)
         text.button_R.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -109,7 +109,7 @@ extension SP_Signin {
         makeUI()
         makeRx()
         makeTextFieldDelegate()
-        showKeyboard()
+        //showKeyboard()
         
         
     }
@@ -268,8 +268,10 @@ extension SP_Signin {
     //MARK:--- 注册、忘记密码 -----------------------------
     fileprivate func clickLogin()  {
         keyBoardHidden()
+        SP_HUD.show(view:self.view,type:.tLoading)
         switch _vcType {
         case .t注册:
+            
             SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
                 if isOk {
                     SP_HUD.show(text:sp_localized("注册成功,正在登录",from: "SP_Login"))
@@ -297,10 +299,11 @@ extension SP_Signin {
     //MARK:--- 发送验证码 -----------------------------
     fileprivate func clickVerifi()  {
         keyBoardHidden()
+        SP_HUD.show(view:self.view,type:.tLoading)
         SP_User.shared.sendSMS((mobile: _text_phone.text_field.text!, type: _vcType == .t注册 ? "1" : "2")) { (isOk, error) in
             if isOk {
-                SP_HUD.show(text:sp_localized("验证码已发送,60秒后过期",from: "SP_Login"))
-                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabText: sp_localized("重新获取",from: "SP_Login"),enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
+                SP_HUD.show(detailText:sp_localized("验证码已发送,60秒后过期",from: "SP_Login"))
+                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 90,enabText: sp_localized("重新获取",from: "SP_Login"),enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
             }else{
                 SP_HUD.show(detailText:error)
             }

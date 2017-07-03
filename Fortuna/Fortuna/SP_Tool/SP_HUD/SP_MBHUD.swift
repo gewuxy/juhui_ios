@@ -190,6 +190,8 @@ class SP_MBHUD {
         SP_MBHUD.hideHUD()
         SP_MBHUD.shared.mbhud = SP_MBProgressHUD.showAdded(to: view, animated: true)
         SP_MBHUD.shared.mbhud?.animationType = SP_MBProgressHUDAnimationZoom
+        SP_MBHUD.shared.mbhud?.removeFromSuperViewOnHide = true
+        SP_MBHUD.shared.mbhud?.isUserInteractionEnabled = false
         var open = false
         if !text.isEmpty {
             SP_MBHUD.shared.mbhud?.labelText = text
@@ -206,20 +208,19 @@ class SP_MBHUD {
         }else{
             SP_MBHUD.imageview(type)
         }
-        guard open else {
-            SP_MBHUD.shared.mbhud?.hide(true)
-            return
-        }
+        
         switch type {
         case .tNone:
+            guard open else {
+                SP_MBHUD.shared.mbhud?.hide(true)
+                return
+            }
             // 只显示文本
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeText
             SP_MBHUD.shared.margin = 10.0
             SP_MBHUD.shared.mbhud?.yOffset = Float(sp_ScreenHeight/2 - 70.0)
-            SP_MBHUD.shared.mbhud?.removeFromSuperViewOnHide = true
-            SP_MBHUD.shared.mbhud?.isUserInteractionEnabled = false
             SP_MBHUD.shared.square = false
-            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.0)
+            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.5)
         case .tLoading:
             // 菊花
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeIndeterminate
@@ -228,15 +229,15 @@ class SP_MBHUD {
             
             // 自定义
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeCustomView
-            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: time)
+            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.5)
         case .tInfo:
             // 自定义
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeCustomView
-            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: time)
+            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.5)
         case .tError:
             // 自定义
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeCustomView
-            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: time)
+            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.5)
         case .tProgress:
             // 圆环进度条
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeAnnularDeterminate

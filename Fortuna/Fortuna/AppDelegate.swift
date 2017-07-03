@@ -47,6 +47,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        // ------ 友盟
+        let result = UMSocialManager.default().handleOpen(url);
+        if (!result) {
+            //result =
+        }
+        
+        return result
+    }
+    //MARK:---- 应用间通信
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        // ------ 友盟
+        let result = UMSocialManager.default().handleOpen(url)
+        if (!result) {
+            // 其他如支付等SDK的回调
+            //result =
+        }
+        return result
+    }
+    //MARK:---- 应用间通信 进入APP的时候调用(iOS 9.0)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        // ------ 友盟
+        let result = UMSocialManager.default().handleOpen(url);
+        if (!result) {
+            // 其他如支付等SDK的回调
+            //result =
+        }
+        
+        return result
+    }
 
 }
 

@@ -159,7 +159,8 @@ extension SP_Alamofire {
         
     }
     class func post(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
-        SP_Alamofire.shared._manager.request(url, method: .post, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { response in
+        SP_Alamofire.shared._manager.request(url, method: .post, parameters: param,  headers: SP_Alamofire.shared._headers).responseJSON { response in
+            
             SP_Alamofire.disposeResponse(response, block:block)
         }
     }

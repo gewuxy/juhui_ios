@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-
+import IQKeyboardManager
 enum JH_BuyAndSellType {
     case t买入
     case t卖出
@@ -31,6 +31,8 @@ class JH_BuyAndSell: SP_ParentVC {
         }
         
     }
+    
+    
 }
 
 extension JH_BuyAndSell {

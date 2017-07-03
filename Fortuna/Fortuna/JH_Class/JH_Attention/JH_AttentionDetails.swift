@@ -40,6 +40,7 @@ extension JH_AttentionDetails {
         super.viewDidLoad()
         makeNavigation()
         makeUI()
+        makeTableView()
     }
     fileprivate func makeNavigation() {
         n_view._title = "这里是详情页这里是详情页这里是详情页这里是详情页"
@@ -51,19 +52,25 @@ extension JH_AttentionDetails {
         n_view.n_label_C1_B.constant = 5
         n_view.n_btn_R1_Image = "Attention分享"
         n_view.n_btn_R1_R.constant = 15
-        
-        
     }
     
     fileprivate func makeUI() {
+        
         btn_remove.setTitle(sp_localized(_datas.isFollow ? "删除自选" : "+ 自选") , for: .normal)
         btn_remove.setTitleColor(_datas.isFollow ? UIColor.mainText_3 : UIColor.mainText_1, for: .normal)
         
-        makeTableView()
+        
     }
     fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    override func clickN_btn_R1() {
+        SP_UMView.show({ [unowned self](type) in
+            SP_UMShare.shared.showDefault(self,viewType:.tCustom(platformType: type), shareTitle: "巨汇", shareText: "点击查看详情", shareImage: "http://v1.qzone.cc/pic/201306/29/10/56/51ce4cd6e7eb1111.jpg%21600x600.jpg", shareURL: "http://v1.qzone.cc/pic/201306/29/10/56/51ce4cd6e7eb1111.jpg%21600x600.jpg",  block: { (isOk) in
+                
+            })
+        })
     }
     
     @IBAction func clickToolBarBtn(_ sender: UIButton) {
@@ -84,7 +91,11 @@ extension JH_AttentionDetails {
             JH_IM.show(self)
         case btn_remove:
             if _datas.isFollow {
-                t_删除自选数据()
+                UIAlertController.showAler(self, btnText: [sp_localized("取消"),sp_localized("确定")], title: sp_localized("您将删除此自选酒"), message: "", block: { [weak self](str) in
+                    if str == sp_localized("确定") {
+                        self?.t_删除自选数据()
+                    }
+                })
             }else{
                 t_添加自选数据()
             }
@@ -160,6 +171,7 @@ extension JH_AttentionDetails:UITableViewDataSource{
 extension JH_AttentionDetails {
     
     fileprivate func t_删除自选数据() {
+        
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
         My_API.t_删除自选数据(code:_datas.code).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()
@@ -174,6 +186,7 @@ extension JH_AttentionDetails {
     }
     fileprivate func removeDatas() {
         _datas.isFollow = false
+        makeUI()
         sp_Notification.post(name: ntf_Name_自选删除, object: _datas)
         self.tableView.reloadData()
     }
@@ -186,6 +199,7 @@ extension JH_AttentionDetails {
             if isOk {
                 SP_HUD.show(text:sp_localized("已加自选"))
                 self?._datas.isFollow = true
+                self?.makeUI()
                 sp_Notification.post(name: ntf_Name_自选添加, object: self != nil ? self!._datas : nil)
                 
                 self?.tableView.cyl_reloadData()

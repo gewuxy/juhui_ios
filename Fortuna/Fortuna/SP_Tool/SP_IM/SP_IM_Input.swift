@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import YYKeyboardManager
 
 class SP_IM_Input: UIView {
 
@@ -70,7 +71,7 @@ class SP_IM_Input: UIView {
         case tBtn_R
     }
     var _block:((_ type:SP_IM_Input_Type, _ text:String)->Void)?
-    
+    var _shouldReturnBlock:(()->Void)?
     enum heightType {
         case tH
         case tB
@@ -104,6 +105,15 @@ extension SP_IM_Input:UITextViewDelegate {
         _block?(.tEnd,textView.text)
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        print_Json(text)
+        if text == "\n" {
+            _shouldReturnBlock?()
+            text_View.resignFirstResponder()
+            return false
+        }
+        return true
+    }
     
     func changePlaceholderText() {
         if text_View.text!.isEmpty {
@@ -163,7 +173,9 @@ extension SP_IM_Input:UITextViewDelegate {
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
             
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: { _ in
+                
+            })
         }else{
             
             animations()
@@ -184,10 +196,13 @@ extension SP_IM_Input:UITextViewDelegate {
         self.superview?.setNeedsLayout()
         let animations:(() -> Void) = {
             self.superview?.layoutIfNeeded()
+            
         }
         if duration > 0 {
             let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
+            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: { _ in
+                self.superview?.setNeedsDisplay()
+            })
         }else{
             
             animations()

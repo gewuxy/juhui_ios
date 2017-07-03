@@ -87,7 +87,7 @@ open class SP_User {
             sp_UserDefaultsSet(sp_UserToken, value: newValue)
             sp_UserDefaultsSyn()
         }
-        get{
+        get{//"IKjKejCxNUTS2WBeD6x5yqz4nWYL2N"//
             return sp_UserDefaultsGet(sp_UserToken) as? String ?? ""
         }
         

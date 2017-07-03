@@ -18,6 +18,7 @@ PODS:
   - CYLTableViewPlaceHolder (1.0.8)
   - DZNEmptyDataSet (1.8.1)
   - IMYWebView (0.8.1)
+  - IQKeyboardManager (4.0.9)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -42,8 +43,20 @@ PODS:
     - RxSwift (~> 3.0)
   - RxSwift (3.4.1)
   - SnapKit (3.2.0)
+  - Socket.IO-Client-Swift (9.0.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - UMengUShare/Core (6.4.3):
+    - UMengUShare/Network
+  - UMengUShare/Network (6.4.3)
+  - UMengUShare/Social/ReducedQQ (6.4.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedSina (6.4.3):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedWeChat (6.4.3):
+    - UMengUShare/Core
+  - UMengUShare/UI (6.4.3):
+    - UMengUShare/Core
   - WebViewJavascriptBridge (6.0.2)
   - YYAsyncLayer (1.0)
   - YYCache (1.0.4)
@@ -66,6 +79,7 @@ DEPENDENCIES:
   - CYLTableViewPlaceHolder
   - DZNEmptyDataSet
   - IMYWebView
+  - IQKeyboardManager
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -77,8 +91,13 @@ DEPENDENCIES:
   - RxDataSources
   - RxSwift
   - SnapKit
+  - Socket.IO-Client-Swift
   - SVProgressHUD
   - SwiftyJSON
+  - UMengUShare/Social/ReducedQQ
+  - UMengUShare/Social/ReducedSina
+  - UMengUShare/Social/ReducedWeChat
+  - UMengUShare/UI
   - WebViewJavascriptBridge
   - YYAsyncLayer
   - YYCache
@@ -95,6 +114,7 @@ SPEC CHECKSUMS:
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IMYWebView: a6a9a52718ba6a44fb927d65f6d60930a8218cea
+  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -107,8 +127,10 @@ SPEC CHECKSUMS:
   RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
   RxSwift: 656f8fbeca5bc372121a72d9ebdd3cd3bc0ffade
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  Socket.IO-Client-Swift: c4c6f4193305a65fdee226a9bf9329151a304d0b
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  UMengUShare: d39cb682598df87ebdd3c055d03d00eb0102d42c
   WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
   YYAsyncLayer: df6b01ebc695c5f6b4c15dd5c23fa3e081eb25c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
@@ -119,6 +141,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 7401c2674ccc9b12406a2bab85bcde4117d9bf3c
+PODFILE CHECKSUM: d29145f86a6656af354656ca7647252a4ec59667
 
 COCOAPODS: 1.0.1

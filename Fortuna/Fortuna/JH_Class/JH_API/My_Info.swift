@@ -9,7 +9,8 @@
 import Foundation
 //MARK:---------- 主要 Key -----------------------------
 let key_APPID  = ""
-let key_UMengAppKey  = "58d9fbbfbbea832efc001890"
+let key_APPStoree  = "https://itunes.apple.com/app/id"+key_APPID
+let key_UMengAppKey  = "5954ce2f4544cb0d870013f1"
 let key_JPushKey     = "99875be9517257493bc38da8"
 let key_WXappID      = "wx53502d888764b329"
 let key_WXappSecret  = "018d5c10649a2eae7356013549f9fab1"
@@ -19,8 +20,8 @@ let key_SinaappID      = "1691952433"
 let key_SinaappSecret  = "ca759156415d114743397d8d0cab0c6c"
 let key_AliappID      = "2015111700822536"
 
-let my_ShareUrl  = "https://wancheleyuan.com"
-let my_ShareDownUrl  = "https:/wancheleyuan.com"
+let my_ShareUrl  = ""
+let my_ShareDownUrl  = ""
 
 
 //MARK:--- NotificationName -----------------------------
