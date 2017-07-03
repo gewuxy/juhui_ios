@@ -39,7 +39,7 @@
                 <navigationController id="cGZ-2I-ZWE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自选" image="N自选" selectedImage="S自选" id="oZV-Ke-FYP"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Haa-Lw-Gqg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Haa-Lw-Gqg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1358,12 +1358,12 @@
                                 <color key="separatorColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Zpb-gX-AwL">
-                                    <rect key="frame" x="0.0" y="133.5" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="134" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_AttentionCell_Edit" rowHeight="60" id="nu7-u0-2YY" customClass="JH_AttentionCell_Edit" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nu7-u0-2YY" id="ubt-Bq-65o">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -1782,10 +1782,28 @@
             </objects>
             <point key="canvasLocation" x="-1215.2" y="1111.3943028485758"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="jFu-ss-ERe">
+            <objects>
+                <viewController id="jN9-C0-gea" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XZ0-eb-0xF"/>
+                        <viewControllerLayoutGuide type="bottom" id="2ak-3y-8Wb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zYj-Kr-F8A">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VIP-M5-N41" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4922" y="1844"/>
+        </scene>
         <!--JH_IM-->
         <scene sceneID="mZl-CL-GR3">
             <objects>
-                <viewController storyboardIdentifier="JH_IM" id="ftA-w9-Xas" customClass="JH_IM" customModule="Fortuna" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JH_IM" automaticallyAdjustsScrollViewInsets="NO" id="ftA-w9-Xas" customClass="JH_IM" customModule="Fortuna" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ul9-WW-NM5"/>
                         <viewControllerLayoutGuide type="bottom" id="fJH-SZ-1fu"/>
@@ -1837,17 +1855,9 @@
                                     <constraint firstItem="iO4-PA-YVY" firstAttribute="leading" secondItem="Iqz-lu-fTT" secondAttribute="leading" constant="15" id="nVv-ph-wff"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sS-ev-dy7">
-                                <rect key="frame" x="0.0" y="99" width="375" height="413"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sya-VF-EnE">
-                                <rect key="frame" x="0.0" y="512" width="375" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="EWq-mC-N1y"/>
-                                </constraints>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DB4-IK-GLY">
+                                <rect key="frame" x="0.0" y="99" width="375" height="468"/>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kda-5m-AfW">
                                 <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <subviews>
@@ -1943,18 +1953,15 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Kda-5m-AfW" secondAttribute="trailing" id="0nr-5Q-Seh"/>
-                            <constraint firstAttribute="trailing" secondItem="sya-VF-EnE" secondAttribute="trailing" id="1Z7-wL-MH3"/>
                             <constraint firstItem="Kda-5m-AfW" firstAttribute="leading" secondItem="dPd-jR-aBV" secondAttribute="leading" id="9jZ-pl-lrX"/>
-                            <constraint firstItem="sya-VF-EnE" firstAttribute="leading" secondItem="dPd-jR-aBV" secondAttribute="leading" id="Ph3-5C-vam"/>
                             <constraint firstItem="Iqz-lu-fTT" firstAttribute="leading" secondItem="dPd-jR-aBV" secondAttribute="leading" id="TPM-O2-srW"/>
+                            <constraint firstAttribute="trailing" secondItem="DB4-IK-GLY" secondAttribute="trailing" id="UaS-EC-bbR"/>
                             <constraint firstItem="Iqz-lu-fTT" firstAttribute="top" secondItem="dPd-jR-aBV" secondAttribute="top" constant="64" id="iG5-yP-9ct"/>
-                            <constraint firstItem="1sS-ev-dy7" firstAttribute="top" secondItem="Iqz-lu-fTT" secondAttribute="bottom" id="jg2-Tj-MPk"/>
                             <constraint firstAttribute="trailing" secondItem="Iqz-lu-fTT" secondAttribute="trailing" id="kag-rW-m3a"/>
-                            <constraint firstItem="sya-VF-EnE" firstAttribute="top" secondItem="1sS-ev-dy7" secondAttribute="bottom" id="mzv-mC-rJI"/>
+                            <constraint firstItem="Kda-5m-AfW" firstAttribute="top" secondItem="DB4-IK-GLY" secondAttribute="bottom" id="kjA-XO-kwD"/>
+                            <constraint firstItem="DB4-IK-GLY" firstAttribute="leading" secondItem="dPd-jR-aBV" secondAttribute="leading" id="lR2-9f-5i7"/>
                             <constraint firstAttribute="bottom" secondItem="Kda-5m-AfW" secondAttribute="bottom" id="pLz-Rs-jqo"/>
-                            <constraint firstAttribute="bottom" secondItem="sya-VF-EnE" secondAttribute="bottom" constant="105" id="qbb-Ue-GY9"/>
-                            <constraint firstItem="1sS-ev-dy7" firstAttribute="leading" secondItem="dPd-jR-aBV" secondAttribute="leading" id="xF1-Ly-MG1"/>
-                            <constraint firstAttribute="trailing" secondItem="1sS-ev-dy7" secondAttribute="trailing" id="xr1-mw-Eh8"/>
+                            <constraint firstItem="DB4-IK-GLY" firstAttribute="top" secondItem="Iqz-lu-fTT" secondAttribute="bottom" id="wXY-Ko-5lP"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="q6y-dM-YpP" appends="YES" id="sud-N8-rX5"/>
@@ -1965,10 +1972,7 @@
                         <outlet property="btn_hudVideo" destination="nrp-gY-6cm" id="pZC-5f-LmU"/>
                         <outlet property="lab_hudImg" destination="yB7-Qe-OW2" id="ioD-gW-la0"/>
                         <outlet property="lab_hudVideo" destination="8AX-YF-G0f" id="H2P-Ul-ahk"/>
-                        <outlet property="view_Bot" destination="sya-VF-EnE" id="amq-DA-hmd"/>
-                        <outlet property="view_Bot_B" destination="qbb-Ue-GY9" id="BtP-eL-9xF"/>
-                        <outlet property="view_Bot_H" destination="EWq-mC-N1y" id="ghi-Hb-50e"/>
-                        <outlet property="view_Tab" destination="1sS-ev-dy7" id="MgR-bz-PHS"/>
+                        <outlet property="view_Sco" destination="DB4-IK-GLY" id="Wc5-j0-s97"/>
                         <outlet property="view_Top" destination="Iqz-lu-fTT" id="rTx-gF-w7d"/>
                         <outlet property="view_hud" destination="Kda-5m-AfW" id="Std-F5-m4q"/>
                         <outlet property="view_hud_B" destination="pLz-Rs-jqo" id="1Ew-XB-OUS"/>
@@ -2000,7 +2004,7 @@
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_BuyAndSellCell_Data" rowHeight="170" id="YQq-wH-nd3" customClass="JH_BuyAndSellCell_Data" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="170"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="170"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YQq-wH-nd3" id="vbj-n3-yci">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
@@ -2380,7 +2384,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_BuyAndSellCell_Deal" rowHeight="290" id="dMO-Mo-H6A" customClass="JH_BuyAndSellCell_Deal" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="225.5" width="375" height="290"/>
+                                        <rect key="frame" x="0.0" y="226" width="375" height="290"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dMO-Mo-H6A" id="oHn-Bx-NQA">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
@@ -2759,7 +2763,7 @@
                     <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <prototypes>
                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_AttentionCell_Normal" rowHeight="70" id="JWi-ni-GMj" customClass="JH_AttentionCell_Normal" customModule="Fortuna" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="55.5" width="375" height="70"/>
+                            <rect key="frame" x="0.0" y="56" width="375" height="70"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JWi-ni-GMj" id="jc7-Fd-mDe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -2932,7 +2936,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_MyCell_User" rowHeight="250" id="jGz-Eg-VQT" customClass="JH_MyCell_User" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="250"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jGz-Eg-VQT" id="M9S-5O-sig">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>

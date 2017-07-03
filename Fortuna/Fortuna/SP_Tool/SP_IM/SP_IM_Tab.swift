@@ -20,6 +20,7 @@ class SP_IM_Tab: UIViewController {
     var _cellForRowAt:((UITableView,IndexPath)->UITableViewCell)?
     var _viewForHeaderInSection:((Int)->UIView)?
     var _viewForFooterInSection:((Int)->UIView)?
+    var _scrollViewWillBeginDragging:((UIScrollView)->Void)?
 }
 extension SP_IM_Tab {
     override class func initSPVC() -> SP_IM_Tab {
@@ -66,6 +67,9 @@ extension SP_IM_Tab:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return _cellForRowAt?(tableView,indexPath) ?? UITableViewCell()
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        _scrollViewWillBeginDragging?(scrollView)
     }
 }
 

@@ -201,8 +201,8 @@ extension JH_Attention:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //JH_AttentionDetails.show(self, data:_datas[indexPath.row])
-        JH_IM2.show(self)
+        JH_AttentionDetails.show(self, data:_datas[indexPath.row])
+        
     }
     
     

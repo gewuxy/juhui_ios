@@ -8,16 +8,12 @@
 
 import UIKit
 import SocketIO
-import YYKeyboardManager
 import IQKeyboardManager
+
 class JH_IM: SP_ParentVC {
     
     @IBOutlet weak var view_Top: UIView!
-    @IBOutlet weak var view_Tab: UIView!
-    @IBOutlet weak var view_Bot: UIView!
-    @IBOutlet weak var view_Bot_H: NSLayoutConstraint!
-    @IBOutlet weak var view_Bot_B: NSLayoutConstraint!
-
+    @IBOutlet weak var view_Sco: UIScrollView!
     @IBOutlet weak var view_hud: UIView!
     @IBOutlet weak var view_hud_B: NSLayoutConstraint!
     @IBOutlet weak var btn_hudImg: UIButton!
@@ -25,7 +21,35 @@ class JH_IM: SP_ParentVC {
     @IBOutlet weak var lab_hudImg: UILabel!
     @IBOutlet weak var lab_hudVideo: UILabel!
     
+    lazy var view_BG: UIView = {
+        let view = UIView()
+        return view
+    }()
+    lazy var view_Tab: UIView = {
+        let view = UIView()
+        return view
+    }()
+    lazy var view_Bot: UIView = {
+        let view = UIView()
+        return view
+    }()
     
+    var _keyBoardHeight:CGFloat = 0.0 {
+        didSet{
+            self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
+            self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
+        }
+    }
+    
+    var _hudImgHeight:CGFloat = 0 {
+        didSet{
+            self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
+            self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
+            
+            
+            
+        }
+    }
     
     
     fileprivate lazy var _tabView:SP_IM_Tab = {
@@ -53,9 +77,7 @@ class JH_IM: SP_ParentVC {
     //
     let socket = SocketIOClient(socketURL: URL(string: "http://localhost:8080")!, config: [.log(true), .forcePolling(true)])
     
-    deinit{
-        IQKeyboardManager.shared().isEnabled = true
-    }
+    
 }
 
 extension JH_IM {
@@ -73,6 +95,7 @@ extension JH_IM {
         makeUI()
         makeTextInput()
         makeTableViewDelegate()
+        
         toRowBottom()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -83,7 +106,22 @@ extension JH_IM {
         
     }
     fileprivate func makeUI() {
-        IQKeyboardManager.shared().isEnabled = false
+        view_Sco.addSubview(view_BG)
+        _keyBoardHeight = 0.0
+        view_BG.addSubview(view_Tab)
+        view_BG.addSubview(view_Bot)
+        view_Bot.snp.makeConstraints { (make) in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        view_Tab.snp.makeConstraints { (make) in
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalTo(view_Bot.snp.top)
+        }
+        
+        
+        
+        
         hiddenHudImg(0)
         makeHudImg()
     }
@@ -127,17 +165,23 @@ extension JH_IM {
             switch type {
             case .tH:
                 if height <= 40 {
-                    self?.view_Bot_H.constant = 50
+                    self?.view_Bot.snp.updateConstraints({ (make) in
+                        make.height.equalTo(50)
+                    })
                 }else if height < 100 {
-                    self?.view_Bot_H.constant = height + 10
+                    self?.view_Bot.snp.updateConstraints({ (make) in
+                        make.height.equalTo(height + 10)
+                    })
                 }else{
-                    self?.view_Bot_H.constant = 110
+                    self?.view_Bot.snp.updateConstraints({ (make) in
+                        make.height.equalTo(110)
+                    })
                 }
-            case .tB:
-                self?.view_Bot_B.constant = height
-            case .tFinish:
                 self?.toRowBottom()
+            case .tB:
                 
+                self?._keyBoardHeight = height
+                self?.toRowBottom()
             }
         }
         
@@ -147,14 +191,18 @@ extension JH_IM {
     }
 }
 extension JH_IM {
-    fileprivate func toRowBottom(_ animated:Bool = false){
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) { [weak self] _ in
+    fileprivate func toRowBottom(_ animated:Bool = false, time:Double = 0.0){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) { [weak self] _ in
             let indexPath = IndexPath(row: 10, section: 0)
             self?._tabView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
         
     }
     fileprivate func makeTableViewDelegate() {
+        _tabView._scrollViewWillBeginDragging = { _ in
+            self._inputView.text_View.resignFirstResponder()
+            self.hiddenHudImg()
+        }
         _tabView._numberOfSections = { _ -> Int in
             return 1
         }
@@ -202,21 +250,29 @@ extension JH_IM {
         
     }
     fileprivate func showHudImg() {
+        guard view_hud_B.constant != 0 else {
+            return
+        }
+        _inputView.text_View.resignFirstResponder()
         view_hud_B.constant = 0
-        view_Bot_B.constant = 100
+        _hudImgHeight = 100
         self.view.setNeedsLayout()
         UIView.animate(withDuration: 0.2, animations: { [weak self]_ in
             self?.view.layoutIfNeeded()
+            
         }) { (bool) in
             
         }
+        toRowBottom(true)
     }
     func hiddenHudImg(_ time:TimeInterval = 0.2) {
+        
         view_hud_B.constant = -100
-        view_Bot_B.constant = 0
+        _hudImgHeight = 0
         self.view.setNeedsLayout()
         UIView.animate(withDuration: time, animations: { [weak self]_ in
             self?.view.layoutIfNeeded()
+            
         }) { (bool) in
             
         }

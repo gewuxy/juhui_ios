@@ -75,7 +75,6 @@ class SP_IM_Input: UIView {
     enum heightType {
         case tH
         case tB
-        case tFinish
     }
     var _heightBlock:((heightType,CGFloat)->Void)?
     
@@ -156,60 +155,47 @@ extension SP_IM_Input:UITextViewDelegate {
     func keyBoardWillShow(_ note:NSNotification) {
         let userInfo  = note.userInfo
         let keyBoardBounds = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        //let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
         let _keyBoardHeight = keyBoardBounds.size.height
         
         
         _heightBlock?(.tB,_keyBoardHeight)
-        self.superview?.setNeedsLayout()
-        let animations:(() -> Void) = {
-            //self.transform = CGAffineTransform(translationX: 0,y: -_keyBoardHeight)
-            self.superview?.layoutIfNeeded()
-            
-            
-        }
+//        self.superview?.setNeedsLayout()
+//        let animations:(() -> Void) = {
+//            //self.transform = CGAffineTransform(translationX: 0,y: -_keyBoardHeight)
+//            self.superview?.layoutIfNeeded()
+//            
+//            
+//        }
         
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: { _ in
-                
-            })
-        }else{
-            
-            animations()
-        }
-        changeTextViewHeight()
-        _heightBlock?(.tFinish,0)
+//        if duration > 0 {
+//            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
+//            
+//            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: { _ in
+//                
+//            })
+//        }else{
+//            
+//            animations()
+//        }
+//        changeTextViewHeight()
+//        _heightBlock?(.tFinish,0)
         
     }
     
     @objc private func keyBoardWillHide(_ note:NSNotification)
     {
         
-        let userInfo  = note.userInfo
+        //let userInfo  = note.userInfo
         
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        //let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         
         _heightBlock?(.tB,0.0)
-        self.superview?.setNeedsLayout()
-        let animations:(() -> Void) = {
-            self.superview?.layoutIfNeeded()
-            
-        }
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: { _ in
-                self.superview?.setNeedsDisplay()
-            })
-        }else{
-            
-            animations()
-        }
         
-        changeTextViewHeight()
-        endInput()
+        
+        //changeTextViewHeight()
+        //endInput()
     }
 }
 
