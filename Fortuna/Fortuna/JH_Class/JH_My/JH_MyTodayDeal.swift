@@ -43,7 +43,7 @@ extension JH_MyTodayDeal:UITableViewDelegate,UITableViewDataSource {
         return 10
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return sp_fitSize((245, 260, 275))
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
@@ -53,7 +53,9 @@ extension JH_MyTodayDeal:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_MyTodayDealCell.show(tableView, indexPath)
-        
+        cell._block = { [unowned self]_ in
+            JH_MyDealDetails.show(self)
+        }
         return cell
     }
 }

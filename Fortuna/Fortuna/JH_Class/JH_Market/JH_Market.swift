@@ -12,7 +12,7 @@ class JH_Market: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
     
-    
+    var _datas = M_Market()
     
 
 }
@@ -34,20 +34,63 @@ extension JH_Market {
         tableView.delegate = self
         tableView.dataSource = self
         
+        sp_addMJRefreshHeader()
+        self.tableView.sp_headerBeginRefresh()
+    }
+    
+    override func placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            self.tableView.sp_headerBeginRefresh()
+        case .tNetError(let lab):
+            if lab == My_NetCodeError.t需要登录.stringValue {
+                SP_Login.show(self)
+            }else{
+                self._placeHolderType = .tOnlyImage
+                self.tableView.sp_headerBeginRefresh()
+            }
+            
+        }
     }
 }
 extension JH_Market:UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return (_datas.high_ratio.count == 0 && _datas.low_ratio.count == 0) ? 0 : 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        switch section {
+        case 0:
+            return _datas.high_ratio.count
+        case 1:
+            return _datas.low_ratio.count
+        default:
+            return 0
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        switch section {
+        case 0:
+            return _datas.high_ratio.count == 0 ? sp_SectionH_Min : 35
+        case 1:
+            return _datas.low_ratio.count == 0 ? sp_SectionH_Min : 35
+        default:
+            return sp_SectionH_Min
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sp_SectionH_Foot
+        switch section {
+        case 0:
+            return _datas.high_ratio.count == 0 ? sp_SectionH_Min : sp_SectionH_Foot
+        case 1:
+            return _datas.low_ratio.count == 0 ? sp_SectionH_Min : sp_SectionH_Foot
+        default:
+            return sp_SectionH_Min
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -56,13 +99,72 @@ extension JH_Market:UITableViewDelegate {
 }
 extension JH_Market:UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = SP_ComCell.show((L: "", R: ""), title: (L: "第\(section)组", R: ""))
-        view.updateUI(labelL: (font: UIFont.systemFont(ofSize: 16), color: UIColor.main_string("#15cd48")),imageW: (L: 0 , R: 0))
+        let view = SP_ComCell.show((L: "", R: ""), title: (L: sp_localized(section==0 ? "涨幅前10名" : "跌幅前10名"), R: ""))
+        view.updateUI(labelL: (font: UIFont.systemFont(ofSize: 16), color: section==0 ? UIColor.mainText_4 : UIColor.mainText_5),imageW: (L: 10 , R: 0))
+        view.image_L.backgroundColor = section==0 ? UIColor.mainText_4 : UIColor.mainText_5
+        switch section {
+        case 0:
+            return _datas.high_ratio.count == 0 ? nil : view
+        case 1:
+            return _datas.low_ratio.count == 0 ? nil : view
+        default:
+            return nil
+        }
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
         return view
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_AttentionCell_Normal.show(tableView, indexPath)
+        let model = indexPath.section == 0 ? _datas.high_ratio[indexPath.row] : _datas.low_ratio[indexPath.row]
+        cell.lab_name.text = model.name
+        cell.lab_code.text = model.code
+        cell.lab_price.text = model.proposedPrice
+        cell.lab_range.text = model.ratio
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = indexPath.section == 0 ? _datas.high_ratio[indexPath.row] : _datas.low_ratio[indexPath.row]
+        JH_AttentionDetails.show(self, data:model)
     }
     
 }
+
+//MARK:--- 网络 -----------------------------
+extension JH_Market {
+    fileprivate func sp_addMJRefreshHeader() {
+        tableView?.sp_headerAddMJRefresh { [weak self]_ in
+            self?.t_获取行情数据()
+        }
+    }
+    
+    
+    fileprivate func sp_EndRefresh()  {
+        tableView?.sp_headerEndRefresh()
+    }
+    
+    fileprivate func t_获取行情数据() {
+        My_API.t_获取行情数据.post(M_Market.self) { [weak self](isOk, data, error) in
+            self?.sp_EndRefresh()
+            
+            if isOk {
+                guard let datas = data as? M_Market else{return}
+                self?._datas = datas
+                if datas.high_ratio.count == 0 && datas.low_ratio.count == 0 {
+                    self?._placeHolderType = .tNoData(labTitle: sp_localized("9011110"), btnTitle:sp_localized("点击刷新"))
+                }
+                
+                self?.tableView.cyl_reloadData()
+            }else{
+                self?._placeHolderType = .tNetError(labTitle: error)
+                self?.tableView.cyl_reloadData()
+            }
+            
+        }
+    }
+    
+}
+
+

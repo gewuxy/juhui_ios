@@ -33,7 +33,8 @@
 "名称：" = "Name：";
 "价格：" = "Price：";
 "数量：" = "Number：";
-
+"涨幅前10名" = "Rise Top 10";
+"跌幅前10名" = "Fall Top 10";
 /*
  我的
  */
@@ -108,6 +109,9 @@
 "卖出委托" = "Sell";
 "确定买入" = "Buy";
 "确定卖出" = "Sell";
+"撤销买入" = "Revoke buying";
+"撤销卖出" = "Revoke selling";
+"确定撤销" = "Revoke";
 "QQ" = "QQ";
 "新浪微博" = "Sina";
 "微信" = "WeChat";
@@ -118,4 +122,5 @@
 "退出登录" = "Sign out";
 "请输入" = "Input";
 "查看详情" = "Look at the details";
+
 

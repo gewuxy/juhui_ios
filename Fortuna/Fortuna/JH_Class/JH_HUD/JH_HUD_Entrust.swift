@@ -42,9 +42,29 @@ class JH_HUD_Entrust: UIView {
             lab_pice.text = model.price
             lab_num.text = model.num
             
-            lab_title.text = sp_localized(model.type == .t买入 ? "买入委托" : "卖出委托")
             
-            btn_ok.setTitle(sp_localized(model.type == .t买入 ? "确定买入" : "确定卖出"), for: .normal)
+            switch model.type {
+            case .t买入:
+                lab_title.text = sp_localized("买入委托")
+            case .t卖出:
+                lab_title.text = sp_localized("卖出委托")
+            case .t撤销买入:
+                lab_title.text = sp_localized("撤销买入")
+            case .t撤销卖出:
+                lab_title.text = sp_localized("撤销卖出")
+            }
+            
+            
+            var title = ""
+            switch model.type {
+            case .t买入:
+                title = sp_localized("确定买入")
+            case .t卖出:
+                title = sp_localized("确定卖出")
+            case .t撤销买入, .t撤销卖出:
+                title = sp_localized("确定撤销")
+            }
+            btn_ok.setTitle(title, for: .normal)
             
             
         }

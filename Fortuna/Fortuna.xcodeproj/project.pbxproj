@@ -185,6 +185,8 @@
 		AB564F311EFB930A005E3ABB /* SP_MBHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB564F201EFB930A005E3ABB /* SP_MBHUD.swift */; };
 		AB564F321EFB930A005E3ABB /* SP_SVHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB564F211EFB930A005E3ABB /* SP_SVHUD.swift */; };
 		AB564F3B1EFBA29E005E3ABB /* SP_MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AB564F3A1EFBA29E005E3ABB /* SP_MBProgressHUD.m */; };
+		AB58FD2E1F13282100DF15FE /* JH_MyDealDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB58FD2D1F13282100DF15FE /* JH_MyDealDetails.swift */; };
+		AB58FD301F133B1B00DF15FE /* M_Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB58FD2F1F133B1B00DF15FE /* M_Market.swift */; };
 		AB59014D1EE9335A00826A37 /* JH_News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59014C1EE9335A00826A37 /* JH_News.swift */; };
 		AB59014F1EE9336900826A37 /* JH_My.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB59014E1EE9336900826A37 /* JH_My.swift */; };
 		AB5901511EE9337400826A37 /* JH_Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5901501EE9337400826A37 /* JH_Market.swift */; };
@@ -633,6 +635,8 @@
 		AB564F211EFB930A005E3ABB /* SP_SVHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_SVHUD.swift; sourceTree = "<group>"; };
 		AB564F391EFBA29E005E3ABB /* SP_MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_MBProgressHUD.h; sourceTree = "<group>"; };
 		AB564F3A1EFBA29E005E3ABB /* SP_MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_MBProgressHUD.m; sourceTree = "<group>"; };
+		AB58FD2D1F13282100DF15FE /* JH_MyDealDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_MyDealDetails.swift; sourceTree = "<group>"; };
+		AB58FD2F1F133B1B00DF15FE /* M_Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_Market.swift; sourceTree = "<group>"; };
 		AB59014C1EE9335A00826A37 /* JH_News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_News.swift; sourceTree = "<group>"; };
 		AB59014E1EE9336900826A37 /* JH_My.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_My.swift; sourceTree = "<group>"; };
 		AB5901501EE9337400826A37 /* JH_Market.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_Market.swift; sourceTree = "<group>"; };
@@ -1501,6 +1505,7 @@
 			isa = PBXGroup;
 			children = (
 				AB5901501EE9337400826A37 /* JH_Market.swift */,
+				AB58FD2F1F133B1B00DF15FE /* M_Market.swift */,
 			);
 			path = JH_Market;
 			sourceTree = "<group>";
@@ -1516,6 +1521,7 @@
 				AB9920AE1F11E0F900CFBB6C /* JH_MyTodayDelegate.swift */,
 				AB9920B01F11E11600CFBB6C /* JH_MyHistoryDeal.swift */,
 				AB9920B21F11E13000CFBB6C /* JH_MyHistoryDelegate.swift */,
+				AB58FD2D1F13282100DF15FE /* JH_MyDealDetails.swift */,
 				AB9920B41F120F3B00CFBB6C /* JH_MyCell.swift */,
 			);
 			path = JH_My;
@@ -2541,6 +2547,7 @@
 				AB4EB77C1F0A427900D8CA0D /* Y_StockChartGlobalVariable.m in Sources */,
 				AB4EB78A1F0A427900D8CA0D /* Y_KLineVolumePositionModel.m in Sources */,
 				AB19933B1F03925F00E710CB /* HXVideoPresentTransition.m in Sources */,
+				AB58FD301F133B1B00DF15FE /* M_Market.swift in Sources */,
 				AB5902071EE952E300826A37 /* SP_NavigationView.swift in Sources */,
 				AB993D641F0B948700C06108 /* AS_AddImageCell.swift in Sources */,
 				AB67EBFF1F00A3B2009FF2DC /* VM_Attention.swift in Sources */,
@@ -2671,6 +2678,7 @@
 				AB5901CB1EE94B9200826A37 /* NSString+Hash.m in Sources */,
 				AB6824341EFA619E0079C58B /* Observable+ObjectMapper.swift in Sources */,
 				AB993D751F0B948700C06108 /* PhotoPreviewCell.swift in Sources */,
+				AB58FD2E1F13282100DF15FE /* JH_MyDealDetails.swift in Sources */,
 				AB4EB79A1F0A427900D8CA0D /* NSArray+MASAdditions.m in Sources */,
 				AB4EB7901F0A427900D8CA0D /* Y_KLineVolumeView.m in Sources */,
 				AB1993311F03925F00E710CB /* HXPhotoModel.m in Sources */,

@@ -85,10 +85,8 @@ extension JH_MyInfo {
     }
     
     @IBAction func clickSave(_ sender: UIButton) {
+        self.url_用户信息修改()
         
-        My_API.t_用户信息修改(nickname: "", email: "", img_url: "").post(M_MyCommon.self) { (isOk, data, error) in
-            
-        }
     }
 }
 
@@ -226,8 +224,20 @@ class JH_MyInfoCell_Name: UITableViewCell,UITextFieldDelegate {
     
 }
 
-
 extension JH_MyInfo {
+    fileprivate func url_用户信息修改() {
+        SP_HUD.show(view: self.view, type: .tLoading)
+        My_API.t_用户信息修改(nickname: dataArr[1].title, email: "", img_url: dataArr[0].title).post(M_MyCommon.self) { (isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text:sp_localized("保存成功"))
+                SP_User.shared.url_用户信息()
+            }else{
+                SP_HUD.show(text:error)
+            }
+        }
+    }
+    
     //MARK:---------- 上传 头像
     func uploadTopImage() {
         let photoView = SP_AddPhoto(frame: self.view.bounds, parentVC: self)

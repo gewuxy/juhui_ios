@@ -13,6 +13,8 @@ import IQKeyboardManager
 enum JH_BuyAndSellType {
     case t买入
     case t卖出
+    case t撤销买入
+    case t撤销卖出
 }
 class JH_BuyAndSell: SP_ParentVC {
 
@@ -145,7 +147,7 @@ extension JH_BuyAndSell {
     }
     fileprivate func t_买入(_ price:String, _ num:String) {
         SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("正在买入") )
-        My_API.t_买入(code: _datas.code, price: price, num: num).post(M_Attention.self) { [weak self](isOk, data, error) in
+        My_API.t_买入(code: _datas.code, price: price, num: num).post(M_Attention.self) { (isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
                 SP_HUD.show(text:sp_localized("已买入"))
@@ -157,7 +159,7 @@ extension JH_BuyAndSell {
     }
     fileprivate func t_卖出(_ price:String, _ num:String) {
         SP_HUD.show(view:self.view, type:.tLoading, text:sp_localized("正在卖出") )
-        My_API.t_卖出(code: _datas.code, price: price, num: num).post(M_Attention.self) { [weak self](isOk, data, error) in
+        My_API.t_卖出(code: _datas.code, price: price, num: num).post(M_Attention.self) { (isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
                 SP_HUD.show(text:sp_localized("已卖出"))

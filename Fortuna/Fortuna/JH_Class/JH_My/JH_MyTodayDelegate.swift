@@ -42,7 +42,7 @@ extension JH_MyTodayDelegate:UITableViewDelegate,UITableViewDataSource {
         return 10
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return sp_fitSize((200, 215, 230))
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
@@ -52,7 +52,13 @@ extension JH_MyTodayDelegate:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_MyTodayDelegateCell.show(tableView, indexPath)
-        
+        cell._block = { [unowned self]_ in
+            let model = JH_HUD_EntrustModel(type: .t撤销买入, no: "", name: "", price: "", num: "")
+            JH_HUD_Entrust.show(model, block: {[weak self] _ in
+                //SP_HUD.show(text:"模块开发中，下面是模拟")
+                //self?.goBuyOrSell()
+            })
+        }
         return cell
     }
 }

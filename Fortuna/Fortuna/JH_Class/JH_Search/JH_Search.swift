@@ -75,7 +75,11 @@ extension JH_Search {
         tableView.cyl_reloadData()
         
         sp_addMJRefreshHeader()
-        tableView.sp_headerBeginRefresh()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
+            self?._text_search.text_field.becomeFirstResponder()
+        }
+        
     }
     
     override func placeHolderViewClick() {
@@ -86,7 +90,7 @@ extension JH_Search {
             _text_search.text_field.becomeFirstResponder()
         case .tNetError(_):
             _placeHolderType = .tOnlyImage
-            tableView.sp_headerBeginRefresh()
+            self.tableView.sp_headerBeginRefresh()
         }
     }
     
@@ -163,6 +167,12 @@ extension JH_Search {
         _text_search._block = { [weak self] (type,text) in
             switch type {
             case .tChange:
+                guard !text.isEmpty else {
+                    self?._datas.removeAll()
+                    self?._placeHolderType = .tOnlyImage
+                    self?.tableView.cyl_reloadData()
+                    return
+                }
                 self?._pageIndex = 1
                 self?.t_自选搜索()
             default:

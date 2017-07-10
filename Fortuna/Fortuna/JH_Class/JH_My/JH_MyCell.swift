@@ -25,10 +25,10 @@ class JH_MyPositionsCell: UITableViewCell {
     @IBOutlet weak var lab_num: UILabel!
     
     fileprivate func makeUI() {
-        lab_code.textColor = UIColor.mainText_1
-        lab_yk.textColor = UIColor.mainText_4
-        lab_ratio.textColor = UIColor.mainText_4
-        lab_num.textColor = UIColor.mainText_1
+        self.lab_code.textColor = UIColor.mainText_1
+        self.lab_yk.textColor = UIColor.mainText_4
+        self.lab_ratio.textColor = UIColor.mainText_4
+        self.lab_num.textColor = UIColor.mainText_1
     }
 }
 
@@ -40,7 +40,7 @@ class JH_MyTodayDealCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        makeUI()
+        self.makeUI()
     }
     
     @IBOutlet weak var view_bg: UIView!
@@ -59,44 +59,45 @@ class JH_MyTodayDealCell: UITableViewCell {
     @IBOutlet weak var lab_time: UILabel!
     
     @IBOutlet weak var btn_look: UIButton!
-    var _blockLook:(()->Void)?
+    var _block:(()->Void)?
     @IBAction func clickBtnLook(_ sender: UIButton) {
+        self._block?()
     }
     
     
     fileprivate func makeUI(){
-        view_bg.backgroundColor = UIColor.white
-        view_line.backgroundColor = UIColor.main_line
+        self.view_bg.backgroundColor = UIColor.white
+        self.view_line.backgroundColor = UIColor.main_line
         
-        lab_name.font = sp_fitFont18
-        lab_name.textColor = UIColor.mainText_1
+        self.lab_name.font = sp_fitFont18
+        self.lab_name.textColor = UIColor.mainText_1
         
-        lab_allPrice0.font = sp_fitFont16
-        lab_allPrice0.textColor = UIColor.mainText_2
-        lab_price0.font = sp_fitFont16
-        lab_price0.textColor = UIColor.mainText_2
-        lab_num0.font = sp_fitFont16
-        lab_num0.textColor = UIColor.mainText_2
-        lab_time0.font = sp_fitFont16
-        lab_time0.textColor = UIColor.mainText_2
+        self.lab_allPrice0.font = sp_fitFont16
+        self.lab_allPrice0.textColor = UIColor.mainText_2
+        self.lab_price0.font = sp_fitFont16
+        self.lab_price0.textColor = UIColor.mainText_2
+        self.lab_num0.font = sp_fitFont16
+        self.lab_num0.textColor = UIColor.mainText_2
+        self.lab_time0.font = sp_fitFont16
+        self.lab_time0.textColor = UIColor.mainText_2
         
-        lab_allPrice.font = sp_fitFont30
-        lab_allPrice.textColor = UIColor.mainText_1
-        lab_price.font = sp_fitFont16
-        lab_price.textColor = UIColor.mainText_1
-        lab_num.font = sp_fitFont16
-        lab_num.textColor = UIColor.mainText_1
-        lab_time.font = sp_fitFont16
-        lab_time.textColor = UIColor.mainText_1
+        self.lab_allPrice.font = sp_fitFont30
+        self.lab_allPrice.textColor = UIColor.mainText_1
+        self.lab_price.font = sp_fitFont16
+        self.lab_price.textColor = UIColor.mainText_1
+        self.lab_num.font = sp_fitFont16
+        self.lab_num.textColor = UIColor.mainText_1
+        self.lab_time.font = sp_fitFont16
+        self.lab_time.textColor = UIColor.mainText_1
         
-        btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
-        btn_look.titleLabel?.font = sp_fitFont18
+        self.btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
+        self.btn_look.titleLabel?.font = sp_fitFont18
         
-        lab_allPrice0.text = sp_localized("成交额：")
-        lab_price0.text = sp_localized("成交价：")
-        lab_num0.text = sp_localized("成交量：")
-        lab_time0.text = sp_localized("成交时间：")
-        btn_look.setTitle(sp_localized("查看详情"), for: .normal)
+        self.lab_allPrice0.text = sp_localized("成交额：")
+        self.lab_price0.text = sp_localized("成交价：")
+        self.lab_num0.text = sp_localized("成交量：")
+        self.lab_time0.text = sp_localized("成交时间：")
+        self.btn_look.setTitle(sp_localized("查看详情"), for: .normal)
     }
 }
 
@@ -108,7 +109,7 @@ class JH_MyTodayDelegateCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        makeUI()
+        self.makeUI()
     }
     
     
@@ -129,44 +130,45 @@ class JH_MyTodayDelegateCell: UITableViewCell {
     @IBOutlet weak var lab_time: UILabel!
     
     @IBOutlet weak var btn_look: UIButton!
-    var _blockLook:(()->Void)?
+    var _block:(()->Void)?
     @IBAction func clickBtnLook(_ sender: UIButton) {
+        self._block?()
     }
     
     
     fileprivate func makeUI(){
-        view_bg.backgroundColor = UIColor.white
-        view_line.backgroundColor = UIColor.main_line
+        self.view_bg.backgroundColor = UIColor.white
+        self.view_line.backgroundColor = UIColor.main_line
         
-        lab_name.font = sp_fitFont18
-        lab_name.textColor = UIColor.mainText_1
+        self.lab_name.font = sp_fitFont18
+        self.lab_name.textColor = UIColor.mainText_1
         
-        lab_status0.font = sp_fitFont16
-        lab_status0.textColor = UIColor.mainText_2
-        lab_price0.font = sp_fitFont16
-        lab_price0.textColor = UIColor.mainText_2
-        lab_num0.font = sp_fitFont16
-        lab_num0.textColor = UIColor.mainText_2
-        lab_time0.font = sp_fitFont16
-        lab_time0.textColor = UIColor.mainText_2
+        self.lab_status0.font = sp_fitFont16
+        self.lab_status0.textColor = UIColor.mainText_2
+        self.lab_price0.font = sp_fitFont16
+        self.lab_price0.textColor = UIColor.mainText_2
+        self.lab_num0.font = sp_fitFont16
+        self.lab_num0.textColor = UIColor.mainText_2
+        self.lab_time0.font = sp_fitFont16
+        self.lab_time0.textColor = UIColor.mainText_2
         
-        lab_status.font = sp_fitFont16
-        lab_status.textColor = UIColor.mainText_1
-        lab_price.font = sp_fitFont16
-        lab_price.textColor = UIColor.mainText_1
-        lab_num.font = sp_fitFont16
-        lab_num.textColor = UIColor.mainText_1
-        lab_time.font = sp_fitFont16
-        lab_time.textColor = UIColor.mainText_1
+        self.lab_status.font = sp_fitFont16
+        self.lab_status.textColor = UIColor.mainText_1
+        self.lab_price.font = sp_fitFont16
+        self.lab_price.textColor = UIColor.mainText_1
+        self.lab_num.font = sp_fitFont16
+        self.lab_num.textColor = UIColor.mainText_1
+        self.lab_time.font = sp_fitFont16
+        self.lab_time.textColor = UIColor.mainText_1
         
-        btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
-        btn_look.titleLabel?.font = sp_fitFont18
+        self.btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
+        self.btn_look.titleLabel?.font = sp_fitFont18
         
-        lab_status0.text = sp_localized("状态：")
-        lab_price0.text = sp_localized("委托/均价：")
-        lab_num0.text = sp_localized("委托/成交：")
-        lab_time0.text = sp_localized("委托时间：")
-        btn_look.setTitle(sp_localized("点击撤单"), for: .normal)
+        self.lab_status0.text = sp_localized("状态：")
+        self.lab_price0.text = sp_localized("委托/均价：")
+        self.lab_num0.text = sp_localized("委托/成交：")
+        self.lab_time0.text = sp_localized("委托时间：")
+        self.btn_look.setTitle(sp_localized("点击撤单"), for: .normal)
     }
     
 }
@@ -180,7 +182,7 @@ class JH_MyHistoryDealCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        makeUI()
+        self.makeUI()
     }
     
     @IBOutlet weak var view_bg: UIView!
@@ -199,41 +201,70 @@ class JH_MyHistoryDealCell: UITableViewCell {
     @IBOutlet weak var lab_time: UILabel!
     
     @IBOutlet weak var btn_look: UIButton!
-    var _blockLook:(()->Void)?
+    var _block:(()->Void)?
     @IBAction func clickBtnLook(_ sender: UIButton) {
+        self._block?()
     }
     
     
     fileprivate func makeUI(){
-        view_bg.backgroundColor = UIColor.white
-        view_line.backgroundColor = UIColor.main_line
+        self.view_bg.backgroundColor = UIColor.white
+        self.view_line.backgroundColor = UIColor.main_line
         
-        lab_name.font = sp_fitFont18
-        lab_name.textColor = UIColor.mainText_1
+        self.lab_name.font = sp_fitFont18
+        self.lab_name.textColor = UIColor.mainText_1
         
-        lab_allPrice0.font = sp_fitFont16
-        lab_allPrice0.textColor = UIColor.mainText_2
+        self.lab_allPrice0.font = sp_fitFont16
+        self.lab_allPrice0.textColor = UIColor.mainText_2
         
-        lab_num0.font = sp_fitFont16
-        lab_num0.textColor = UIColor.mainText_2
-        lab_time0.font = sp_fitFont16
-        lab_time0.textColor = UIColor.mainText_2
+        self.lab_num0.font = sp_fitFont16
+        self.lab_num0.textColor = UIColor.mainText_2
+        self.lab_time0.font = sp_fitFont16
+        self.lab_time0.textColor = UIColor.mainText_2
         
-        lab_allPrice.font = sp_fitFont30
-        lab_allPrice.textColor = UIColor.mainText_1
+        self.lab_allPrice.font = sp_fitFont30
+        self.lab_allPrice.textColor = UIColor.mainText_1
         
-        lab_num.font = sp_fitFont16
-        lab_num.textColor = UIColor.mainText_1
-        lab_time.font = sp_fitFont16
-        lab_time.textColor = UIColor.mainText_1
+        self.lab_num.font = sp_fitFont16
+        self.lab_num.textColor = UIColor.mainText_1
+        self.lab_time.font = sp_fitFont16
+        self.lab_time.textColor = UIColor.mainText_1
         
-        btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
-        btn_look.titleLabel?.font = sp_fitFont18
+        self.btn_look.setTitleColor(UIColor.mainText_1, for: .normal)
+        self.btn_look.titleLabel?.font = sp_fitFont18
         
-        lab_allPrice0.text = sp_localized("成交价：")
-        lab_num0.text = sp_localized("成交量：")
-        lab_time0.text = sp_localized("成交时间：")
-        btn_look.setTitle(sp_localized("查看详情"), for: .normal)
+        self.lab_allPrice0.text = sp_localized("成交价：")
+        self.lab_num0.text = sp_localized("成交量：")
+        self.lab_time0.text = sp_localized("成交时间：")
+        self.btn_look.setTitle(sp_localized("查看详情"), for: .normal)
     }
     
 }
+
+//MARK:--- 成交详情 -----------------------------
+class JH_MyDealDetailsCell: UITableViewCell {
+    class func show(_ tableView: UITableView, _ indexPath: IndexPath)->JH_MyDealDetailsCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JH_MyDealDetailsCell", for: indexPath) as! JH_MyDealDetailsCell
+        return cell
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.makeUI()
+    }
+    
+    
+    
+    @IBOutlet weak var lab_L: UILabel!
+    @IBOutlet weak var lab_R: UILabel!
+    
+    
+    fileprivate func makeUI() {
+        
+        self.lab_L.textColor = UIColor.mainText_2
+        self.lab_R.textColor = UIColor.mainText_2
+        
+        self.lab_L.font = sp_fitFont18
+        self.lab_R.font = sp_fitFont18
+    }
+}
+

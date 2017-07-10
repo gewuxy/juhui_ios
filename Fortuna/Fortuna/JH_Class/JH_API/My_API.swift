@@ -58,6 +58,11 @@ enum My_API {
     case t_详情页基础数据(code:String)
     
     
+    static let url_获取行情数据 = "api/wine/quotes/"
+    case t_获取行情数据
+    
+    
+    
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
@@ -76,6 +81,7 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+            
         case .t_自选搜索(let key, let page):
             parame += ["key":key, "page":page,"page_num":my_pageSize]
             SP_Alamofire.post(main_url+My_API.url_自选搜索, param: parame, block: { (isOk, res, error) in
@@ -161,6 +167,17 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        case .t_获取行情数据:
+            SP_Alamofire.shared._headers = [:]
+            parame += [:]
+            SP_Alamofire.get(main_url+My_API.url_获取行情数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取行情数据=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            
+            
         }
         
     }
@@ -215,12 +232,12 @@ extension My_API {
         }
     }
     
-    static func map_Object<T: SP_JsonModel>(_ type: T.Type, response:Any?, error:String?, isOk:Bool, block:((Bool,T?,String)->Void)? = nil){
+    static func map_Object<T: SP_JsonModel>(_ type: T.Type, response:Any?, error:String?, isOk:Bool, block:((Bool,T,String)->Void)? = nil){
         if isOk {
             let json = JSON(response!)
             guard json[My_Net_Code].stringValue == My_NetCodeError.t成功.rawValue else{
                 let message = (My_NetCodeError(rawValue: json[My_Net_Code].stringValue) ?? .tError).stringValue
-                block?(false,nil,message)
+                block?(false,T(),message)
                 
                 if json[My_Net_Code].stringValue == My_NetCodeError.t需要登录.rawValue {
                     My_API.needLogin()
@@ -229,13 +246,13 @@ extension My_API {
                 return
             }
             guard !json[My_Net_Data].isEmpty else{
-                block?(true,nil,sp_localized(My_NetCodeError.t没有数据.rawValue))
+                block?(true,T(),sp_localized(My_NetCodeError.t没有数据.rawValue))
                 return
             }
             let obj = My_API.map_FromJSON(json[My_Net_Data], classType:type)!
             block?(true,obj,"")
         }else{
-            block?(false,nil,error!)
+            block?(false,T(),error!)
         }
     }
     

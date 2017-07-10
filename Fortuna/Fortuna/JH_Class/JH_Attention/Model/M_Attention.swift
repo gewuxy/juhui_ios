@@ -17,10 +17,12 @@ struct M_Attention {
     var proposedPrice =  "--"
     var quoteChange =  ""
     var winery =  ""
+    var last_price = ""
     
     var isFollow = false//是否已加自选
     var isSelect = false
     
+    var ratio = ""
 }
 
 extension M_Attention:SP_JsonModel {
@@ -36,6 +38,10 @@ extension M_Attention:SP_JsonModel {
         quoteChange = json["quote_change"].stringValue
         winery = json["winery"].stringValue
         isFollow = json["is_select"].boolValue
+        last_price = json["last_price"].stringValue
+        
+        ratio = json["ratio"].stringValue
+        
         isSelect = false
     }
 }
