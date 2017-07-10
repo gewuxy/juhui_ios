@@ -137,7 +137,7 @@ extension UIView {
 
 extension UIImageView {
     static let placeholderImgName = ""
-    func sp_ImageName(_ name:String, ph:Bool = true, phStr:String = placeholderImgName, phColor:UIColor = UIColor.main_line) {
+    func sp_ImageName(_ name:String, ph:Bool = true, phStr:String = placeholderImgName, phColor:UIColor = UIColor.clear) {
         
         //self.image = UIImage.placeholder(withSize: 40, color: "d4d4d4")
         //self.image = UIImage(named: phStr)

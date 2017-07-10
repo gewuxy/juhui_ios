@@ -17,3 +17,21 @@
 
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UShareUI.h>
+
+//图表库
+#import "Y_StockChartView.h"
+#import "NetWorking.h"
+#import "Y_KLineGroupModel.h"
+#import "Y_KLineModel.h"
+#import "UIColor+Y_StockChart.h"
+#import "Y_StockChartConstant.h"
+
+#import "YYStock.h"
+#import "YYStockVariable.h"
+#import "YYFiveRecordModel.h"
+#import "YYTimeLineModel.h"
+
+#import "YKLineChart.h"
+#import "YKTimeLineView.h"
+#import "YKLineChartView.h"
+#import "YKLineEntity.h"

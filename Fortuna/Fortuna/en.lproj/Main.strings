@@ -150,7 +150,7 @@
 "NjS-Kg-mC1.text" = "最低";
 
 /* Class = "UIButton"; normalTitle = "退出登录"; ObjectID = "OT4-of-JUZ"; */
-"OT4-of-JUZ.normalTitle" = "退出登录";
+"OT4-of-JUZ.normalTitle" = "Sign out";
 
 /* Class = "UIButton"; normalTitle = "删除自选"; ObjectID = "OTr-H8-ccq"; */
 "OTr-H8-ccq.normalTitle" = "删除自选";

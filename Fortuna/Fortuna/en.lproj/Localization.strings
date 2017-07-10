@@ -43,10 +43,17 @@
 "历史成交" = "History, The deal";
 "历史委托" = "History, The delegate";
 
+"成交额：" = "Turnover";
+"成交价：" = "Price：";
+"成交量：" = "Volume：";
+"成交时间：" = "Time：";
+
+
 "个人信息" = "My information";
 "头像" = "My logo";
 "昵称" = "My name";
 "手机号码" = "My phone number";
+"保存修改" = "Save";
 
 "设置" = "Settings";
 "意见反馈" = "Feedback";
@@ -107,9 +114,8 @@
 "微信朋友圈" = "Moments";
 "分享到" = "Share To";
 "点我登录" = "Click on me to log in";
-
-
-
-
-
+"您将要退出登录？" = "You are going to sign out!";
+"退出登录" = "Sign out";
+"请输入" = "Input";
+"查看详情" = "Look at the details";
 

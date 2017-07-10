@@ -94,6 +94,7 @@ let sp_fitFont16 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
 let sp_fitFont18 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 18))
 let sp_fitFont20 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 20))
 let sp_fitFont22 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 22))
+let sp_fitFont30 = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 30))
 
 let sp_fitFontB12 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 12))
 let sp_fitFontB14 = UIFont.boldSystemFont(ofSize: SP_InfoOC.sp_fit(withSize: 14))

@@ -24,7 +24,7 @@ let my_pageSize = 20
 
 enum My_API {
     static let url_用户信息修改 = "api/account/info/"
-    case t_用户信息修改(mobile:String,nickname:String,email:String,img_url:String)
+    case t_用户信息修改(nickname:String,email:String,img_url:String)
     
     static let url_获取自选列表 = "api/wine/getopt/"
     case t_获取自选列表(page:Int)
@@ -48,6 +48,14 @@ enum My_API {
     case t_卖出(code:String, price:String, num:String)
     
     
+    static let url_分时数据 = "api/wine/forchart/"
+    case t_分时数据(code:String, period:String)
+    
+    static let url_K线图数据 = "api/wine/kline/"
+    case t_K线图数据(code:String, period:String)
+    
+    static let url_详情页基础数据 = "api/wine/detail/"
+    case t_详情页基础数据(code:String)
     
     
 }
@@ -56,10 +64,12 @@ extension My_API {
         //"token":SP_User.shared.userToken
         SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
         var parame:[String:Any] = [:]
+        
         switch self {
         case .t_获取自选列表(let page):
             parame += ["page":page,"page_num":my_pageSize]
             print_Json("url_获取自选列表 parame=>\(parame))")
+            print_SP(SP_User.shared.userToken)
             SP_Alamofire.get(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
                 print_Json("url_获取自选列表=>\(JSON(res!))")
                 My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -99,8 +109,8 @@ extension My_API {
                 })
             })
             
-        case .t_用户信息修改(let mobile,let nickname,let email,let img_url):
-            parame += ["mobile":mobile,"nickname":nickname,"email":email,"img_url":img_url]
+        case .t_用户信息修改(let nickname,let email,let img_url):
+            parame += ["nickname":nickname,"email":email,"img_url":img_url]
             SP_Alamofire.post(main_url+My_API.url_用户信息修改, param: parame, block: { (isOk, res, error) in
                 print_Json("url_用户信息修改=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -123,12 +133,37 @@ extension My_API {
                     block?(isOk, datas ?? T(), error)
                 })
             })
-        
+        case .t_分时数据(let code,let period):
+            let dateTime = Date().timeIntervalSince1970
+            let now = String(format: "%.0f", dateTime)
+            parame += ["code":code,"period":period,"now":now]
+            SP_Alamofire.post(main_url+My_API.url_分时数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_分时数据=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_K线图数据(let code,let period):
+            let dateTime = Date().timeIntervalSince1970
+            let now = String(format: "%.0f", dateTime)
+            parame += ["code":code,"period":period,"now":now,"count":100]
+            SP_Alamofire.post(main_url+My_API.url_K线图数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_K线图数据=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_详情页基础数据(let code):
+            parame += ["code":code]
+            SP_Alamofire.post(main_url+My_API.url_详情页基础数据, param: parame, block: { (isOk, res, error) in
+                print_Json("url_详情页基础数据=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
         }
         
     }
-    
-    
     
 }
 

@@ -196,7 +196,7 @@ extension JH_BuyAndSellCell_Deal {
         makeTextFieldDelegate()
         makeRx()
         IQKeyboardManager.shared().shouldShowTextFieldPlaceholder = false
-        //showKeyboard()
+        
         
     }
     @IBAction func btnClick(_ sender: UIButton) {
@@ -323,20 +323,20 @@ extension JH_BuyAndSellCell_Deal {
                 return
             }
             //买入价格不得低于现在的价格
-            guard Double(_text_num.text_field.text!) == Double(_model.proposedPrice) else {
-                _text_num.label_error.text = "*买入价格不得低于当前价格"
-                return
-            }
+//            guard Double(_text_num.text_field.text!) == Double(_model.proposedPrice) else {
+//                _text_num.label_error.text = "*买入价格不得低于当前价格"
+//                return
+//            }
         }else{
             guard !_text_num.text_field.text!.isEmpty else {
                 _text_num.text_field.text = "0.0"
                 return
             }
             //买入价格不得低于现在的价格
-            guard Double(_text_num.text_field.text!)! > 10.0 else {
-                _text_num.label_error.text = "*买入价格不得低于 0"
-                return
-            }
+//            guard Double(_text_num.text_field.text!)! > 10.0 else {
+//                _text_num.label_error.text = "*买入价格不得低于 0"
+//                return
+//            }
             
         }
         
@@ -344,22 +344,22 @@ extension JH_BuyAndSellCell_Deal {
         _text_price.text_field.text = String(format: "%.2f", price)
     }
     fileprivate func textNumAdd() {
-        guard !_text_num.text_field.text!.isEmpty else {
-            _text_num.text_field.text = "1"
-            return
-        }
+//        guard !_text_num.text_field.text!.isEmpty else {
+//            _text_num.text_field.text = "1"
+//            return
+//        }
         let price = Int(_text_num.text_field.text!)! + 1
         _text_num.text_field.text = String(format: "%d", price)
     }
     fileprivate func textNumSubtract() {
-        guard !_text_num.text_field.text!.isEmpty else {
-            _text_num.text_field.text = "1"
-            return
-        }
-        guard Int(_text_num.text_field.text!) == 1 else {
-            _text_num.label_error.text = "*数量不能小于 1"
-            return
-        }
+//        guard !_text_num.text_field.text!.isEmpty else {
+//            _text_num.text_field.text = "1"
+//            return
+//        }
+//        guard Int(_text_num.text_field.text!) == 1 else {
+//            _text_num.label_error.text = "*数量不能小于 1"
+//            return
+//        }
         let price = Double(_text_num.text_field.text!)! - 1
         _text_num.text_field.text = String(format: "%d", price)
     }
@@ -372,71 +372,5 @@ extension JH_BuyAndSellCell_Deal {
         _text_price.text_field.resignFirstResponder()
         _text_num.text_field.resignFirstResponder()
     }
-    fileprivate func showKeyboard(){
-        sp_Notification.rx
-            .notification(sp_ntfNameKeyboardWillShow, object: nil)
-            .takeUntil(self.rx.deallocated)
-            .asObservable()
-            .subscribe(onNext: { [weak self](n) in
-                self?.keyBoardWillShow(n)
-            })
-            .addDisposableTo(disposeBag)
-        sp_Notification.rx
-            .notification(sp_ntfNameKeyboardWillHide, object: nil)
-            .takeUntil(self.rx.deallocated)
-            .asObservable()
-            .subscribe(onNext: { [weak self](n) in
-                self?.keyBoardWillHide(n)
-            })
-            .addDisposableTo(disposeBag)
-    }
     
-    
-    @objc private func keyBoardWillShow(_ note:Notification) {
-        let userInfo  = note.userInfo
-        let keyBoardBounds = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        
-        
-        let _keyBoardHeight = keyBoardBounds.size.height
-        _heightBlock?(.tB,_keyBoardHeight)
-        self.superview?.setNeedsLayout()
-        let animations:(() -> Void) = {
-            self.superview?.layoutIfNeeded()
-            
-        }
-        
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-        }else{
-            
-            animations()
-        }
-        _heightBlock?(.tFinish,0)
-    }
-    
-    @objc private func keyBoardWillHide(_ note:Notification)
-    {
-        
-        let userInfo  = note.userInfo
-        
-        let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        
-        _heightBlock?(.tB,0.0)
-        self.superview?.setNeedsLayout()
-        let animations:(() -> Void) = {
-            self.superview?.layoutIfNeeded()
-        }
-        if duration > 0 {
-            let options = UIViewAnimationOptions(rawValue: UInt((userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue << 16))
-            UIView.animate(withDuration: duration, delay: 0, options:options, animations: animations, completion: nil)
-        }else{
-            
-            animations()
-        }
-        
-        
-    }
 }

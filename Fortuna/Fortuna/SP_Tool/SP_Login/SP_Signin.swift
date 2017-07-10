@@ -265,14 +265,22 @@ extension SP_Signin {
             }).addDisposableTo(disposeBag)
         
     }
+    func makeEnabled(_ bool:Bool){
+        btn_login.isEnabled = bool
+        _text_phone.button_R.isEnabled = bool
+        _text_phone.text_field.isEnabled = bool
+        _text_pwd.text_field.isEnabled = bool
+    }
     //MARK:--- 注册、忘记密码 -----------------------------
     fileprivate func clickLogin()  {
         keyBoardHidden()
         SP_HUD.show(view:self.view,type:.tLoading)
+        makeEnabled(false)
         switch _vcType {
         case .t注册:
             
             SP_User.shared.signin((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
+                self?.makeEnabled(true)
                 if isOk {
                     SP_HUD.show(text:sp_localized("注册成功,正在登录",from: "SP_Login"))
                     
@@ -284,6 +292,7 @@ extension SP_Signin {
             }
         case .t忘记密码:
             SP_User.shared.resetPwd((mobile: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!, code: _text_verifi.text_field.text!)) { [weak self](isOk, error) in
+                self?.makeEnabled(true)
                 if isOk {
                     SP_HUD.show(text:sp_localized("修改成功,重新登录",from: "SP_Login"))
                     

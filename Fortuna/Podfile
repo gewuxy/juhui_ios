@@ -25,13 +25,13 @@ target ‘Fortuna’ do
     #pod 'Moya'
     
     #蓝牙
-    pod 'MPBluetoothKit'
+    #pod 'MPBluetoothKit'
     
     #高度自适应
     #pod 'UITableView+FDTemplateLayoutCell'
     
     #图表库
-    #pod 'Charts'
+    pod 'Charts'
     
     #pod 'Hyphenate_CN'
     

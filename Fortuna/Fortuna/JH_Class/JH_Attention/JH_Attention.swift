@@ -70,14 +70,19 @@ extension JH_Attention {
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
-                self?.tableView.sp_headerBeginRefresh()
+                self?._pageIndex = 1
+                self?.t_获取自选列表()
+                
             }).addDisposableTo(disposeBag)
         sp_Notification.rx
             .notification(SP_User.shared.ntfName_退出登陆了)
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
-                self?.tableView.sp_headerBeginRefresh()
+                self?._datas.removeAll()
+                //self?._pageIndex = 1
+                //self?.t_获取自选列表()
+                
             }).addDisposableTo(disposeBag)
         sp_Notification.rx
             .notification(ntf_Name_自选删除)
@@ -204,8 +209,6 @@ extension JH_Attention:UITableViewDataSource{
         JH_AttentionDetails.show(self, data:_datas[indexPath.row])
         
     }
-    
-    
 }
 
 
@@ -269,6 +272,7 @@ extension JH_Attention {
                     }
                 }
             }else{
+                self?._datas.removeAll()
                 self?._placeHolderType = .tNetError(labTitle: error)
                 self?.tableView.cyl_reloadData()
             }

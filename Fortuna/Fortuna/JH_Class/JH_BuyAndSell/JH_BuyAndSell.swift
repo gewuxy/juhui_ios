@@ -100,7 +100,7 @@ extension JH_BuyAndSell:UITableViewDataSource{
             cell._clickBlock = { [unowned self] _ in
                 let model = JH_HUD_EntrustModel(type: self._vcType, no: self._datas.code, name: self._datas.name, price: cell._text_price.text_field.text!, num: cell._text_num.text_field.text!)
                 JH_HUD_Entrust.show(model, block: {[weak self] _ in
-                    SP_HUD.show(text:"模块开发中，下面是模拟")
+                    //SP_HUD.show(text:"模块开发中，下面是模拟")
                     self?.goBuyOrSell()
                 })
             }
@@ -133,6 +133,7 @@ extension JH_BuyAndSell:UITableViewDataSource{
 //MARK:--- 网络 -----------------------------
 extension JH_BuyAndSell {
     fileprivate func goBuyOrSell(){
+        SP_HUD.show(view:self.view, type:.tLoading)
         if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? JH_BuyAndSellCell_Deal {
             if _vcType == .t买入 {
                 t_买入(cell._text_price.text_field.text!,cell._text_num.text_field.text!)
@@ -152,7 +153,6 @@ extension JH_BuyAndSell {
             }else{
                 SP_HUD.show(text:error)
             }
-            
         }
     }
     fileprivate func t_卖出(_ price:String, _ num:String) {

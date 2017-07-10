@@ -251,28 +251,38 @@ extension SP_Login {
         
     }
     
-    
+    func makeEnabled(_ bool:Bool){
+        btn_login.isEnabled = bool
+        btn_QQ.isEnabled = bool
+        btn_Wx.isEnabled = bool
+        _text_phone.button_R.isEnabled = bool
+        _text_phone.text_field.isEnabled = bool
+        _text_pwd.text_field.isEnabled = bool
+    }
     
     //MARK:--- 登录 -----------------------------
     fileprivate func clickLogin()  {
         keyBoardHidden()
+        makeEnabled(false)
         SP_User.shared.setUser(userAccount: _text_phone.text_field.text!, pwd: _text_pwd.text_field.text!)
         SP_HUD.show(view:self.view,type:.tLoading)
-        SP_User.shared.login(.tUser) { [weak self](isOk, error) in
+        SP_User.shared.login( { [weak self](isOk, error) in
+            self?.makeEnabled(true)
             if isOk {
                 SP_HUD.show(text:sp_localized("登录成功",from: "SP_Login"))
                 self?.clickN_btn_R1()
             }else{
                 SP_HUD.show(detailText:error)
             }
-        }
+        })
     }
     //MARK:--- 微信登录 -----------------------------
     fileprivate func clickWeiXin()  {
         keyBoardHidden()
         SP_HUD.show(view:self.view,type:.tLoading)
+        makeEnabled(false)
         SP_UMShare.shared.login(self, isLogin: true, platformType: .wechatSession, block: { [weak self](result, isOK) in
-            
+            self?.makeEnabled(true)
             if isOK {
                 guard let res = result as? UMSocialUserInfoResponse else{return}
                 SP_HUD.show(type: .tSuccess, text: "授权成功,"+res.name)
@@ -284,6 +294,16 @@ extension SP_Login {
     //MARK:--- QQ登录 -----------------------------
     fileprivate func clickQQ()  {
         keyBoardHidden()
+        makeEnabled(false)
+        SP_UMShare.shared.login(self, isLogin: true, platformType: .QQ, block: { [weak self](result, isOK) in
+            self?.makeEnabled(true)
+            if isOK {
+                guard let res = result as? UMSocialUserInfoResponse else{return}
+                SP_HUD.show(type: .tSuccess, text: "授权成功,"+res.name)
+            }else{
+                SP_MBHUD.showHUD(type: .tError, text: "授权失败，请重试！")
+            }
+        })
     }
     //MARK:--- 注册 -----------------------------
     fileprivate func clickSignin() {

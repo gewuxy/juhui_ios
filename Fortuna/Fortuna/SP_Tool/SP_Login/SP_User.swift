@@ -21,9 +21,11 @@ let sp_UserToken     =  "SP_UserToken"
 /// 用户密码
 let sp_UserPwd       =  "SP_UserPwd"
 /// 是否微信登录
-let sp_UserLoginType       =  "SP_UserLoginType"
-/// 是否微信登录
+let sp_UserLoginType       =  "SP_UserLoginTypes"
+/// 微信登录
 let sp_UserWXUnionId       =  "SP_UserWXUnionId"
+/// QQ登录
+let sp_UserQQUnionId       =  "SP_UserQQUnionId"
 
 
 open class SP_User {
@@ -43,23 +45,26 @@ open class SP_User {
         return isLogin
         
     }
-    enum sp_LoginType:Int {
-        case tOther = 0
-        case tUser
-        case tWX
-        case tQQ
+    enum sp_LoginType:String {
+        case tOther = "tOther"
+        case tUser = "tUser"
+        case tWX = "tWX"
+        case tQQ = "tQQ"
         
     }
+    /*
     var userLoginType:sp_LoginType {
         set{
             sp_UserDefaultsSet(sp_UserLoginType, value: newValue.rawValue)
             sp_UserDefaultsSyn()
         }
         get{
-            return (sp_UserDefaultsGet(sp_UserLoginType) as? Int ?? 0).map { SP_User.sp_LoginType(rawValue: $0) }! ?? .tOther
+            let str = sp_UserDefaultsGet(sp_UserLoginType) as? String ?? ""
+            let type = sp_LoginType(rawValue:str) ?? .tOther
+            return type
         }
         
-    }
+    }*/
     
     var userWXUnionId:String {
         set{
@@ -68,6 +73,16 @@ open class SP_User {
         }
         get{
             return sp_UserDefaultsGet(sp_UserWXUnionId) as? String ?? ""
+        }
+        
+    }
+    var userQQUnionId:String {
+        set{
+            sp_UserDefaultsSet(sp_UserQQUnionId, value: newValue)
+            sp_UserDefaultsSyn()
+        }
+        get{
+            return sp_UserDefaultsGet(sp_UserQQUnionId) as? String ?? ""
         }
         
     }
@@ -111,8 +126,9 @@ open class SP_User {
         
         self.userToken = ""
         self.userPwd = ""
-        self.userLoginType = .tOther
+        //self.userLoginType = .tOther
         self.userWXUnionId = ""
+        self.userQQUnionId = ""
         SP_UserModel.remove()
         
         sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
@@ -131,42 +147,46 @@ open class SP_User {
         removeUser()
     }
     
-    func login(_ type:sp_LoginType = SP_User.shared.userLoginType , block: ((Bool,String)->Void)? = nil) {
-        switch type {
-        case .tUser:
+    func login(_ block: ((Bool,String)->Void)? = nil) {
+        if !userWXUnionId.isEmpty {
             
+        }
+        else if !userWXUnionId.isEmpty {
+            
+        }
+        else if !userAccount.isEmpty && !userPwd.isEmpty {
             SP_UserAPI.t_登录(mobile: userAccount, pwd: userPwd).post({ (isOk, datas, error) in
                 //开始计时
                 self.timeStart()
                 if isOk{
-                    sp_Notification.post(name: SP_User.shared.ntfName_成功登陆了, object: nil)
+                    
                     SP_User.shared.userToken = (datas as? SP_UserModel)?.token ?? ""
                     print_SP(SP_User.shared.userToken)
                     self.url_用户信息()
+                    sp_Notification.post(name: SP_User.shared.ntfName_成功登陆了, object: nil)
                 }
                 block?(isOk, error)
+                
             })
-             /* Moye + RxSwift 版本
-            userProvider
-                .request(.t_登录(mobile: userAccount,pwd: userPwd))
-                .filterSuccessfulStatusCodes()
-                .mapJSON()
-                //.mapSwiftyJsonObj(SP_UserModel.self)
-                //.mapObject(SP_UserListModel.self)
-                .subscribe(onNext: { (datas) in
-                    print_SP("url_登录\n\(JSON(datas))")
-                    block?(true,"")
-                }, onError: { (error) in
-                    print_SP(SP_MoyaReturnError(error))
-                    block?(false,SP_MoyaReturnError(error))
-                }).addDisposableTo(disposeBag)*/
-        case .tWX:
-            break
-        case .tQQ:
-            break
-        default:
-            break
+            /* Moye + RxSwift 版本
+             userProvider
+             .request(.t_登录(mobile: userAccount,pwd: userPwd))
+             .filterSuccessfulStatusCodes()
+             .mapJSON()
+             //.mapSwiftyJsonObj(SP_UserModel.self)
+             //.mapObject(SP_UserListModel.self)
+             .subscribe(onNext: { (datas) in
+             print_SP("url_登录\n\(JSON(datas))")
+             block?(true,"")
+             }, onError: { (error) in
+             print_SP(SP_MoyaReturnError(error))
+             block?(false,SP_MoyaReturnError(error))
+             }).addDisposableTo(disposeBag)*/
         }
+        
+        
+        
+        
         
         /*
         if self.userLoginWX {
@@ -398,7 +418,7 @@ open class SP_User {
         if _time >= _countTime{
             _time = 0
             //超时了
-            login(block: { (isOk, error) in
+            login({ (isOk, error) in
             })
         }else{
             

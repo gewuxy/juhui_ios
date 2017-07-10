@@ -32,11 +32,11 @@ extension Date {
         return formatter.string(from: dateTime)
     }
     //MARK:---- 时间戳转换成时间
-    static func sp_timestampToDate(_ timestamp:Double) -> String {
+    static func sp_timestampToDate(_ timestamp:Double, formatter:String = "yyyy-MM-dd HH:mm:ss") -> String {
         
         let dates:Date = Date(timeIntervalSince1970: timestamp)
         
-        let time = Date.sp_setDateFormat(dates, formatter: "yyyy-MM-dd HH:mm")
+        let time = Date.sp_setDateFormat(dates, formatter: formatter)
         return time
     }
     //MARK:---- 取特定时间格式

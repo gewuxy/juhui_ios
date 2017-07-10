@@ -135,7 +135,7 @@ extension AppDelegate {
                 return
             }
         }*/
-        SP_User.shared.login( block:{ (isOk, error) in
+        SP_User.shared.login( { (isOk, error) in
             if isOk {
                 
             }

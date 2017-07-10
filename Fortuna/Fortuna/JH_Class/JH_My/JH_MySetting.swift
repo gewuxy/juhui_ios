@@ -63,10 +63,21 @@ extension JH_MySetting {
     
 
     @IBAction func clickExitLogin(_ sender: UIButton) {
-        SP_User.shared.loginOut { (isOk, error) in
-            
+        
+        UIAlertController.showAler(self, btnText: [sp_localized("取消"),sp_localized("退出登录")], title: sp_localized("您将要退出登录？"), message: "") { (str) in
+            if str == sp_localized("退出登录") {
+                SP_HUD.show(view:self.view, type:.tLoading)
+                self.btn_exitLogin.isEnabled = false
+                SP_User.shared.loginOut { [weak self](isOk, error) in
+                    self?.btn_exitLogin.isEnabled = true
+                    self?.makeUI()
+                    SP_HUD.show(text:sp_localized("已退出"))
+                }
+                
+            }
         }
-        makeUI()
+        
+        
     }
 }
 

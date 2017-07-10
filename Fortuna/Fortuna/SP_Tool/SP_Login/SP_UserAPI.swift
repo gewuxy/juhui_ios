@@ -82,13 +82,13 @@ extension SP_UserAPI {
             })
         case .t_用户信息获取(let mobile,let token):
             SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
-            let param = ["mobile": mobile,"token":token]
+            let param = ["mobile": mobile]
             SP_Alamofire.get(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
                 print_Json("url_用户信息获取=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    print_Json(datas)
+                    //print_Json(datas)
                     if (datas != nil) {
-                        print_Json(datas)
+                        //print_Json(datas)
                         SP_UserModel.write(datas ?? SP_UserModel())
                     }
                     block?(isOk, datas ?? SP_UserModel(), error)

@@ -96,7 +96,6 @@ extension JH_My {
             self?.tableView.reloadData()
         }).addDisposableTo(disposeBag)
     }
-    
 }
 
 extension JH_My:UITableViewDelegate,UITableViewDataSource {
@@ -175,6 +174,14 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         }
         
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch _sectionsHead[indexPath.section].type {
+        case .t用户:
+            JH_MyInfo.show(self)
+        default:
+            break
+        }
+    }
     func didSelectAt(_ section:Int) {
         if _sectionsHead[section].type == .t设置 {
             JH_MySetting.show(self)
@@ -188,10 +195,16 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             }
             
             switch _sectionsHead[section].type {
-            case .t当日委托:
-                JH_BuyAndSell.show(self, type: .t卖出, data:M_Attention())
             case .t我的持仓:
-                makeLogin()
+                JH_MyPositions.show(self)
+            case .t当日成交:
+                JH_MyTodayDeal.show(self)
+            case .t当日委托:
+                JH_MyTodayDelegate.show(self)
+            case .t历史成交:
+                JH_MyHistoryDeal.show(self)
+            case .t历史委托:
+                JH_MyHistoryDelegate.show(self)
             default:
                 break
             }
@@ -201,7 +214,6 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
         
         n_view.sp_setBgAlpha(UIColor.main_1,textColor:UIColor.white, offsetY: scrollView.contentOffset.y, maxOffsetY: _height_Top,btnBgAlpha:false)
         changeImage_Bg(scrollView.contentOffset)

@@ -52,18 +52,28 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fortuna/JH_Class/JH_Attention/JH_Attention.swift"
-            timestampString = "520738226.85353"
+            filePath = "Fortuna/SP_Tool/SP_KLine/BTC_K&#x7ebf;&#x56fe;/KLine/SegmentView/Y_StockChartSegmentView.m"
+            timestampString = "520958379.670017"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "t_&#x83b7;&#x53d6;&#x81ea;&#x9009;&#x5217;&#x8868;()"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-setSelectedBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,46 +83,78 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fortuna/JH_Class/JH_Attention/JH_Attention.swift"
-            timestampString = "520738226.85353"
+            filePath = "Fortuna/SP_Tool/SP_KLine/BTC_K&#x7ebf;&#x56fe;/KLine/SegmentView/Y_StockChartSegmentView.m"
+            timestampString = "520959352.569863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "t_&#x83b7;&#x53d6;&#x81ea;&#x9009;&#x5217;&#x8868;()"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-event_segmentButtonClicked:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Fortuna.JH_Attention.(t_&#x83b7;&#x53d6;&#x81ea;&#x9009;&#x5217;&#x8868; in _7865B67DE5D09E7B5C308C2E7450213C) () -&gt; ()"
-                  moduleName = "Fortuna"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liucaide/Desktop/MyWorking/wflt/Fortuna/Fortuna/JH_Class/JH_Attention/JH_Attention.swift"
-                  timestampString = "520233085.389699"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "185"
-                  endingLineNumber = "185"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Fortuna.JH_Attention.((t_&#x83b7;&#x53d6;&#x81ea;&#x9009;&#x5217;&#x8868; in _7865B67DE5D09E7B5C308C2E7450213C) () -&gt; ()).(closure #1)"
-                  moduleName = "Fortuna"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/liucaide/Desktop/MyWorking/wflt/Fortuna/Fortuna/JH_Class/JH_Attention/JH_Attention.swift"
-                  timestampString = "520233085.392986"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "185"
-                  endingLineNumber = "185"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fortuna/SP_Tool/SP_KLine/BTC_K&#x7ebf;&#x56fe;/Y_StockChartView.m"
+            timestampString = "521000657.128955"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-y_StockChartSegmentView:clickSegmentButtonIndex:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fortuna/JH_Class/JH_Attention/JH_AttentionDetails.swift"
+            timestampString = "521026140.548531"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "makeBuyAndSell(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fortuna/JH_Class/JH_Attention/YKlineChartView/YKTimeLineView.m"
+            timestampString = "521101742.300807"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-drawRect:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fortuna/JH_Class/JH_Attention/YKlineChartView/YKTimeLineView.m"
+            timestampString = "521101742.300807"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "-setCurrentDataMaxAndMin"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

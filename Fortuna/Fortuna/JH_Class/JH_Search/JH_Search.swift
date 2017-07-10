@@ -197,7 +197,7 @@ extension JH_Search:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        JH_AttentionDetails.show(self, data:_datas[indexPath.row])
     }
     
 }
