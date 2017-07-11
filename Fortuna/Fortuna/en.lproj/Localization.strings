@@ -12,7 +12,7 @@
  */
 "自选" = "Follow";
 "资讯" = "News";
-"行情" = "Market";
+"行情" = "Top 10";
 "我的" = "Me";
 
 
@@ -48,7 +48,19 @@
 "成交价：" = "Price：";
 "成交量：" = "Volume：";
 "成交时间：" = "Time：";
+"状态：" = "Status：";
+"委托/均价：" = " Price/Average：";
+"委托/成交：" = "Volume/Deal：";
+"委托时间：" = "Time：";
 
+"总资产" = "Total assets";
+"浮动盈亏" = "P&L";
+"总市值" = "Total value";
+"当日参考盈亏" = "P&L Reference";
+"代码" = "Code";
+"盈亏" = "P&L";
+"盈亏比例" = "Ratio";
+"持仓数" = "Number";
 
 "个人信息" = "My information";
 "头像" = "My logo";
@@ -122,5 +134,6 @@
 "退出登录" = "Sign out";
 "请输入" = "Input";
 "查看详情" = "Look at the details";
-
-
+"点击撤单" = "Revoke Order";
+"按住 说话" = "Hold to Talk";
+"松开 发送" = "Release to Send";

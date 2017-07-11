@@ -139,6 +139,10 @@ extension JH_AttentionEdit {
             _datas = data
             tableView.cyl_reloadData()
         case btn_remove:
+            guard !returnCode().isEmpty else {
+                SP_HUD.show(text: sp_localized("请选择要删除的自选酒"))
+                return
+            }
             UIAlertController.showAler(self, btnText: [sp_localized("取消") ,sp_localized("删除")], title: sp_localized("您将删除所选自选酒"), block: { [weak self](text) in
                 if text == sp_localized("删除") {
                     self?.t_删除自选数据()
@@ -263,6 +267,7 @@ extension JH_AttentionEdit {
             SP_HUD.show(text: sp_localized("请选择要删除的自选酒"))
             return
         }
+        print_SP(returnCode())
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
         My_API.t_删除自选数据(code:returnCode()).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()

@@ -39,6 +39,9 @@ class SP_IM_Input: UIView {
         
         text_View.delegate = self
         lab_phlace.text = _placeholderText
+        lab_voice.textColor = UIColor.mainText_1
+        lab_voice.text = sp_localized("按住 说话")
+        view_voice.isHidden = true
         showkeyBoard()
     }
     
@@ -47,11 +50,26 @@ class SP_IM_Input: UIView {
             lab_phlace.text = _placeholderText
         }
     }
+    var _isTalk:Bool = false {
+        didSet{
+            view_voice.isHidden = !_isTalk
+            button_L.setImage(UIImage(named:_isTalk ? "IM键盘" : "IM语音"), for: .normal)
+            if _isTalk {
+                self.text_View.resignFirstResponder()
+                self._heightBlock?(.tH,40)
+            }else{
+                self.text_View.becomeFirstResponder()
+                self.changeTextViewHeight()
+            }
+        }
+    }
     let disposeBag = DisposeBag()
     
     @IBOutlet weak var text_View: UITextView!
     @IBOutlet weak var text_View_L: NSLayoutConstraint!
     @IBOutlet weak var text_View_R: NSLayoutConstraint!
+    @IBOutlet weak var view_voice: UIView!
+    @IBOutlet weak var lab_voice: UILabel!
     
     @IBOutlet weak var lab_phlace: UILabel!
     
@@ -89,6 +107,23 @@ class SP_IM_Input: UIView {
             break
         }
     }
+    var _longPressBlock:((UIGestureRecognizerState)->Void)?
+    @IBAction func clickLongPress(_ sender: UILongPressGestureRecognizer) {
+        
+        switch sender.state {
+        case .began,.ended:
+            _longPressBlock?(sender.state)
+        case .changed:
+            if sender.location(in: self.view_voice).y < -50 {
+                _longPressBlock?(.cancelled)
+            }else{
+                _longPressBlock?(sender.state)
+            }
+        default:
+            break
+        }
+    }
+    
 }
 
 extension SP_IM_Input:UITextViewDelegate {
@@ -135,7 +170,6 @@ extension SP_IM_Input:UITextViewDelegate {
         textBounds.size = newSize
         let textHeight = textBounds.size.height
         //print(textBounds.size.height)
-        
          _heightBlock?(.tH,textHeight)
 
     }

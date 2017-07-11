@@ -26,8 +26,11 @@ extension JH_MyTodayDeal {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeTableView()
+        makeNavigation()
     }
-    
+    fileprivate func makeNavigation() {
+        self.n_view._title = sp_localized(JH_MyCellType.t当日成交.rawValue)
+    }
     fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self

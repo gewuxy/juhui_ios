@@ -25,6 +25,10 @@ extension JH_MyHistoryDeal {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeTableView()
+        makeNavigation()
+    }
+    fileprivate func makeNavigation() {
+        self.n_view._title = sp_localized(JH_MyCellType.t历史成交.rawValue)
     }
     
     fileprivate func makeTableView() {

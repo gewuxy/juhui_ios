@@ -20,6 +20,9 @@ let sp_UserAccount     =  "SP_UserAccount"
 let sp_UserToken     =  "SP_UserToken"
 /// 用户密码
 let sp_UserPwd       =  "SP_UserPwd"
+/// 用户密码
+let sp_UserLoginLastDate       =  "SP_UserLoginLastDate"
+
 /// 是否微信登录
 let sp_UserLoginType       =  "SP_UserLoginTypes"
 /// 微信登录
@@ -118,6 +121,17 @@ open class SP_User {
         }
         
     }
+    var loginLastDate:Date {
+        set{
+            sp_UserDefaultsSet(sp_UserLoginLastDate, value: newValue)
+            sp_UserDefaultsSyn()
+        }
+        get{
+            return sp_UserDefaultsGet(sp_UserLoginLastDate) as? Date ?? Date(timeIntervalSince1970: 0)
+        }
+        
+    }
+    
     
     let disposeBag = DisposeBag()
     let userProvider = RxMoyaProvider<SP_UserAPI>()
@@ -148,6 +162,8 @@ open class SP_User {
     }
     
     func login(_ block: ((Bool,String)->Void)? = nil) {
+        print_SP("\(userAccount)\(userPwd)")
+        
         if !userWXUnionId.isEmpty {
             
         }
@@ -164,6 +180,7 @@ open class SP_User {
                     print_SP(SP_User.shared.userToken)
                     self.url_用户信息()
                     sp_Notification.post(name: SP_User.shared.ntfName_成功登陆了, object: nil)
+                    SP_User.shared.loginLastDate = Date()
                 }
                 block?(isOk, error)
                 
@@ -394,13 +411,13 @@ open class SP_User {
     }
     
     
-    //MARK:--- 秒表倒计时
+    //MARK:--- 秒表倒计时 -- token 10小时过期，每小时轮询，登录一次
     lazy var _timer:Timer? = {
         let tim = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(SP_User.timerClosure(_:)), userInfo: nil, repeats: true)
         return tim
     }()
     lazy var _countTime:Int = {
-        let time = 1800
+        let time = 3600
         return time
     }()
     lazy var _time:Int = {
@@ -424,7 +441,5 @@ open class SP_User {
             
         }
     }
-
-    
 }
 

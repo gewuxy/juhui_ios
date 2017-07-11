@@ -12,6 +12,7 @@ enum SP_IM_TabCellClickButtonType {
     case tLogo
     case tImg
     case tText
+    case tVoice
     case tChongFa
 }
 class SP_IM_TabCell_HeText: UITableViewCell {
@@ -82,6 +83,7 @@ class SP_IM_TabCell_MeText: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        activityView.isHidden = true
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -91,6 +93,28 @@ class SP_IM_TabCell_MeText: UITableViewCell {
     
     @IBOutlet weak var button_CF: UIButton!
     @IBOutlet weak var btn_text: UIButton!
+    
+    var isLoading:Bool = false {
+        didSet{
+            if isLoading {
+                activityView.isHidden = false
+                activityView.startAnimating()
+            }else{
+                activityView.isHidden = true
+                activityView.stopAnimating()
+            }
+            
+        }
+    }
+    var isSendFailure:Bool = false {
+        didSet{
+            if isSendFailure {
+                isLoading = false
+                button_CF.isHidden = !isSendFailure
+            }
+        }
+    }
+    
     
     var _block:((SP_IM_TabCellClickButtonType)->Void)?
     @IBAction func buttonClick(_ sender: UIButton) {
@@ -141,7 +165,109 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
         }
     }
 }
+class SP_IM_TabCell_MeVoice: UITableViewCell {
+    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeVoice {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeVoice", for: indexPath) as! SP_IM_TabCell_MeVoice
+        return cell
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        
+        btn_Img.layer.borderColor = UIColor.main_line.cgColor
+        btn_Img.layer.borderWidth = 0.5
+    }
+    
+    @IBOutlet weak var btn_logo: UIButton!
+    @IBOutlet weak var btn_Img: UIButton!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
+    
+    @IBOutlet weak var button_CF: UIButton!
+    
+    
+    var _block:((SP_IM_TabCellClickButtonType)->Void)?
+    @IBAction func buttonClick(_ sender: UIButton) {
+        switch sender {
+        case btn_logo:
+            _block?(.tLogo)
+        case btn_Img:
+            _block?(.tVoice)
+        case button_CF:
+            _block?(.tChongFa)
+        default:
+            break
+        }
+    }
+    
+    func voicePlay() {
+        /*
+        UIImage *image = [YYImage imageNamed:@"ani.gif"];
+        UIImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+        [self.view addSubview:imageView];
+         
+         NSArray *paths = @[@"/ani/frame1.png", @"/ani/frame2.png", @"/ani/frame3.png"];
+         NSArray *times = @[@0.1, @0.2, @0.1];
+         UIImage *image = [YYFrameImage alloc] initWithImagePaths:paths frameDurations:times repeats:YES];
+         UIImageView *imageView = [YYAnimatedImageView alloc] initWithImage:image];
+         [self.view addSubview:imageView];
+         */
+        
+        
+    }
+    func voiceStop(){
+        
+    }
+}
 
+class SP_IM_TabCell_HeVoice: UITableViewCell {
+    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeVoice {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeVoice", for: indexPath) as! SP_IM_TabCell_HeVoice
+        return cell
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        
+        btn_Img.layer.borderColor = UIColor.main_line.cgColor
+        btn_Img.layer.borderWidth = 0.5
+    }
+    
+    @IBOutlet weak var btn_logo: UIButton!
+    @IBOutlet weak var btn_Img: UIButton!
+    
+    var _block:((SP_IM_TabCellClickButtonType)->Void)?
+    @IBAction func buttonClick(_ sender: UIButton) {
+        switch sender {
+        case btn_logo:
+            _block?(.tLogo)
+        case btn_Img:
+            _block?(.tVoice)
+        default:
+            break
+        }
+    }
+    
+    func voicePlay() {
+        /*
+         UIImage *image = [YYImage imageNamed:@"ani.gif"];
+         UIImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+         [self.view addSubview:imageView];
+         
+         NSArray *paths = @[@"/ani/frame1.png", @"/ani/frame2.png", @"/ani/frame3.png"];
+         NSArray *times = @[@0.1, @0.2, @0.1];
+         UIImage *image = [YYFrameImage alloc] initWithImagePaths:paths frameDurations:times repeats:YES];
+         UIImageView *imageView = [YYAnimatedImageView alloc] initWithImage:image];
+         [self.view addSubview:imageView];
+         */
+        
+        
+    }
+    func voiceStop(){
+        
+    }
+}
 
 
 

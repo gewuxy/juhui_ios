@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,7 +25,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zfs-my-vKg">
                     <rect key="frame" x="15" y="325" width="17" height="17"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="zfs-my-vKg" secondAttribute="height" multiplier="1:1" id="S0O-pb-yCC"/>
+                        <constraint firstAttribute="height" constant="17" id="cgQ-Js-bU7"/>
                         <constraint firstAttribute="width" constant="17" id="mbS-IM-6P3"/>
                     </constraints>
                 </imageView>
@@ -34,7 +33,7 @@
                     <rect key="frame" x="343" y="325" width="17" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="17" id="WQr-ru-9Mf"/>
-                        <constraint firstAttribute="width" secondItem="mLg-yd-eVM" secondAttribute="height" multiplier="1:1" id="cED-t1-dOh"/>
+                        <constraint firstAttribute="height" constant="17" id="Yvy-QQ-zXs"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玩车乐园" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8O-91-ryv">
@@ -90,9 +89,11 @@
             </constraints>
             <connections>
                 <outlet property="image_L" destination="zfs-my-vKg" id="0mJ-vZ-af5"/>
-                <outlet property="image_L_ConstrW" destination="mbS-IM-6P3" id="3N2-kh-X7Q"/>
+                <outlet property="image_L_H" destination="cgQ-Js-bU7" id="CbM-cx-yiy"/>
+                <outlet property="image_L_W" destination="mbS-IM-6P3" id="6xQ-Bz-v1K"/>
                 <outlet property="image_R" destination="mLg-yd-eVM" id="MHC-Hd-UwX"/>
-                <outlet property="image_R_ConstrW" destination="WQr-ru-9Mf" id="78R-FB-FNt"/>
+                <outlet property="image_R_H" destination="Yvy-QQ-zXs" id="lfB-6y-9ZO"/>
+                <outlet property="image_R_W" destination="WQr-ru-9Mf" id="YoH-zJ-idl"/>
                 <outlet property="label_L" destination="L8O-91-ryv" id="d9Y-dx-Dzw"/>
                 <outlet property="label_L_ConstrL" destination="bSP-7g-sew" id="9cb-k4-f3Q"/>
                 <outlet property="label_L_LineView" destination="1mS-nK-CVs" id="tZI-jg-LR0"/>

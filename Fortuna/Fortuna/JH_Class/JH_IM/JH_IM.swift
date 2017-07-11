@@ -46,10 +46,9 @@ class JH_IM: SP_ParentVC {
             self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
             self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
             
-            
-            
         }
     }
+    
     
     
     fileprivate lazy var _tabView:SP_IM_Tab = {
@@ -75,16 +74,19 @@ class JH_IM: SP_ParentVC {
     }()
     
     //
-    let socket = SocketIOClient(socketURL: URL(string: "http://localhost:8080")!, config: [.log(true), .forcePolling(true)])
+    lazy var socket:SocketIOClient = {
+        return SocketIOClient(socketURL: URL(string: "http://39.108.142.204:8001/?code=" + self._followData.code)!, config: [.log(true), .forcePolling(true)])
+    }()
     
-    
+    var _followData:M_Attention = M_Attention()
+    var _tabDatas:[SP_IM_TabModel] = []
 }
 
 extension JH_IM {
     override class func initSPVC() -> JH_IM {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_IM") as! JH_IM
     }
-    class func show(_ parentVC:UIViewController?) {
+    class func show(_ parentVC:UIViewController?, followData:M_Attention) {
         let vc = JH_IM.initSPVC()
         vc.hidesBottomBarWhenPushed = true
         parentVC?.show(vc, sender: nil)
@@ -151,17 +153,19 @@ extension JH_IM {
 }
 extension JH_IM {
     fileprivate func makeTextInput(){
-        _inputView._block = { [weak self](type,text) in
+        self._inputView._block = { [weak self](type,text) in
             switch type {
             case .tBtn_R:
                 self?.showHudImg()
+            case .tBtn_L:
+                self?._inputView._isTalk = !self!._inputView._isTalk
             case .tBegin:
                 self?.hiddenHudImg()
             default:
                 break
             }
         }
-        _inputView._heightBlock = { [weak self](type,height) in
+        self._inputView._heightBlock = { [weak self](type,height) in
             switch type {
             case .tH:
                 if height <= 40 {
@@ -185,15 +189,44 @@ extension JH_IM {
             }
         }
         
-        _inputView._shouldReturnBlock = { [weak self]_ in
-            
+        self._inputView._longPressBlock = { [weak self]type in
+            switch type {
+            case .began:
+                SP_HUD.show(type:.tLoading)
+                self?._inputView.view_voice.backgroundColor = UIColor.main_line
+            case .ended:
+                self?._inputView.view_voice.backgroundColor = UIColor.main_bg
+                SP_HUD.hidden()
+            case .changed:
+                print_SP("changed")
+            case .cancelled:
+                print_SP("cancelled")
+            case .failed:
+                print_SP("failed")
+            default:
+                break
+            }
+        }
+        self._inputView._shouldReturnBlock = { [unowned self]_ in
+            guard !self._inputView.text_View.text.isEmpty else {return}
+            var model = SP_IM_TabModel()
+            model.text = self._inputView.text_View.text
+            model.type = .tText
+            model.isMe = true
+            model.isLoading = true
+            self._tabDatas.append(model)
+            self._tabView.tableView?.reloadData()
+            self._inputView.text_View.text = ""
         }
     }
 }
 extension JH_IM {
     fileprivate func toRowBottom(_ animated:Bool = false, time:Double = 0.0){
+        
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) { [weak self] _ in
-            let indexPath = IndexPath(row: 10, section: 0)
+            guard self != nil else{return}
+            guard self!._tabDatas.count > 0 else{return}
+            let indexPath = IndexPath(row: self!._tabDatas.count-1, section: 0)
             self?._tabView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
         
@@ -206,30 +239,43 @@ extension JH_IM {
         _tabView._numberOfSections = { _ -> Int in
             return 1
         }
-        _tabView._numberOfRowsInSection = { _ -> Int in
-            return 11
+        _tabView._numberOfRowsInSection = { [weak self]_ -> Int in
+            guard self != nil else {return 0}
+            return self!._tabDatas.count
         }
         
         _tabView._cellForRowAt = { [weak self](tableView,indexPath) -> UITableViewCell in
-            switch indexPath.row%2 {
-            case 0:
-                if indexPath.row%3 == 0 {
-                    let cell = SP_IM_TabCell_MeImg.show(tableView, indexPath)
-                    return cell
-                }else{
+            guard self != nil else {return UITableViewCell()}
+            let model = self!._tabDatas[indexPath.row]
+            switch model.type {
+            case .tText:
+                if model.isMe {
                     let cell = SP_IM_TabCell_MeText.show(tableView, indexPath)
-                    return cell
-                }
-                
-            default:
-                if indexPath.row%3 == 0 {
-                    let cell = SP_IM_TabCell_HeImg.show(tableView, indexPath)
+                    cell.text_title.text = model.text
+                    cell.isLoading = model.isLoading
                     return cell
                 }else{
                     let cell = SP_IM_TabCell_HeText.show(tableView, indexPath)
+                    cell.text_title.text = model.text
                     return cell
                 }
-                
+            case .tImage,.tVideo:
+                if model.isMe {
+                    let cell = SP_IM_TabCell_MeImg.show(tableView, indexPath)
+                    return cell
+                }else{
+                    let cell = SP_IM_TabCell_HeImg.show(tableView, indexPath)
+                    return cell
+                }
+            
+            case .tVoice:
+                if model.isMe {
+                    let cell = SP_IM_TabCell_MeVoice.show(tableView, indexPath)
+                    return cell
+                }else{
+                    let cell = SP_IM_TabCell_HeVoice.show(tableView, indexPath)
+                    return cell
+                }
             }
         }
         

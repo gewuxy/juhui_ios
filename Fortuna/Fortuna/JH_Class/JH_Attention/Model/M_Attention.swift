@@ -15,7 +15,7 @@ struct M_Attention {
     var isDelete =  false
     var name =  ""
     var proposedPrice =  "--"
-    var quoteChange =  ""
+    var quoteChange =  "--"
     var winery =  ""
     var last_price = ""
     
@@ -35,7 +35,9 @@ extension M_Attention:SP_JsonModel {
         isDelete = json["is_delete"].boolValue
         name = json["name"].stringValue
         proposedPrice = json["proposed_price"].stringValue
+        proposedPrice = proposedPrice.isEmpty ? "--" : proposedPrice
         quoteChange = json["quote_change"].stringValue
+        quoteChange = quoteChange.isEmpty ? "--" : quoteChange
         winery = json["winery"].stringValue
         isFollow = json["is_select"].boolValue
         last_price = json["last_price"].stringValue

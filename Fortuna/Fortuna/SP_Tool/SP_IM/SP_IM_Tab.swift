@@ -8,6 +8,31 @@
 
 import UIKit
 
+struct SP_IM_TabModel {
+    enum modelType {
+        case tText
+        case tImage
+        case tVideo
+        case tVoice
+    }
+    var userName = ""
+    var userId = ""
+    var userLogo = ""
+    var isMe = false
+    var isLoading = false
+    var isSendFailure = false
+    var type = modelType.tText
+    
+    var text = ""
+    var image = ""
+    var videoUrl = ""
+    var videoImg = ""
+    var voiceUrl = ""
+    
+    var isSend = false
+}
+
+
 class SP_IM_Tab: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!

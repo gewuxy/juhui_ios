@@ -38,8 +38,10 @@ class SP_ComCell: UIView {
      */
     
     func updateUI(labelL:(font:UIFont, color:UIColor) = (UIFont.systemFont(ofSize: 17),UIColor.maintext_pitchblack), labelR:(font:UIFont, color:UIColor) = (UIFont.systemFont(ofSize: 14),UIColor.maintext_darkgray), imageW:(L:CGFloat,R:CGFloat) = (17,17)){
-        image_L_ConstrW.constant = imageW.L
-        image_R_ConstrW.constant = imageW.R
+        image_L_W.constant = imageW.L
+        image_L_H.constant = imageW.L
+        image_R_W.constant = imageW.R
+        image_R_H.constant = imageW.R
         if imageW.L == 0 {
             label_L_ConstrL.constant = 0
         }
@@ -55,8 +57,10 @@ class SP_ComCell: UIView {
     var _tapBlock:(()->Void)?
     @IBOutlet weak var image_L: UIImageView!
     @IBOutlet weak var image_R: UIImageView!
-    @IBOutlet weak var image_L_ConstrW: NSLayoutConstraint!
-    @IBOutlet weak var image_R_ConstrW: NSLayoutConstraint!
+    @IBOutlet weak var image_L_W: NSLayoutConstraint!
+    @IBOutlet weak var image_L_H: NSLayoutConstraint!
+    @IBOutlet weak var image_R_W: NSLayoutConstraint!
+    @IBOutlet weak var image_R_H: NSLayoutConstraint!
     
     @IBOutlet weak var label_L: UILabel!
     @IBOutlet weak var label_R: UILabel!

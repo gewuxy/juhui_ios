@@ -55,11 +55,11 @@ extension JH_AttentionDetails {
     fileprivate func makeNavigation() {
         n_view._title = _datas.name
         n_view.n_btn_C1.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        n_view._detailTitle = "交易中"
-        n_view.n_label_C1.textColor = UIColor.white.withAlphaComponent(0.3)
-        n_view.n_label_C1.font = UIFont.boldSystemFont(ofSize: 12)
-        n_view.n_label_C1_H.constant = 12
-        n_view.n_label_C1_B.constant = 5
+        //n_view._detailTitle = "交易中"
+        //n_view.n_label_C1.textColor = UIColor.white.withAlphaComponent(0.3)
+        //n_view.n_label_C1.font = UIFont.boldSystemFont(ofSize: 12)
+        //n_view.n_label_C1_H.constant = 12
+        //n_view.n_label_C1_B.constant = 5
         n_view.n_btn_R1_Image = "Attention分享"
         n_view.n_btn_R1_R.constant = 15
     }
@@ -98,7 +98,7 @@ extension JH_AttentionDetails {
                 }
             })
         case btn_chateau:
-            JH_IM.show(self)
+            JH_IM.show(self, followData:_datas)
         case btn_remove:
             if _datas.isFollow {
                 UIAlertController.showAler(self, btnText: [sp_localized("取消"),sp_localized("确定")], title: sp_localized("您将删除此自选酒"), message: "", block: { [weak self](str) in

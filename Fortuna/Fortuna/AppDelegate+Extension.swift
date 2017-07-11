@@ -116,32 +116,19 @@ extension AppDelegate {
         //var result = gregorian!.components(NSCalendar.Unit.CalendarUnitHour, fromDate: dateresult!, toDate: NSDate(), options: NSCalendarOptions(0))
         //let dateresult = Date.xzReturnDateFormat("yyyy-MM-dd hh:mm:ss")
         
-        /*
-        if SP_User.shared.userIsLogin {
-            SP_User.shared.url_用户中心详细内容()
-        }else{
-            UIApplication.shared.applicationIconBadgeNumber = 0
-        }
+        let endDate = SP_User.shared.loginLastDate
+        let gregorian = Calendar(identifier: .gregorian)
+        let result = gregorian.dateComponents([Calendar.Component.hour], from: endDate, to: Date())
         
-        if !new {
-            guard !M_UserData.shared.expireTime.isEmpty else {
-                return
-            }
-            let endDate = Date(timeIntervalSince1970: Double(M_UserData.shared.expireTime)!/1000)
-            let gregorian = Calendar(identifier: .gregorian)
-            let result = gregorian.dateComponents([Calendar.Component.minute], from: endDate, to: Date())
-            print_SP(result)
-            guard result.minute! >= -10 else {
-                return
-            }
-        }*/
+        guard let h = result.hour, h >= 9 else {
+            return
+        }
         SP_User.shared.login( { (isOk, error) in
             if isOk {
                 
             }
         })
     }
-    
     
     /*
     //MARK:---- 版本更新

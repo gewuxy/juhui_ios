@@ -10,6 +10,15 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+enum JH_MyCellType:String {
+    case t用户 = "用户"
+    case t我的持仓 = "我的持仓"
+    case t当日成交 = "当日成交"
+    case t当日委托 = "当日委托"
+    case t历史成交 = "历史成交"
+    case t历史委托 = "历史委托"
+    case t设置 = "设置"
+}
 class JH_My: SP_ParentVC {
 
     let disposeBag = DisposeBag()
@@ -19,15 +28,7 @@ class JH_My: SP_ParentVC {
     @IBOutlet weak var image_Bg: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
-    enum JH_MyCellType:String {
-        case t用户 = "用户"
-        case t我的持仓 = "我的持仓"
-        case t当日成交 = "当日成交"
-        case t当日委托 = "当日委托"
-        case t历史成交 = "历史成交"
-        case t历史委托 = "历史委托"
-        case t设置 = "设置"
-    }
+    
     lazy var _sectionsHead:[(type: JH_MyCellType,txtR: String,imgL: String,imgR: String,on_off: Bool)] = {
         return [(.t用户,"", "", "", false),
                 (.t我的持仓, "","","my进入",false),
@@ -45,25 +46,25 @@ extension JH_My {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeNavigation()
-        makeImage_Bg()
-        makeTableView()
-        makeNotification()
-        makeLogin()
+        self.makeNavigation()
+        self.makeImage_Bg()
+        self.makeTableView()
+        self.makeNotification()
+        self.makeLogin()
     }
     fileprivate func makeNavigation() {
-        n_view.n_btn_L1_Image = ""
+        self.n_view.n_btn_L1_Image = ""
+        self.n_view.n_view_NaviLine.isHidden = true
+        self.n_view.sp_setBgAlpha(UIColor.main_1,textColor: UIColor.white, offsetY: 0, maxOffsetY: _height_Top, leftBackImg: "", leftBackImg2: "",btnBgAlpha:false)
         
-        n_view.sp_setBgAlpha(UIColor.main_1,textColor: UIColor.white, offsetY: 0, maxOffsetY: _height_Top, leftBackImg: "", leftBackImg2: "",btnBgAlpha:false)
-        
-        view.backgroundColor = UIColor.main_bg
+        self.view.backgroundColor = UIColor.main_bg
     }
     fileprivate func makeTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     fileprivate func makeImage_Bg(){
-        image_Bg.frame = CGRect(x:0, y:0, width:sp_ScreenWidth, height:_height_Top)
+        self.image_Bg.frame = CGRect(x:0, y:0, width:sp_ScreenWidth, height:_height_Top)
     }
     fileprivate func changeImage_Bg(_ point:CGPoint){
         /**
@@ -76,7 +77,7 @@ extension JH_My {
             rect.origin.y = 0
             rect.size.height = _height_Top - point.y
         }
-        image_Bg.frame = rect
+        self.image_Bg.frame = rect
     }
     
     fileprivate func makeLogin() {
@@ -215,8 +216,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        n_view.sp_setBgAlpha(UIColor.main_1,textColor:UIColor.white, offsetY: scrollView.contentOffset.y, maxOffsetY: _height_Top,btnBgAlpha:false)
-        changeImage_Bg(scrollView.contentOffset)
+        self.n_view.sp_setBgAlpha(UIColor.main_1,textColor:UIColor.white, offsetY: scrollView.contentOffset.y, maxOffsetY: _height_Top,btnBgAlpha:false)
+        self.changeImage_Bg(scrollView.contentOffset)
     }
 }
 

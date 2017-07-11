@@ -25,21 +25,22 @@ extension JH_Market {
         super.viewDidLoad()
         
         makeNavigation()
-        makeUI()
+        makeTableView()
     }
     fileprivate func makeNavigation() {
         n_view.n_btn_L1_Image = ""
     }
-    fileprivate func makeUI() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        sp_addMJRefreshHeader()
+    fileprivate func makeTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self._placeHolderType = .tOnlyImage
+        self.tableView.cyl_reloadData()
+        self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
     }
     
     override func placeHolderViewClick() {
-        switch _placeHolderType {
+        switch self._placeHolderType {
         case .tOnlyImage:
             break
         case .tNoData(_,_):
@@ -84,9 +85,9 @@ extension JH_Market:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return _datas.high_ratio.count == 0 ? sp_SectionH_Min : sp_SectionH_Foot
+            return _datas.high_ratio.count == 0 ? sp_SectionH_Min : 10
         case 1:
-            return _datas.low_ratio.count == 0 ? sp_SectionH_Min : sp_SectionH_Foot
+            return _datas.low_ratio.count == 0 ? sp_SectionH_Min : 10
         default:
             return sp_SectionH_Min
         }
@@ -100,8 +101,9 @@ extension JH_Market:UITableViewDelegate {
 extension JH_Market:UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = SP_ComCell.show((L: "", R: ""), title: (L: sp_localized(section==0 ? "涨幅前10名" : "跌幅前10名"), R: ""))
-        view.updateUI(labelL: (font: UIFont.systemFont(ofSize: 16), color: section==0 ? UIColor.mainText_4 : UIColor.mainText_5),imageW: (L: 10 , R: 0))
+        view.updateUI(labelL: (font: sp_fitFont18, color: section==0 ? UIColor.mainText_4 : UIColor.mainText_5),imageW: (L: 5 , R: 0))
         view.image_L.backgroundColor = section==0 ? UIColor.mainText_4 : UIColor.mainText_5
+        view.image_L_H.constant = 15
         switch section {
         case 0:
             return _datas.high_ratio.count == 0 ? nil : view
@@ -121,8 +123,9 @@ extension JH_Market:UITableViewDataSource{
         let model = indexPath.section == 0 ? _datas.high_ratio[indexPath.row] : _datas.low_ratio[indexPath.row]
         cell.lab_name.text = model.name
         cell.lab_code.text = model.code
-        cell.lab_price.text = model.proposedPrice
+        cell.lab_price.text = model.last_price
         cell.lab_range.text = model.ratio
+        cell.lab_range.textColor = indexPath.section==0 ? UIColor.mainText_4 : UIColor.mainText_5
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

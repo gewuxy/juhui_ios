@@ -81,7 +81,7 @@
 "DL8-8j-93G.text" = "00.00";
 
 /* Class = "UIViewController"; title = "我的"; ObjectID = "Dk9-Df-fxG"; */
-"Dk9-Df-fxG.title" = "我的";
+"Dk9-Df-fxG.title" = "Me";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "DkF-K1-jR7"; */
 "DkF-K1-jR7.text" = "Label";
@@ -132,7 +132,7 @@
 "Hs9-Mb-aWD.text" = "Buy 4";
 
 /* Class = "UIButton"; normalTitle = "虚拟酒庄"; ObjectID = "Igr-Wv-gNM"; */
-"Igr-Wv-gNM.normalTitle" = "Chat Room";
+"Igr-Wv-gNM.normalTitle" = "Official Account";
 
 /* Class = "UILabel"; text = "000.00"; ObjectID = "IoV-Kc-BAA"; */
 "IoV-Kc-BAA.text" = "000.00";
@@ -195,7 +195,7 @@
 "SWT-GV-nHx.text" = "00.00";
 
 /* Class = "UIViewController"; title = "行情"; ObjectID = "SXz-PP-c0V"; */
-"SXz-PP-c0V.title" = "行情";
+"SXz-PP-c0V.title" = "Top 10";
 
 /* Class = "UIButton"; normalTitle = "全选（取消）"; ObjectID = "StJ-d1-odn"; */
 "StJ-d1-odn.normalTitle" = "全选（取消）";
@@ -207,7 +207,7 @@
 "To2-TN-CFl.text" = "00.00";
 
 /* Class = "UITabBarItem"; title = "行情"; ObjectID = "Ume-lJ-gs2"; */
-"Ume-lJ-gs2.title" = "行情";
+"Ume-lJ-gs2.title" = "Top 10";
 
 /* Class = "UIButton"; normalTitle = "分钟"; ObjectID = "Us1-SG-VB5"; */
 "Us1-SG-VB5.normalTitle" = "分钟";
