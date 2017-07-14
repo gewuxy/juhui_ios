@@ -38,14 +38,18 @@
 + (NSString *)sha1String:(NSData*)data;
 + (NSString*)sign:(NSString*)hash withFileName:(NSString*)fileName;
 + (NSString*)imagePathForVideo:(NSURL *)videoURL;
-+ (NSString*)videoUrl;
++ (NSURL*) sp_getFilePathWithSuffix:(NSString*)suffix;
++ (NSString *)sp_recordPath;
++ (NSString*)sp_audio_PCMtoMP3WithFilePath:(NSString*)filePath;
 
 + (void)clickUpload:(NSString*)sign customFolderPath:(NSString*)customFolderPath tempImage:(NSString*)tempImage;
 
-//+ (AVAssetExportSession*) zipVideoWithModel:(HXPhotoModel *) model;
-/*
 + (void) zipVideoWithInputURL:(NSURL*)inputURL
                 completeBlock:(void (^)(NSURL *))completeBlock;
+
+//+ (AVAssetExportSession*) zipVideoWithModel:(HXPhotoModel *) model;
+/*
+
 
 + (NSDictionary*) prameWithTitle:(NSString*)Title
                          Content:(NSString*)Content

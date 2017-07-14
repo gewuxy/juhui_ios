@@ -7,8 +7,15 @@
 #import "HXPhotoViewController.h"
 #import "SP_FileManager.h"
 
+#import "LGSoundRecorder.h"
+#import "KZVideoPlayer.h"
+#import "LGAudioPlayer.h"
+
+
 #import "SP_MBProgressHUD.h"
 #import "SP_InfoOC.h"
+#import "SP_ToolOC.h"
+
 
 #import "CLLocation+YCLocation.h"
 

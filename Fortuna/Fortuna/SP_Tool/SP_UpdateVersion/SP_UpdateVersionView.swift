@@ -99,12 +99,12 @@ class SP_UpdateVersionViewModel {
     }
     var isUpdateShow:Bool {
         set{
-            let today = Date.sp_ReturnDateFormat("YYYY-MM-dd")
+            let today = Date.sp_Date("YYYY-MM-dd")
             sp_UserDefaultsSet("UpdateVersionTime", value: today)
             sp_UserDefaultsSyn()
         }
         get{
-            let today = Date.sp_ReturnDateFormat("YYYY-MM-dd")
+            let today = Date.sp_Date("YYYY-MM-dd")
             let oldDay = sp_UserDefaultsGet("UpdateVersionTime") as? String ?? ""
             if today == oldDay {
                 return false

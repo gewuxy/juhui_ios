@@ -7,20 +7,32 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 import SocketIO
 import IQKeyboardManager
+import SwiftyJSON
 
 class JH_IM: SP_ParentVC {
     
     @IBOutlet weak var view_Top: UIView!
-    @IBOutlet weak var view_Sco: UIScrollView!
+    @IBOutlet weak var tableView: UITableView!
+    //@IBOutlet weak var view_Sco: UIScrollView!
+    //@IBOutlet weak var view_Tab: UIView!
+    @IBOutlet weak var view_Bot: UIView!
     @IBOutlet weak var view_hud: UIView!
+    @IBOutlet weak var view_Bot_B: NSLayoutConstraint!
+    @IBOutlet weak var view_Bot_H: NSLayoutConstraint!
     @IBOutlet weak var view_hud_B: NSLayoutConstraint!
     @IBOutlet weak var btn_hudImg: UIButton!
     @IBOutlet weak var btn_hudVideo: UIButton!
     @IBOutlet weak var lab_hudImg: UILabel!
     @IBOutlet weak var lab_hudVideo: UILabel!
-    
+    @IBOutlet weak var btn_numRen: UIButton!
+    @IBOutlet weak var btn_numFollow: UIButton!
+    @IBOutlet weak var btn_follow: UIButton!
+    let disposeBag = DisposeBag()
+    /*
     lazy var view_BG: UIView = {
         let view = UIView()
         return view
@@ -33,25 +45,25 @@ class JH_IM: SP_ParentVC {
         let view = UIView()
         return view
     }()
-    
+    */
     var _keyBoardHeight:CGFloat = 0.0 {
         didSet{
-            self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
-            self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
+            //self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
+            //self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
         }
     }
     
     var _hudImgHeight:CGFloat = 0 {
         didSet{
-            self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
-            self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
+            //self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
+            //self.view_BG.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight-_hudImgHeight)
             
         }
     }
     
     
-    
-    fileprivate lazy var _tabView:SP_IM_Tab = {
+    /*
+    lazy var _tabView:SP_IM_Tab = {
         let vc = SP_IM_Tab.initSPVC()
         self.addChildViewController(vc)
         self.view_Tab.addSubview(vc.view)
@@ -59,9 +71,9 @@ class JH_IM: SP_ParentVC {
             make.edges.equalToSuperview()
         }
         return vc
-    }()
+    }()*/
     
-    fileprivate lazy var _inputView:SP_IM_Input = {
+    lazy var _inputView:SP_IM_Input = {
         let view = SP_IM_Input.show(self.view_Bot)
         return view
     }()
@@ -73,13 +85,35 @@ class JH_IM: SP_ParentVC {
         return man!
     }()
     
-    //
+    // 通讯连接
     lazy var socket:SocketIOClient = {
-        return SocketIOClient(socketURL: URL(string: "http://39.108.142.204:8001/?code=" + self._followData.code)!, config: [.log(true), .forcePolling(true)])
+        print_SP(self._followData.code)
+        return SocketIOClient(socketURL: URL(string: "http://39.108.142.204:8001/?code=" + self._followData.code)!, config: [.log(false), .forcePolling(true)])
     }()
     
     var _followData:M_Attention = M_Attention()
     var _tabDatas:[SP_IM_TabModel] = []
+    var _pageIndex = 0
+    var _inpPotos = [HXPhotoModel]()
+    //录音 是否取消
+    var _isCancelled = false
+    
+    var isVideo = false
+    var player:KZVideoPlayer?
+    var timerOf60Second:Timer?
+    
+    
+    
+    deinit {
+        self.removeKeyboard()
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        self.socket.removeAllHandlers()
+        self.socket.off(self._followData.code)
+        self.socket.reconnects = false
+        self.socket.reconnect()
+    }
+    
 }
 
 extension JH_IM {
@@ -88,253 +122,75 @@ extension JH_IM {
     }
     class func show(_ parentVC:UIViewController?, followData:M_Attention) {
         let vc = JH_IM.initSPVC()
+        vc._followData = followData
         vc.hidesBottomBarWhenPushed = true
         parentVC?.show(vc, sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeNavigation()
-        makeUI()
-        makeTextInput()
-        makeTableViewDelegate()
-        
-        toRowBottom()
+        self.makeSocketIO()
+        self.makeNavigation()
+        self.makeUI()
+        self.makeTextInput()
+        self.makeTableView()
+        //self.makeTableViewDelegate()
+        self.showKeyboard()
+        self.toRowBottom()
+        self.sp_addMJRefreshFooter()
+        self.tableView.sp_footerBeginRefresh()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
     }
-    fileprivate func makeNavigation() {
+    func makeNavigation() {
         
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
     }
-    fileprivate func makeUI() {
-        view_Sco.addSubview(view_BG)
-        _keyBoardHeight = 0.0
-        view_BG.addSubview(view_Tab)
-        view_BG.addSubview(view_Bot)
-        view_Bot.snp.makeConstraints { (make) in
+    func makeUI() {
+        self.n_view._title = self._followData.name + "的直播间"
+        //self.view_Sco.addSubview(view_BG)
+        self._keyBoardHeight = 0.0
+        //self.view_BG.addSubview(view_Tab)
+        //self.view_BG.addSubview(view_Bot)
+        /*
+        self.view_Bot.snp.makeConstraints { (make) in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(50)
         }
-        view_Tab.snp.makeConstraints { (make) in
+        self.view_Tab.snp.makeConstraints { (make) in
             make.leading.trailing.top.equalToSuperview()
             make.bottom.equalTo(view_Bot.snp.top)
-        }
+        }*/
         
         
-        
-        
-        hiddenHudImg(0)
-        makeHudImg()
+        self.hiddenHudImg(0)
+        self.makeHudImg()
+        self.makeBtnFollow()
     }
+    
+    func makeBtnFollow() {
+        self.btn_follow.setTitle(" "+sp_localized(_followData.isFollow ? "删除自选" : "+ 自选")+" " , for: .normal)
+    }
+    
+    
     
     @IBAction func clickViewTap(_ sender: UITapGestureRecognizer) {
         hiddenHudImg()
-        _inputView.text_View.resignFirstResponder()
+        self._inputView.text_View.resignFirstResponder()
     }
     
-    fileprivate func makeSocketIO() {
-        socket.on(clientEvent: .connect) {data, ack in
-            print("socket connected")
-        }
-        
-        socket.on("currentAmount") {data, ack in
-            if let cur = data[0] as? Double {
-                self.socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-                    self.socket.emit("update", ["amount": cur + 2.50])
+    @IBAction func clickBtnFollow(_ sender: UIButton) {
+        if _followData.isFollow {
+            UIAlertController.showAler(self, btnText: [sp_localized("取消"),sp_localized("确定")], title: sp_localized("您将删除此自选酒"), message: "", block: { [weak self](str) in
+                if str == sp_localized("确定") {
+                    self?.t_删除自选数据()
                 }
-                
-                ack.with("Got your currentAmount", "dude")
-            }
+            })
+        }else{
+            t_添加自选数据()
         }
-        
-        socket.connect()
-    }
-}
-extension JH_IM {
-    fileprivate func makeTextInput(){
-        self._inputView._block = { [weak self](type,text) in
-            switch type {
-            case .tBtn_R:
-                self?.showHudImg()
-            case .tBtn_L:
-                self?._inputView._isTalk = !self!._inputView._isTalk
-            case .tBegin:
-                self?.hiddenHudImg()
-            default:
-                break
-            }
-        }
-        self._inputView._heightBlock = { [weak self](type,height) in
-            switch type {
-            case .tH:
-                if height <= 40 {
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(50)
-                    })
-                }else if height < 100 {
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(height + 10)
-                    })
-                }else{
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(110)
-                    })
-                }
-                self?.toRowBottom()
-            case .tB:
-                
-                self?._keyBoardHeight = height
-                self?.toRowBottom()
-            }
-        }
-        
-        self._inputView._longPressBlock = { [weak self]type in
-            switch type {
-            case .began:
-                SP_HUD.show(type:.tLoading)
-                self?._inputView.view_voice.backgroundColor = UIColor.main_line
-            case .ended:
-                self?._inputView.view_voice.backgroundColor = UIColor.main_bg
-                SP_HUD.hidden()
-            case .changed:
-                print_SP("changed")
-            case .cancelled:
-                print_SP("cancelled")
-            case .failed:
-                print_SP("failed")
-            default:
-                break
-            }
-        }
-        self._inputView._shouldReturnBlock = { [unowned self]_ in
-            guard !self._inputView.text_View.text.isEmpty else {return}
-            var model = SP_IM_TabModel()
-            model.text = self._inputView.text_View.text
-            model.type = .tText
-            model.isMe = true
-            model.isLoading = true
-            self._tabDatas.append(model)
-            self._tabView.tableView?.reloadData()
-            self._inputView.text_View.text = ""
-        }
-    }
-}
-extension JH_IM {
-    fileprivate func toRowBottom(_ animated:Bool = false, time:Double = 0.0){
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) { [weak self] _ in
-            guard self != nil else{return}
-            guard self!._tabDatas.count > 0 else{return}
-            let indexPath = IndexPath(row: self!._tabDatas.count-1, section: 0)
-            self?._tabView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
-        }
-        
-    }
-    fileprivate func makeTableViewDelegate() {
-        _tabView._scrollViewWillBeginDragging = { _ in
-            self._inputView.text_View.resignFirstResponder()
-            self.hiddenHudImg()
-        }
-        _tabView._numberOfSections = { _ -> Int in
-            return 1
-        }
-        _tabView._numberOfRowsInSection = { [weak self]_ -> Int in
-            guard self != nil else {return 0}
-            return self!._tabDatas.count
-        }
-        
-        _tabView._cellForRowAt = { [weak self](tableView,indexPath) -> UITableViewCell in
-            guard self != nil else {return UITableViewCell()}
-            let model = self!._tabDatas[indexPath.row]
-            switch model.type {
-            case .tText:
-                if model.isMe {
-                    let cell = SP_IM_TabCell_MeText.show(tableView, indexPath)
-                    cell.text_title.text = model.text
-                    cell.isLoading = model.isLoading
-                    return cell
-                }else{
-                    let cell = SP_IM_TabCell_HeText.show(tableView, indexPath)
-                    cell.text_title.text = model.text
-                    return cell
-                }
-            case .tImage,.tVideo:
-                if model.isMe {
-                    let cell = SP_IM_TabCell_MeImg.show(tableView, indexPath)
-                    return cell
-                }else{
-                    let cell = SP_IM_TabCell_HeImg.show(tableView, indexPath)
-                    return cell
-                }
-            
-            case .tVoice:
-                if model.isMe {
-                    let cell = SP_IM_TabCell_MeVoice.show(tableView, indexPath)
-                    return cell
-                }else{
-                    let cell = SP_IM_TabCell_HeVoice.show(tableView, indexPath)
-                    return cell
-                }
-            }
-        }
-        
-        
-        
     }
 }
 
-extension JH_IM {
-    fileprivate func makeHudImg() {
-        btn_hudImg.layer.borderWidth = 0.5
-        btn_hudImg.layer.borderColor = UIColor.main_line.cgColor
-        btn_hudVideo.layer.borderWidth = 0.5
-        btn_hudVideo.layer.borderColor = UIColor.main_line.cgColor
-        
-        lab_hudImg.text = sp_localized("图片")
-        lab_hudVideo.text = sp_localized("视频")
-        
-    }
-    fileprivate func showHudImg() {
-        guard view_hud_B.constant != 0 else {
-            return
-        }
-        _inputView.text_View.resignFirstResponder()
-        view_hud_B.constant = 0
-        _hudImgHeight = 100
-        self.view.setNeedsLayout()
-        UIView.animate(withDuration: 0.2, animations: { [weak self]_ in
-            self?.view.layoutIfNeeded()
-            
-        }) { (bool) in
-            
-        }
-        toRowBottom(true)
-    }
-    func hiddenHudImg(_ time:TimeInterval = 0.2) {
-        
-        view_hud_B.constant = -100
-        _hudImgHeight = 0
-        self.view.setNeedsLayout()
-        UIView.animate(withDuration: time, animations: { [weak self]_ in
-            self?.view.layoutIfNeeded()
-            
-        }) { (bool) in
-            
-        }
-        
-    }
-    
-    @IBAction func clickHudBtn(_ sender: UIButton) {
-        switch sender {
-        case btn_hudImg:
-            selectPhoto()
-        case btn_hudVideo:
-            selectVideo()
-        default:
-            break
-        }
-    }
-    
-    
-}

@@ -247,31 +247,30 @@ extension JH_MyInfo {
         photoView.show()
         photoView.sp_AddPhotoBlock = { [weak self]() in
             
-            var uploadParameter = SP_UploadParam()
-            uploadParameter.imageData = SP_PhotoManager.shared.imageJpgDatas[0] //图片的Data数据流
-            uploadParameter.filename =  Date.sp_ReturnDateFormat("yyyyMMddHHmmss") + ".jpg"
-            uploadParameter.imageName = "bytetxt"
-            uploadParameter.mimeType = "image/jpg"
-            uploadParameter.type = .tData
-            let uploadParams = [uploadParameter]
+            var p = SP_UploadParam()
+            p.fileData = SP_PhotoManager.shared.imageJpgDatas[0] //图片的Data数据流
+            p.filename =  Date.sp_Date("yyyyMMddHHmmssSSS") + ".jpg"
+            p.serverName = "file"
+            p.mimeType = "image/jpg"
+            p.type = .tData
+            
             SP_HUD.show(text: "进入后台上传")
-            /*
-            CP_APIHelp.shared.upload_Help(.url_上传图片, prame: ["PicType":"3"], uploadParam: uploadParams, block: { [weak self](isOk, data, error) in
-                
-                guard let datas = data as? M_Common else {return}
+            
+            My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
                 if isOk {
-                    SP_MBHUD.showHUD(type: .tSuccess, text: "上传成功",  time: 1.0)
-                    //上传成功修改当前头像但不保存
-                    self?._rightTitlesChange[0] = datas.data.serverId
-                    self?._userLogo = datas.data.fileName
-                    self?.myTableView.reloadData()
+                    guard let datas = data as? M_MyCommon else{return}
+                    self?.dataArr[0].title = datas.media_url
+                    self?.tableView.reloadData()
+                    self?.changeFootView()
                 }else{
-                    SP_MBHUD.showHUD(type: .tSuccess, text: "上传失败",detailText:"请重新选取!",  time: 1.0)
+                    
                 }
                 
-                }, progressBlock: { (progress) in
-                    
-            })*/
+            }) { (progress) in
+                
+                let progre = CGFloat(progress!.completedUnitCount)/CGFloat(progress!.totalUnitCount)
+                //print_SP(progre)
+            }
             
         }
     }

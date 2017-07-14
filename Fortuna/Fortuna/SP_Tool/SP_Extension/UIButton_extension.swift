@@ -114,3 +114,43 @@ extension UIButton {
     
     
 }
+
+extension UIButton {
+    static let placeholderImgName = "HuanChong"
+    func sp_ImageName(_ name:String, ph:Bool = true, phStr:String = placeholderImgName, phColor:UIColor = UIColor.clear ,forState:UIControlState = .normal) {
+        
+        //self.image = UIImage.placeholder(withSize: 40, color: "d4d4d4")
+        //self.image = UIImage(named: phStr)
+        
+        if name.hasPrefix("http://") || name.hasPrefix("https://") {
+            self.yy_setImage(with: URL(string:name), for:forState, placeholder: UIImage(named:phStr), options: .progressiveBlur)
+            //self.sd_setImage(with: URL(string:name), placeholderImage: UIImage(named:phStr))
+        }else if name.hasPrefix("file://") {
+            var name2 = name
+            name2[0..<7] = ""
+            self.yy_setImage(with: URL(fileURLWithPath: name2), for:forState, placeholder: UIImage(named:phStr), options: .progressiveBlur)
+            //self.sd_setImage(with: URL(string:name), placeholderImage: UIImage(named:phStr))
+        } else{
+            guard name.isEmpty else {
+                self.setImage(UIImage(named: name), for: forState)
+                
+                return
+            }
+            guard ph else {
+                return
+            }
+            guard phStr.isEmpty else {
+                self.setImage(UIImage(named: phStr), for: forState)
+                return
+            }
+            self.backgroundColor = phColor
+            
+        }
+    }
+    
+    //    func saveImage(currentImage:UIImage,imageName:String) {
+    //        var imageData:Data = UIImageJPEGRepresentation(currentImage, 0.5)
+    //        var fullPath:String = NSHomeDirectory().stringByAppendingPathComponent("Documents").stringByAppendingPathComponent(imageName as String)        imageData.writeToFile(fullPath as String, atomically: false)        var fileURL = NSURL(fileURLWithPath: fullPath)     //开始上传操作
+    //    }
+}
+

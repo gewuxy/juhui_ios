@@ -233,7 +233,7 @@ class SP_MBHUD {
         case .tInfo:
             // 自定义
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeCustomView
-            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 1.5)
+            SP_MBHUD.shared.mbhud?.hide(true, afterDelay: time)
         case .tError:
             // 自定义
             SP_MBHUD.shared.mbhud?.mode = SP_MBProgressHUDModeCustomView
@@ -247,7 +247,7 @@ class SP_MBHUD {
         SP_MBHUD.shared.mbhud?.completionBlock = block
     }
     class func hideHUD() {
-        SP_MBHUD.shared.mbhud?.hide(true)
+        SP_MBHUD.shared.mbhud?.hide(true, afterDelay: 0.0)
     }
     
 }

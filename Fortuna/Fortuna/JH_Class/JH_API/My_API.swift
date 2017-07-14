@@ -61,6 +61,13 @@ enum My_API {
     static let url_获取行情数据 = "api/wine/quotes/"
     case t_获取行情数据
     
+    static let url_获取最近聊天记录 = "api/chat/comment/"
+    case t_获取最近聊天记录(code:String, page:Int)
+    
+    
+    static let url_媒体文件上传 = "api/chat/upload/"
+    case t_媒体文件上传(uploadParams:[SP_UploadParam])
+    case t_媒体文件上传2(file:URL)
     
     
 }
@@ -95,7 +102,7 @@ extension My_API {
             SP_Alamofire.post(main_url+My_API.url_添加自选数据, param: parame, block: { (isOk, res, error) in
                 print_Json("url_添加自选数据=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? T(), error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_删除自选数据(let code):
@@ -103,7 +110,7 @@ extension My_API {
             SP_Alamofire.post(main_url+My_API.url_删除自选数据, param: parame, block: { (isOk, res, error) in
                 print_Json("url_删除自选数据=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? T(), error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_自选数据排序(let code, let sort_no):
@@ -120,7 +127,7 @@ extension My_API {
             SP_Alamofire.post(main_url+My_API.url_用户信息修改, param: parame, block: { (isOk, res, error) in
                 print_Json("url_用户信息修改=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? T(), error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_买入(let code,let price,let num):
@@ -128,7 +135,7 @@ extension My_API {
             SP_Alamofire.post(main_url+My_API.url_买入, param: parame, block: { (isOk, res, error) in
                 print_Json("url_买入=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? T(), error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_卖出(let code,let price,let num):
@@ -136,7 +143,7 @@ extension My_API {
             SP_Alamofire.post(main_url+My_API.url_卖出, param: parame, block: { (isOk, res, error) in
                 print_Json("url_卖出=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? T(), error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_分时数据(let code,let period):
@@ -176,8 +183,42 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
-            
-            
+        case .t_获取最近聊天记录(let code, let page):
+            parame += ["code":code, "page":page, "page_num":"50"]
+            SP_Alamofire.get(main_url+My_API.url_获取最近聊天记录, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取最近聊天记录=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        
+        default:break
+        }
+    }
+    
+    func upload<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil, progressBlock:sp_netProgressBlock? = nil) {
+        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+        switch self {
+        case .t_媒体文件上传(let uploadParams):
+            SP_Alamofire.upload(main_url+My_API.url_媒体文件上传, param: [:], uploadParams: uploadParams, progressBlock: progressBlock, block: { (isOk, res, error) in
+                print_Json("url_媒体文件上传=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_媒体文件上传2(let file):
+            SP_Alamofire.shared._manager.upload(file, to: main_url+My_API.url_媒体文件上传, headers:SP_Alamofire.shared._headers).uploadProgress(closure: { (progress) in
+                progressBlock?(progress)
+            }).responseJSON(completionHandler: { (response) in
+                SP_Alamofire.disposeResponse(response, block: { (isOk, res, error) in
+                    print_Json("url_t_媒体文件上传2=>\(JSON(res!))")
+                    My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                        block?(isOk, datas, error)
+                    })
+                })
+            })
+        default:
+            break
         }
         
     }

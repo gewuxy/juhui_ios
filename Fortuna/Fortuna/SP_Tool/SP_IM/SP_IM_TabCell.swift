@@ -16,14 +16,14 @@ enum SP_IM_TabCellClickButtonType {
     case tChongFa
 }
 class SP_IM_TabCell_HeText: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeText {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeText", for: indexPath) as! SP_IM_TabCell_HeText
+    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeText {//, for: indexPath
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeText") as! SP_IM_TabCell_HeText
         return cell
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -46,13 +46,14 @@ class SP_IM_TabCell_HeText: UITableViewCell {
 }
 class SP_IM_TabCell_HeImg: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeImg {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeImg", for: indexPath) as! SP_IM_TabCell_HeImg
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeImg") as! SP_IM_TabCell_HeImg
         return cell
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         btn_Img.imageView?.contentMode = .scaleAspectFill
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -76,7 +77,7 @@ class SP_IM_TabCell_HeImg: UITableViewCell {
 
 class SP_IM_TabCell_MeText: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeText {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeText", for: indexPath) as! SP_IM_TabCell_MeText
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeText") as! SP_IM_TabCell_MeText
         return cell
     }
     
@@ -84,6 +85,7 @@ class SP_IM_TabCell_MeText: UITableViewCell {
         super.awakeFromNib()
         
         activityView.isHidden = true
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -133,7 +135,7 @@ class SP_IM_TabCell_MeText: UITableViewCell {
 
 class SP_IM_TabCell_MeImg: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeImg {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeImg", for: indexPath) as! SP_IM_TabCell_MeImg
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeImg") as! SP_IM_TabCell_MeImg
         return cell
     }
     
@@ -141,6 +143,7 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
         super.awakeFromNib()
         
         btn_Img.imageView?.contentMode = .scaleAspectFill
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -150,6 +153,26 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
     
     @IBOutlet weak var button_CF: UIButton!
     
+    var isLoading:Bool = false {
+        didSet{
+            if isLoading {
+                activityView.isHidden = false
+                activityView.startAnimating()
+            }else{
+                activityView.isHidden = true
+                activityView.stopAnimating()
+            }
+            
+        }
+    }
+    var isSendFailure:Bool = false {
+        didSet{
+            if isSendFailure {
+                isLoading = false
+                button_CF.isHidden = !isSendFailure
+            }
+        }
+    }
     
     var _block:((SP_IM_TabCellClickButtonType)->Void)?
     @IBAction func buttonClick(_ sender: UIButton) {
@@ -157,7 +180,7 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
         case btn_logo:
             _block?(.tLogo)
         case btn_Img:
-            _block?(.tText)
+            _block?(.tImg)
         case button_CF:
             _block?(.tChongFa)
         default:
@@ -167,7 +190,7 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
 }
 class SP_IM_TabCell_MeVoice: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeVoice {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeVoice", for: indexPath) as! SP_IM_TabCell_MeVoice
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeVoice") as! SP_IM_TabCell_MeVoice
         return cell
     }
     
@@ -177,6 +200,8 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
         
         btn_Img.layer.borderColor = UIColor.main_line.cgColor
         btn_Img.layer.borderWidth = 0.5
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        self.btn_Img.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -185,6 +210,26 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
     
     @IBOutlet weak var button_CF: UIButton!
     
+    var isLoading:Bool = false {
+        didSet{
+            if isLoading {
+                activityView.isHidden = false
+                activityView.startAnimating()
+            }else{
+                activityView.isHidden = true
+                activityView.stopAnimating()
+            }
+            
+        }
+    }
+    var isSendFailure:Bool = false {
+        didSet{
+            if isSendFailure {
+                isLoading = false
+                button_CF.isHidden = !isSendFailure
+            }
+        }
+    }
     
     var _block:((SP_IM_TabCellClickButtonType)->Void)?
     @IBAction func buttonClick(_ sender: UIButton) {
@@ -222,20 +267,24 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
 
 class SP_IM_TabCell_HeVoice: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeVoice {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeVoice", for: indexPath) as! SP_IM_TabCell_HeVoice
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeVoice") as! SP_IM_TabCell_HeVoice
         return cell
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
         btn_Img.layer.borderColor = UIColor.main_line.cgColor
         btn_Img.layer.borderWidth = 0.5
+        lab_time.textColor = UIColor.main_1
+        lab_time.font = UIFont.systemFont(ofSize: 12)
     }
     
     @IBOutlet weak var btn_logo: UIButton!
     @IBOutlet weak var btn_Img: UIButton!
+    @IBOutlet weak var lab_name: UILabel!
+    @IBOutlet weak var lab_time: UILabel!
     
     var _block:((SP_IM_TabCellClickButtonType)->Void)?
     @IBAction func buttonClick(_ sender: UIButton) {

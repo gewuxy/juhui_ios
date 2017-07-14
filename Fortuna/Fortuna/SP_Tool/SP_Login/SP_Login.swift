@@ -360,7 +360,7 @@ extension SP_Login {
     }
     
     
-    @objc private func keyBoardWillShow(_ note:Notification) {
+    private func keyBoardWillShow(_ note:Notification) {
         let userInfo  = note.userInfo
         let keyBoardBounds = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let duration = (userInfo![UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
@@ -386,7 +386,7 @@ extension SP_Login {
         }
     }
     
-    @objc private func keyBoardWillHide(_ note:Notification)
+    private func keyBoardWillHide(_ note:Notification)
     {
         
         let userInfo  = note.userInfo

@@ -32,17 +32,18 @@ class SP_IM_Input: UIView {
         return view
     }
     deinit {
-        removekeyBoard()
+        //removekeyBoard()
     }
     override func awakeFromNib() {
         super.awakeFromNib()
         
         text_View.delegate = self
         lab_phlace.text = _placeholderText
-        lab_voice.textColor = UIColor.mainText_1
-        lab_voice.text = sp_localized("按住 说话")
-        view_voice.isHidden = true
-        showkeyBoard()
+        
+        btn_voice.setTitle(sp_localized("按住 说话"), for: .normal)
+        btn_voice.setTitleColor(UIColor.mainText_1, for: .normal)
+        btn_voice.isHidden = true
+        //showkeyBoard()
     }
     
     var _placeholderText = "" {
@@ -52,7 +53,7 @@ class SP_IM_Input: UIView {
     }
     var _isTalk:Bool = false {
         didSet{
-            view_voice.isHidden = !_isTalk
+            btn_voice.isHidden = !_isTalk
             button_L.setImage(UIImage(named:_isTalk ? "IM键盘" : "IM语音"), for: .normal)
             if _isTalk {
                 self.text_View.resignFirstResponder()
@@ -68,8 +69,8 @@ class SP_IM_Input: UIView {
     @IBOutlet weak var text_View: UITextView!
     @IBOutlet weak var text_View_L: NSLayoutConstraint!
     @IBOutlet weak var text_View_R: NSLayoutConstraint!
-    @IBOutlet weak var view_voice: UIView!
-    @IBOutlet weak var lab_voice: UILabel!
+    @IBOutlet weak var btn_voice: UIButton!
+    
     
     @IBOutlet weak var lab_phlace: UILabel!
     
@@ -107,23 +108,40 @@ class SP_IM_Input: UIView {
             break
         }
     }
-    var _longPressBlock:((UIGestureRecognizerState)->Void)?
-    @IBAction func clickLongPress(_ sender: UILongPressGestureRecognizer) {
-        
-        switch sender.state {
-        case .began,.ended:
-            _longPressBlock?(sender.state)
-        case .changed:
-            if sender.location(in: self.view_voice).y < -50 {
-                _longPressBlock?(.cancelled)
-            }else{
-                _longPressBlock?(sender.state)
-            }
-        default:
-            break
-        }
-    }
+    var _recordBlock:((UIControlEvents)->Void)?
     
+    // 开始录音
+    @IBAction func startRecordVoice(_ sender: UIButton) {
+        self.btn_voice.backgroundColor = UIColor.main_line
+        self.btn_voice.setTitle(sp_localized("松开 发送"), for: .normal)
+        
+        self._recordBlock?(.touchDown)
+        
+    }
+    // 取消录音
+    @IBAction func cancelRecordVoice(_ sender: UIButton) {
+        self.btn_voice.backgroundColor = UIColor.main_bg
+        self.btn_voice.setTitle(sp_localized("按住 说话"), for: .normal)
+        self._recordBlock?(.touchUpOutside)
+    }
+    // 录音结束
+    @IBAction func confirmRecordVoice(_ sender: UIButton) {
+        self.btn_voice.backgroundColor = UIColor.main_bg
+        self.btn_voice.setTitle(sp_localized("按住 说话"), for: .normal)
+        self._recordBlock?(.touchUpInside)
+    }
+    // 更新录音显示状态,手指向上滑动后 提示松开取消录音
+    @IBAction func updateCancelRecordVoice(_ sender: UIButton) {
+        self.btn_voice.setTitle(sp_localized("松开 取消"), for: .normal)
+        
+        self._recordBlock?(.touchDragExit)
+    }
+    //更新录音状态,手指重新滑动到范围内,提示向上取消录音
+    @IBAction func updateContinueRecordVoice(_ sender: UIButton) {
+        self.btn_voice.setTitle(sp_localized("松开 发送"), for: .normal)
+        
+        self._recordBlock?(.touchDragEnter)
+    }
 }
 
 extension SP_IM_Input:UITextViewDelegate {
@@ -174,7 +192,7 @@ extension SP_IM_Input:UITextViewDelegate {
 
     }
     
-    
+    /*
     //MARK:--- 键盘
     func showkeyBoard(){
         sp_Notification.addObserver(self, selector:#selector(SP_IM_Input.keyBoardWillShow(_:)), name:sp_ntfNameKeyboardWillShow, object: nil)
@@ -230,7 +248,7 @@ extension SP_IM_Input:UITextViewDelegate {
         
         //changeTextViewHeight()
         //endInput()
-    }
+    }*/
 }
 
 

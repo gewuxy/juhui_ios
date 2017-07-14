@@ -208,7 +208,7 @@ extension UITextView {
 
 
 extension UITextView:UITextViewDelegate {
-    
+    /*
     static var sendBlock:((_ type:UITextDelegateType)->Void)?
     public func textViewDidBeginEditing(_ textView: UITextView) {
         UITextView.sendBlock?(.tBegin)
@@ -219,7 +219,7 @@ extension UITextView:UITextViewDelegate {
     public func textViewDidEndEditing(_ textView: UITextView) {
         UITextView.sendBlock?(.tEnd)
     }
-    
+    */
     
 }
 

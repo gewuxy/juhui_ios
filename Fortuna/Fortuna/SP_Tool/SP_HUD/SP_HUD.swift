@@ -94,6 +94,13 @@ extension SP_HUD {
         }
         
     }
+    class func showMsg(_ text:String, detailText:String = "") {
+        
+        SP_MBHUD.showHUD( type: .tNone, text: text, detailText: detailText) {
+            
+        }
+        
+    }
     class func hidden() {
         switch SP_HUD._bg {
         case .tMB:

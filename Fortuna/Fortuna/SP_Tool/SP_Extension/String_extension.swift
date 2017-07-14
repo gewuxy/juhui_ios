@@ -171,7 +171,7 @@ extension String {
         //1.产生随机数
         let randomNum = "\((arc4random() % 100000) + 999999)"
         //2.获取时间，精确到毫秒
-        let time = Date.sp_ReturnDateFormat("YYYYMMddhhmmssSS")
+        let time = Date.sp_Date("YYYYMMddhhmmssSSS")
         //3.拼接字符串
         let ihguuid = "\(time)\(randomNum)"
         print(ihguuid)

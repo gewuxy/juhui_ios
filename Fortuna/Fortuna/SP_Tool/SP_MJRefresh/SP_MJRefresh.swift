@@ -175,7 +175,7 @@ extension UIScrollView {
         self.mj_footer = header
     }
     //MARK:-- 添加底部刷新 -- 普通手动刷新
-    func sp_footerAddMJRefresh_Back(_ block:@escaping MJRefreshComponentRefreshingBlock) {
+    func sp_footerAddMJRefresh_Back(_ transform:Bool = false, block:@escaping MJRefreshComponentRefreshingBlock) {
         let header = MJRefreshBackNormalFooter(refreshingBlock: block)
         //是否隐藏
         header?.stateLabel.isHidden = MJRefreshDIY_StateLabelHidden_Up
@@ -191,6 +191,9 @@ extension UIScrollView {
             header?.stateLabel.textColor = MJRefreshDIY_StateLabelColor
         }
         header?.labelLeftInset = MJRefreshDIY_LabelLeftInset
+        if transform {
+            header?.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        }
         self.mj_footer = header
     }
     //MARK:-- 添加底部刷新 -- 动态自动

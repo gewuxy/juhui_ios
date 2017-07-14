@@ -8,8 +8,32 @@
 import UIKit
 import Foundation
 extension Date {
+    //MARK:---------- 取得当前时间戳1
+    static func sp_NowTimestamp(_ format:String = "YYYY-MM-dd HH:mm:ss SSS")-> String {
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        // --- 设置想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+        dateformatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        let timeZone = TimeZone(abbreviation: "Asia/Shanghai")
+        dateformatter.timeZone = timeZone
+        let date = Date()
+        print(date)
+        let timeSp = String(format: "%.0f", date.timeIntervalSince1970)
+        print(timeSp)
+        return timeSp
+    }
+    //MARK:---------- 取得当前时间戳2
+    static func sp_NowTimestamp2()-> String {
+        let date = Date(timeIntervalSinceNow: 0)
+        print(date)
+        let timeSp = String(format: "%.0f", date.timeIntervalSince1970)
+        print(timeSp)
+        return timeSp
+    }
+    
     //MARK:---------- 取得设备时间
-    static func sp_ReturnDateFormat(_ format:String)-> String {
+    static func sp_Date(_ format:String = "YYYY-MM-dd HH:mm:ss SSS") -> String {
         let date = Date()
         var format2 = format;
         if format.isEmpty {
@@ -46,8 +70,6 @@ extension Date {
         dateFormatter.dateFormat = formatter
         let time = dateFormatter.string(from: date)
         return time
-        
-        
     }
     
     //MARK:--- 计算时间差

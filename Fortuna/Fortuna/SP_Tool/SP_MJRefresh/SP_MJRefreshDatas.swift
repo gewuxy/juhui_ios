@@ -17,8 +17,8 @@ let MJRefreshDIY_Title_Idle_Up           = ""
 let MJRefreshDIY_Title_Pulling_Down      = ""
 let MJRefreshDIY_Title_Pulling_Up        = ""
 ///上下拉松开正在刷新状态
-let MJRefreshDIY_Title_Refreshing_Down   = "Loading"
-let MJRefreshDIY_Title_Refreshing_Up     = "Loading"
+let MJRefreshDIY_Title_Refreshing_Down   = ""
+let MJRefreshDIY_Title_Refreshing_Up     = ""
 ///上下拉数据加载完毕状态
 let MJRefreshDIY_Title_NoMoreData_Down   = ""
 let MJRefreshDIY_Title_NoMoreData_Up     = sp_localized("全部加载完毕,下拉可以刷新！")
@@ -36,7 +36,7 @@ let MJRefreshDIY_TimeLabelColor = UIColor.gray.withAlphaComponent(0.8)
 ///时间Label是否隐藏
 let MJRefreshDIY_TimeLabelHidden = true
 ///文字和图片间的距离
-let MJRefreshDIY_LabelLeftInset:CGFloat = 20
+let MJRefreshDIY_LabelLeftInset:CGFloat = 0
 //MARK:----------- 下拉刷新动画图片组
 ///上下拉闲置状态动画图片 如果不自定义图片则置空
 var MJRefreshDIY_Images_Idle_Down:[UIImage] = {

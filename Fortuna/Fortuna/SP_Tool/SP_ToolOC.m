@@ -8,7 +8,8 @@
 
 #import "SP_ToolOC.h"
 #import <CoreText/CoreText.h>
-
+#import "lame.h"
+#define DocumentPath  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 
 @implementation SP_ToolOC
 + (NSArray *) sp_returnTuPianStringWithType:(NSString *)mallType{
@@ -154,12 +155,85 @@
     
 }
 
+/**
+ *  语音文件存储路径
+ *
+ *  @return 路径
+ */
++ (NSString *)sp_recordPath {
+    NSString *filePath = [DocumentPath stringByAppendingPathComponent:@"SoundFile"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+        if (error) {
+            NSLog(@"%@", error);
+        }
+    }
+    return filePath;
+}
++ (NSString*)sp_audio_PCMtoMP3WithFilePath:(NSString*)filePath
+{
+    
+    NSString *cafFilePath = filePath;    //caf文件路径
+    
+    NSString* fileName = [NSString stringWithFormat:@"/voice-%.0f.mp3", [[NSDate date] timeIntervalSince1970]*1000 ];//存储mp3文件的路径
+    
+    NSString *mp3FileName = [[DocumentPath stringByAppendingPathComponent:@"SoundFile"] stringByAppendingPathComponent:fileName];
+    
+    
+    @try {
+        int read, write;
+        
+        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
+        fseek(pcm, 4*1024, SEEK_CUR);                                   //skip file header
+        FILE *mp3 = fopen([mp3FileName cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
+        
+        const int PCM_SIZE = 8192;
+        const int MP3_SIZE = 8192;
+        short int pcm_buffer[PCM_SIZE*2];
+        unsigned char mp3_buffer[MP3_SIZE];
+        
+        lame_t lame = lame_init();
+        lame_set_num_channels(lame, 2);//设置1为单通道，默认为2双通道
+        lame_set_in_samplerate(lame, 8000.0);//11025.0
+        //lame_set_VBR(lame, vbr_default);
+        lame_set_brate(lame, 16);
+        lame_set_mode(lame, 3);
+        lame_set_quality(lame, 2);
+        lame_init_params(lame);
+        
+        do {
+            read = fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
+            if (read == 0)
+                write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
+            else
+                write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
+            
+            fwrite(mp3_buffer, write, 1, mp3);
+            
+        } while (read != 0);
+        
+        lame_close(lame);
+        fclose(mp3);
+        fclose(pcm);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@",[exception description]);
+    }
+    @finally {
+        //        self.audioFileSavePath = mp3FilePath;
+        NSLog(@"MP3生成成功: %@",mp3FileName);
+    }
+    
+    return mp3FileName;
+}
 
-+ (NSString*)videoUrl{
-    NSString *documentDir= [NSSearchPathForDirectoriesInDomains ( NSDocumentDirectory , NSUserDomainMask , YES ) objectAtIndex : 0 ];
-    //保存首页图片 写真背景图
-    NSString *customFolderPath = [documentDir stringByAppendingPathComponent:@"tempVideo.mp4"];
-    return customFolderPath;
+
++ (NSURL*) sp_getFilePathWithSuffix:(NSString*)suffix {
+    // 1.获取沙盒地址
+    NSString *path= [NSSearchPathForDirectoriesInDomains ( NSDocumentDirectory , NSUserDomainMask , YES ) lastObject];
+    NSString *filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%.0f.%@",[[NSDate date] timeIntervalSince1970]*1000,suffix]];
+    return [NSURL fileURLWithPath:filePath];
 }
 + (NSString*)imagePathForVideo:(NSURL *)videoURL {
     
@@ -182,12 +256,71 @@
     NSString *documentDir= [NSSearchPathForDirectoriesInDomains ( NSDocumentDirectory , NSUserDomainMask , YES ) objectAtIndex : 0 ];
     
     NSData *imagedata=UIImageJPEGRepresentation(thumbnailImage, 0.5);
-    NSString *tempImage = [documentDir stringByAppendingPathComponent:@"tempVideoImage.jpg"];
+    NSString *tempImageStr = [NSString stringWithFormat:@"VideoImage-%f.jpg",[[NSDate date] timeIntervalSince1970]*1000];
+    
+    NSString *tempImage = [documentDir stringByAppendingPathComponent:tempImageStr];
     [imagedata writeToFile:tempImage atomically:YES];
     
     
     return tempImage;
 }
+
++ (void) zipVideoWithInputURL:(NSURL*)inputURL
+                completeBlock:(void (^)(NSURL *))completeBlock
+{
+    
+    
+    NSURL *newVideoUrl ; //一般.mp4
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];//用时间给文件全名，以免重复，在测试的时候其实可以判断文件是否存在若存在，则删除，重新生成文件即可
+    [formater setDateFormat:@"yyyyMMddHHmmssSSS"];
+    newVideoUrl = [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingFormat:@"/Documents/output%@.mp4",[formater stringFromDate:[NSDate date]]]] ;//这个是保存在app自己的沙盒路径里，后面可以选择是否在上传后删除掉。我建议删除掉，免得占空间。
+    
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:inputURL options:nil];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
+    //  NSLog(resultPath);
+    exportSession.outputURL = newVideoUrl;
+    exportSession.outputFileType = AVFileTypeMPEG4;
+    exportSession.shouldOptimizeForNetworkUse= YES;
+    [exportSession exportAsynchronouslyWithCompletionHandler:^(void)
+     {
+         switch (exportSession.status) {
+             case AVAssetExportSessionStatusCancelled:
+                 NSLog(@"AVAssetExportSessionStatusCancelled");
+                 break;
+             case AVAssetExportSessionStatusUnknown:
+                 NSLog(@"AVAssetExportSessionStatusUnknown");
+                 break;
+             case AVAssetExportSessionStatusWaiting:
+                 NSLog(@"AVAssetExportSessionStatusWaiting");
+                 break;
+             case AVAssetExportSessionStatusExporting:
+                 NSLog(@"AVAssetExportSessionStatusExporting");
+                 break;
+             case AVAssetExportSessionStatusCompleted:
+                 NSLog(@"AVAssetExportSessionStatusCompleted");
+                 //NSLog(@"%@",[NSString stringWithFormat:@"%f s", [self getVideoLength:outputURL]]);
+                 //NSLog(@"%@", [NSString stringWithFormat:@"%.2f kb", [self getFileSize:[outputURL path]]]);
+                 
+                 //UISaveVideoAtPathToSavedPhotosAlbum([outputURL path], self, nil, NULL);//这个是保存到手机相册
+                 
+                 //[self alertUploadVideo:outputURL];
+                 if (completeBlock) {
+                     completeBlock(newVideoUrl);
+                 }
+                 break;
+             case AVAssetExportSessionStatusFailed:
+                 NSLog(@"AVAssetExportSessionStatusFailed");
+                 if (completeBlock) {
+                     completeBlock(nil);
+                 }
+                 break;
+         }
+         
+     }];
+    
+}
+
 
 /*
 + (void)clickUpload:(NSString*)sign customFolderPath:(NSString*)customFolderPath tempImage:(NSString*)tempImage {
@@ -258,61 +391,6 @@
 //    }];
 }
 
-+ (void) zipVideoWithInputURL:(NSURL*)inputURL
-                         completeBlock:(void (^)(NSURL *))completeBlock
-{
-    
-    
-    NSURL *newVideoUrl ; //一般.mp4
-    NSDateFormatter *formater = [[NSDateFormatter alloc] init];//用时间给文件全名，以免重复，在测试的时候其实可以判断文件是否存在若存在，则删除，重新生成文件即可
-    [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
-    newVideoUrl = [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingFormat:@"/Documents/output%@.mp4",[formater stringFromDate:[NSDate date]]]] ;//这个是保存在app自己的沙盒路径里，后面可以选择是否在上传后删除掉。我建议删除掉，免得占空间。
-    
-    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:inputURL options:nil];
-    
-    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
-    //  NSLog(resultPath);
-    exportSession.outputURL = newVideoUrl;
-    exportSession.outputFileType = AVFileTypeMPEG4;
-    exportSession.shouldOptimizeForNetworkUse= YES;
-    [exportSession exportAsynchronouslyWithCompletionHandler:^(void)
-     {
-         switch (exportSession.status) {
-             case AVAssetExportSessionStatusCancelled:
-                 NSLog(@"AVAssetExportSessionStatusCancelled");
-                 break;
-             case AVAssetExportSessionStatusUnknown:
-                 NSLog(@"AVAssetExportSessionStatusUnknown");
-                 break;
-             case AVAssetExportSessionStatusWaiting:
-                 NSLog(@"AVAssetExportSessionStatusWaiting");
-                 break;
-             case AVAssetExportSessionStatusExporting:
-                 NSLog(@"AVAssetExportSessionStatusExporting");
-                 break;
-             case AVAssetExportSessionStatusCompleted:
-                 NSLog(@"AVAssetExportSessionStatusCompleted");
-                 //NSLog(@"%@",[NSString stringWithFormat:@"%f s", [self getVideoLength:outputURL]]);
-                 //NSLog(@"%@", [NSString stringWithFormat:@"%.2f kb", [self getFileSize:[outputURL path]]]);
-                 
-                 //UISaveVideoAtPathToSavedPhotosAlbum([outputURL path], self, nil, NULL);//这个是保存到手机相册
-                 
-                 //[self alertUploadVideo:outputURL];
-                 if (completeBlock) {
-                     completeBlock(newVideoUrl);
-                 }
-                 break;
-             case AVAssetExportSessionStatusFailed:
-                 NSLog(@"AVAssetExportSessionStatusFailed");
-                 if (completeBlock) {
-                     completeBlock(nil);
-                 }
-                 break;
-         }
-         
-     }];
-    
-}
 
 + (NSDictionary*) prameWithTitle:(NSString*)Title
                          Content:(NSString*)Content

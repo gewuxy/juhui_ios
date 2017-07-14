@@ -132,7 +132,7 @@ extension SP_AFSwift {
                 switch (model.type) {
                 case .tData:
                     
-                    formData.appendPart(withFileData: model.imageData, name: model.imageName, fileName: model.filename, mimeType: model.mimeType)
+                    formData.appendPart(withFileData: model.fileData, name: model.serverName, fileName: model.filename, mimeType: model.mimeType)
                 case .tFileURL:
                     //formData.appendPartWithFileURL(NSURL(fileURLWithPath: param.fileURL), name: param.imageName, fileName: param.filename, mimeType: param.mimeType)
                     break

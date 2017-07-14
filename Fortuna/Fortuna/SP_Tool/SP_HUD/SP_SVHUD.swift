@@ -41,10 +41,10 @@ extension SP_SVHUD {
             SP_SVHUD.setDismissTime(time)
             SVProgressHUD.showInfo(withStatus: text)
         case .tSuccess:
-            SP_SVHUD.setDismissTime(time)
+            SP_SVHUD.setDismissTime(1.0)
             SVProgressHUD.showSuccess(withStatus: text)
         case .tError:
-            SP_SVHUD.setDismissTime(time)
+            SP_SVHUD.setDismissTime(1.0)
             SVProgressHUD.showError(withStatus: text)
         case .tProgress: break
             //progressStart = 0.0

@@ -24,7 +24,7 @@ open class SP_Alamofire {
         return self.sharedInstance
     }
     
-    fileprivate lazy var _manager = SessionManager.default
+    lazy var _manager = SessionManager.default
     
     //MARK:--- SSL认证 -----------------------------
     func alf_SSL(_ hosts:[String], p12:(name:String, pwd:String)) {
@@ -153,27 +153,39 @@ open class SP_Alamofire {
 extension SP_Alamofire {
     //MARK:--- 网络请求 -----------------------------
     class func get(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
-        SP_Alamofire.shared._manager.request(url, method: .get, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { (response) in
-            SP_Alamofire.disposeResponse(response, block:block)
+         DispatchQueue.global().async {
+            SP_Alamofire.shared._manager.request(url, method: .get, parameters: param, headers: SP_Alamofire.shared._headers).responseJSON { (response) in
+                DispatchQueue.main.async {
+                    SP_Alamofire.disposeResponse(response, block:block)
+                }
+                
+            }
         }
+        
         
     }
     class func post(_ url:String, param:[String:Any], block: sp_netComBlock? = nil) {
-        SP_Alamofire.shared._manager.request(url, method: .post, parameters: param,  headers: SP_Alamofire.shared._headers).responseJSON { response in
-            
-            SP_Alamofire.disposeResponse(response, block:block)
+        SP_Alamofire.shared._manager
+            .request(url, method: .post,
+                     parameters: param,
+                     headers: SP_Alamofire.shared._headers)
+            .responseJSON { response in
+                SP_Alamofire.disposeResponse(response, block:block)
+                
         }
+        
     }
     class func upload(_ url:String, param:[String:String], uploadParams:[SP_UploadParam], progressBlock: sp_netProgressBlock? = nil, block: sp_netComBlock? = nil) {
+        
         SP_Alamofire.shared.uploadCancel = false
         SP_Alamofire.shared._manager.upload(multipartFormData: { (formData) in
             for item in uploadParams {
                 switch (item.type) {
                 case .tData:
-                    formData.append(item.imageData, withName: item.imageName, fileName: item.filename, mimeType: item.mimeType)
+                    formData.append(item.fileData, withName: item.serverName, fileName: item.filename, mimeType: item.mimeType)
                 case .tFileURL:
                     if let fileUrl = item.fileURL {
-                        formData.append(fileUrl, withName: item.imageName, fileName: item.filename, mimeType: item.mimeType)
+                        formData.append(fileUrl, withName: item.serverName, fileName: item.filename, mimeType: item.mimeType)
                     }
                 }
             }
@@ -181,7 +193,7 @@ extension SP_Alamofire {
                 let dat:Data = item.value.data(using: String.Encoding.utf8) ?? Data()
                 formData.append(dat, withName: item.key)
             }
-        }, to: url, encodingCompletion: { (encodingResult) in
+        }, to: url, headers:SP_Alamofire.shared._headers, encodingCompletion: { (encodingResult) in
             
             switch encodingResult {
             case .success(let uploads, _, _):
