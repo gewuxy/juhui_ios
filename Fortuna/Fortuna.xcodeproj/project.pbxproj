@@ -40,6 +40,32 @@
 		AB0BD3A91F18985300899D0F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AB0BD3A21F18985300899D0F /* LICENSE */; };
 		AB0BD3AA1F18985300899D0F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3A31F18985300899D0F /* README.md */; };
 		AB0BD3AC1F18BEE100899D0F /* JH_IM_Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3AB1F18BEE100899D0F /* JH_IM_Tab.swift */; };
+		AB0BD3CB1F18CAEA00899D0F /* CCLKLineAboveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3B01F18CAEA00899D0F /* CCLKLineAboveCell.m */; };
+		AB0BD3CC1F18CAEA00899D0F /* CCLKLineAboveView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3B21F18CAEA00899D0F /* CCLKLineAboveView.m */; };
+		AB0BD3CD1F18CAEA00899D0F /* CCLKLineBelowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3B41F18CAEA00899D0F /* CCLKLineBelowCell.m */; };
+		AB0BD3CE1F18CAEA00899D0F /* CCLKLineBelowView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3B61F18CAEA00899D0F /* CCLKLineBelowView.m */; };
+		AB0BD3CF1F18CAEA00899D0F /* CCLKLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3B81F18CAEA00899D0F /* CCLKLineChartView.m */; };
+		AB0BD3D01F18CAEA00899D0F /* CCLKLineData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3BA1F18CAEA00899D0F /* CCLKLineData.m */; };
+		AB0BD3D11F18CAEA00899D0F /* CCLKLineShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3BC1F18CAEA00899D0F /* CCLKLineShareData.m */; };
+		AB0BD3D21F18CAEA00899D0F /* CCLTimeAboveView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3BF1F18CAEA00899D0F /* CCLTimeAboveView.m */; };
+		AB0BD3D31F18CAEA00899D0F /* CCLTimeBelowView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3C11F18CAEA00899D0F /* CCLTimeBelowView.m */; };
+		AB0BD3D41F18CAEA00899D0F /* CCLTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3C31F18CAEA00899D0F /* CCLTimeModel.m */; };
+		AB0BD3D51F18CAEA00899D0F /* CCLTimeShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3C51F18CAEA00899D0F /* CCLTimeShareData.m */; };
+		AB0BD3D61F18CAEA00899D0F /* CCLTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3C71F18CAEA00899D0F /* CCLTimeView.m */; };
+		AB0BD3D71F18CAEA00899D0F /* CCLFrameTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3CA1F18CAEA00899D0F /* CCLFrameTool.m */; };
+		AB0BD3EE1F18CCCB00899D0F /* MJExtensionConst.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3DB1F18CCCB00899D0F /* MJExtensionConst.m */; };
+		AB0BD3EF1F18CCCB00899D0F /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3DD1F18CCCB00899D0F /* MJFoundation.m */; };
+		AB0BD3F01F18CCCB00899D0F /* MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3DF1F18CCCB00899D0F /* MJProperty.m */; };
+		AB0BD3F11F18CCCB00899D0F /* MJPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3E11F18CCCB00899D0F /* MJPropertyKey.m */; };
+		AB0BD3F21F18CCCB00899D0F /* MJPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3E31F18CCCB00899D0F /* MJPropertyType.m */; };
+		AB0BD3F31F18CCCB00899D0F /* NSObject+MJClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3E51F18CCCB00899D0F /* NSObject+MJClass.m */; };
+		AB0BD3F41F18CCCB00899D0F /* NSObject+MJCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3E71F18CCCB00899D0F /* NSObject+MJCoding.m */; };
+		AB0BD3F51F18CCCB00899D0F /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3E91F18CCCB00899D0F /* NSObject+MJKeyValue.m */; };
+		AB0BD3F61F18CCCB00899D0F /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3EB1F18CCCB00899D0F /* NSObject+MJProperty.m */; };
+		AB0BD3F71F18CCCB00899D0F /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0BD3ED1F18CCCB00899D0F /* NSString+MJExtension.m */; };
+		AB0BD3FB1F18CCF600899D0F /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB0BD3F81F18CCF600899D0F /* data.plist */; };
+		AB0BD3FC1F18CCF600899D0F /* stockData.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB0BD3F91F18CCF600899D0F /* stockData.plist */; };
+		AB0BD3FD1F18CCF600899D0F /* timeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB0BD3FA1F18CCF600899D0F /* timeData.plist */; };
 		AB1992B21F033DD600E710CB /* SP_IM.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1992B11F033DD600E710CB /* SP_IM.storyboard */; };
 		AB1992B41F0355AB00E710CB /* SP_IM_TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1992B31F0355AB00E710CB /* SP_IM_TabCell.swift */; };
 		AB1993291F03925F00E710CB /* HXAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1992BD1F03925F00E710CB /* HXAlbumListView.m */; };
@@ -456,6 +482,56 @@
 		AB0BD3A21F18985300899D0F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AB0BD3A31F18985300899D0F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AB0BD3AB1F18BEE100899D0F /* JH_IM_Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_IM_Tab.swift; sourceTree = "<group>"; };
+		AB0BD3AF1F18CAEA00899D0F /* CCLKLineAboveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineAboveCell.h; sourceTree = "<group>"; };
+		AB0BD3B01F18CAEA00899D0F /* CCLKLineAboveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineAboveCell.m; sourceTree = "<group>"; };
+		AB0BD3B11F18CAEA00899D0F /* CCLKLineAboveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineAboveView.h; sourceTree = "<group>"; };
+		AB0BD3B21F18CAEA00899D0F /* CCLKLineAboveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineAboveView.m; sourceTree = "<group>"; };
+		AB0BD3B31F18CAEA00899D0F /* CCLKLineBelowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineBelowCell.h; sourceTree = "<group>"; };
+		AB0BD3B41F18CAEA00899D0F /* CCLKLineBelowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineBelowCell.m; sourceTree = "<group>"; };
+		AB0BD3B51F18CAEA00899D0F /* CCLKLineBelowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineBelowView.h; sourceTree = "<group>"; };
+		AB0BD3B61F18CAEA00899D0F /* CCLKLineBelowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineBelowView.m; sourceTree = "<group>"; };
+		AB0BD3B71F18CAEA00899D0F /* CCLKLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineChartView.h; sourceTree = "<group>"; };
+		AB0BD3B81F18CAEA00899D0F /* CCLKLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineChartView.m; sourceTree = "<group>"; };
+		AB0BD3B91F18CAEA00899D0F /* CCLKLineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineData.h; sourceTree = "<group>"; };
+		AB0BD3BA1F18CAEA00899D0F /* CCLKLineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineData.m; sourceTree = "<group>"; };
+		AB0BD3BB1F18CAEA00899D0F /* CCLKLineShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLKLineShareData.h; sourceTree = "<group>"; };
+		AB0BD3BC1F18CAEA00899D0F /* CCLKLineShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLKLineShareData.m; sourceTree = "<group>"; };
+		AB0BD3BE1F18CAEA00899D0F /* CCLTimeAboveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLTimeAboveView.h; sourceTree = "<group>"; };
+		AB0BD3BF1F18CAEA00899D0F /* CCLTimeAboveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLTimeAboveView.m; sourceTree = "<group>"; };
+		AB0BD3C01F18CAEA00899D0F /* CCLTimeBelowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLTimeBelowView.h; sourceTree = "<group>"; };
+		AB0BD3C11F18CAEA00899D0F /* CCLTimeBelowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLTimeBelowView.m; sourceTree = "<group>"; };
+		AB0BD3C21F18CAEA00899D0F /* CCLTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLTimeModel.h; sourceTree = "<group>"; };
+		AB0BD3C31F18CAEA00899D0F /* CCLTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLTimeModel.m; sourceTree = "<group>"; };
+		AB0BD3C41F18CAEA00899D0F /* CCLTimeShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLTimeShareData.h; sourceTree = "<group>"; };
+		AB0BD3C51F18CAEA00899D0F /* CCLTimeShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLTimeShareData.m; sourceTree = "<group>"; };
+		AB0BD3C61F18CAEA00899D0F /* CCLTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLTimeView.h; sourceTree = "<group>"; };
+		AB0BD3C71F18CAEA00899D0F /* CCLTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLTimeView.m; sourceTree = "<group>"; };
+		AB0BD3C91F18CAEA00899D0F /* CCLFrameTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLFrameTool.h; sourceTree = "<group>"; };
+		AB0BD3CA1F18CAEA00899D0F /* CCLFrameTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLFrameTool.m; sourceTree = "<group>"; };
+		AB0BD3D91F18CCCB00899D0F /* MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtension.h; sourceTree = "<group>"; };
+		AB0BD3DA1F18CCCB00899D0F /* MJExtensionConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJExtensionConst.h; sourceTree = "<group>"; };
+		AB0BD3DB1F18CCCB00899D0F /* MJExtensionConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJExtensionConst.m; sourceTree = "<group>"; };
+		AB0BD3DC1F18CCCB00899D0F /* MJFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJFoundation.h; sourceTree = "<group>"; };
+		AB0BD3DD1F18CCCB00899D0F /* MJFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJFoundation.m; sourceTree = "<group>"; };
+		AB0BD3DE1F18CCCB00899D0F /* MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJProperty.h; sourceTree = "<group>"; };
+		AB0BD3DF1F18CCCB00899D0F /* MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJProperty.m; sourceTree = "<group>"; };
+		AB0BD3E01F18CCCB00899D0F /* MJPropertyKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyKey.h; sourceTree = "<group>"; };
+		AB0BD3E11F18CCCB00899D0F /* MJPropertyKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyKey.m; sourceTree = "<group>"; };
+		AB0BD3E21F18CCCB00899D0F /* MJPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPropertyType.h; sourceTree = "<group>"; };
+		AB0BD3E31F18CCCB00899D0F /* MJPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPropertyType.m; sourceTree = "<group>"; };
+		AB0BD3E41F18CCCB00899D0F /* NSObject+MJClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJClass.h"; sourceTree = "<group>"; };
+		AB0BD3E51F18CCCB00899D0F /* NSObject+MJClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJClass.m"; sourceTree = "<group>"; };
+		AB0BD3E61F18CCCB00899D0F /* NSObject+MJCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJCoding.h"; sourceTree = "<group>"; };
+		AB0BD3E71F18CCCB00899D0F /* NSObject+MJCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJCoding.m"; sourceTree = "<group>"; };
+		AB0BD3E81F18CCCB00899D0F /* NSObject+MJKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJKeyValue.h"; sourceTree = "<group>"; };
+		AB0BD3E91F18CCCB00899D0F /* NSObject+MJKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJKeyValue.m"; sourceTree = "<group>"; };
+		AB0BD3EA1F18CCCB00899D0F /* NSObject+MJProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJProperty.h"; sourceTree = "<group>"; };
+		AB0BD3EB1F18CCCB00899D0F /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
+		AB0BD3EC1F18CCCB00899D0F /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
+		AB0BD3ED1F18CCCB00899D0F /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		AB0BD3F81F18CCF600899D0F /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
+		AB0BD3F91F18CCF600899D0F /* stockData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stockData.plist; sourceTree = "<group>"; };
+		AB0BD3FA1F18CCF600899D0F /* timeData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = timeData.plist; sourceTree = "<group>"; };
 		AB1992B11F033DD600E710CB /* SP_IM.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SP_IM.storyboard; sourceTree = "<group>"; };
 		AB1992B31F0355AB00E710CB /* SP_IM_TabCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_IM_TabCell.swift; sourceTree = "<group>"; };
 		AB1992BC1F03925F00E710CB /* HXAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumListView.h; sourceTree = "<group>"; };
@@ -1139,6 +1215,95 @@
 			path = KZSmallVideoRecorder;
 			sourceTree = "<group>";
 		};
+		AB0BD3AD1F18CAEA00899D0F /* CCLKLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				AB0BD3F81F18CCF600899D0F /* data.plist */,
+				AB0BD3F91F18CCF600899D0F /* stockData.plist */,
+				AB0BD3FA1F18CCF600899D0F /* timeData.plist */,
+				AB0BD3D81F18CCCB00899D0F /* MJExtension */,
+				AB0BD3AE1F18CAEA00899D0F /* kLineChart */,
+				AB0BD3BD1F18CAEA00899D0F /* timeChart */,
+				AB0BD3C81F18CAEA00899D0F /* Tool */,
+			);
+			path = CCLKLineChartView;
+			sourceTree = "<group>";
+		};
+		AB0BD3AE1F18CAEA00899D0F /* kLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				AB0BD3AF1F18CAEA00899D0F /* CCLKLineAboveCell.h */,
+				AB0BD3B01F18CAEA00899D0F /* CCLKLineAboveCell.m */,
+				AB0BD3B11F18CAEA00899D0F /* CCLKLineAboveView.h */,
+				AB0BD3B21F18CAEA00899D0F /* CCLKLineAboveView.m */,
+				AB0BD3B31F18CAEA00899D0F /* CCLKLineBelowCell.h */,
+				AB0BD3B41F18CAEA00899D0F /* CCLKLineBelowCell.m */,
+				AB0BD3B51F18CAEA00899D0F /* CCLKLineBelowView.h */,
+				AB0BD3B61F18CAEA00899D0F /* CCLKLineBelowView.m */,
+				AB0BD3B71F18CAEA00899D0F /* CCLKLineChartView.h */,
+				AB0BD3B81F18CAEA00899D0F /* CCLKLineChartView.m */,
+				AB0BD3B91F18CAEA00899D0F /* CCLKLineData.h */,
+				AB0BD3BA1F18CAEA00899D0F /* CCLKLineData.m */,
+				AB0BD3BB1F18CAEA00899D0F /* CCLKLineShareData.h */,
+				AB0BD3BC1F18CAEA00899D0F /* CCLKLineShareData.m */,
+			);
+			path = kLineChart;
+			sourceTree = "<group>";
+		};
+		AB0BD3BD1F18CAEA00899D0F /* timeChart */ = {
+			isa = PBXGroup;
+			children = (
+				AB0BD3BE1F18CAEA00899D0F /* CCLTimeAboveView.h */,
+				AB0BD3BF1F18CAEA00899D0F /* CCLTimeAboveView.m */,
+				AB0BD3C01F18CAEA00899D0F /* CCLTimeBelowView.h */,
+				AB0BD3C11F18CAEA00899D0F /* CCLTimeBelowView.m */,
+				AB0BD3C21F18CAEA00899D0F /* CCLTimeModel.h */,
+				AB0BD3C31F18CAEA00899D0F /* CCLTimeModel.m */,
+				AB0BD3C41F18CAEA00899D0F /* CCLTimeShareData.h */,
+				AB0BD3C51F18CAEA00899D0F /* CCLTimeShareData.m */,
+				AB0BD3C61F18CAEA00899D0F /* CCLTimeView.h */,
+				AB0BD3C71F18CAEA00899D0F /* CCLTimeView.m */,
+			);
+			path = timeChart;
+			sourceTree = "<group>";
+		};
+		AB0BD3C81F18CAEA00899D0F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				AB0BD3C91F18CAEA00899D0F /* CCLFrameTool.h */,
+				AB0BD3CA1F18CAEA00899D0F /* CCLFrameTool.m */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		AB0BD3D81F18CCCB00899D0F /* MJExtension */ = {
+			isa = PBXGroup;
+			children = (
+				AB0BD3D91F18CCCB00899D0F /* MJExtension.h */,
+				AB0BD3DA1F18CCCB00899D0F /* MJExtensionConst.h */,
+				AB0BD3DB1F18CCCB00899D0F /* MJExtensionConst.m */,
+				AB0BD3DC1F18CCCB00899D0F /* MJFoundation.h */,
+				AB0BD3DD1F18CCCB00899D0F /* MJFoundation.m */,
+				AB0BD3DE1F18CCCB00899D0F /* MJProperty.h */,
+				AB0BD3DF1F18CCCB00899D0F /* MJProperty.m */,
+				AB0BD3E01F18CCCB00899D0F /* MJPropertyKey.h */,
+				AB0BD3E11F18CCCB00899D0F /* MJPropertyKey.m */,
+				AB0BD3E21F18CCCB00899D0F /* MJPropertyType.h */,
+				AB0BD3E31F18CCCB00899D0F /* MJPropertyType.m */,
+				AB0BD3E41F18CCCB00899D0F /* NSObject+MJClass.h */,
+				AB0BD3E51F18CCCB00899D0F /* NSObject+MJClass.m */,
+				AB0BD3E61F18CCCB00899D0F /* NSObject+MJCoding.h */,
+				AB0BD3E71F18CCCB00899D0F /* NSObject+MJCoding.m */,
+				AB0BD3E81F18CCCB00899D0F /* NSObject+MJKeyValue.h */,
+				AB0BD3E91F18CCCB00899D0F /* NSObject+MJKeyValue.m */,
+				AB0BD3EA1F18CCCB00899D0F /* NSObject+MJProperty.h */,
+				AB0BD3EB1F18CCCB00899D0F /* NSObject+MJProperty.m */,
+				AB0BD3EC1F18CCCB00899D0F /* NSString+MJExtension.h */,
+				AB0BD3ED1F18CCCB00899D0F /* NSString+MJExtension.m */,
+			);
+			path = MJExtension;
+			sourceTree = "<group>";
+		};
 		AB1992BB1F03925F00E710CB /* HXWeiboPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1664,6 +1829,7 @@
 				AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */,
 				AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */,
 				AB4EB79F1F0A42C200D8CA0D /* JH_AttentionDetails_Cell.swift */,
+				AB0BD3AD1F18CAEA00899D0F /* CCLKLineChartView */,
 				AB5FDFC51F0E2B610035AA89 /* YKlineChartView */,
 				AB44C9A91F0CB9830040E3F7 /* SP_TimeLine */,
 				AB44C9361F0C737B0040E3F7 /* StockDataModel[数据源Model] */,
@@ -2533,6 +2699,7 @@
 				AB19935C1F03925F00E710CB /* compose_live_photo_open_only_icon@2x.png in Resources */,
 				AB5901EE1EE94B9200826A37 /* navi_add_white@2x.png in Resources */,
 				AB1993591F03925F00E710CB /* compose_live_photo_close_icon@3x.png in Resources */,
+				AB0BD3FC1F18CCF600899D0F /* stockData.plist in Resources */,
 				AB1993701F03925F00E710CB /* page_score_pic_background@2x.png in Resources */,
 				AB1993471F03925F00E710CB /* camera_flashlight_disable@2x.png in Resources */,
 				AB1993581F03925F00E710CB /* compose_live_photo_close_icon@2x.png in Resources */,
@@ -2558,6 +2725,7 @@
 				AB5901DF1EE94B9200826A37 /* iconfont.ttf in Resources */,
 				AB19934E1F03925F00E710CB /* camera_video_background@2x.png in Resources */,
 				AB19935B1F03925F00E710CB /* compose_live_photo_open_icon@3x.png in Resources */,
+				AB0BD3FB1F18CCF600899D0F /* data.plist in Resources */,
 				AB1993631F03925F00E710CB /* compose_photo_preview_disable@2x.png in Resources */,
 				AB1993671F03925F00E710CB /* compose_photo_video@2x.png in Resources */,
 				AB1993481F03925F00E710CB /* camera_flashlight_open@2x.png in Resources */,
@@ -2571,6 +2739,7 @@
 				AB5901BE1EE94B9200826A37 /* SP_AdsColleCell.xib in Resources */,
 				AB1993771F03925F00E710CB /* video_next_button_highlighted@2x.png in Resources */,
 				AB993D651F0B948700C06108 /* AS_AddImageCell.xib in Resources */,
+				AB0BD3FD1F18CCF600899D0F /* timeData.plist in Resources */,
 				AB1993751F03925F00E710CB /* video_next_button@2x.png in Resources */,
 				AB1992B21F033DD600E710CB /* SP_IM.storyboard in Resources */,
 				AB19935E1F03925F00E710CB /* compose_photo_filter_checkbox_checked@2x.png in Resources */,
@@ -2702,6 +2871,7 @@
 				AB993D871F0B948700C06108 /* SP_ImageUnit.swift in Sources */,
 				AB4EB7861F0A427900D8CA0D /* MA-EMA-MACD介绍.md in Sources */,
 				AB4EB7801F0A427900D8CA0D /* Y_KLineAccessoryView.m in Sources */,
+				AB0BD3EE1F18CCCB00899D0F /* MJExtensionConst.m in Sources */,
 				AB993D2C1F0B39A200C06108 /* YYFiveRecordTableViewCell.m in Sources */,
 				AB19932B1F03925F00E710CB /* HXAlbumTitleButton.m in Sources */,
 				AB19937D1F03925F00E710CB /* UIView+HXExtension.m in Sources */,
@@ -2719,6 +2889,7 @@
 				AB5901C51EE94B9200826A37 /* CGSize_extension.swift in Sources */,
 				AB44C9461F0C88E20040E3F7 /* M_TimeLine.swift in Sources */,
 				AB4EB7831F0A427900D8CA0D /* Y_MALine.m in Sources */,
+				AB0BD3F51F18CCCB00899D0F /* NSObject+MJKeyValue.m in Sources */,
 				AB68242C1EFA4FAC0079C58B /* SP_UserAPI.swift in Sources */,
 				AB4EB7881F0A427900D8CA0D /* Y_KLineModel.m in Sources */,
 				AB4A75BD1EEF77B10014F633 /* SP_User.swift in Sources */,
@@ -2729,6 +2900,7 @@
 				AB4EB7911F0A427900D8CA0D /* Y_KLineView.m in Sources */,
 				AB19932A1F03925F00E710CB /* HXAlbumModel.m in Sources */,
 				ABCDFE0F1F02514000EA2F7A /* JH_IM.swift in Sources */,
+				AB0BD3D41F18CAEA00899D0F /* CCLTimeModel.m in Sources */,
 				AB564F2F1EFB930A005E3ABB /* SP_HUD.swift in Sources */,
 				AB0BD3A71F18985300899D0F /* KZVideoSupport.m in Sources */,
 				AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */,
@@ -2742,6 +2914,7 @@
 				AB993D831F0B948700C06108 /* PostFormData.swift in Sources */,
 				AB19933A1F03925F00E710CB /* HXTransition.m in Sources */,
 				AB993D851F0B948700C06108 /* SP_AddPhoto.swift in Sources */,
+				AB0BD3D51F18CAEA00899D0F /* CCLTimeShareData.m in Sources */,
 				AB2E87F41F04FEEB0071BE70 /* SP_UMView.swift in Sources */,
 				AB5901E51EE94B9200826A37 /* CLLocation+YCLocation.m in Sources */,
 				AB993D2B1F0B39A200C06108 /* YYStockScrollView.m in Sources */,
@@ -2753,8 +2926,10 @@
 				AB993D3B1F0B694F00C06108 /* JH_MyInfo.swift in Sources */,
 				AB0BD3931F1896C000899D0F /* amrFileCodec.m in Sources */,
 				AB5901E91EE94B9200826A37 /* SP_MJDIYHeader.swift in Sources */,
+				AB0BD3CC1F18CAEA00899D0F /* CCLKLineAboveView.m in Sources */,
 				AB5901D81EE94B9200826A37 /* UIViewController+Extension.swift in Sources */,
 				AB4EB77C1F0A427900D8CA0D /* Y_StockChartGlobalVariable.m in Sources */,
+				AB0BD3F21F18CCCB00899D0F /* MJPropertyType.m in Sources */,
 				AB0BD3A41F18985300899D0F /* KZVideoConfig.m in Sources */,
 				AB4EB78A1F0A427900D8CA0D /* Y_KLineVolumePositionModel.m in Sources */,
 				AB19933B1F03925F00E710CB /* HXVideoPresentTransition.m in Sources */,
@@ -2767,7 +2942,9 @@
 				AB4EEAF81F1708AE00DDCBA4 /* JH_IM_Net.swift in Sources */,
 				AB564F321EFB930A005E3ABB /* SP_SVHUD.swift in Sources */,
 				AB5901E11EE94B9200826A37 /* LBPIconFont.m in Sources */,
+				AB0BD3F61F18CCCB00899D0F /* NSObject+MJProperty.m in Sources */,
 				AB5FDFD41F0E2B610035AA89 /* YKLineChartViewBase.m in Sources */,
+				AB0BD3F11F18CCCB00899D0F /* MJPropertyKey.m in Sources */,
 				AB9920B11F11E11600CFBB6C /* JH_MyHistoryDeal.swift in Sources */,
 				AB993D791F0B948700C06108 /* UIImage+Extension.swift in Sources */,
 				AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */,
@@ -2789,6 +2966,7 @@
 				AB1993341F03925F00E710CB /* HXPhotoSubViewCell.m in Sources */,
 				AB5901EC1EE94B9200826A37 /* Reachability.swift in Sources */,
 				ABFC47D91EEE49550057BD58 /* SP_Signin.swift in Sources */,
+				AB0BD3D01F18CAEA00899D0F /* CCLKLineData.m in Sources */,
 				AB19932E1F03925F00E710CB /* HXCollectionView.m in Sources */,
 				AB19932C1F03925F00E710CB /* HXCameraPreviewViewController.m in Sources */,
 				AB4A75CB1EEFE8EF0014F633 /* JH_Search_Cell.swift in Sources */,
@@ -2804,10 +2982,13 @@
 				AB9920AB1F11E0BA00CFBB6C /* JH_MyPositions.swift in Sources */,
 				AB82CED81EEE3E0000D015B1 /* SP_ToolOC.m in Sources */,
 				AB5901D71EE94B9200826A37 /* UIView_extension.swift in Sources */,
+				AB0BD3F31F18CCCB00899D0F /* NSObject+MJClass.m in Sources */,
 				AB0BD3911F1896C000899D0F /* LGMessageModel.m in Sources */,
 				AB5901E31EE94B9200826A37 /* UIImage+LBPIconFont.m in Sources */,
+				AB0BD3CF1F18CAEA00899D0F /* CCLKLineChartView.m in Sources */,
 				AB993D251F0B39A200C06108 /* YYKline.m in Sources */,
 				ABCE12201F093F880011AF5E /* JH_IM_Cell.swift in Sources */,
+				AB0BD3D31F18CAEA00899D0F /* CCLTimeBelowView.m in Sources */,
 				AB4EB7821F0A427900D8CA0D /* Y_KLine.m in Sources */,
 				AB5901D41EE94B9200826A37 /* UILabel_extension.swift in Sources */,
 				ABCDFDFB1F01EDE100EA2F7A /* SP_PlaceHolderView.swift in Sources */,
@@ -2820,6 +3001,7 @@
 				AB2E87F31F04FEEB0071BE70 /* SP_UMShare.swift in Sources */,
 				AB4EB7991F0A427900D8CA0D /* MASViewConstraint.m in Sources */,
 				AB993D701F0B948700C06108 /* PhotoImage.swift in Sources */,
+				AB0BD3D71F18CAEA00899D0F /* CCLFrameTool.m in Sources */,
 				AB5901DE1EE94B9200826A37 /* SP_GuideVC.swift in Sources */,
 				AB4A75BF1EEF7E550014F633 /* JH_AttentionEdit.swift in Sources */,
 				AB5901EB1EE94B9200826A37 /* SP_MJRefreshDatas.swift in Sources */,
@@ -2831,6 +3013,7 @@
 				AB993D771F0B948700C06108 /* PhotoPreviewViewController.swift in Sources */,
 				AB993D321F0B39A200C06108 /* YYStockView_Kline.m in Sources */,
 				AB4EB79D1F0A427900D8CA0D /* ViewController+MASAdditions.m in Sources */,
+				AB0BD3EF1F18CCCB00899D0F /* MJFoundation.m in Sources */,
 				AB993D281F0B39A200C06108 /* YYKlineMaskView.m in Sources */,
 				AB5901F81EE94B9200826A37 /* SP_TabBarController.swift in Sources */,
 				AB1993331F03925F00E710CB /* HXPhotoPreviewViewController.m in Sources */,
@@ -2846,6 +3029,7 @@
 				AB5901E01EE94B9200826A37 /* LBPFontInfo.m in Sources */,
 				ABFC47D51EEE48AF0057BD58 /* SP_Login.swift in Sources */,
 				AB4A75C91EEFE8670014F633 /* JH_Search.swift in Sources */,
+				AB0BD3D11F18CAEA00899D0F /* CCLKLineShareData.m in Sources */,
 				AB4EB7981F0A427900D8CA0D /* MASViewAttribute.m in Sources */,
 				AB44C93E1F0C737B0040E3F7 /* YYLineDataModel.m in Sources */,
 				AB5901E61EE94B9200826A37 /* SP_LocationManager.swift in Sources */,
@@ -2860,13 +3044,16 @@
 				AB4EB78F1F0A427900D8CA0D /* Y_KLineVolume.m in Sources */,
 				AB67EC0B1F00F0D0009FF2DC /* UIAlert_Extension.swift in Sources */,
 				AB4EEB031F1778EC00DDCBA4 /* SP_PhotoBrowser.swift in Sources */,
+				AB0BD3D21F18CAEA00899D0F /* CCLTimeAboveView.m in Sources */,
 				AB5901C61EE94B9200826A37 /* Date_extension.swift in Sources */,
 				AB993D841F0B948700C06108 /* SP_AddImageView.swift in Sources */,
 				AB5FDFD51F0E2B610035AA89 /* YKLineDataSet.m in Sources */,
 				AB4EB7811F0A427900D8CA0D /* Y_KLineMAView.m in Sources */,
 				AB5901C01EE94B9200826A37 /* SP_AdsCollectionViewModel.swift in Sources */,
 				AB1993361F03925F00E710CB /* HXPhotoView.m in Sources */,
+				AB0BD3CB1F18CAEA00899D0F /* CCLKLineAboveCell.m in Sources */,
 				AB4EB7851F0A427900D8CA0D /* KDJ介绍.md in Sources */,
+				AB0BD3D61F18CAEA00899D0F /* CCLTimeView.m in Sources */,
 				AB1993391F03925F00E710CB /* HXPresentTransition.m in Sources */,
 				AB5901E81EE94B9200826A37 /* SP_MJDIYBackFooter.swift in Sources */,
 				AB42C7C21EF6D3DA00C51669 /* JH_HUD_Entrust.swift in Sources */,
@@ -2874,6 +3061,7 @@
 				AB4EB77F1F0A427900D8CA0D /* Y_KLineAccessory.m in Sources */,
 				AB993D761F0B948700C06108 /* PhotoPreviewToolbarView.swift in Sources */,
 				AB993D781F0B948700C06108 /* UICollectionView+Extension.swift in Sources */,
+				AB0BD3F01F18CCCB00899D0F /* MJProperty.m in Sources */,
 				AB5901551EE9338D00826A37 /* My_API.swift in Sources */,
 				AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */,
 				AB42C7BD1EF6BDDB00C51669 /* JH_BuyAndSell.swift in Sources */,
@@ -2901,6 +3089,7 @@
 				AB58FD2E1F13282100DF15FE /* JH_MyDealDetails.swift in Sources */,
 				AB0BD3AC1F18BEE100899D0F /* JH_IM_Tab.swift in Sources */,
 				AB4EB79A1F0A427900D8CA0D /* NSArray+MASAdditions.m in Sources */,
+				AB0BD3F41F18CCCB00899D0F /* NSObject+MJCoding.m in Sources */,
 				AB4EB7901F0A427900D8CA0D /* Y_KLineVolumeView.m in Sources */,
 				AB1993311F03925F00E710CB /* HXPhotoModel.m in Sources */,
 				AB5901C71EE94B9200826A37 /* DragableTableExtension.swift in Sources */,
@@ -2912,10 +3101,12 @@
 				AB993D201F0B39A200C06108 /* UIColor+YYStockTheme.m in Sources */,
 				AB5901E71EE94B9200826A37 /* SP_MJDIYAutoFooter.swift in Sources */,
 				AB4EB7841F0A427900D8CA0D /* Y_KLineMainView.m in Sources */,
+				AB0BD3CD1F18CAEA00899D0F /* CCLKLineBelowCell.m in Sources */,
 				AB5901FA1EE94B9200826A37 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				AB993D741F0B948700C06108 /* PhotoPreviewBottomBarView.swift in Sources */,
 				AB59014D1EE9335A00826A37 /* JH_News.swift in Sources */,
 				AB5901D11EE94B9200826A37 /* UICollectionViewLeftAlignedLayout.m in Sources */,
+				AB0BD3F71F18CCCB00899D0F /* NSString+MJExtension.m in Sources */,
 				AB993D721F0B948700C06108 /* PhotoPickerConfig.swift in Sources */,
 				AB5901D31EE94B9200826A37 /* UIFont_extension.swift in Sources */,
 				AB5FDFD31F0E2B610035AA89 /* YKLineChartView.m in Sources */,
@@ -2926,6 +3117,7 @@
 				AB1993301F03925F00E710CB /* HXPhotoManager.m in Sources */,
 				AB19937B1F03925F00E710CB /* UIButton+HXExtension.m in Sources */,
 				AB2DE4F71F163D4F006BEC0E /* SP_IM_Voice.swift in Sources */,
+				AB0BD3CE1F18CAEA00899D0F /* CCLKLineBelowView.m in Sources */,
 				AB993D241F0B39A200C06108 /* YYVolumePositionModel.m in Sources */,
 				AB9920B31F11E13000CFBB6C /* JH_MyHistoryDelegate.swift in Sources */,
 				AB5901EA1EE94B9200826A37 /* SP_MJRefresh.swift in Sources */,
@@ -3145,7 +3337,7 @@
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/lame",
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3169,7 +3361,7 @@
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/lame",
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

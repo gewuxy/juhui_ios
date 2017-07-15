@@ -176,12 +176,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch _sectionsHead[indexPath.section].type {
-        case .t用户:
-            JH_MyInfo.show(self)
-        default:
-            break
-        }
+        self.didSelectAt(indexPath.section)
+        
     }
     func didSelectAt(_ section:Int) {
         if _sectionsHead[section].type == .t设置 {
@@ -206,6 +202,8 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
                 JH_MyHistoryDeal.show(self)
             case .t历史委托:
                 JH_MyHistoryDelegate.show(self)
+            case .t用户:
+                JH_MyInfo.show(self)
             default:
                 break
             }

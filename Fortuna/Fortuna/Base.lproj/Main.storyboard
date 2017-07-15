@@ -67,12 +67,12 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="gxN-ly-KVg">
-                                    <rect key="frame" x="0.0" y="664" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="663.5" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_AttentionDetailsCell_Data" rowHeight="160" id="Qj2-uJ-Psx" customClass="JH_AttentionDetailsCell_Data" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="160"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qj2-uJ-Psx" id="BlX-QV-D2c">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -290,7 +290,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_AttentionDetailsCell_Unfold" rowHeight="130" id="fcE-rl-URR" customClass="JH_AttentionDetailsCell_Unfold" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="216" width="375" height="130"/>
+                                        <rect key="frame" x="0.0" y="215.5" width="375" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fcE-rl-URR" id="vBL-s7-KRK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
@@ -489,7 +489,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="JH_AttentionDetailsCell_Charts" rowHeight="300" id="LhN-Kt-dgB" customClass="JH_AttentionDetailsCell_Charts" customModule="Fortuna" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="346" width="375" height="300"/>
+                                        <rect key="frame" x="0.0" y="345.5" width="375" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LhN-Kt-dgB" id="o9t-wj-gYF">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>

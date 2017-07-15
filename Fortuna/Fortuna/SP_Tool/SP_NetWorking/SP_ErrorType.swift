@@ -15,7 +15,7 @@ typealias sp_netProgressBlock = (_ progress:Progress?) -> Void
 
 //MARK:--- 罗列错误类型(自定义) -----------------------------
 enum SP_ErrorType:Int {
-    case noData      = 10000000000
+    case noData      = 10000000
     case nsurlErrorUnknown = -1
     case nsurlErrorCancelled = -999
     case nsurlErrorBadURL = -1000

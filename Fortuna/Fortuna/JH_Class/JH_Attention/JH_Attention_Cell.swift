@@ -513,14 +513,26 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
 //        _lineBgView.snp.makeConstraints { (make) in
 //            make.edges.equalToSuperview()
 //        }
+        /*
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
             self?._getDataBlock?(self!._type)
-        }
+        }*/
+        
+        self.view_charts.addSubview(ccKLineChart)
     }
     
     
     //MARK:--- Y_StockChartView -----------------------------
     
+    lazy var ccKLineChart:CCLKLineChartView = {
+        let cc = CCLKLineChartView(frame: CGRect(x:0,y:0,width:sp_ScreenWidth - sp_fitSize((105,120,135)) - 20,height:sp_fitSize((228,248,278))-56), secID: "22", andtype: CCLKLineDay)
+        
+        return cc!
+    }()
+    lazy var ccTimeLineChart:CCLTimeView = {
+        let cc = CCLTimeView(frame: self.view_charts.bounds, andSecID: "22")
+        return cc!
+    }()
     
 }
 

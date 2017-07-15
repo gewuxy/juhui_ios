@@ -42,3 +42,6 @@
 #import "YKTimeLineView.h"
 #import "YKLineChartView.h"
 #import "YKLineEntity.h"
+
+#import "CCLKLineChartView.h"
+#import "CCLTimeView.h"

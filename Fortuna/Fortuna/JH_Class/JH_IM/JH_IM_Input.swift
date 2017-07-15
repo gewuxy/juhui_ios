@@ -18,6 +18,7 @@ extension JH_IM {
                 self?.showHudImg()
             case .tBtn_L:
                 self?._inputView._isTalk = !self!._inputView._isTalk
+                self?.hiddenHudImg()
             case .tBegin:
                 self?.hiddenHudImg()
             default:
