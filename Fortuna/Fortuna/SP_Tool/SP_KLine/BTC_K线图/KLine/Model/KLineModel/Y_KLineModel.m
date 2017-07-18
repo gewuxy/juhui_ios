@@ -316,19 +316,19 @@
         case NSOrderedAscending:
         {
 //            第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger j = models.count-1; j >= 1; j--)
+            for (NSInteger j = 7; j >= 1; j--)
             {
-                
                 NSNumber *emMaxValue = @0;
                 
                 NSInteger em = j;
                 
-                while ( em >= 0)
+                while ( em >= 0 )
                 {
-                    //NSLog(@"%@",models[em].High);
+                    NSLog(@"%@",models[em].High);
                     NSLog(@"%lu",(unsigned long)models.count);
                     NSLog(@"%ld",(long)cond);
                     NSLog(@"%@",emMaxValue);
+                    
                     if([emMaxValue compare:models[em].High] == cond)
                     {
                         emMaxValue = models[em].High;
@@ -339,9 +339,8 @@
                 models[j].NineClocksMaxPrice = emMaxValue;
             }
             //第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger i = 0, j = models.count; j < models.count; i++,j++)
+            for (NSInteger i = 0, j = 8; j < models.count; i++,j++)
             {
-                
                 NSNumber *emMaxValue = @0;
                 
                 NSInteger em = j;
@@ -364,11 +363,8 @@
         {
             //第一个循环结束后，ClockFirstValue为最小值
             
-            for (NSInteger j = models.count-1; j >= 1; j--)
+            for (NSInteger j = 7; j >= 1; j--)
             {
-                if (models.count < 8 ) {
-                    return;
-                }
                 NSNumber *emMinValue = @(10000000000);
                 
                 NSInteger em = j;
@@ -384,11 +380,8 @@
                 models[j].NineClocksMinPrice = emMinValue;
             }
             
-            for (NSInteger i = 0, j = models.count; j < models.count; i++,j++)
+            for (NSInteger i = 0, j = 8; j < models.count; i++,j++)
             {
-                if (models.count < 8 ) {
-                    return;
-                }
                 NSNumber *emMinValue = @(10000000000);
                 
                 NSInteger em = j;
@@ -421,8 +414,8 @@
         _High = @([arr[2] floatValue]);
         _Low = @([arr[3] floatValue]);  
         _Close = @([arr[4] floatValue]);
+
         _Volume = [arr[5] floatValue];
-        
         self.SumOfLastClose = @(_Close.floatValue + self.PreviousKlineModel.SumOfLastClose.floatValue);
         self.SumOfLastVolume = @(_Volume + self.PreviousKlineModel.SumOfLastVolume.floatValue);
 //        NSLog(@"%@======%@======%@------%@",_Close,self.MA7,self.MA30,_SumOfLastClose);

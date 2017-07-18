@@ -7,19 +7,13 @@
 //
 
 #import "CCLTimeView.h"
-#import "CCLTimeAboveView.h"
-#import "CCLTimeBelowView.h"
-#import "CCLTimeShareData.h"
+
 
 @interface CCLTimeView ()
 <CCLTimeAboveViewDelegate,
 CCLTimeBelowViewDelegate>
 
-@property (nonatomic, strong) CCLTimeShareData *shareData;
 
-@property (nonatomic, strong) CCLTimeAboveView *aboveView;
-
-@property (nonatomic, strong) CCLTimeBelowView *belowView;
 
 @end
 
@@ -33,7 +27,7 @@ CCLTimeBelowViewDelegate>
         [self addSubview:self.belowView];
 
         self.layer.borderWidth = 1;
-        self.layer.borderColor = [UIColor blackColor].CGColor;
+        self.layer.borderColor = [UIColor clearColor].CGColor;
     }
     return self;
 }
@@ -41,8 +35,8 @@ CCLTimeBelowViewDelegate>
 - (CCLTimeAboveView *)aboveView{
     if (_aboveView == nil) {
         _aboveView = [[CCLTimeAboveView alloc] initWithFrame:CGRectMake(0, 0, self.shareData.allWidth, self.shareData.aboveHeight) andShareData:self.shareData];
-        _aboveView.layer.borderWidth = 1;
-        _aboveView.layer.borderColor = [UIColor blackColor].CGColor;
+        _aboveView.layer.borderWidth = 0.5;
+        _aboveView.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
         _aboveView.delegate = self;
     }
     return _aboveView;
@@ -51,8 +45,8 @@ CCLTimeBelowViewDelegate>
 - (CCLTimeBelowView *)belowView{
     if (_belowView == nil) {
         _belowView = [[CCLTimeBelowView alloc] initWithFrame:CGRectMake(0, self.shareData.aboveHeight + 20, self.shareData.allWidth, self.shareData.belowHeight) andShareData:self.shareData];
-        _belowView.layer.borderWidth = 1;
-        _belowView.layer.borderColor = [UIColor blackColor].CGColor;
+        _belowView.layer.borderWidth = 0.5;
+        _belowView.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
         _belowView.delegate = self;
     }
     return _belowView;

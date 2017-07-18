@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SocketIO
+import SwiftyJSON
 
 class JH_AttentionDetails: SP_ParentVC {
 
@@ -25,7 +27,17 @@ class JH_AttentionDetails: SP_ParentVC {
     lazy var _datas = M_Attention()
     lazy var _dataDetails = M_AttentionDetail()
     
+    // 通讯连接
+    lazy var socket:SocketIOClient = {
+        return SocketIOClient(socketURL: URL(string: My_API.url_广播最新详情数据)!, config: [.log(true), .forcePolling(true)])
+    }()
     
+    deinit {
+        self.socket.removeAllHandlers()
+        self.socket.off(self._datas.code)
+        self.socket.reconnects = false
+        self.socket.reconnect()
+    }
 }
 
 extension JH_AttentionDetails {
@@ -35,18 +47,19 @@ extension JH_AttentionDetails {
     class func show(_ parentVC:UIViewController?, data:M_Attention) {
         let vc = JH_AttentionDetails.initSPVC()
         vc._datas = data
+        var model = M_AttentionDetail()
+        model.lastest_price = data.last_price
+        vc._dataDetails = model
         vc.hidesBottomBarWhenPushed = true
         parentVC?.navigationController?.show(vc, sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeNavigation()
-        makeUI()
-        makeTableView()
+        self.makeSocketIO()
+        self.makeNavigation()
+        self.makeUI()
+        self.makeTableView()
         
-        
-        
-       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -77,7 +90,7 @@ extension JH_AttentionDetails {
     }
     override func clickN_btn_R1() {
         SP_UMView.show({ [unowned self](type) in
-            SP_UMShare.shared.showDefault(self,viewType:.tCustom(platformType: type), shareTitle: "巨汇", shareText: "点击查看详情", shareImage: "http://shendeng.17173.com/cf_res/upload/big_img/201202070008.jpg", shareURL: "http://v1.qzone.cc/pic/201306/29/10/56/51ce4cd6e7eb1111.jpg%21600x600.jpg",  block: { (isOk) in
+            SP_UMShare.shared.showDefault(self,viewType:.tCustom(platformType: type), shareTitle: self._dataDetails.shareTitle, shareText: self._dataDetails.shareText, shareImage: self._dataDetails.shareImg, shareURL: self._dataDetails.shareLink,  block: { (isOk) in
                 
             })
         })
@@ -112,6 +125,28 @@ extension JH_AttentionDetails {
         default:
             break
         }
+    }
+    
+    //MARK:--- SocketIO -----------------------------
+    func makeSocketIO() {
+        self.socket.on(clientEvent: .connect) { (data, ack) in
+            //iOS客户端上线
+            //self?.socket.emit("login", self!._followData.code)
+        }
+        self.socket.on(self._datas.code) { [weak self](res, ack) in
+            //接收到广播
+            //print_SP("data ==> \(res)")
+            let json = JSON(res)
+            print_SP("json ==> \(json)")
+            self?._dataDetails = M_AttentionDetail(json)!
+            self?.tableView.reloadData()
+        }
+        
+        self.socket.on(clientEvent: .disconnect) { (data, ack) in
+            //iOS客户端下线
+        }
+        
+        self.socket.connect()
     }
 }
 extension JH_AttentionDetails:UITableViewDelegate {
@@ -223,12 +258,15 @@ extension JH_AttentionDetails:UITableViewDataSource{
 //MARK:--- 网络 -----------------------------
 extension JH_AttentionDetails {
     fileprivate func getLineData(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?){
+        
+        testReloadData(type,cell)
+        /*
         switch type {
         case .t分时,.t5日:
             t_分时数据(type,cell)
         case .t日K,.t周K,.t月K,.t1分,.t5分,.t10分,.t30分,.t60分:
             t_K线图数据(type,cell)
-        }
+        }*/
         
     }
     /*
@@ -240,39 +278,24 @@ extension JH_AttentionDetails {
      _Volume = [arr[5] floatValue];
      */
     fileprivate func t_分时数据(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?) {
-        cell?._ykLineChartView.isHidden = true
-        cell?._ykTimeLineView.isHidden = true
+        cell?.view_activi.isHidden = false
+        cell?.view_activi.startAnimating()
+        cell?.lab_error.isHidden = true
+        
         My_API.t_分时数据(code: _datas.code, period: type.periodValue).post(M_TimeLine.self) { [weak self](isOk, data, error) in
             guard self != nil else{return}
+            cell?.view_activi.isHidden = true
+            cell?.view_activi.stopAnimating()
+            
             if isOk {
                 guard let datas = data as? [M_TimeLine] else{return}
+                guard datas.count > 0 else{
+                    cell?.lab_error.text = sp_localized("9011110")
+                    cell?.lab_error.isHidden = false
+                    return
+                }
+                cell?.lab_error.isHidden = true
                 
-                var array = [YKTimeLineEntity]()
-                for item in datas {
-                    let entity = YKTimeLineEntity()
-                    entity.lastPirce = CGFloat(Double(item.last_price)!)
-                    //entity.avgPirce = CGFloat(Double(item.high_price)!)
-                    entity.high = CGFloat(Double(item.high_price)!)
-                    entity.low = CGFloat(Double(item.low_price)!)
-                    entity.rate = item.turnover_rate
-                    
-                    entity.preClosePx = CGFloat(Double(item.close_price)!)
-                    
-                    entity.currtTime = item.timestamp
-                    entity.volume = CGFloat(Double(item.num)!)
-                    array.append(entity)
-                }
-                cell?._ykLineChartView.isHidden = true
-                cell?._ykTimeLineView.isHidden = false
-                cell?.makeYKTimeLineView(array)
-                /*
-                var arr:[Double] = []
-                for item in datas {
-                    arr.append(Double(item.high_price)!)
-                }
-                cell?._lineBgView._timeLineData = arr
-                */
-                /*
                 guard datas.count > 0 else{return}
                 var arr:[Any] = []
                 var arrs:[Any] = []
@@ -291,55 +314,33 @@ extension JH_AttentionDetails {
                 _groupModel = Y_KLineGroupModel.object(with: arrs)
                 cell?._modelsDict[type.stringValue] = _groupModel
                 cell?._stockChartView.reloadData()
-                */
+                
             }
             
         }
     }
     fileprivate func t_K线图数据(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?) {
-        cell?._ykLineChartView.isHidden = true
-        cell?._ykTimeLineView.isHidden = true
+        cell?.view_activi.isHidden = false
+        cell?.view_activi.startAnimating()
+        cell?.lab_error.isHidden = true
+        
         My_API.t_K线图数据(code: _datas.code, period: type.periodValue).post(M_TimeLine.self) { [weak self](isOk, data, error) in
             guard self != nil else{return}
+            cell?.view_activi.isHidden = true
+            cell?.view_activi.stopAnimating()
             if isOk {
                 guard let datas = data as? [M_TimeLine] else{return}
-                
-                var array = [YKLineEntity]()
-                for item in datas {
-                    let entity = YKLineEntity()
-                    entity.high = CGFloat(Double(item.high_price)!)
-                    entity.open = CGFloat(Double(item.open_price)!)
-                    
-                    entity.low = CGFloat(Double(item.low_price)!)
-                    
-                    entity.close = CGFloat(Double(item.close_price)!)
-                    
-                    entity.date = item.timestamp
-                    //entity.ma5 = [dic[@"avg5"] doubleValue];
-                    //entity.ma10 = [dic[@"avg10"] doubleValue];
-                    //entity.ma20 = [dic[@"avg20"] doubleValue];
-                    entity.volume = CGFloat(Double(item.deal_count)!)
-                    array.append(entity)
+                guard datas.count > 0 else{
+                    cell?.lab_error.text = sp_localized("9011110")
+                    cell?.lab_error.isHidden = false
+                    return
                 }
-                cell?._ykLineChartView.isHidden = false
-                cell?._ykTimeLineView.isHidden = true
-                cell?.makeYKLineChartView(array)
+                cell?.lab_error.isHidden = true
                 
                 
                 
                 
-                /*
-                var arr:[(val:Double,high:Double,low:Double,open:Double,close:Double)] = []
-                for item in datas {
-                    arr.append((val:Double(item.deal_count)!,
-                                high:Double(item.high_price)!,
-                                low:Double(item.low_price)!,
-                                open:Double(item.open_price)!,
-                                close:Double(item.close_price)!))
-                }
-                cell?._lineBgView._kLineData = arr
-                 */
-                /*
+                                
                 guard datas.count > 0 else{return}
                 var arr:[Any] = []
                 var arrs:[Any] = []
@@ -360,7 +361,34 @@ extension JH_AttentionDetails {
                 cell?._modelsDict[type.stringValue] = _groupModel
                 
                 cell?._stockChartView.reloadData()
-                */
+ 
+            }
+            
+        }
+    }
+    fileprivate func testReloadData(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?) {
+        cell?.view_charts.bringSubview(toFront: cell!.view_activi)
+        cell?.view_activi.isHidden = false
+        cell?.view_activi.startAnimating()
+        cell?.lab_error.isHidden = true
+        let param = ["type":type.testString,"symbol":"huobibtccny","size":"300"]
+        SP_Alamofire.post("https://www.btc123.com/kline/klineapi", param: param) { [weak self](isOk, res, error) in
+            cell?.view_activi.isHidden = true
+            cell?.view_activi.stopAnimating()
+            
+            if isOk {
+                if let json = res as? [String:Any], let bool = json["isSuc"] as? Bool, bool {
+                    if let arr = json["datas"] as? [Any] {
+                        var _groupModel = Y_KLineGroupModel()
+                        _groupModel = Y_KLineGroupModel.object(with: arr)
+                        
+                        cell?._modelsDict[type.stringValue] = _groupModel
+                        cell?._stockChartView.reloadData()
+                        
+                    }
+                }
+                
+                
             }
             
         }

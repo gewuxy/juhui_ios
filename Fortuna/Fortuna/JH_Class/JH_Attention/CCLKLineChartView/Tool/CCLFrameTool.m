@@ -6,6 +6,7 @@
 //  Copyright © 2016年 cclion.cc. All rights reserved.
 //
 
+
 #import "CCLFrameTool.h"
 
 @implementation CCLFrameTool
@@ -64,7 +65,7 @@
 
 + (CGPoint)getPointForValue:(CGFloat)value index:(NSUInteger)index width:(CGFloat)width rangeBig:(CGFloat)rangeBig rangeSma:(CGFloat)rangeSma length:(CGFloat)length andGap:(CGFloat)gap{
     
-    CGFloat itemW = width / 241;
+    CGFloat itemW = width / DataCont;
     CGFloat x = itemW * 0.5 + itemW * index;
     CGFloat y = [self getRightForValue:value rangeBig:rangeBig rangeSma:rangeSma length:length andGap:gap];
 
@@ -73,7 +74,7 @@
 
 + (CGRect)getRectForValue:(CGFloat)value index:(NSUInteger)index width:(CGFloat)width rangeBig:(CGFloat)rangeBig rangeSma:(CGFloat)rangeSma andLength:(CGFloat)length{
     
-    CGFloat itemW = width / 241;
+    CGFloat itemW = width / DataCont;
     CGFloat gap = itemW * 0.1;
 
     CGFloat x = gap + itemW * index;

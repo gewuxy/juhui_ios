@@ -56,7 +56,7 @@ extension JH_NewsDetials {
     override func clickN_btn_R1() {
         
         SP_UMView.show({ [unowned self](type) in
-            SP_UMShare.shared.showDefault(self,viewType:.tCustom(platformType: type), shareTitle: "巨汇", shareText: "点击查看详情", shareImage: "http://v1.qzone.cc/pic/201306/29/10/56/51ce4cd6e7eb1111.jpg%21600x600.jpg", shareURL: "http://v1.qzone.cc/pic/201306/29/10/56/51ce4cd6e7eb1111.jpg%21600x600.jpg",  block: { (isOk) in
+            SP_UMShare.shared.showDefault(self,viewType:.tCustom(platformType: type), shareTitle: "", shareText: "", shareImage: "", shareURL: "",  block: { (isOk) in
                 
             })
         })

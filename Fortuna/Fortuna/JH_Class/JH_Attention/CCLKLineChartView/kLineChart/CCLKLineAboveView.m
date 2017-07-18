@@ -28,8 +28,7 @@ UIGestureRecognizerDelegate>
 @property (nonatomic, assign) CGFloat lastHeight;
 // 当前展示的高度
 @property (nonatomic, assign) CGFloat currHeight;
-// 展示数据
-@property (nonatomic, strong) NSArray *dataArr;
+
 
 /**
  * 长按信息横向
@@ -89,8 +88,10 @@ UIGestureRecognizerDelegate>
     
     if (_backLine == nil) {
         _backLine = [CAShapeLayer layer];
-        _backLine.strokeColor = [UIColor grayColor].CGColor;
         _backLine.lineWidth = 0.5;
+        _backLine.lineJoin = kCALineJoinRound;
+        _backLine.lineCap = kCALineCapRound;
+        _backLine.strokeColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
     }
     return _backLine;
 }
@@ -99,7 +100,7 @@ UIGestureRecognizerDelegate>
     
     if (_maxLine == nil) {
         _maxLine = [CAShapeLayer layer];
-        _maxLine.strokeColor = [UIColor grayColor].CGColor;
+        _maxLine.strokeColor = [UIColor clearColor].CGColor;
         _maxLine.lineWidth = 0.5;
     }
     return _maxLine;
@@ -108,13 +109,13 @@ UIGestureRecognizerDelegate>
     
     if (_minLine == nil) {
         _minLine = [CAShapeLayer layer];
-        _minLine.strokeColor = [UIColor grayColor].CGColor;
+        _minLine.strokeColor = [UIColor clearColor].CGColor;
         _minLine.lineWidth = 0.5;
     }
     return _minLine;
 }
 
-
+//不复权
 - (CATextLayer *)markTextLayer{
     if (_markTextLayer == nil) {
         _markTextLayer = [CATextLayer layer];
@@ -124,12 +125,12 @@ UIGestureRecognizerDelegate>
         _markTextLayer.fontSize = 9.f; //字体的大小
         _markTextLayer.contentsScale = [UIScreen mainScreen].scale;
         
-        NSString *text = @"不复权";
+        NSString *text = @"";
         _markTextLayer.string = text;
         // 计算高度
         UIFont *font = [UIFont systemFontOfSize:9];
         CGSize textSize = [text sizeWithFont:font];
-        _markTextLayer.bounds = CGRectMake(0, 0, 30, 20);
+        _markTextLayer.bounds = CGRectMake(0, 0, 0, 0);
 
 
     }
@@ -205,19 +206,18 @@ UIGestureRecognizerDelegate>
         self.delegate = self;
         self.dataSource = self;
         
+        self.dataArr = [[NSMutableArray alloc] init];
+        /*
         //数据
-        NSString * path =[[NSBundle mainBundle]pathForResource:@"stockData.plist" ofType:nil];
-        NSArray * sourceArray = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
-        self.dataArr = [CCLKLineData mj_objectArrayWithKeyValuesArray:sourceArray];
-        NSLog(@"%@",self.dataArr);
+        
+        */
         [self registerClass:[CCLKLineAboveCell class] forCellReuseIdentifier:@"CCLKLineAboveCell"];
         
         _lastHeight = 10;
         _currHeight = 10;
         self.shareData.currHeight  = _currHeight;
         
-        NSArray *smallArray = [self.dataArr subarrayWithRange:NSMakeRange(0, 20)];
-        [self getPeakWithArray:smallArray];
+        
         
         [self drawBackLine];
         
@@ -236,6 +236,30 @@ UIGestureRecognizerDelegate>
     }
     return self;
 }
+#pragma mark ---------- 假数据 ----------
+-(void) sp_testReloadData {
+    
+    NSString * path =[[NSBundle mainBundle]pathForResource:@"stockData.plist" ofType:nil];
+    NSArray * sourceArray = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
+    self.dataArr = [CCLKLineData mj_objectArrayWithKeyValuesArray:sourceArray];
+    NSLog(@"%@",self.dataArr);
+    
+    NSArray *smallArray = [self.dataArr subarrayWithRange:NSMakeRange(0, 20)];
+    
+    [self getPeakWithArray:smallArray];
+    
+    [self reloadData];
+}
+
+-(void) sp_reloadData {
+    
+    //NSArray *smallArray = [self.dataArr subarrayWithRange:NSMakeRange(0, 20)];
+    
+    //[self getPeakWithArray:smallArray];
+    
+    [self reloadData];
+}
+
 #pragma mark -  长按手势
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
@@ -534,7 +558,9 @@ UIGestureRecognizerDelegate>
 }
 
 - (void)drawBackLine{
-    
+    [self.backLine setLineDashPattern:
+     [NSArray arrayWithObjects:[NSNumber numberWithInt:3],
+      [NSNumber numberWithInt:3],nil]];
     UIBezierPath *path_mid = [[UIBezierPath alloc] init];
     [path_mid moveToPoint:CGPointMake(self.shareData.aboveWidth * 0.5, self.contentOffset.y)];
     [path_mid addLineToPoint:CGPointMake(self.shareData.aboveWidth * 0.5, self.contentOffset.y + self.bounds.size.height)];
@@ -566,7 +592,7 @@ UIGestureRecognizerDelegate>
     [self.markTextLayer setAffineTransform:transform];
     
     
-    CGRect frame = CGRectMake(0, self.contentOffset.y + self.bounds.size.height - 30, 13, 30);
+    CGRect frame = CGRectMake(0, self.contentOffset.y + self.bounds.size.height - 30, 0, 0);
     
     [CATransaction begin];
     [CATransaction setDisableActions:YES];

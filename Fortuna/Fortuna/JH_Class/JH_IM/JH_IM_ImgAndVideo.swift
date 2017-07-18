@@ -175,6 +175,7 @@ extension JH_IM {
         var model = SP_IM_TabModel()
         model.type = .tImage
         model.loadingImage = UIImage(data: data)
+        model.userLogo = SP_UserModel.read().imgUrl
         model.isMe = true
         model.isLoading = true
         model.create_at = String(format: "%.0f", Date().timeIntervalSince1970*1000)
@@ -230,6 +231,7 @@ extension JH_IM {
         let imgPath:String = "file://"+SP_ToolOC.imagePath(forVideo: videoUrl!)
         model.videoImg = "HuanChong"
         model.content = videoUrl!.absoluteString
+        model.userLogo = SP_UserModel.read().imgUrl
         model.type = .tVideo
         model.isMe = true
         model.isLoading = true
@@ -293,6 +295,7 @@ extension JH_IM {
             model.content[0..<7] = ""
         }
         model.videoImg = time
+        model.userLogo = SP_UserModel.read().imgUrl
         model.type = .tVoice
         model.isMe = true
         model.isLoading = true

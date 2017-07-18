@@ -17,8 +17,7 @@ UITableViewDataSource,
 UIGestureRecognizerDelegate>
 
 
-// 展示数据
-@property (nonatomic, strong) NSArray *dataArr;
+
 
 /**
  * 成交量
@@ -44,6 +43,7 @@ UIGestureRecognizerDelegate>
 
 @implementation CCLKLineBelowView
 
+//成交量
 - (CATextLayer *)markTextLayer{
     if (_markTextLayer == nil) {
         _markTextLayer = [CATextLayer layer];
@@ -53,12 +53,12 @@ UIGestureRecognizerDelegate>
         _markTextLayer.fontSize = 9.f; //字体的大小
         _markTextLayer.contentsScale = [UIScreen mainScreen].scale;
         
-        NSString *text = @"成交量";
+        NSString *text = @"";
         _markTextLayer.string = text;
         // 计算高度
         UIFont *font = [UIFont systemFontOfSize:9];
         CGSize textSize = [text sizeWithFont:font];
-        _markTextLayer.bounds = CGRectMake(0, 0, 30, 20);
+        _markTextLayer.bounds = CGRectMake(0, 0, 0, 20);
 
     }
     return _markTextLayer;
@@ -94,12 +94,9 @@ UIGestureRecognizerDelegate>
         
         self.delegate = self;
         self.dataSource = self;
-        
-        
-        NSString * path =[[NSBundle mainBundle]pathForResource:@"stockData.plist" ofType:nil];
-        NSArray * sourceArray = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
-        self.dataArr = [CCLKLineData mj_objectArrayWithKeyValuesArray:sourceArray];
-        NSLog(@"%@",self.dataArr);
+        self.dataArr = [[NSMutableArray alloc] init];
+        /*
+        */
         [self registerClass:[CCLKLineBelowCell class] forCellReuseIdentifier:@"CCLKLineBelowCell"];
         
 //        _lastHeight = 10;
@@ -126,7 +123,21 @@ UIGestureRecognizerDelegate>
     }
     return self;
 }
+#pragma mark ---------- 假数据 ----------
+-(void) sp_testReloadData {
+    
+    NSString * path =[[NSBundle mainBundle]pathForResource:@"stockData.plist" ofType:nil];
+    NSArray * sourceArray = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
+    self.dataArr = [CCLKLineData mj_objectArrayWithKeyValuesArray:sourceArray];
+    NSLog(@"%@",self.dataArr);
+    
+    [self reloadData];
+}
 
+-(void) sp_reloadData {
+    
+    [self reloadData];
+}
 #pragma mark -  长按手势
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {

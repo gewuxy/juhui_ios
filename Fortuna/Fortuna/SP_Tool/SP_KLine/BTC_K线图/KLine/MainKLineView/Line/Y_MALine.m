@@ -41,7 +41,7 @@
     }
     
     
-    UIColor *lineColor = self.MAType == Y_MA7Type ? [UIColor ma7Color] : (self.MAType == Y_MA30Type ? [UIColor ma30Color] : [UIColor mainTextColor]);
+    UIColor *lineColor = self.MAType == Y_MA7Type ? [UIColor ma7Color] : (self.MAType == Y_MA30Type ? [UIColor ma30Color] : [UIColor timeLineLineColor]);
     
     CGContextSetStrokeColorWithColor(self.context, lineColor.CGColor);
     

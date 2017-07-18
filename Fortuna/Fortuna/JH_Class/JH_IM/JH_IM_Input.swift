@@ -93,6 +93,7 @@ extension JH_IM {
             guard !self._inputView.text_View.text.isEmpty else {return}
             var model = SP_IM_TabModel()
             model.content = self._inputView.text_View.text
+            model.userLogo = SP_UserModel.read().imgUrl
             model.type = .tText
             model.isMe = true
             model.isLoading = true

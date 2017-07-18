@@ -200,7 +200,7 @@ extension JH_Attention:UITableViewDataSource{
         let model = _datas[indexPath.row]
         cell.lab_name.text = model.name
         cell.lab_code.text = model.code
-        cell.lab_price.text = model.proposedPrice
+        cell.lab_price.text = model.last_price
         cell.lab_range.text = model.quoteChange
         cell.lab_range.textColor = model.quoteChange.hasPrefix("-") ? UIColor.mainText_5 : UIColor.mainText_4
         return cell

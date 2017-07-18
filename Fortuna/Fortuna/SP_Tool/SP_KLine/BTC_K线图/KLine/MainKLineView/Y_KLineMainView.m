@@ -52,6 +52,10 @@
  *  MA30位置数组
  */
 @property (nonatomic, strong) NSMutableArray *MA30Positions;
+/**
+ *  添加一个圆点动画
+ */
+@property (nonatomic,strong)CALayer * breathingPoint;
 
 @end
 
@@ -89,19 +93,40 @@
         return;
     }
     
+    
     //设置View的背景颜色
     NSMutableArray *kLineColors = @[].mutableCopy;
     CGContextClearRect(context, rect);
     CGContextSetFillColorWithColor(context, [UIColor backgroundColor].CGColor);
     CGContextFillRect(context, rect);
     
+    //1.获取上下文
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    //2.描述路径
+    UIBezierPath * path = [UIBezierPath bezierPath];
+    //起点
+    [path moveToPoint:CGPointMake(0, 0)];
+    //第二个点
+    [path addLineToPoint:CGPointMake(self.frame.size.width, 0)];
+    //第三个点
+    [path addLineToPoint:CGPointMake(self.frame.size.width, Y_StockChartKLineMainViewMaxY)];
+    //第四个点
+    [path addLineToPoint:CGPointMake(0, Y_StockChartKLineMainViewMaxY)];
+    //闭合路径 也等于 [path addLineToPoint:CGPointMake(10, 10)];
+    [path closePath];
+    //设置颜色
+    [[UIColor borderLineColor]setStroke];
+    //3.添加路径
+    CGContextAddPath(contextRef, path.CGPath);
+    //显示路径
+    CGContextStrokePath(contextRef);
+    
+    
     //设置显示日期的区域背景颜色
     CGContextSetFillColorWithColor(context, [UIColor assistBackgroundColor].CGColor);
     CGContextFillRect(context, CGRectMake(0, Y_StockChartKLineMainViewMaxY, self.frame.size.width, self.frame.size.height - Y_StockChartKLineMainViewMaxY));
     
-    
-
-    
+     
     
     Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
     
@@ -109,24 +134,38 @@
     {
         Y_KLine *kLine = [[Y_KLine alloc]initWithContext:context];
         kLine.maxY = Y_StockChartKLineMainViewMaxY;
-
+        __block NSMutableArray *positions = @[].mutableCopy;
+        
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull kLinePositionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             kLine.kLinePositionModel = kLinePositionModel;
             kLine.kLineModel = self.needDrawKLineModels[idx];
             UIColor *kLineColor = [kLine draw];
             [kLineColors addObject:kLineColor];
+            
+            //[positions addObject:[NSValue valueWithCGPoint:kLinePositionModel.ClosePoint]];
         }];
+        //MALine.MAPositions = positions;
+        //MALine.MAType = -1;
+        //[MALine draw];
+        self.breathingPoint.hidden = YES;
     } else {
         __block NSMutableArray *positions = @[].mutableCopy;
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             UIColor *strokeColor = positionModel.OpenPoint.y < positionModel.ClosePoint.y ? [UIColor increaseColor] : [UIColor decreaseColor];
             [kLineColors addObject:strokeColor];
             [positions addObject:[NSValue valueWithCGPoint:positionModel.ClosePoint]];
+            
+            if (idx == self.needDrawKLinePositionModels.count-1) {
+                
+            }
         }];
         MALine.MAPositions = positions;
         MALine.MAType = -1;
         [MALine draw];
-//
+        self.breathingPoint.hidden = NO;
+        self.breathingPoint.frame = CGRectMake([positions.lastObject CGPointValue].x-2, [positions.lastObject CGPointValue].y-2,4,4);
+        
+
         __block CGPoint lastDrawDatePoint = CGPointZero;//fix
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -148,7 +187,7 @@
         }];
     }
     
-    if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
+    if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA && self.MainViewType == Y_StockChartcenterViewTypeKline){
         //画MA7线
         MALine.MAType = Y_MA7Type;
         MALine.MAPositions = self.MA7Positions;
@@ -168,6 +207,51 @@
             [self.delegate kLineMainViewCurrentNeedDrawKLineColors:kLineColors];
         }
     }
+}
+
+- (CALayer *)breathingPoint
+{
+    if (!_breathingPoint) {
+        _breathingPoint = [CAScrollLayer layer];
+        [self.layer addSublayer:_breathingPoint];
+        _breathingPoint.backgroundColor = [UIColor whiteColor].CGColor;
+        _breathingPoint.cornerRadius = 2;
+        _breathingPoint.masksToBounds = YES;
+        _breathingPoint.borderWidth = 1;
+        _breathingPoint.borderColor = [[UIColor timeLineLineColor] CGColor];
+        
+        [_breathingPoint addAnimation:[self groupAnimationDurTimes:1.5f] forKey:@"breathingPoint"];
+    }
+    return _breathingPoint;
+}
+-(CABasicAnimation *)breathingLight:(float)time
+{
+    CABasicAnimation *animation =[CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.fromValue = [NSNumber numberWithFloat:1.0f];
+    animation.toValue = [NSNumber numberWithFloat:0.3f];//这是透明度。
+    animation.autoreverses = YES;
+    animation.duration = time;
+    animation.repeatCount = MAXFLOAT;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    animation.timingFunction= [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    return animation;
+}
+-(CAAnimationGroup *)groupAnimationDurTimes:(float)time;
+{
+    CABasicAnimation *scaleAnim = [CABasicAnimation animationWithKeyPath:@"transform"];
+    scaleAnim.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+    scaleAnim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.8, 0.8, 1.0)];
+    scaleAnim.removedOnCompletion = NO;
+    
+    NSArray * array = @[[self breathingLight:time],scaleAnim];
+    CAAnimationGroup *animation=[CAAnimationGroup animation];
+    animation.animations= array;
+    animation.duration=time;
+    animation.repeatCount=MAXFLOAT;
+    animation.removedOnCompletion=NO;
+    animation.fillMode=kCAFillModeForwards;
+    return animation;
 }
 
 #pragma mark - 公有方法
@@ -223,7 +307,7 @@
 /**
  *  长按的时候根据原始的x位置获得精确的x的位置
  */
-- (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition
+- (CGPoint)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition
 {
     CGFloat xPositoinInMainView = originXPosition;
     NSInteger startIndex = (NSInteger)((xPositoinInMainView - self.startXPosition) / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
@@ -240,11 +324,11 @@
             {
                 [self.delegate kLineMainViewLongPressKLinePositionModel:self.needDrawKLinePositionModels[index] kLineModel:self.needDrawKLineModels[index]];
             }
-            return kLinePositionModel.HighPoint.x;
+            return kLinePositionModel.HighPoint;
         }
 
     }
-    return 0.f;
+    return CGPointMake(0.f, 0.f);
 }
 
 #pragma mark 私有方法

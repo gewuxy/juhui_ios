@@ -8,6 +8,11 @@
 
 import Foundation
 
+fileprivate let um_default_shareTitle = "巨汇金融"
+fileprivate let um_default_shareText  = "点击查看详情"
+fileprivate let um_default_shareImage = "HuanChong"
+fileprivate let um_default_shareURL   = key_APPStoree
+
 //弹窗类型
 enum UM_viewType {
     case tDefault
@@ -32,10 +37,7 @@ open class SP_UMShare {
         return self.sharedInstance
     }
     
-    fileprivate let default_shareTitle = "玩车乐园"
-    fileprivate let default_shareText  = "玩车乐园"
-    fileprivate let default_shareImage = "HuanChong"
-    fileprivate let default_shareURL   = key_APPStoree
+    
     
     //创建分享消息对象
     fileprivate lazy var messageObject      = UMSocialMessageObject()
@@ -55,10 +57,10 @@ open class SP_UMShare {
             return
         }
         
-        let shareImage2 = UIImage(named:shareImage.isEmpty ? default_shareImage : shareImage)
-        let shareURL2 = shareURL.isEmpty ? default_shareURL : shareURL
-        let shareTitle2 = shareTitle.isEmpty ? default_shareTitle : shareTitle
-        let shareText2 = shareText.isEmpty ? default_shareText : shareText
+        let shareImage2 = UIImage(named:shareImage.isEmpty ? um_default_shareImage : shareImage)
+        let shareURL2 = shareURL.isEmpty ? um_default_shareURL : shareURL
+        let shareTitle2 = shareTitle.isEmpty ? um_default_shareTitle : shareTitle
+        let shareText2 = shareText.isEmpty ? um_default_shareText : shareText
         
         // --- 分享类型
         switch shareType {
@@ -66,7 +68,7 @@ open class SP_UMShare {
             messageObject.text = shareText
         case .image:
             //如果有缩略图，则设置缩略图
-            shareImageObject.thumbImage = UIImage(named: default_shareImage)
+            shareImageObject.thumbImage = UIImage(named: um_default_shareImage)
             shareImageObject.shareImage = shareImage2
             //分享消息对象设置分享内容对象
             messageObject.shareObject = shareImageObject;
@@ -74,7 +76,7 @@ open class SP_UMShare {
             //设置文本
             messageObject.text = shareText
             //如果有缩略图，则设置缩略图
-            shareImageObject.thumbImage = UIImage(named: default_shareImage)
+            shareImageObject.thumbImage = UIImage(named: um_default_shareImage)
             shareImageObject.shareImage = shareImage2
             //分享消息对象设置分享内容对象
             messageObject.shareObject = shareImageObject
@@ -86,7 +88,7 @@ open class SP_UMShare {
             messageObject.shareObject = shareWebpageObject
         case .music:
             //创建音乐内容对象
-            shareMusicObject = UMShareMusicObject.shareObject(withTitle: default_shareTitle, descr: shareText2, thumImage: shareImage)
+            shareMusicObject = UMShareMusicObject.shareObject(withTitle: um_default_shareTitle, descr: shareText2, thumImage: shareImage)
             //设置音乐网页播放地址
             shareMusicObject.musicUrl = shareURL2
             //shareObject.musicDataUrl = @"这里设置音乐数据流地址（如果有的话，而且也要看所分享的平台支不支持）";
@@ -94,7 +96,7 @@ open class SP_UMShare {
             messageObject.shareObject = shareMusicObject;
         case .vedio:
             //创建视频内容对象
-            shareVideoObject = UMShareVideoObject.shareObject(withTitle: default_shareTitle, descr: shareText2, thumImage: shareImage2)
+            shareVideoObject = UMShareVideoObject.shareObject(withTitle: um_default_shareTitle, descr: shareText2, thumImage: shareImage2)
             //设置视频网页播放地址
             shareVideoObject.videoUrl = shareURL2
             //shareObject.videoStreamUrl = @"这里设置视频数据流地址（如果有的话，而且也要看所分享的平台支不支持）";

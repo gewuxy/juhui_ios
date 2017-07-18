@@ -72,10 +72,15 @@
 @property (nonatomic, strong) Y_AccessoryMAView *accessoryMAView;
 
 /**
- *  长按后显示的View
+ *  长按后显示的View 竖线和横线
  */
-@property (nonatomic, strong) UIView *verticalView;
+@property (nonatomic, strong) UIView * verticalView;
+@property (nonatomic, strong) UIView * horizontalView;
 
+/**
+ * 中间分割线
+ */
+@property (nonatomic, strong) CAShapeLayer *midSeg;
 
 @property (nonatomic, strong) MASConstraint *kLineMainViewHeightConstraint;
 
@@ -96,10 +101,11 @@
     if(self) {
         self.mainViewRatio = [Y_StockChartGlobalVariable kLineMainViewRadio];
         self.volumeViewRatio = [Y_StockChartGlobalVariable kLineVolumeViewRadio];
+        
     }
     return self;
 }
-
+#pragma mark ---------- scrollView 做底 ----------
 - (UIScrollView *)scrollView
 {
     if(!_scrollView)
@@ -112,7 +118,7 @@
 //        _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.delegate = self;
         _scrollView.bounces = NO;
-        //_scrollView.backgroundColor = [UIColor redColor];
+        
         //缩放手势
         UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(event_pichMethod:)];
         [_scrollView addGestureRecognizer:pinchGesture];
@@ -125,7 +131,7 @@
         
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
-            make.right.equalTo(self).offset(-0);
+            make.right.equalTo(self).offset(0);
             make.left.equalTo(self.mas_left);
             make.bottom.equalTo(self.mas_bottom);
         }];
@@ -134,57 +140,60 @@
     }
     return _scrollView;
 }
-
+#pragma mark ---------- 分时 K线 图 数据描述栏 ----------
 - (Y_KLineMAView *)kLineMAView
 {
     if (!_kLineMAView) {
         _kLineMAView = [Y_KLineMAView view];
+        _kLineMAView.backgroundColor = [UIColor redColor];
         [self addSubview:_kLineMAView];
         [_kLineMAView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self);
             make.left.equalTo(self);
-            make.top.equalTo(self).offset(5);
-            make.height.equalTo(@0);
+            make.top.equalTo(self).offset(0);
+            make.height.equalTo(@(Y_StockChartViewKLineMAViewHeight));
         }];
     }
     return _kLineMAView;
 }
-
+#pragma mark ---------- 成交量 图  数据描述栏  ----------
 - (Y_VolumeMAView *)volumeMAView
 {
     if (!_volumeMAView) {
         _volumeMAView = [Y_VolumeMAView view];
+        _volumeMAView.backgroundColor = [UIColor redColor];
         [self addSubview:_volumeMAView];
         [_volumeMAView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self);
             make.left.equalTo(self);
             make.top.equalTo(self.kLineVolumeView.mas_top);
-            make.height.equalTo(@0);
+            make.height.equalTo(@(Y_StockChartViewVolumeMAViewHeight));
         }];
     }
     return _volumeMAView;
 }
-
+#pragma mark ---------- 副图  数据描述栏  ----------
 - (Y_AccessoryMAView *)accessoryMAView
 {
     if(!_accessoryMAView) {
         _accessoryMAView = [Y_AccessoryMAView new];
+        _accessoryMAView.backgroundColor = [UIColor redColor];
         [self addSubview:_accessoryMAView];
         [_accessoryMAView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self);
             make.left.equalTo(self);
             make.top.equalTo(self.kLineAccessoryView.mas_top);
-            make.height.equalTo(@0);
+            make.height.equalTo(@(Y_StockChartViewAccessoryMAViewHeight));
         }];
     }
     return _accessoryMAView;
 }
-#pragma mark ---------- 主图 ----------
-
+#pragma mark ---------- 分时 K线 图 ----------
 - (Y_KLineMainView *)kLineMainView
 {
     if (!_kLineMainView && self) {
         _kLineMainView = [Y_KLineMainView new];
+        _kLineMainView.backgroundColor = [UIColor blueColor];
         _kLineMainView.delegate = self;
         [self.scrollView addSubview:_kLineMainView];
         [_kLineMainView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -201,13 +210,15 @@
     self.accessoryView.backgroundColor = [UIColor clearColor];
     return _kLineMainView;
 }
-#pragma mark ---------- 柱状图 ----------
+#pragma mark ---------- 成交量 图 ----------
 - (Y_KLineVolumeView *)kLineVolumeView
 {
     if(!_kLineVolumeView && self)
     {
         _kLineVolumeView = [Y_KLineVolumeView new];
         _kLineVolumeView.delegate = self;
+        _kLineVolumeView.layer.borderColor = [[UIColor borderLineColor] CGColor];
+        _kLineVolumeView.layer.borderWidth = 0.5;
         [self.scrollView addSubview:_kLineVolumeView];
         [_kLineVolumeView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.kLineMainView);
@@ -219,7 +230,7 @@
     }
     return _kLineVolumeView;
 }
-
+#pragma mark ---------- 底部 副图  ----------
 - (Y_KLineAccessoryView *)kLineAccessoryView
 {
     if(!_kLineAccessoryView && self)
@@ -229,15 +240,15 @@
         [self.scrollView addSubview:_kLineAccessoryView];
         [_kLineAccessoryView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.kLineVolumeView);
-            make.top.equalTo(self.kLineVolumeView.mas_bottom).offset(0);
+            make.top.equalTo(self.kLineVolumeView.mas_bottom).offset(Y_StockChartViewAccessoryMAViewHeight);
             make.width.equalTo(self.kLineVolumeView.mas_width);
-            make.height.equalTo(self.scrollView.mas_height).multipliedBy(0.0);
+            make.height.equalTo(self.scrollView.mas_height).multipliedBy(Y_StockChartKLineVolumeViewRadioOpenMACD);
         }];
         [self layoutIfNeeded];
     }
     return _kLineAccessoryView;
 }
-
+#pragma mark ---------- 右侧 价格图  ----------
 - (Y_StockChartRightYView *)priceView
 {
     if(!_priceView)
@@ -245,15 +256,15 @@
         _priceView = [Y_StockChartRightYView new];
         [self insertSubview:_priceView aboveSubview:self.scrollView];
         [_priceView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(0);
+            make.top.equalTo(self).offset(Y_StockChartViewKLineMAViewHeight);
             make.right.equalTo(self.mas_right);
             make.width.equalTo(@(Y_StockChartKLinePriceViewWidth));
-            make.bottom.equalTo(self.kLineMainView.mas_bottom).offset(-0);
+            make.bottom.equalTo(self.kLineMainView.mas_bottom).offset(-15);
         }];
     }
     return _priceView;
 }
-
+#pragma mark ---------- 右侧 成交量图  ----------
 - (Y_StockChartRightYView *)volumeView
 {
     if(!_volumeView)
@@ -261,15 +272,18 @@
         _volumeView = [Y_StockChartRightYView new];
         [self insertSubview:_volumeView aboveSubview:self.scrollView];
         [_volumeView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.kLineVolumeView.mas_top).offset(10);
+            make.top.equalTo(self.kLineVolumeView.mas_top).offset(0);
             make.right.width.equalTo(self.priceView);
 //            make.height.equalTo(self).multipliedBy(self.volumeViewRatio);
             make.bottom.equalTo(self.kLineVolumeView);
         }];
+        _volumeView.middleValueLabel.hidden = YES;
+        _volumeView.minValueLabel.hidden = YES;
+        
     }
     return _volumeView;
 }
-
+#pragma mark ---------- 右侧 幅图图  ----------
 - (Y_StockChartRightYView *)accessoryView
 {
     if(!_accessoryView)
@@ -284,6 +298,33 @@
     }
     return _accessoryView;
 }
+#pragma mark ---------- 中间 分割线 ----------
+
+- (CAShapeLayer *)midSeg{
+    if (_midSeg == nil) {
+        _midSeg = [CAShapeLayer layer];
+        _midSeg.lineWidth = 0.5;
+        _midSeg.lineJoin = kCALineJoinRound;
+        _midSeg.lineCap = kCALineCapRound;
+        _midSeg.strokeColor = [UIColor assistTextColor].CGColor;
+        [self.layer addSublayer:_midSeg];
+    }
+    return _midSeg;
+}
+- (void)drawBackLine{
+    
+    // 中间线
+    [self.midSeg setLineDashPattern:
+     [NSArray arrayWithObjects:[NSNumber numberWithInt:2],
+      [NSNumber numberWithInt:2],nil]];
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, 0, (self.kLineMainView.bounds.size.height - (self.bounds.size.height-Y_StockChartKLineMainViewMaxY)) * 0.5);
+    CGPathAddLineToPoint(path, NULL, self.bounds.size.width, (self.kLineMainView.bounds.size.height - (self.bounds.size.height-Y_StockChartKLineMainViewMaxY)) * 0.5);
+    [self.midSeg setPath:path];
+    CGPathRelease(path);
+}
+
 #pragma mark - set方法
 
 #pragma mark kLineModels设置方法
@@ -317,12 +358,12 @@
     {
         if(targetLineStatus == Y_StockChartTargetLineStatusAccessoryClose){
             
-            [Y_StockChartGlobalVariable setkLineMainViewRadio:0.65];
-            [Y_StockChartGlobalVariable setkLineVolumeViewRadio:0.28];
+            [Y_StockChartGlobalVariable setkLineMainViewRadio:Y_StockChartKLineMainViewRadioCloseMACD];
+            [Y_StockChartGlobalVariable setkLineVolumeViewRadio:Y_StockChartKLineVolumeViewRadioCloseMACD];
 
         } else {
-            [Y_StockChartGlobalVariable setkLineMainViewRadio:0.5];
-            [Y_StockChartGlobalVariable setkLineVolumeViewRadio:0.2];
+            [Y_StockChartGlobalVariable setkLineMainViewRadio:Y_StockChartKLineMainViewRadioOpenMACD];
+            [Y_StockChartGlobalVariable setkLineVolumeViewRadio:Y_StockChartKLineVolumeViewRadioOpenMACD];
 
         }
         
@@ -392,20 +433,43 @@
             [self.scrollView addSubview:self.verticalView];
             self.verticalView.backgroundColor = [UIColor longPressLineColor];
             [self.verticalView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self).offset(15);
+                make.top.equalTo(self).offset(0);
                 make.width.equalTo(@(Y_StockChartLongPressVerticalViewWidth));
                 make.height.equalTo(self.scrollView.mas_height);
                 make.left.equalTo(@(-10));
             }];
         }
+        //初始化横线
+        if(!self.horizontalView)
+        {
+            self.horizontalView = [UIView new];
+            self.horizontalView.clipsToBounds = YES;
+            [self.scrollView addSubview:self.horizontalView];
+            self.horizontalView.backgroundColor = [UIColor longPressLineColor];
+            [self.horizontalView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self).offset(0);
+                make.height.equalTo(@(Y_StockChartLongPressVerticalViewWidth));
+                make.width.equalTo(self.scrollView.mas_width);
+                make.top.equalTo(@(10));
+            }];
+        }
+        
         
         //更新竖线位置
-        CGFloat rightXPosition = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x];
+        CGFloat rightXPosition = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x].x;
         [self.verticalView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(@(rightXPosition));
         }];
         [self.verticalView layoutIfNeeded];
         self.verticalView.hidden = NO;
+        
+        //更新横线位置
+        CGFloat leftXPosition = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x].y;
+        [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@(leftXPosition));
+        }];
+        [self.horizontalView layoutIfNeeded];
+        self.horizontalView.hidden = NO;
     }
     
     if(longPress.state == UIGestureRecognizerStateEnded)
@@ -414,6 +478,11 @@
         if(self.verticalView)
         {
             self.verticalView.hidden = YES;
+        }
+        //取消横线
+        if(self.horizontalView)
+        {
+            self.horizontalView.hidden = YES;
         }
         oldPositionX = 0;
         //恢复scrollView的滑动
@@ -435,6 +504,8 @@
         self.kLineMainView.targetLineStatus = self.targetLineStatus;
     }
     [self.kLineMainView drawMainView];
+    
+    [self drawBackLine];
 }
 
 

@@ -20,7 +20,6 @@
     //设置数据
     for (NSArray *valueArr in arr)
     {
-        //NSLog(@"valueArr==>%@",valueArr);
         Y_KLineModel *model = [Y_KLineModel new];
         model.PreviousKlineModel = preModel;
         [model initWithArray:valueArr];

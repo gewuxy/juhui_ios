@@ -152,8 +152,14 @@
 - (CAShapeLayer *)markLayer{
     if (_markLayer == nil) {
         _markLayer = [CAShapeLayer layer];
-        _markLayer.strokeColor = [UIColor grayColor].CGColor;
         _markLayer.lineWidth = 0.5;
+        _markLayer.lineJoin = kCALineJoinRound;
+        _markLayer.lineCap = kCALineCapRound;
+        _markLayer.strokeColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
+        [_markLayer setLineDashPattern:
+         [NSArray arrayWithObjects:[NSNumber numberWithInt:3],
+          [NSNumber numberWithInt:3],nil]];
+        
     }
     return _markLayer;
 }
@@ -164,7 +170,7 @@
     
     if (_avg_5_up == nil) {
         _avg_5_up = [CAShapeLayer layer];
-        _avg_5_up.strokeColor = [UIColor blueColor].CGColor;
+        _avg_5_up.strokeColor = [UIColor clearColor].CGColor;
         _avg_5_up.lineWidth = 1;
         _avg_5_up.lineJoin = kCALineJoinRound;
         _avg_5_up.lineCap = kCALineCapRound;
@@ -176,7 +182,7 @@
     
     if (_avg_5_down == nil) {
         _avg_5_down = [CAShapeLayer layer];
-        _avg_5_down.strokeColor = [UIColor blueColor].CGColor;
+        _avg_5_down.strokeColor = [UIColor clearColor].CGColor;
         _avg_5_down.lineWidth = 1;
         _avg_5_down.lineJoin = kCALineJoinRound;
         _avg_5_down.lineCap = kCALineCapRound;
@@ -188,7 +194,7 @@
     
     if (_avg_10_up == nil) {
         _avg_10_up = [CAShapeLayer layer];
-        _avg_10_up.strokeColor = [UIColor orangeColor].CGColor;
+        _avg_10_up.strokeColor = [UIColor clearColor].CGColor;
         _avg_10_up.lineWidth = 1;
         _avg_10_up.lineJoin = kCALineJoinRound;
         _avg_10_up.lineCap = kCALineCapRound;
@@ -200,7 +206,7 @@
     
     if (_avg_10_down == nil) {
         _avg_10_down = [CAShapeLayer layer];
-        _avg_10_down.strokeColor = [UIColor orangeColor].CGColor;
+        _avg_10_down.strokeColor = [UIColor clearColor].CGColor;
         _avg_10_down.lineWidth = 1;
         _avg_10_down.lineJoin = kCALineJoinRound;
         _avg_10_down.lineCap = kCALineCapRound;
@@ -212,7 +218,7 @@
     
     if (_avg_20_up == nil) {
         _avg_20_up = [CAShapeLayer layer];
-        _avg_20_up.strokeColor = [UIColor purpleColor].CGColor;
+        _avg_20_up.strokeColor = [UIColor clearColor].CGColor;
         _avg_20_up.lineWidth = 1;
         _avg_20_up.lineJoin = kCALineJoinRound;
         _avg_20_up.lineCap = kCALineCapRound;
@@ -224,7 +230,7 @@
     
     if (_avg_20_down == nil) {
         _avg_20_down = [CAShapeLayer layer];
-        _avg_20_down.strokeColor = [UIColor purpleColor].CGColor;
+        _avg_20_down.strokeColor = [UIColor clearColor].CGColor;
         _avg_20_down.lineWidth = 1;
         _avg_20_down.lineJoin = kCALineJoinRound;
         _avg_20_down.lineCap = kCALineCapRound;

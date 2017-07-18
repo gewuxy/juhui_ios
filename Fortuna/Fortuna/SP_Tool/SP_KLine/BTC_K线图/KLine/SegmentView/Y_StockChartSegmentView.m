@@ -18,13 +18,7 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
 
 @interface Y_StockChartSegmentView()
 
-@property (nonatomic, strong) UIButton *selectedBtn;
 
-@property (nonatomic, strong) UIView *indicatorView;
-
-@property (nonatomic, strong) UIButton *secondLevelSelectedBtn1;
-
-@property (nonatomic, strong) UIButton *secondLevelSelectedBtn2;
 
 @end
 
@@ -57,12 +51,13 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
         _indicatorView = [UIView new];
         _indicatorView.backgroundColor = [UIColor assistBackgroundColor];
         
-        NSArray *titleArr = @[@"关闭",@"MACD",@"KDJ",@"关闭",@"MA",@"EMA"];
+        NSArray *titleArr = @[@"MACD",@"KDJ",@"关闭",@"MA",@"EMA",@"关闭"];
         __block UIButton *preBtn;
+        //创建按钮
         [titleArr enumerateObjectsUsingBlock:^(NSString*  _Nonnull title, NSUInteger idx, BOOL * _Nonnull stop) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setTitleColor:[UIColor mainTextColor] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor ma30Color] forState:UIControlStateSelected];
+            [btn setTitleColor:[UIColor assistTextColor] forState:UIControlStateSelected];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
             btn.tag = Y_StockChartSegmentStartTag + 100 + idx;
             [btn addTarget:self action:@selector(event_segmentButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,10 +86,11 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
             }];
             preBtn = btn;
         }];
-        UIButton *firstBtn = _indicatorView.subviews[0];
+        //默认选中关闭按钮
+        UIButton *firstBtn = _indicatorView.subviews[4];
         [firstBtn setSelected:YES];
         _secondLevelSelectedBtn1 = firstBtn;
-        UIButton *firstBtn2 = _indicatorView.subviews[6];
+        UIButton *firstBtn2 = _indicatorView.subviews[10];
         [firstBtn2 setSelected:YES];
         _secondLevelSelectedBtn2 = firstBtn2;
         [self addSubview:_indicatorView];
@@ -104,6 +100,10 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
             make.width.equalTo(self);
             make.right.equalTo(self.mas_left);
         }];
+        
+        
+        //[self event_segmentButtonClicked:_secondLevelSelectedBtn1];
+        //[self event_segmentButtonClicked:_secondLevelSelectedBtn2];
     }
     return _indicatorView;
 }
@@ -218,7 +218,7 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitleColor:[UIColor mainTextColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor ma30Color] forState:UIControlStateSelected];
+    [btn setTitleColor:[UIColor assistTextColor] forState:UIControlStateSelected];
     btn.titleLabel.font = [UIFont systemFontOfSize:13];
     btn.tag = tag;
     [btn addTarget:self action:@selector(event_segmentButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -230,7 +230,7 @@ static NSInteger const Y_StockChartSegmentStartTag = 2000;
 - (void)event_segmentButtonClicked:(UIButton *)btn
 {
     self.selectedBtn = btn;
-    NSLog(@"%ld",(long)btn.tag);
+    NSLog(@"%d",btn.tag);
     if(btn.tag == Y_StockChartSegmentStartTag)
     {
         return;

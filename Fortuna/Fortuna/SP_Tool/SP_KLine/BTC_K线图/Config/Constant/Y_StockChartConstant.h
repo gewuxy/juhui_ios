@@ -20,7 +20,7 @@
 /**
  *  K线图Y的View的宽度
  */
-#define Y_StockChartKLinePriceViewWidth 0
+#define Y_StockChartKLinePriceViewWidth 47
 
 /**
  *  K线图的X的View的高度
@@ -73,7 +73,7 @@
 #define Y_StockChartTimeLineVolumeLineWidth 0.5
 
 /**
- *  长按时的线的宽度
+ *  长按时的线的宽度 高度
  */
 #define Y_StockChartLongPressVerticalViewWidth 0.5
 
@@ -92,9 +92,9 @@
 #define Y_StockChartProfileViewHeight 50
 
 /**
- *  K线图上可画区域最小的Y
+ *  K线图上可画区域最小的Y 分时线的顶部
  */
-#define Y_StockChartKLineMainViewMinY 20
+#define Y_StockChartKLineMainViewMinY 5
 
 /**
  *  K线图上可画区域最大的Y
@@ -104,7 +104,7 @@
 /**
  *  K线图的成交量上最小的Y
  */
-#define Y_StockChartKLineVolumeViewMinY 20
+#define Y_StockChartKLineVolumeViewMinY 5
 
 /**
  *  K线图的成交量最大的Y
@@ -114,7 +114,7 @@
 /**
  *  K线图的副图上最小的Y
  */
-#define Y_StockChartKLineAccessoryViewMinY 20
+#define Y_StockChartKLineAccessoryViewMinY 5
 
 /**
  *  K线图的副图最大的Y
@@ -163,6 +163,26 @@
  */
 #define Y_StockChartTimeLineVolumeViewMinX 0
 
+/**
+ * 选择器的宽度
+ */
+#define Y_StockChartViewSegmentViewWidth 0
+
+/**
+ * 分时 K线 图 数据描述栏
+ */
+#define Y_StockChartViewKLineMAViewHeight 0
+/**
+ * 成交量 图  数据描述栏
+ */
+#define Y_StockChartViewVolumeMAViewHeight 0
+/**
+ * 副图  数据描述栏
+ */
+#define Y_StockChartViewAccessoryMAViewHeight 0
+
+
+
 //Kline种类
 typedef NS_ENUM(NSInteger, Y_StockChartCenterViewType) {
     Y_StockChartcenterViewTypeKline= 1, //K线
@@ -173,12 +193,11 @@ typedef NS_ENUM(NSInteger, Y_StockChartCenterViewType) {
 
 //Accessory指标种类
 typedef NS_ENUM(NSInteger, Y_StockChartTargetLineStatus) {
-    Y_StockChartTargetLineStatusAccessoryClose = 100,    //关闭Accessory线
-    Y_StockChartTargetLineStatusMACD,    //MACD线
+    Y_StockChartTargetLineStatusMACD = 100,    //MACD线
     Y_StockChartTargetLineStatusKDJ,    //KDJ线
-    Y_StockChartTargetLineStatusCloseMA,  //MA关闭线
+    Y_StockChartTargetLineStatusAccessoryClose,    //关闭Accessory线
     Y_StockChartTargetLineStatusMA , //MA线
-    Y_StockChartTargetLineStatusEMA  //EMA线
-   
+    Y_StockChartTargetLineStatusEMA,  //EMA线
+    Y_StockChartTargetLineStatusCloseMA  //MA关闭线
 
 };

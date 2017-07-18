@@ -27,4 +27,14 @@
 
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
+@property (nonatomic, strong) UIButton *selectedBtn;
+
+@property (nonatomic, strong) UIView *indicatorView;
+
+@property (nonatomic, strong) UIButton *secondLevelSelectedBtn1;
+
+@property (nonatomic, strong) UIButton *secondLevelSelectedBtn2;
+
+- (void)event_segmentButtonClicked:(UIButton *)btn;
+
 @end

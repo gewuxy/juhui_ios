@@ -13,6 +13,8 @@ extension JH_IM {
     //MARK:--- SocketIO -----------------------------
     func makeSocketIO() {
         self.socket.on(clientEvent: .connect) { (data, ack) in
+            print_SP("//iOS客户端上线\(data)")
+            print_SP("//iOS客户端上线\(self.socket.socketURL)")
             //iOS客户端上线
             //self?.socket.emit("login", self!._followData.code)
         }
@@ -26,14 +28,17 @@ extension JH_IM {
         
         self.socket.on(clientEvent: .disconnect) { (data, ack) in
             //iOS客户端下线
+            print_SP("//iOS客户端下线\(data)")
+            print_SP("//iOS客户端下线\(self.socket.socketURL)")
         }
         
         self.socket.connect()
     }
-    //MARK:--- 发送文字信息 -----------------------------
+    //MARK:--- 发送信息 -----------------------------
     func sendMessage(_ model:SP_IM_TabModel) {
         print_SP(model.create_at)
-        let prama:[String:String] = ["user_id":SP_UserModel.read().userId,
+        let prama:[String:String] = ["code":_followData.code,
+                                     "user_id":SP_UserModel.read().userId,
                                      "mobile":SP_UserModel.read().mobile,
                                      "user_img_url":SP_UserModel.read().imgUrl,
                                      "nickname":SP_UserModel.read().nickname,
@@ -54,12 +59,15 @@ extension JH_IM {
         } catch {
             print(error)
         }*/
-        socket.emit(self._followData.code, prama)
+        print_SP("//iOS客户端发送消息\(self.socket.socketURL)")
+        //self.socket.emit(self._followData.code, prama)
+        
+        SP_Alamofire.post("http://39.108.142.204:8001/send_msg/", param: prama, block: { (isOk, res, error) in
+            print_Json("url_客户端发送消息=>\(JSON(res!))")
+            
+        })
     }
-    //MARK:--- 发送视频信息 -----------------------------
     
-    //MARK:--- 发送图片信息 -----------------------------
-    //MARK:--- 发送音频信息 -----------------------------
     
     
     //MARK:--- t_获取最近聊天记录 -----------------------------

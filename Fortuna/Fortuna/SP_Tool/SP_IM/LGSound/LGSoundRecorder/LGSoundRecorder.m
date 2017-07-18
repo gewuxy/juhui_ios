@@ -211,7 +211,7 @@
     if ([view isKindOfClass:[UIWindow class]]) {
         [view addSubview:_HUD];
     } else {
-        [view.window addSubview:_HUD];
+        [view addSubview:_HUD];
     }
     [_HUD show:YES];
 }

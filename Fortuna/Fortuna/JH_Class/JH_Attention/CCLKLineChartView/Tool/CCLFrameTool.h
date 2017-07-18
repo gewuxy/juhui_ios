@@ -6,6 +6,10 @@
 //  Copyright © 2016年 cclion.cc. All rights reserved.
 //
 
+
+#define DataCont 100
+
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 

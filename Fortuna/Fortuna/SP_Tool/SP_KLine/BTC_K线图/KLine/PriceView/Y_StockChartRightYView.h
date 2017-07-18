@@ -17,5 +17,10 @@
 
 @property(nonatomic,copy) NSString *minLabelText;
 
+@property(nonatomic,strong) UILabel *maxValueLabel;
+
+@property(nonatomic,strong) UILabel *middleValueLabel;
+
+@property(nonatomic,strong) UILabel *minValueLabel;
 
 @end

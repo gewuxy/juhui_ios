@@ -8,6 +8,88 @@
 
 import Foundation
 /*
+extension JH_AttentionDetailsCell_Charts:YKLineChartViewDelegate {
+    func makeYKLineChartView(_ array:[YKLineEntity]) {
+        let dataset = YKLineDataSet()
+        let arr:NSMutableArray = NSMutableArray(array: array)
+        dataset.data = arr
+        //经纬线
+        dataset.highlightLineColor = UIColor.main_btnNormal
+        dataset.highlightLineWidth = 0.7;
+        //涨
+        dataset.candleRiseColor = UIColor.red
+        //跌
+        dataset.candleFallColor = UIColor.green
+        dataset.avgLineWidth = 1
+        //        dataset.avgMA10Color = [UIColor colorWithRed:252/255.0 green:85/255.0 blue:198/255.0 alpha:1.0];
+        //        dataset.avgMA5Color = [UIColor colorWithRed:67/255.0 green:85/255.0 blue:109/255.0 alpha:1.0];
+        //        dataset.avgMA20Color = [UIColor colorWithRed:216/255.0 green:192/255.0 blue:44/255.0 alpha:1.0];
+        dataset.candleTopBottmLineWidth = 1
+        _ykLineChartView.setupChartOffset(withLeft: 5, top: 5, right: 5, bottom: 5)
+        _ykLineChartView.gridBackgroundColor = UIColor.white
+        
+        _ykLineChartView.borderColor = UIColor.main_string("#CBD7E0")
+        _ykLineChartView.borderWidth = 0.5;
+        _ykLineChartView.candleWidth = 8;
+        _ykLineChartView.candleMaxWidth = 30;
+        _ykLineChartView.candleMinWidth = 1;
+        _ykLineChartView.uperChartHeightScale = 0.7;
+        _ykLineChartView.xAxisHeitht = 25;
+        _ykLineChartView.delegate = self;
+        _ykLineChartView.highlightLineShowEnabled = true;
+        _ykLineChartView.zoomEnabled = true;
+        _ykLineChartView.scrollEnabled = true;
+        _ykLineChartView.setupData(dataset)
+    }
+    
+    func makeYKTimeLineView(_ array:[YKTimeLineEntity]) {
+        let dataset = YKTimeDataset()
+        let arr:NSMutableArray = NSMutableArray(array: array)
+        dataset.data = arr
+        dataset.avgLineCorlor = UIColor.main_string("#FDB308")
+        dataset.priceLineCorlor = UIColor.main_3
+        dataset.volumeTieColor = UIColor.main_1
+        dataset.volumeRiseColor = UIColor.main_1
+        dataset.volumeFallColor = UIColor.main_1
+        dataset.fillStartColor = UIColor.main_3
+        dataset.fillStopColor = UIColor.white
+        dataset.fillAlpha = 0.5
+        dataset.drawFilledEnabled = true
+        
+        dataset.lineWidth = 1
+        dataset.highlightLineColor = UIColor.main_string("#3C4C6D")
+        dataset.highlightLineWidth = 0.7;
+        
+        
+        _ykTimeLineView.setupChartOffset(withLeft: 5, top: 5, right: 5, bottom: 5)
+        _ykTimeLineView.gridBackgroundColor = UIColor.white
+        
+        _ykTimeLineView.borderColor = UIColor.main_string("#CBD7E0")
+        _ykTimeLineView.borderWidth = 0.5;
+        _ykTimeLineView.uperChartHeightScale = 0.7;
+        _ykTimeLineView.countOfTimes = array.count + 1
+        _ykTimeLineView.minTime = "123"
+        _ykTimeLineView.xAxisHeitht = 25
+        _ykTimeLineView.endPointShowEnabled = true
+        _ykTimeLineView.delegate = self;
+        _ykTimeLineView.highlightLineShowEnabled = true;
+        //_ykTimeLineView.zoomEnabled = true;
+        //_ykTimeLineView.scrollEnabled = true;
+        _ykTimeLineView.setupData(dataset)
+    }
+    
+    func chartKlineScrollLeft(_ chartView: YKViewBase!) {
+        
+    }
+    func chartValueNothingSelected(_ chartView: YKViewBase!) {
+        
+    }
+    func chartValueSelected(_ chartView: YKViewBase!, entry: Any!, entryIndex: Int) {
+        
+    }
+}
+*/
+/*
 extension JH_AttentionDetailsCell_Charts {
     lazy var _stock:YYStock = {
         YYStockVariable.setStockLineWidthArray([6,6,6,6])
@@ -98,6 +180,7 @@ extension JH_AttentionDetailsCell_Charts:YYStockDataSource {
         return false
     }
 }
+
 */
 /*
 extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
@@ -193,3 +276,118 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
     }
 }
  */
+
+
+
+
+
+
+
+/*
+ cell?.ccTimeLineChart.isHidden = false
+ cell?.ccKLineChart.isHidden = true
+ var arr = [CCLTimeModel]();
+ for item in datas {
+ let model = CCLTimeModel()
+ model.mAvgData = String(format:"%.2f",(CGFloat(Double(item.open_price) ?? 0)+CGFloat(Double(item.close_price) ?? 0))/2)
+ model.barTime = item.timestamp
+ model.closePrice = CGFloat(Double(item.close_price) ?? 0)
+ model.highPrice = CGFloat(Double(item.high_price) ?? 0)
+ model.lowPrice = CGFloat(Double(item.low_price) ?? 0)
+ model.openPrice = CGFloat(Double(item.open_price) ?? 0)
+ model.totalVolume = CGFloat(Double(item.num) ?? 0)
+ arr.append(model)
+ }
+ cell?.ccTimeLineChart.aboveView.dataArr = NSMutableArray.init(array: arr)
+ cell?.ccTimeLineChart.belowView.dataArr = NSMutableArray.init(array: arr)
+ cell?.ccTimeLineChart.aboveView.sp_reloadData()
+ cell?.ccTimeLineChart.belowView.sp_reloadData()
+ */
+/*
+ var array = [YKTimeLineEntity]()
+ for item in datas {
+ let entity = YKTimeLineEntity()
+ entity.lastPirce = CGFloat(Double(item.last_price)!)
+ //entity.avgPirce = CGFloat(Double(item.high_price)!)
+ entity.high = CGFloat(Double(item.high_price)!)
+ entity.low = CGFloat(Double(item.low_price)!)
+ entity.rate = item.turnover_rate
+ 
+ entity.preClosePx = CGFloat(Double(item.close_price)!)
+ 
+ entity.currtTime = item.timestamp
+ entity.volume = CGFloat(Double(item.num)!)
+ array.append(entity)
+ }
+ cell?._ykLineChartView.isHidden = true
+ cell?._ykTimeLineView.isHidden = false
+ cell?.makeYKTimeLineView(array)*/
+/*
+ var arr:[Double] = []
+ for item in datas {
+ arr.append(Double(item.high_price)!)
+ }
+ cell?._lineBgView._timeLineData = arr
+ */
+
+
+
+
+
+/*
+ cell?.ccKLineChart.isHidden = false
+ cell?.ccTimeLineChart.isHidden = true
+ 
+ var arr = [CCLKLineData]();
+ for item in datas {
+ let model = CCLKLineData()
+ //model.mAvgData = String(format:"%.2f",(CGFloat(Double(item.open_price) ?? 0)+CGFloat(Double(item.close_price) ?? 0))/2)
+ model.tradedate = item.timestamp
+ model.closeprice = CGFloat(Double(item.close_price) ?? 0)
+ model.highestprice = CGFloat(Double(item.high_price) ?? 0)
+ model.lowestprice = CGFloat(Double(item.low_price) ?? 0)
+ model.openprice = CGFloat(Double(item.open_price) ?? 0)
+ model.total_value_trade = CGFloat(Double(item.turnover_rate) ?? 0)
+ arr.append(model)
+ }
+ cell?.ccKLineChart.aboveView.dataArr = NSMutableArray.init(array: arr)
+ cell?.ccKLineChart.belowView.dataArr = NSMutableArray.init(array: arr)
+ 
+ cell?.ccKLineChart.aboveView.sp_reloadData()
+ cell?.ccKLineChart.belowView.sp_reloadData()
+ */
+/*
+ var array = [YKLineEntity]()
+ for item in datas {
+ let entity = YKLineEntity()
+ entity.high = CGFloat(Double(item.high_price)!)
+ entity.open = CGFloat(Double(item.open_price)!)
+ 
+ entity.low = CGFloat(Double(item.low_price)!)
+ 
+ entity.close = CGFloat(Double(item.close_price)!)
+ 
+ entity.date = item.timestamp
+ //entity.ma5 = [dic[@"avg5"] doubleValue];
+ //entity.ma10 = [dic[@"avg10"] doubleValue];
+ //entity.ma20 = [dic[@"avg20"] doubleValue];
+ entity.volume = CGFloat(Double(item.deal_count)!)
+ array.append(entity)
+ }
+ cell?._ykLineChartView.isHidden = false
+ cell?._ykTimeLineView.isHidden = true
+ cell?.makeYKLineChartView(array)
+ */
+
+/*
+ var arr:[(val:Double,high:Double,low:Double,open:Double,close:Double)] = []
+ for item in datas {
+ arr.append((val:Double(item.deal_count)!,
+ high:Double(item.high_price)!,
+ low:Double(item.low_price)!,
+ open:Double(item.open_price)!,
+ close:Double(item.close_price)!))
+ }
+ cell?._lineBgView._kLineData = arr
+ */
+

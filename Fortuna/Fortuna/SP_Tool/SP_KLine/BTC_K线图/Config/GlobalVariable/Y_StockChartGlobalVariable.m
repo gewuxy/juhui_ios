@@ -7,33 +7,6 @@
 //
 #import "Y_StockChartGlobalVariable.h"
 
-/**
- *  K线图的宽度，默认20
- */
-static CGFloat Y_StockChartKLineWidth = 2;
-
-/**
- *  K线图的间隔，默认1
- */
-static CGFloat Y_StockChartKLineGap = 1;
-
-
-/**
- *  MainView的高度占比,默认为0.5
- */
-static CGFloat Y_StockChartKLineMainViewRadio = 0.7;
-
-/**
- *  VolumeView的高度占比,默认为0.5
- */
-static CGFloat Y_StockChartKLineVolumeViewRadio = 0.3;
-
-
-/**
- *  是否为EMA线
- */
-static Y_StockChartTargetLineStatus Y_StockChartKLineIsEMALine = Y_StockChartTargetLineStatusMA;
-
 
 @implementation Y_StockChartGlobalVariable
 

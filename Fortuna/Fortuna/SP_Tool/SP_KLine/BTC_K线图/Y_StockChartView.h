@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Y_StockChartConstant.h"
 #import "Y_StockChartSegmentView.h"
+#import "Y_KLineView.h"
+
+
 //种类
 typedef NS_ENUM(NSInteger, Y_KLineType) {
     KLineTypeTimeShare = 1,
@@ -64,9 +67,24 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
 @property (nonatomic, assign,readonly) Y_KLineType currentLineTypeIndex;
 
 /**
+ *  K线图View
+ */
+@property (nonatomic, strong) Y_KLineView *kLineView;
+
+/**
  *  底部选择View
  */
 @property (nonatomic, strong) Y_StockChartSegmentView *segmentView;
+
+/**
+ *  图表类型
+ */
+@property(nonatomic,assign) Y_StockChartCenterViewType currentCenterViewType;
+
+/**
+ *  当前索引
+ */
+@property(nonatomic,assign,readwrite) NSInteger currentIndex;
 
 -(void) reloadData;
 @end

@@ -67,17 +67,17 @@
     }];
     
    if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA){
-        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
-        
-        //画MA7线
-        MALine.MAType = Y_MA7Type;
-        MALine.MAPositions = self.Volume_MA7Positions;
-        [MALine draw];
-        
-        //画MA30线
-        MALine.MAType = Y_MA30Type;
-        MALine.MAPositions = self.Volume_MA30Positions;
-        [MALine draw];
+//        Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
+//        
+//        //画MA7线
+//        MALine.MAType = Y_MA7Type;
+//        MALine.MAPositions = self.Volume_MA7Positions;
+//        [MALine draw];
+//        
+//        //画MA30线
+//        MALine.MAType = Y_MA30Type;
+//        MALine.MAPositions = self.Volume_MA30Positions;
+//        [MALine draw];
    }
     
 }

@@ -95,7 +95,7 @@
 /**
  *  长按的时候根据原始的x位置获得精确的x的位置
  */
-- (CGFloat)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition;
+- (CGPoint)getExactXPositionWithOriginXPosition:(CGFloat)originXPosition;
 
 /**
  *  移除所有的监听事件

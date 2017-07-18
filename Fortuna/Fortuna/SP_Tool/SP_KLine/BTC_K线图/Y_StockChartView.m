@@ -7,33 +7,20 @@
 //
 
 #import "Y_StockChartView.h"
-#import "Y_KLineView.h"
+
+
 #import "Masonry.h"
 
 #import "Y_StockChartGlobalVariable.h"
 @interface Y_StockChartView() <Y_StockChartSegmentViewDelegate>
 
-/**
- *  K线图View
- */
-@property (nonatomic, strong) Y_KLineView *kLineView;
 
-
-
-/**
- *  图表类型
- */
-@property(nonatomic,assign) Y_StockChartCenterViewType currentCenterViewType;
-
-/**
- *  当前索引
- */
-@property(nonatomic,assign,readwrite) NSInteger currentIndex;
 @end
 
 
 @implementation Y_StockChartView
 
+#pragma mark ---------- 主图 ----------
 - (Y_KLineView *)kLineView
 {
     if(!_kLineView)
@@ -47,7 +34,7 @@
     }
     return _kLineView;
 }
-
+#pragma mark ---------- 选择 ----------
 - (Y_StockChartSegmentView *)segmentView
 {
     if(!_segmentView)
@@ -57,7 +44,7 @@
         [self addSubview:_segmentView];
         [_segmentView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.left.top.equalTo(self);
-            make.width.equalTo(@0);
+            make.width.equalTo(@(Y_StockChartViewSegmentViewWidth));
         }];
     }
     return _segmentView;
@@ -79,7 +66,7 @@
     }
     if(self.dataSource)
     {
-        self.segmentView.selectedIndex = 1;
+        self.segmentView.selectedIndex = 4;
     }
 }
 
@@ -88,8 +75,7 @@
     _dataSource = dataSource;
     if(self.itemModels)
     {
-        //初始
-        self.segmentView.selectedIndex = 1;
+        self.segmentView.selectedIndex = 4;
     }
 }
 - (void)reloadData
@@ -101,6 +87,7 @@
 
 - (void)y_StockChartSegmentView:(Y_StockChartSegmentView *)segmentView clickSegmentButtonIndex:(NSInteger)index
 {
+    NSLog(@"y_StockChartSegmentView: index ==>%ld",index);
     self.currentIndex = index;
     if(index >= 100)
     {
@@ -111,8 +98,7 @@
 //        } else {
 //            [Y_StockChartGlobalVariable setisEMALine:Y_StockChartTargetLineStatusEMA];
 //        }
-        NSLog(@"%d",index);
-        self.kLineView.targetLineStatus = 100;
+        self.kLineView.targetLineStatus = index;
         [self.kLineView reDraw];
         [self bringSubviewToFront:self.segmentView];
     

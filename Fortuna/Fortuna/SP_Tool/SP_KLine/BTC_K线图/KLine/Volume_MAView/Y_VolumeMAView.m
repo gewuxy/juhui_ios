@@ -54,7 +54,6 @@
         }];
         
     }
-    self.hidden = YES;
     return self;
 }
 

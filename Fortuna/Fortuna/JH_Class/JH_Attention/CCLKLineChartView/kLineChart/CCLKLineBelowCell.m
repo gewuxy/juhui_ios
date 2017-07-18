@@ -57,8 +57,13 @@
 - (CAShapeLayer *)markLayer{
     if (_markLayer == nil) {
         _markLayer = [CAShapeLayer layer];
-        _markLayer.strokeColor = [UIColor grayColor].CGColor;
         _markLayer.lineWidth = 0.5;
+        _markLayer.lineJoin = kCALineJoinRound;
+        _markLayer.lineCap = kCALineCapRound;
+        _markLayer.strokeColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
+        [_markLayer setLineDashPattern:
+         [NSArray arrayWithObjects:[NSNumber numberWithInt:3],
+          [NSNumber numberWithInt:3],nil]];
     }
     return _markLayer;
 }

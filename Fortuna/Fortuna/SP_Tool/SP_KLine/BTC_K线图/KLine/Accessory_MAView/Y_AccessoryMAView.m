@@ -28,7 +28,6 @@
 {
     self = [super init];
     if (self) {
-        /*
         _DIFLabel = [self private_createLabel];
         _DEALabel = [self private_createLabel];
         _MACDLabel = [self private_createLabel];
@@ -65,7 +64,7 @@
             make.left.equalTo(_DEALabel.mas_right);
             make.top.equalTo(self.mas_top);
             make.bottom.equalTo(self.mas_bottom);
-        }];*/
+        }];
     }
     return self;
 }
@@ -78,7 +77,6 @@
 }
 -(void)maProfileWithModel:(Y_KLineModel *)model
 {
-    /*
     if(self.targetLineStatus != Y_StockChartTargetLineStatusKDJ)
     {
         _accessoryDescLabel.text = @" MACD(12,26,9)";
@@ -90,7 +88,7 @@
         _DIFLabel.text = [NSString stringWithFormat:@"  K：%.8f ",model.KDJ_K.floatValue];
         _DEALabel.text = [NSString stringWithFormat:@"  D：%.8f",model.KDJ_D.floatValue];
         _MACDLabel.text = [NSString stringWithFormat:@"  J：%.8f",model.KDJ_J.floatValue];
-    }*/
+    }
 
 
 }

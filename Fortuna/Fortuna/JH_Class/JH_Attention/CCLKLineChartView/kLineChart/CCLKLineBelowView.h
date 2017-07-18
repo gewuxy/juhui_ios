@@ -19,6 +19,11 @@
 @end
 
 @interface CCLKLineBelowView : UITableView
+// 展示数据
+@property (nonatomic, strong) NSMutableArray *dataArr;
+-(void) sp_testReloadData;
+
+-(void) sp_reloadData;
 
 @property (nonatomic, strong) CCLKLineShareData *shareData;
 

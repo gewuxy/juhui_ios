@@ -13,7 +13,7 @@
 
 @interface CCLTimeBelowView ()
 <UIGestureRecognizerDelegate>
-@property (nonatomic, strong) NSArray *dataArr;
+
 
 /**
  * 最高价
@@ -36,7 +36,7 @@
 
 - (NSArray *)dataArr{
     if (_dataArr == nil) {
-        _dataArr = [NSArray array];
+        _dataArr = [[NSMutableArray array] init];
     }
     return _dataArr;
 }
@@ -62,13 +62,16 @@
     if (self = [super initWithFrame:frame]) {
         _shareData = shareData;
         
-        NSString * path =[[NSBundle mainBundle]pathForResource:@"timeData.plist" ofType:nil];
-        NSDictionary *dataDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
-        NSArray *sourceArray = dataDict[@"barBodys"];
-        self.dataArr = [CCLTimeModel mj_objectArrayWithKeyValuesArray:sourceArray];
-        NSLog(@"%@",self.dataArr);
+        /*
+         NSString * path =[[NSBundle mainBundle]pathForResource:@"timeData.plist" ofType:nil];
+         NSDictionary *dataDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
+         NSArray *sourceArray = dataDict[@"barBodys"];
+         self.dataArr = [CCLTimeModel mj_objectArrayWithKeyValuesArray:sourceArray];
+         NSLog(@"%@",self.dataArr);
+         [self drawDataLine];
+        */
         
-        [self drawDataLine];
+        
         
         UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                      action:@selector(handleLongPress:)];
@@ -79,7 +82,21 @@
     }
     return self;
 }
+#pragma mark ---------- 假数据 ----------
+-(void) sp_testReloadData {
+    
+    NSString * path =[[NSBundle mainBundle]pathForResource:@"timeData.plist" ofType:nil];
+    NSDictionary *dataDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
+    NSArray *sourceArray = dataDict[@"barBodys"];
+    self.dataArr = [CCLTimeModel mj_objectArrayWithKeyValuesArray:sourceArray];
+    NSLog(@"%@",self.dataArr);
+    [self drawDataLine];
+}
 
+-(void) sp_reloadData {
+    
+    [self drawDataLine];
+}
 #pragma mark -  长按手势
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
@@ -88,7 +105,7 @@
     
     
     
-    int index = p.x / (_shareData.allWidth / 241);
+    int index = p.x / (_shareData.allWidth / DataCont);
     NSLog(@"%d",index);
     [self drawWithLongPress:gestureRecognizer forIndex:index];
     if ([self.delegate respondsToSelector:@selector(handleLongPress:forIndex:andView:)]) {
@@ -120,7 +137,7 @@
 
 - (void)reloadCrossLineWith:(NSUInteger)index{
     
-    CGFloat itemW = _shareData.allWidth / 241;
+    CGFloat itemW = _shareData.allWidth / DataCont;
     CGFloat x = itemW * 0.5 + itemW * index;
     
     // 计算出中心点

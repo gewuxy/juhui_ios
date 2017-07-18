@@ -88,7 +88,7 @@ class JH_IM: SP_ParentVC {
     // 通讯连接
     lazy var socket:SocketIOClient = {
         print_SP(self._followData.code)
-        return SocketIOClient(socketURL: URL(string: "http://39.108.142.204:8001/?code=" + self._followData.code)!, config: [.log(false), .forcePolling(true)])
+        return SocketIOClient(socketURL: URL(string: My_API.url_广播最新详情数据+"?code=" + self._followData.code)!, config: [.log(true), .forcePolling(true)])
     }()
     
     var _followData:M_Attention = M_Attention()

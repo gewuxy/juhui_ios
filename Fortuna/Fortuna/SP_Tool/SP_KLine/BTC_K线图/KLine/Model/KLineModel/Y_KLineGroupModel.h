@@ -11,11 +11,12 @@
 @class Y_KLineModel;
 
 @interface Y_KLineGroupModel : NSObject
+
+
+@property (nonatomic, copy) NSArray<Y_KLineModel *> *models;
+
 //初始化Model
 + (instancetype) objectWithArray:(NSArray *)arr;
-
-@property (nonatomic, copy) NSArray<Y_KLineModel *> * models;
-
 @end
 
 //初始化第一个Model

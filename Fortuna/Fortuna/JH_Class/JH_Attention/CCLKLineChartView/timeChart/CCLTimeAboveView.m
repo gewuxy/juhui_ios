@@ -10,9 +10,10 @@
 #import "CCLTimeModel.h"
 #import "MJExtension.h"
 #import "CCLFrameTool.h"
+
 @interface CCLTimeAboveView ()
 <UIGestureRecognizerDelegate>
-@property (nonatomic, strong) NSArray *dataArr;
+
 
 /**
  * 当前时间线
@@ -71,7 +72,7 @@
 
 - (NSArray *)dataArr{
     if (_dataArr == nil) {
-        _dataArr = [NSArray array];
+        _dataArr = [[NSMutableArray array] init];
     }
     return _dataArr;
 }
@@ -82,7 +83,7 @@
         _nowData.lineWidth = 1;
         _nowData.lineJoin = kCALineJoinRound;
         _nowData.lineCap = kCALineCapRound;
-        _nowData.strokeColor = [UIColor blueColor].CGColor;
+        _nowData.strokeColor = [[UIColor alloc] initWithRed:92.f/255.f green:134.f/255.f blue:255.f/255.f alpha:1.0].CGColor;
         _nowData.fillColor = [UIColor clearColor].CGColor;
     }
     return _nowData;
@@ -94,7 +95,7 @@
         _shadowLayer.lineWidth = 1;
         _shadowLayer.lineJoin = kCALineJoinRound;
         _shadowLayer.lineCap = kCALineCapRound;
-        _shadowLayer.fillColor = [[UIColor alloc] initWithRed:189.f/255.f green:207.f/255.f blue:251.f/255.f alpha:0.8].CGColor;
+        _shadowLayer.fillColor = [[UIColor alloc] initWithRed:217.f/255.f green:229.f/255.f blue:251.f/255.f alpha:0.9].CGColor;
     }
     return _shadowLayer;
 }
@@ -133,10 +134,10 @@
 - (CAShapeLayer *)midSeg{
     if (_midSeg == nil) {
         _midSeg = [CAShapeLayer layer];
-        _midSeg.lineWidth = 1;
+        _midSeg.lineWidth = 0.5;
         _midSeg.lineJoin = kCALineJoinRound;
         _midSeg.lineCap = kCALineCapRound;
-        _midSeg.strokeColor = [UIColor blueColor].CGColor;
+        _midSeg.strokeColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
         
     }
     return _midSeg;
@@ -147,14 +148,12 @@
     if (self = [super initWithFrame:frame]) {
         _shareData = shareData;
         _closePrice = 9.06;
-        NSString * path =[[NSBundle mainBundle]pathForResource:@"timeData.plist" ofType:nil];
-        NSDictionary *dataDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
-        NSArray *sourceArray = dataDict[@"barBodys"];
-        self.dataArr = [CCLTimeModel mj_objectArrayWithKeyValuesArray:sourceArray];
-        NSLog(@"%@",self.dataArr);
+        
+        
+        
         
         [self drawBackLine];
-        [self drawDataLine];
+        
     
         UILongPressGestureRecognizer *longPressReger = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                                      action:@selector(handleLongPress:)];
@@ -165,6 +164,23 @@
     return self;
 }
 
+#pragma mark ---------- 假数据 ----------
+-(void) sp_testReloadData {
+    
+     NSString * path =[[NSBundle mainBundle]pathForResource:@"timeData.plist" ofType:nil];
+     NSDictionary *dataDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"data"];
+     NSArray *sourceArray = dataDict[@"barBodys"];
+     self.dataArr = [CCLTimeModel mj_objectArrayWithKeyValuesArray:sourceArray];
+     NSLog(@"%@",self.dataArr);
+     [self drawDataLine];
+}
+
+-(void) sp_reloadData {
+    
+    [self drawDataLine];
+}
+
+
 #pragma mark -  长按手势
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
@@ -173,7 +189,7 @@
     
     
     
-    int index = p.x / (_shareData.allWidth / 241);
+    int index = p.x / (_shareData.allWidth / DataCont);
     NSLog(@"%d",index);
     [self drawWithLongPress:gestureRecognizer forIndex:index];
     if ([self.delegate respondsToSelector:@selector(handleLongPress:forIndex:andView:)]) {
@@ -205,7 +221,7 @@
 
 }
 - (void)reloadCrossLineWith:(NSUInteger)index{
-    
+    if (index >= self.dataArr.count) {return;}
     CCLTimeModel *model = self.dataArr[index];
     CGPoint point = [CCLFrameTool getPointForValue:model.closePrice
                                              index:index
@@ -325,8 +341,8 @@
     
     // 中间线
     [self.midSeg setLineDashPattern:
-     [NSArray arrayWithObjects:[NSNumber numberWithInt:5],
-      [NSNumber numberWithInt:5],nil]];
+     [NSArray arrayWithObjects:[NSNumber numberWithInt:3],
+      [NSNumber numberWithInt:3],nil]];
     
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, NULL, 0, _shareData.aboveHeight * 0.5);

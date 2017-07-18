@@ -29,7 +29,10 @@
  *  辅助背景色
  */
 +(UIColor *)assistBackgroundColor;
-
+/**
+ *  边框颜色
+ */
++(UIColor *)borderLineColor;
 /**
  *  涨的颜色
  */

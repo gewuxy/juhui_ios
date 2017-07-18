@@ -32,6 +32,11 @@
 {
     return [UIColor colorWithRGBHex:0xffffff];
 }
+#pragma mark 边框颜色
++(UIColor *)borderLineColor
+{
+    return [UIColor colorWithRGBHex:0xe1e2e6];
+}
 
 #pragma mark 涨的颜色
 +(UIColor *)increaseColor
@@ -48,13 +53,13 @@
 #pragma mark 主文字颜色
 +(UIColor *)mainTextColor
 {
-    return [UIColor colorWithRGBHex:0x49a5ff];
+    return [UIColor colorWithRGBHex:0xe1e2e6];
 }
 
 #pragma mark 辅助文字颜色
 +(UIColor *)assistTextColor
 {
-    return [UIColor colorWithRGBHex:0x565a64];
+    return [UIColor colorWithRGBHex:0x15cd48];
 }
 
 #pragma mark 分时线下面的成交量线的颜色
@@ -72,19 +77,20 @@
 #pragma mark 长按时线的颜色
 +(UIColor *)longPressLineColor
 {
-//    return [UIColor colorWithRGBHex:0xff5353];
-    return [UIColor colorWithRGBHex:0xe1e2e6];
+    return [UIColor colorWithRGBHex:0xff5353];
+    //return [UIColor colorWithRGBHex:0xe1e2e6];
 }
 
-#pragma mark ma5的颜色
+#pragma mark ma7的颜色
 +(UIColor *)ma7Color
 {
-    return [[UIColor colorWithRGBHex:0xff783c] colorWithAlphaComponent:0];
+    //ff783c
+    return [[UIColor colorWithRGBHex:0x49a5ff] colorWithAlphaComponent:1];
 }
 
 #pragma mark ma30颜色
 +(UIColor *)ma30Color
 {
-    return [[UIColor colorWithRGBHex:0x49a5ff] colorWithAlphaComponent:0];
+    return [[UIColor colorWithRGBHex:0xff783c] colorWithAlphaComponent:1];
 }
 @end

@@ -12,11 +12,7 @@
 
 @interface Y_StockChartRightYView ()
 
-@property(nonatomic,strong) UILabel *maxValueLabel;
 
-@property(nonatomic,strong) UILabel *middleValueLabel;
-
-@property(nonatomic,strong) UILabel *minValueLabel;
 
 @end
 
@@ -53,10 +49,10 @@
 {
     if (!_maxValueLabel) {
         _maxValueLabel = [self private_createLabel];
-        [self addSubview:_maxValueLabel];
+        //[self addSubview:_maxValueLabel];
         [_maxValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.width.equalTo(self);
-            make.height.equalTo(@20);
+            //make.height.equalTo(@20);
         }];
     }
     return _maxValueLabel;
@@ -67,10 +63,10 @@
 {
     if (!_middleValueLabel) {
         _middleValueLabel = [self private_createLabel];
-        [self addSubview:_middleValueLabel];
+        //[self addSubview:_middleValueLabel];
         [_middleValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.right.equalTo(self);
-            make.height.width.equalTo(self.maxValueLabel);
+            make.width.equalTo(self.maxValueLabel);
         }];
     }
     return _middleValueLabel;
@@ -81,10 +77,10 @@
 {
     if (!_minValueLabel) {
         _minValueLabel = [self private_createLabel];
-        [self addSubview:_minValueLabel];
+        //[self addSubview:_minValueLabel];
         [_minValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.right.equalTo(self);
-            make.height.width.equalTo(self.maxValueLabel);
+            make.width.equalTo(self.maxValueLabel);
         }];
     }
     return _minValueLabel;
@@ -97,7 +93,7 @@
     UILabel *label = [UILabel new];
     label.font = [UIFont systemFontOfSize:10];
     label.textColor = [UIColor assistTextColor];
-    label.textAlignment = NSTextAlignmentLeft;
+    label.textAlignment = NSTextAlignmentRight;
     label.adjustsFontSizeToFitWidth = YES;
     [self addSubview:label];
     return label;

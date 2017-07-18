@@ -17,7 +17,7 @@ struct M_Attention {
     var proposedPrice =  "--"
     var quoteChange =  "--"
     var winery =  ""
-    var last_price = ""
+    var last_price = "--"
     
     var isFollow = false//是否已加自选
     var isSelect = false
@@ -41,9 +41,8 @@ extension M_Attention:SP_JsonModel {
         winery = json["winery"].stringValue
         isFollow = json["is_select"].boolValue
         last_price = json["last_price"].stringValue
-        
+        last_price = last_price.isEmpty ? "--" : last_price
         ratio = json["ratio"].stringValue
-        
         isSelect = false
     }
 }
@@ -61,7 +60,7 @@ struct M_AttentionDetail {
     var turnover_rate =  ""
     //最低价
     var lowest_price =  ""
-    //最低价
+    //最新价
     var lastest_price =  ""
     //振幅
     var amplitude =  ""
@@ -71,6 +70,11 @@ struct M_AttentionDetail {
     var buy_5_level:[[Double]] = []
     var sell_5_level:[[Double]] = []
     
+    var shareTitle = ""
+    var shareText = ""
+    var shareImg = ""
+    var shareLink = ""
+    
 }
 
 extension M_AttentionDetail:SP_JsonModel {
@@ -78,6 +82,10 @@ extension M_AttentionDetail:SP_JsonModel {
         if json.isEmpty{
             return
         }
+        shareTitle = json["shareTitle"].stringValue
+        shareText = json["shareText"].stringValue
+        shareImg = json["shareImg"].stringValue
+        shareLink = json["shareLink"].stringValue
         
         //成交量
         deal_count =  json["deal_count"].stringValue

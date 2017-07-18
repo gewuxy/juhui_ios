@@ -9,6 +9,68 @@
 import Foundation
 import SwiftyJSON
 
+
+enum JH_ChartDataType:Int {
+    case t分时 = 0
+    case t5日
+    case t日K
+    case t周K
+    case t月K
+    case t1分
+    case t5分
+    case t10分
+    case t30分
+    case t60分
+    
+    var stringValue:String {
+        switch self {
+        case .t分时:return "分时"
+        case .t5日:return "5日"
+        case .t日K:return "日K"
+        case .t周K:return "周K"
+        case .t月K:return "月K"
+        case .t1分:return "1分"
+        case .t5分:return "5分"
+        case .t10分:return "10分"
+        case .t30分:return "30分"
+        case .t60分:return "60分"
+            
+        }
+    }
+    
+    var periodValue:String {
+        switch self {
+        case .t分时:return "1d"
+        case .t5日:return "5d"
+        case .t日K:return "1d"
+        case .t周K:return "7d"
+        case .t月K:return "30d"
+        case .t1分:return "1m"
+        case .t5分:return "5m"
+        case .t10分:return "10m"
+        case .t30分:return "30m"
+        case .t60分:return "60m"
+            
+        }
+    }
+    
+    var testString:String {
+        switch self {
+        case .t分时:return "1min"
+        case .t5日:return "1min"
+        case .t日K:return "1day"
+        case .t周K:return "1week"
+        case .t月K:return "1min"
+        case .t1分:return "1min"
+        case .t5分:return "5min"
+        case .t10分:return "1min"
+        case .t30分:return "30min"
+        case .t60分:return "1hour"
+            
+        }
+    }
+}
+
 //MARK:--- 自选页面 -----------------------------
 class JH_AttentionCell_Normal: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionCell_Normal {
@@ -289,7 +351,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
             if sender == btn_top5 && _timeBtnTag >= 0 {
                 _type = JH_ChartDataType(rawValue: _timeBtnTag + 5)!
                 _getDataBlock?(JH_ChartDataType(rawValue: _timeBtnTag + 5)!)
-                //_stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
+                _stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
                 return
             }
             
@@ -316,7 +378,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
             })
             _type = JH_ChartDataType(rawValue: sender.tag)!
             _getDataBlock?(JH_ChartDataType(rawValue: sender.tag)!)
-            //_stockChartView.segmentView.selectedIndex =  UInt(sender.tag + 1)
+            _stockChartView.segmentView.selectedIndex =  UInt(sender.tag + 1)
             /*
             switch sender {
             case btn_top0:
@@ -395,7 +457,8 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         btn_top6.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
         _type = JH_ChartDataType(rawValue: _timeBtnTag + 5)!
         _getDataBlock?(JH_ChartDataType(rawValue: _timeBtnTag + 5)!)
-        //_stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
+        
+        _stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
     }
     
     
@@ -482,11 +545,11 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     
     //MARK:--- 图表 -----------------------------
     @IBOutlet weak var view_charts: UIView!
-    @IBOutlet weak var _ykLineChartView: YKLineChartView!
-    @IBOutlet weak var _ykTimeLineView: YKTimeLineView!
+    
     @IBOutlet weak var view_activi: UIActivityIndicatorView!
     @IBOutlet weak var lab_chartsL: UILabel!
     @IBOutlet weak var lab_chartsR: UILabel!
+    @IBOutlet weak var lab_error: UILabel!
     
     
     
@@ -499,188 +562,16 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         }
     }
     
-    lazy var _lineBgView:SP_LineBgView = {
-        let view = SP_LineBgView.show()
-        //view.backgroundColor = UIColor.yellow
-        return view
-    }()
     var _type = JH_ChartDataType.t分时
-    func makeChartsView() {
-        //view_charts.addSubview(_ykLineChartView)
-        //view_charts.addSubview(_ykTimeLineView)
-        
-//        view_charts.addSubview(_lineBgView)
-//        _lineBgView.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
-        /*
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
-            self?._getDataBlock?(self!._type)
-        }*/
-        
-        self.view_charts.addSubview(ccKLineChart)
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        view_activi.startAnimating()
     }
-    
     
     //MARK:--- Y_StockChartView -----------------------------
     
-    lazy var ccKLineChart:CCLKLineChartView = {
-        let cc = CCLKLineChartView(frame: CGRect(x:0,y:0,width:sp_ScreenWidth - sp_fitSize((105,120,135)) - 20,height:sp_fitSize((228,248,278))-56), secID: "22", andtype: CCLKLineDay)
-        
-        return cc!
-    }()
-    lazy var ccTimeLineChart:CCLTimeView = {
-        let cc = CCLTimeView(frame: self.view_charts.bounds, andSecID: "22")
-        return cc!
-    }()
-    
-}
-
-enum JH_ChartDataType:Int {
-    case t分时 = 0
-    case t5日
-    case t日K
-    case t周K
-    case t月K
-    case t1分
-    case t5分
-    case t10分
-    case t30分
-    case t60分
-    
-    var stringValue:String {
-        switch self {
-        case .t分时:return "分时"
-        case .t5日:return "5日"
-        case .t日K:return "日K"
-        case .t周K:return "周K"
-        case .t月K:return "月K"
-        case .t1分:return "1分"
-        case .t5分:return "5分"
-        case .t10分:return "10分"
-        case .t30分:return "30分"
-        case .t60分:return "60分"
-            
-        }
-    }
-    
-    var periodValue:String {
-        switch self {
-        case .t分时:return "1d"
-        case .t5日:return "5d"
-        case .t日K:return "1d"
-        case .t周K:return "7d"
-        case .t月K:return "30d"
-        case .t1分:return "1m"
-        case .t5分:return "5m"
-        case .t10分:return "10m"
-        case .t30分:return "30m"
-        case .t60分:return "60m"
-            
-        }
-    }
-}
-
-extension JH_AttentionDetailsCell_Charts:YKLineChartViewDelegate {
-    func makeYKLineChartView(_ array:[YKLineEntity]) {
-        let dataset = YKLineDataSet()
-        let arr:NSMutableArray = NSMutableArray(array: array)
-        dataset.data = arr
-        //经纬线
-        dataset.highlightLineColor = UIColor.main_btnNormal
-        dataset.highlightLineWidth = 0.7;
-        //涨
-        dataset.candleRiseColor = UIColor.red
-        //跌
-        dataset.candleFallColor = UIColor.green
-        dataset.avgLineWidth = 1
-//        dataset.avgMA10Color = [UIColor colorWithRed:252/255.0 green:85/255.0 blue:198/255.0 alpha:1.0];
-//        dataset.avgMA5Color = [UIColor colorWithRed:67/255.0 green:85/255.0 blue:109/255.0 alpha:1.0];
-//        dataset.avgMA20Color = [UIColor colorWithRed:216/255.0 green:192/255.0 blue:44/255.0 alpha:1.0];
-        dataset.candleTopBottmLineWidth = 1
-        _ykLineChartView.setupChartOffset(withLeft: 5, top: 5, right: 5, bottom: 5)
-        _ykLineChartView.gridBackgroundColor = UIColor.white
-        
-        _ykLineChartView.borderColor = UIColor.main_string("#CBD7E0")
-        _ykLineChartView.borderWidth = 0.5;
-        _ykLineChartView.candleWidth = 8;
-        _ykLineChartView.candleMaxWidth = 30;
-        _ykLineChartView.candleMinWidth = 1;
-        _ykLineChartView.uperChartHeightScale = 0.7;
-        _ykLineChartView.xAxisHeitht = 25;
-        _ykLineChartView.delegate = self;
-        _ykLineChartView.highlightLineShowEnabled = true;
-        _ykLineChartView.zoomEnabled = true;
-        _ykLineChartView.scrollEnabled = true;
-        _ykLineChartView.setupData(dataset)
-    }
-    
-    func makeYKTimeLineView(_ array:[YKTimeLineEntity]) {
-        let dataset = YKTimeDataset()
-        let arr:NSMutableArray = NSMutableArray(array: array)
-        dataset.data = arr
-        dataset.avgLineCorlor = UIColor.main_string("#FDB308")
-        dataset.priceLineCorlor = UIColor.main_3
-        dataset.volumeTieColor = UIColor.main_1
-        dataset.volumeRiseColor = UIColor.main_1
-        dataset.volumeFallColor = UIColor.main_1
-        dataset.fillStartColor = UIColor.main_3
-        dataset.fillStopColor = UIColor.white
-        dataset.fillAlpha = 0.5
-        dataset.drawFilledEnabled = true
-        
-        dataset.lineWidth = 1
-        dataset.highlightLineColor = UIColor.main_string("#3C4C6D")
-        dataset.highlightLineWidth = 0.7;
-        
-        
-        _ykTimeLineView.setupChartOffset(withLeft: 5, top: 5, right: 5, bottom: 5)
-        _ykTimeLineView.gridBackgroundColor = UIColor.white
-        
-        _ykTimeLineView.borderColor = UIColor.main_string("#CBD7E0")
-        _ykTimeLineView.borderWidth = 0.5;
-        _ykTimeLineView.uperChartHeightScale = 0.7;
-        _ykTimeLineView.countOfTimes = array.count + 1
-        _ykTimeLineView.minTime = "123"
-        _ykTimeLineView.xAxisHeitht = 25
-        _ykTimeLineView.endPointShowEnabled = true
-        _ykTimeLineView.delegate = self;
-        _ykTimeLineView.highlightLineShowEnabled = true;
-        //_ykTimeLineView.zoomEnabled = true;
-        //_ykTimeLineView.scrollEnabled = true;
-        _ykTimeLineView.setupData(dataset)
-    }
-    
-    func chartKlineScrollLeft(_ chartView: YKViewBase!) {
-        
-    }
-    func chartValueNothingSelected(_ chartView: YKViewBase!) {
-        
-    }
-    func chartValueSelected(_ chartView: YKViewBase!, entry: Any!, entryIndex: Int) {
-        
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
-    var _type = JH_ChartDataType.t分时
     var _currentIndex = -1
+    var _modelsDict:[String:Y_KLineGroupModel] = [:]
     lazy var _stockChartView:Y_StockChartView = {
         let view = Y_StockChartView()
         view.itemModels = [Y_StockChartViewItemModel.init(title: "指标", type: .chartcenterViewTypeOther),
@@ -702,20 +593,41 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
         view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+        
         return view
     }()
     
     
-    var _modelsDict:[String:Y_KLineGroupModel] = [:]
+    
+    
+    //MARK:--- SP_TimeLine -----------------------------
+    lazy var _lineBgView:SP_LineBgView = {
+        let view = SP_LineBgView.show()
+        return view
+    }()
+}
+
+
+
+
+
+extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
+ 
     
     fileprivate func makeChartsView() {
+        
+        
         _currentIndex = -1
         _stockChartView.backgroundColor = UIColor.background()
+        
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
             self?._getDataBlock?(self!._type)
         }
         
+        self.view_charts.bringSubview(toFront: view_activi)
+        lab_error.textColor = UIColor.mainText_2
+        lab_error.isHidden = true
     }
     
     func stockDatas(with index: Int) -> Any! {
@@ -735,6 +647,5 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
     
 }
 
-*/
 
 

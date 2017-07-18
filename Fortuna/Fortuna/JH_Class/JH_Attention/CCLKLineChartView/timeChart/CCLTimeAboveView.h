@@ -17,6 +17,11 @@
 
 
 @interface CCLTimeAboveView : UIView
+//数据
+@property (nonatomic, strong) NSMutableArray *dataArr;
+-(void) sp_testReloadData;
+
+-(void) sp_reloadData;
 
 @property (nonatomic, strong) CCLTimeShareData *shareData;
 
@@ -25,5 +30,7 @@
 - (instancetype)initWithFrame:(CGRect)frame andShareData:(CCLTimeShareData *)shareData;
 
 - (void)drawWithLongPress:(UILongPressGestureRecognizer *)gestureRecognizer forIndex:(NSUInteger )index;
+
+
 
 @end
