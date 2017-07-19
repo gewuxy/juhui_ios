@@ -9,7 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
-
+import IQKeyboardManager
 
 class JH_Search: SP_ParentVC {
 
@@ -44,6 +44,11 @@ class JH_Search: SP_ParentVC {
         return text
     }()
     
+    deinit {
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
+    
     
 }
 extension JH_Search {
@@ -76,9 +81,10 @@ extension JH_Search {
         
         sp_addMJRefreshHeader()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
-            self?._text_search.text_field.becomeFirstResponder()
-        }
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        self._text_search.text_field.becomeFirstResponder()
+        
         
     }
     
@@ -207,6 +213,7 @@ extension JH_Search:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self._text_search.text_field.resignFirstResponder()
         JH_AttentionDetails.show(self, data:_datas[indexPath.row])
     }
     

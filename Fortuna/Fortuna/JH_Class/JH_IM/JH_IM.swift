@@ -87,8 +87,8 @@ class JH_IM: SP_ParentVC {
     
     // 通讯连接
     lazy var socket:SocketIOClient = {
-        print_SP(self._followData.code)
-        return SocketIOClient(socketURL: URL(string: My_API.url_广播最新详情数据+"?code=" + self._followData.code)!, config: [.log(true), .forcePolling(true)])
+        //+"?code=" + self._followData.code
+        return SocketIOClient(socketURL: URL(string: My_API.url_SocketIO广播)!, config: [.log(true),.connectParams(["code" : self._followData.code])])//.forcePolling(false)
     }()
     
     var _followData:M_Attention = M_Attention()
@@ -105,6 +105,7 @@ class JH_IM: SP_ParentVC {
     
     
     deinit {
+        
         self.removeKeyboard()
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true

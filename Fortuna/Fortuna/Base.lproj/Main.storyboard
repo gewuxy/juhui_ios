@@ -3141,6 +3141,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Rlg-yu-pUk" firstAttribute="leading" secondItem="Zgv-To-x9E" secondAttribute="leading" id="2zj-RP-ByL"/>
                             <constraint firstItem="Rlg-yu-pUk" firstAttribute="top" secondItem="Zgv-To-x9E" secondAttribute="top" constant="64" id="eXi-ut-l1f"/>
@@ -4100,7 +4101,7 @@
             <objects>
                 <navigationController id="ztc-Sc-5Ry" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Vs0-Xf-ogS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vs0-Xf-ogS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4257,10 +4258,10 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVB-f7-Mqd">
-                                            <rect key="frame" x="15" y="8" width="168" height="100"/>
+                                            <rect key="frame" x="15" y="8" width="167.5" height="100"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15p-nq-KFn">
-                                                    <rect key="frame" x="10" y="20" width="148" height="30"/>
+                                                    <rect key="frame" x="10" y="20" width="147.5" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="N15-7p-ABQ"/>
                                                     </constraints>
@@ -4269,7 +4270,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总资产" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPV-kd-ZVG">
-                                                    <rect key="frame" x="10" y="50" width="148" height="30"/>
+                                                    <rect key="frame" x="10" y="50" width="147.5" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4294,10 +4295,10 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rpD-5a-w3O">
-                                            <rect key="frame" x="193" y="8" width="167" height="100"/>
+                                            <rect key="frame" x="192.5" y="8" width="167.5" height="100"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Bl-vY-aY5">
-                                                    <rect key="frame" x="10" y="20" width="147" height="30"/>
+                                                    <rect key="frame" x="10" y="20" width="147.5" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="JHK-Kw-oXt"/>
                                                     </constraints>
@@ -4306,7 +4307,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浮动盈亏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8G-xl-M1S">
-                                                    <rect key="frame" x="10" y="50" width="147" height="30"/>
+                                                    <rect key="frame" x="10" y="50" width="147.5" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4331,10 +4332,10 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we0-za-UW8">
-                                            <rect key="frame" x="15" y="116" width="168" height="100"/>
+                                            <rect key="frame" x="15" y="116" width="167.5" height="100"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls0-uX-DJA">
-                                                    <rect key="frame" x="10" y="20" width="148" height="30"/>
+                                                    <rect key="frame" x="10" y="20" width="147.5" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="A6R-eq-IkS"/>
                                                     </constraints>
@@ -4343,7 +4344,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总市值" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piD-cS-xsK">
-                                                    <rect key="frame" x="10" y="50" width="148" height="30"/>
+                                                    <rect key="frame" x="10" y="50" width="147.5" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4368,10 +4369,10 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIr-tZ-Gck">
-                                            <rect key="frame" x="193" y="116" width="167" height="100"/>
+                                            <rect key="frame" x="192.5" y="116" width="167.5" height="100"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooR-Yl-aye">
-                                                    <rect key="frame" x="10" y="20" width="147" height="30"/>
+                                                    <rect key="frame" x="10" y="20" width="147.5" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="kZG-dv-qNN"/>
                                                     </constraints>
@@ -4380,7 +4381,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当日参考盈亏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dp8-cA-wfo">
-                                                    <rect key="frame" x="10" y="50" width="147" height="30"/>
+                                                    <rect key="frame" x="10" y="50" width="147.5" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4433,19 +4434,19 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品代码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zie-09-Mku">
-                                                            <rect key="frame" x="15" y="0.0" width="87" height="49"/>
+                                                            <rect key="frame" x="15" y="0.0" width="86.5" height="49"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="盈亏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKB-w5-MjN">
-                                                            <rect key="frame" x="102" y="0.0" width="86" height="49"/>
+                                                            <rect key="frame" x="101.5" y="0.0" width="86" height="49"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="盈亏比例" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0I-Fe-LAi">
-                                                            <rect key="frame" x="188" y="0.0" width="86" height="49"/>
+                                                            <rect key="frame" x="187.5" y="0.0" width="86.5" height="49"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

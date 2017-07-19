@@ -162,7 +162,7 @@
         MALine.MAPositions = positions;
         MALine.MAType = -1;
         [MALine draw];
-        self.breathingPoint.hidden = NO;
+        self.breathingPoint.hidden = YES;
         self.breathingPoint.frame = CGRectMake([positions.lastObject CGPointValue].x-2, [positions.lastObject CGPointValue].y-2,4,4);
         
 

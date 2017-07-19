@@ -94,7 +94,7 @@
 /**
  *  K线图上可画区域最小的Y 分时线的顶部
  */
-#define Y_StockChartKLineMainViewMinY 5
+#define Y_StockChartKLineMainViewMinY 0
 
 /**
  *  K线图上可画区域最大的Y

@@ -60,12 +60,12 @@ extension JH_IM {
             print(error)
         }*/
         print_SP("//iOS客户端发送消息\(self.socket.socketURL)")
-        //self.socket.emit(self._followData.code, prama)
-        
+        self.socket.emit(self._followData.code, prama)
+        /*
         SP_Alamofire.post("http://39.108.142.204:8001/send_msg/", param: prama, block: { (isOk, res, error) in
             print_Json("url_客户端发送消息=>\(JSON(res!))")
             
-        })
+        })*/
     }
     
     
@@ -119,14 +119,20 @@ extension JH_IM {
         }
         
         for item in models {
-            for (i,dat) in self._tabDatas.enumerated() {
-                if item.create_at == dat.create_at {
-                    self._tabDatas[i].isLoading = false
-                    self._tabDatas[i].content = item.content
-                    self._tabDatas[i].videoImg = item.videoImg
+            if item.isMsg {
+                for (i,dat) in self._tabDatas.enumerated() {
+                    if item.create_at == dat.create_at {
+                        self._tabDatas[i].isLoading = false
+                        self._tabDatas[i].content = item.content
+                        self._tabDatas[i].videoImg = item.videoImg
+                    }
+                    
                 }
-                
+            }else{
+                self.btn_numRen.setTitle(" "+item.popularity, for: .normal)
+                self.btn_numFollow.setTitle(" "+item.select, for: .normal)
             }
+            
             
         }
         self.tableView?.reloadData()

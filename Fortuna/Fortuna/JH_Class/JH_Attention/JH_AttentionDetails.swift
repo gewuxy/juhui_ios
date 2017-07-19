@@ -29,7 +29,7 @@ class JH_AttentionDetails: SP_ParentVC {
     
     // 通讯连接
     lazy var socket:SocketIOClient = {
-        return SocketIOClient(socketURL: URL(string: My_API.url_广播最新详情数据)!, config: [.log(true), .forcePolling(true)])
+        return SocketIOClient(socketURL: URL(string: My_API.url_SocketIO广播)!, config: [.log(true)])//.forcePolling(false)
     }()
     
     deinit {
@@ -143,7 +143,7 @@ extension JH_AttentionDetails {
         }
         
         self.socket.on(clientEvent: .disconnect) { (data, ack) in
-            //iOS客户端下线
+            
         }
         
         self.socket.connect()
@@ -267,7 +267,6 @@ extension JH_AttentionDetails {
         case .t日K,.t周K,.t月K,.t1分,.t5分,.t10分,.t30分,.t60分:
             t_K线图数据(type,cell)
         }*/
-        
     }
     /*
      _Date = arr[0];
@@ -405,6 +404,10 @@ extension JH_AttentionDetails {
                 self?.tableView.reloadData()
             }else{
                 SP_HUD.show(text:error)
+            }
+            //30秒轮询
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(30*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
+                //self?.t_详情页基础数据()
             }
             
         }

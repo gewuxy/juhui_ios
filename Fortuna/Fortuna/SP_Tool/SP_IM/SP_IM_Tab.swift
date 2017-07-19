@@ -40,6 +40,10 @@ struct SP_IM_TabModel {
     var create_at = ""
     var isSend = false
     var timeString = ""
+    
+    var isMsg = false
+    var popularity = ""
+    var select = ""
 }
 
 extension SP_IM_TabModel:SP_JsonModel {
@@ -74,6 +78,11 @@ extension SP_IM_TabModel:SP_JsonModel {
         if let tim = Double(create_at) {
             timeString = Date.sp_timestampToDate(tim)
         }
+        
+        
+        isMsg = json["is_msg"].boolValue
+        popularity = json["popularity"].stringValue
+        select = json["select"].stringValue
     }
 }
 

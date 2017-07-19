@@ -69,7 +69,7 @@ enum My_API {
     case t_媒体文件上传(uploadParams:[SP_UploadParam])
     case t_媒体文件上传2(file:URL)
     
-    static let url_广播最新详情数据 = "http://39.108.142.204:8001"
+    static let url_SocketIO广播 = "http://39.108.142.204:8001"
     
     
 }
