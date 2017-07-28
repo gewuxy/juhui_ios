@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Y_KLineModel.h"
+
 typedef NS_ENUM(NSInteger, Y_MAType){
     Y_MA7Type = 0,
     Y_MA30Type,
@@ -30,6 +31,14 @@ typedef NS_ENUM(NSInteger, Y_MAType){
  *  最大的Y
  */
 @property (nonatomic, assign) CGFloat maxY;
+/**
+ *  是否为以日分割
+ */
+@property (nonatomic, assign) BOOL FiveDay;
+/**
+ *  是否绘制背景
+ */
+@property (nonatomic, assign) BOOL isBg;
 
 /**
  *  根据context初始化均线画笔

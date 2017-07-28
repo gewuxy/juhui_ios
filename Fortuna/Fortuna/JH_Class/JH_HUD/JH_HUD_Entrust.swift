@@ -39,7 +39,7 @@ class JH_HUD_Entrust: UIView {
         didSet{
             lab_No.text = model.no
             lab_name.text = model.name
-            lab_pice.text = model.price
+            lab_pice.text = "¥ "+model.price
             lab_num.text = model.num
             
             

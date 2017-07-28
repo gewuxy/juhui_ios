@@ -28,8 +28,9 @@
         _kLineView = [Y_KLineView new];
         [self addSubview:_kLineView];
         [_kLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.right.top.equalTo(self);
-            make.left.equalTo(self.segmentView.mas_right);
+            make.bottom.top.equalTo(self);
+            make.left.equalTo(self).offset(0);
+            make.right.equalTo(self).offset(0);
         }];
     }
     return _kLineView;
@@ -68,8 +69,17 @@
     {
         self.segmentView.selectedIndex = 4;
     }
+    
+    self.isReloadDataStop = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDataStopNotifi:) name:@"YKStockChartViewReloadDataStop" object:nil];
+    
+    
 }
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"YKStockChartViewReloadDataStop" object:nil];
+     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)setDataSource:(id<Y_StockChartViewDataSource>)dataSource
 {
     _dataSource = dataSource;
@@ -78,13 +88,23 @@
         self.segmentView.selectedIndex = 4;
     }
 }
+- (void) reloadDataStopNotifi:(NSNotification*)notif {
+    NSLog(@"%@",notif.object);
+    self.isReloadDataStop = [notif.object isEqualToString:@"开启"];
+    
+}
+
 - (void)reloadData
 {
+    
+    
     self.segmentView.selectedIndex = self.segmentView.selectedIndex;
+    if (self.isReloadDataStop) {
+        
+    }
 }
 
 #pragma mark - 代理方法
-
 - (void)y_StockChartSegmentView:(Y_StockChartSegmentView *)segmentView clickSegmentButtonIndex:(NSInteger)index
 {
     NSLog(@"y_StockChartSegmentView: index ==>%ld",index);
@@ -144,6 +164,7 @@
             } else {
                 self.kLineView.kLineModels = (NSArray *)stockData;
                 self.kLineView.MainViewType = type;
+                self.kLineView.FiveDay = itemModel.FiveDay;
                 [self.kLineView reDraw];
             }
             [self bringSubviewToFront:self.segmentView];
@@ -158,11 +179,13 @@
 /************************ItemModel类************************/
 @implementation Y_StockChartViewItemModel
 
-+ (instancetype)itemModelWithTitle:(NSString *)title type:(Y_StockChartCenterViewType)type
++ (instancetype)itemModelWithTitle:(NSString *)title type:(Y_StockChartCenterViewType)type fiveDay:(BOOL)fiveDay
 {
     Y_StockChartViewItemModel *itemModel = [Y_StockChartViewItemModel new];
     itemModel.title = title;
+    itemModel.FiveDay = fiveDay;
     itemModel.centerViewType = type;
+    
     return itemModel;
 }
 

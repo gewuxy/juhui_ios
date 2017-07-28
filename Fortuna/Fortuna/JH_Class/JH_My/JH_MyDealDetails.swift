@@ -13,27 +13,30 @@ class JH_MyDealDetails: SP_ParentVC {
     @IBOutlet weak var tableView: UITableView!
     
     var _datas:[(l:String,r:String)] {
-        return[(sp_localized("红酒名称"),""),
-               (sp_localized("代码"),""),
-               (sp_localized("成交时间"),""),
-               (sp_localized("成交价"),""),
-               (sp_localized("成交量"),""),
-               (sp_localized("成交额"),""),
-               (sp_localized("支付方式"),"")]
+        return[(sp_localized("红酒名称："),self._data.wine_name),
+               (sp_localized("代码："),self._data.wine_code),
+               (sp_localized("成交时间："),self._data.create_at),
+               (sp_localized("成交价："),"¥ "+self._data.price),
+               (sp_localized("成交量："),self._data.num),
+               (sp_localized("成交额："),"¥ "+self._data.allprice),
+               (sp_localized("支付方式："),"微信")]
     }
+    var _data = M_MyDeal()
 }
 
 extension JH_MyDealDetails {
     override class func initSPVC() -> JH_MyDealDetails {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_MyDealDetails") as! JH_MyDealDetails
     }
-    class func show(_ parentVC:UIViewController?) {
+    class func show(_ parentVC:UIViewController?, data:M_MyDeal) {
         let vc = JH_MyDealDetails.initSPVC()
         vc.hidesBottomBarWhenPushed = true
+        vc._data = data
         parentVC?.navigationController?.show(vc, sender: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.n_view._title = _data.wine_name
         makeTableView()
     }
     
@@ -62,7 +65,9 @@ extension JH_MyDealDetails:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_MyDealDetailsCell.show(tableView, indexPath)
-        
+        let model = _datas[indexPath.row]
+        cell.lab_L.text = model.l
+        cell.lab_R.text = model.r
         return cell
     }
 }

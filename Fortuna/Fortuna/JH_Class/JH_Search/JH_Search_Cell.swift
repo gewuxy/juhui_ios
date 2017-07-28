@@ -21,6 +21,22 @@ class JH_SearchCell_List: UITableViewCell {
         lab_name.font = sp_fitFont16
         lab_num.font = sp_fitFont16
         btn_select.titleLabel?.font = sp_fitFont16
+        //self.addGestureRecognizer(longPress)
+    }
+    lazy var longPress:UILongPressGestureRecognizer = {
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        lo.minimumPressDuration = 0.5
+        return lo
+    }()
+    func longPressClick(_ sender:UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            self.backgroundColor = UIColor.main_bgHigh
+        case .ended:
+            self.backgroundColor = UIColor.white
+        default:
+            break
+        }
     }
     
     @IBOutlet weak var view_line: UIView!

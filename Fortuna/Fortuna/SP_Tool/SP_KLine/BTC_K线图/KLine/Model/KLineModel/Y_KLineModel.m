@@ -316,7 +316,7 @@
         case NSOrderedAscending:
         {
 //            第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger j = 7; j >= 1; j--)
+            for (NSInteger j = (models.count - 1 >= 7 ? 7 : models.count - 1); j >= 1; j--)
             {
                 NSNumber *emMaxValue = @0;
                 
@@ -339,7 +339,7 @@
                 models[j].NineClocksMaxPrice = emMaxValue;
             }
             //第一个循环结束后，ClockFirstValue为最小值
-            for (NSInteger i = 0, j = 8; j < models.count; i++,j++)
+            for (NSInteger i = 0, j = (models.count - 1 >= 8 ? 8 : models.count - 1); j < models.count; i++,j++)
             {
                 NSNumber *emMaxValue = @0;
                 
@@ -363,7 +363,7 @@
         {
             //第一个循环结束后，ClockFirstValue为最小值
             
-            for (NSInteger j = 7; j >= 1; j--)
+            for (NSInteger j = (models.count - 1 >= 7 ? 7 : models.count - 1); j >= 1; j--)
             {
                 NSNumber *emMinValue = @(10000000000);
                 

@@ -26,7 +26,7 @@ struct M_Attention {
 }
 
 extension M_Attention:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }
@@ -34,7 +34,7 @@ extension M_Attention:SP_JsonModel {
         id = json["id"].stringValue
         isDelete = json["is_delete"].boolValue
         name = json["name"].stringValue
-        proposedPrice = json["proposed_price"].stringValue
+        proposedPrice = String(format:"%.2f",json["proposed_price"].doubleValue)
         proposedPrice = proposedPrice.isEmpty ? "--" : proposedPrice
         quoteChange = json["quote_change"].stringValue
         quoteChange = quoteChange.isEmpty ? "--" : quoteChange
@@ -48,27 +48,34 @@ extension M_Attention:SP_JsonModel {
 }
 
 
-
 struct M_AttentionDetail {
+    var code = ""
     //成交量
-    var deal_count =  ""
+    var deal_count =  "--"
     //最高价
-    var highest_price =  ""
+    var highest_price =  "--"
     //总市值
-    var total_market_value =  ""
+    var total_market_value =  "--"
     //换手率
-    var turnover_rate =  ""
+    var turnover_rate =  "--"
     //最低价
-    var lowest_price =  ""
+    var lowest_price =  "--"
     //最新价
-    var lastest_price =  ""
+    var lastest_price =  "--"
     //振幅
-    var amplitude =  ""
+    var amplitude =  "--"
     //量比
-    var ratio = ""
+    var ratio = "--"
+    //涨幅比例
+    var increase_ratio = "--"
+    //涨幅值
+    var increase = "--"
+    //成交额
+    var turnover = "--"
     
-    var buy_5_level:[[Double]] = []
-    var sell_5_level:[[Double]] = []
+    
+    var buy_5_level:[[String]] = []
+    var sell_5_level:[[String]] = []
     
     var shareTitle = ""
     var shareText = ""
@@ -79,38 +86,147 @@ struct M_AttentionDetail {
 }
 
 extension M_AttentionDetail:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }
+        code = json["code"].stringValue
+        
         shareTitle = json["shareTitle"].stringValue
         shareText = json["shareText"].stringValue
         shareImg = json["shareImg"].stringValue
         shareLink = json["shareLink"].stringValue
         
+        increase_ratio = json["increase_ratio"].stringValue
+        increase = json["increase"].stringValue
+        
+        turnover = json["turnover"].stringValue
+        if turnover.isEmpty {
+            turnover = "--"
+        }else{
+            let num = json["turnover"].doubleValue
+            if  num >= 10000.0 {
+                turnover = String(format: "%.2f万", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                turnover = String(format: "%.2f亿", num/100000000.0)
+            }
+            
+        }
         //成交量
         deal_count =  json["deal_count"].stringValue
+        if deal_count.isEmpty {
+            deal_count = "--"
+        }else{
+            let num = json["deal_count"].doubleValue
+            deal_count += "手"
+            if  num >= 10000.0 {
+                deal_count = String(format: "%.2f万手", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                deal_count = String(format: "%.2f亿手", num/100000000.0)
+            }
+            
+        }
+        
         //最高价
         highest_price =  json["highest_price"].stringValue
+        if highest_price.isEmpty {
+            highest_price = "--"
+        }else{
+            let num = json["highest_price"].doubleValue
+            if  num >= 10000.0 {
+                highest_price = String(format: "%.2f万", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                highest_price = String(format: "%.2f亿", num/100000000.0)
+            }
+            
+        }
         //总市值
         total_market_value =  json["total_market_value"].stringValue
+        if total_market_value.isEmpty {
+            total_market_value = "--"
+        }else{
+            let num = json["total_market_value"].doubleValue
+            if  num >= 10000.0 {
+                total_market_value = String(format: "%.2f万", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                total_market_value = String(format: "%.2f亿", num/100000000.0)
+            }
+            
+        }
         //换手率
         turnover_rate =  json["turnover_rate"].stringValue
         //最低价
         lowest_price =  json["lowest_price"].stringValue
-        //最低价
+        if lowest_price.isEmpty {
+            lowest_price = "--"
+        }else{
+            let num = json["lowest_price"].doubleValue
+            if  num >= 10000.0 {
+                lowest_price = String(format: "%.2f万", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                lowest_price = String(format: "%.2f亿", num/100000000.0)
+            }
+            
+        }
+        //最新价
         lastest_price =  json["lastest_price"].stringValue
+        if lastest_price.isEmpty {
+            lastest_price = "--"
+        }else{
+            let num = json["lastest_price"].doubleValue
+            if  num >= 10000.0 {
+                lastest_price = String(format: "%.2f万", num/10000.0)
+            }
+            if num >= 100000000.0 {
+                lastest_price = String(format: "%.2f亿", num/100000000.0)
+            }
+            
+        }
         //振幅
         amplitude =  json["amplitude"].stringValue
+        
         //量比
-        ratio = json["ratio"].stringValue
+        ratio = String(format: "%.2f", json["ratio"].doubleValue)
+        
         
         let buy_5_levelArr = json["buy_5_level"].arrayValue
         for item in buy_5_levelArr {
             let arr = item.arrayValue
-            var ar:[Double] = []
-            for i in arr {
-                ar.append(i.doubleValue)
+            var ar:[String] = []
+            for (i,item) in arr.enumerated() {
+                if i == 0 {
+                    let num = item.doubleValue
+                    var str = "--"
+                    if num > 0 {
+                        str = String(format:"%.2f",num)
+                        if  num >= 10000.0 {
+                            str = String(format: "%.2f万", num/10000.0)
+                        }
+                        if num >= 100000000.0 {
+                            str = String(format: "%.2f亿", num/100000000.0)
+                        }
+                    }
+                    ar.append(str)
+                }else{
+                    let num = item.doubleValue
+                    var str = "--"
+                    if num > 0 {
+                        str = String(format:"%.0f",num)
+                        if  num >= 10000.0 {
+                            str = String(format: "%.0f万", num/10000.0)
+                        }
+                        if num >= 100000000.0 {
+                            str = String(format: "%.0f亿", num/100000000.0)
+                        }
+                    }
+                    ar.append(str)
+                }
+                
             }
             buy_5_level.append(ar)
         }
@@ -120,9 +236,36 @@ extension M_AttentionDetail:SP_JsonModel {
         let sell_5_levelArr = json["sell_5_level"].arrayValue
         for item in sell_5_levelArr {
             let arr = item.arrayValue
-            var ar:[Double] = []
-            for i in arr {
-                ar.append(i.doubleValue)
+            var ar:[String] = []
+            for (i,item) in arr.enumerated() {
+                if i == 0 {
+                    let num = item.doubleValue
+                    var str = "--"
+                    if num > 0 {
+                        str = String(format:"%.2f",num)
+                        if  num >= 10000.0 {
+                            str = String(format: "%.2f万", num/10000.0)
+                        }
+                        if num >= 100000000.0 {
+                            str = String(format: "%.2f亿", num/100000000.0)
+                        }
+                    }
+                    ar.append(str)
+                }else{
+                    let num = item.doubleValue
+                    var str = "--"
+                    if num > 0 {
+                        str = String(format:"%.0f",num)
+                        if  num >= 10000.0 {
+                            str = String(format: "%.0f万", num/10000.0)
+                        }
+                        if num >= 100000000.0 {
+                            str = String(format: "%.0f亿", num/100000000.0)
+                        }
+                    }
+                    ar.append(str)
+                }
+                
             }
             sell_5_level.append(ar)
         }

@@ -8,7 +8,7 @@
 
 #import "Y_KLineMainView.h"
 #import "UIColor+Y_StockChart.h"
-
+#import "SP_InfoOC.h"
 #import "Y_KLine.h"
 #import "Y_MALine.h"
 #import "Y_KLinePositionModel.h"
@@ -25,7 +25,10 @@
  *  需要绘制的model位置数组
  */
 @property (nonatomic, strong) NSMutableArray *needDrawKLinePositionModels;
-
+/**
+ *  需要绘制的model时间间隔数组
+ */
+@property (nonatomic, strong) NSMutableArray *needDrawKLinePositionTimeModels;
 
 /**
  *  Index开始X的值
@@ -52,10 +55,7 @@
  *  MA30位置数组
  */
 @property (nonatomic, strong) NSMutableArray *MA30Positions;
-/**
- *  添加一个圆点动画
- */
-@property (nonatomic,strong)CALayer * breathingPoint;
+
 
 @end
 
@@ -67,6 +67,7 @@
     if (self) {
         self.needDrawKLineModels = @[].mutableCopy;
         self.needDrawKLinePositionModels = @[].mutableCopy;
+        self.needDrawKLinePositionTimeModels = @[].mutableCopy;
         self.MA7Positions = @[].mutableCopy;
         self.MA30Positions = @[].mutableCopy;
         _needDrawStartIndex = 0;
@@ -105,12 +106,8 @@
     //2.描述路径
     UIBezierPath * path = [UIBezierPath bezierPath];
     //起点
-    [path moveToPoint:CGPointMake(0, 0)];
-    //第二个点
-    [path addLineToPoint:CGPointMake(self.frame.size.width, 0)];
-    //第三个点
-    [path addLineToPoint:CGPointMake(self.frame.size.width, Y_StockChartKLineMainViewMaxY)];
-    //第四个点
+    [path moveToPoint:CGPointMake(self.frame.size.width, Y_StockChartKLineMainViewMaxY)];
+    //终点
     [path addLineToPoint:CGPointMake(0, Y_StockChartKLineMainViewMaxY)];
     //闭合路径 也等于 [path addLineToPoint:CGPointMake(10, 10)];
     [path closePath];
@@ -121,70 +118,255 @@
     //显示路径
     CGContextStrokePath(contextRef);
     
+    //1.获取上下文
+    CGContextRef contextRef2 = UIGraphicsGetCurrentContext();
+    //2.描述路径
+    UIBezierPath * path2 = [UIBezierPath bezierPath];
+    //起点
+    [path2 moveToPoint:CGPointMake(self.frame.size.width, 0)];
+    //终点
+    [path2 addLineToPoint:CGPointMake(0, 0)];
+    //闭合路径 也等于 [path addLineToPoint:CGPointMake(10, 10)];
+    [path2 closePath];
+    //设置颜色
+    [[UIColor borderLineColor]setStroke];
+    //3.添加路径
+    CGContextAddPath(contextRef2, path2.CGPath);
+    //显示路径
+    CGContextStrokePath(contextRef2);
+
+    
     
     //设置显示日期的区域背景颜色
-    CGContextSetFillColorWithColor(context, [UIColor assistBackgroundColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor backgroundColor].CGColor);
     CGContextFillRect(context, CGRectMake(0, Y_StockChartKLineMainViewMaxY, self.frame.size.width, self.frame.size.height - Y_StockChartKLineMainViewMaxY));
     
      
     
     Y_MALine *MALine = [[Y_MALine alloc]initWithContext:context];
-    
+    MALine.maxY = Y_StockChartKLineMainViewMaxY;
+    MALine.isBg = (self.MainViewType == Y_StockChartcenterViewTypeTimeLine);
     if(self.MainViewType == Y_StockChartcenterViewTypeKline)
     {
+        
+        __block NSString* lastTimeTemp = @"";
+        __block CGFloat lastPointX = 0;
+        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            CGPoint point = [[NSValue valueWithCGPoint:positionModel.ClosePoint] CGPointValue];
+            
+            NSDictionary *attribute = @{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor assistTextColor]};
+            
+            if (self.FiveDay) {
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.needDrawKLineModels[idx].Date.doubleValue/1000];
+                NSDateFormatter *formatter = [NSDateFormatter new];
+                formatter.dateFormat = @"MM/dd";
+                NSString *dateStr = [formatter stringFromDate:date];
+                CGFloat x = point.x;
+                
+                if(idx == 0){
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    [self makeCGContextWithX:point.x];
+                }
+                if (idx == self.needDrawKLinePositionModels.count-1  && idx > 22) {
+                    
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    [self makeCGContextWithX:point.x];
+                    
+                }
+                if (![lastTimeTemp isEqualToString:dateStr] && idx < self.needDrawKLinePositionModels.count-15 && idx > 22  && point.x - lastPointX > 90){
+                    
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    lastPointX = x;
+                    
+                    [self makeCGContextWithX:point.x];
+                    
+                }
+                lastTimeTemp = dateStr;
+                
+            }else{
+                
+                
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.needDrawKLineModels[idx].Date.doubleValue/1000];
+                NSDateFormatter *formatter = [NSDateFormatter new];
+                formatter.dateFormat = @"HH:mm";
+                NSString *dateStr = [formatter stringFromDate:date];
+                CGFloat x = point.x;
+                
+                if(idx == 0){
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    [self makeCGContextWithX:point.x];
+                }
+                if (self.needDrawKLinePositionModels.count%2 == 0) {
+                    if (idx == self.needDrawKLinePositionModels.count/2)
+                    {
+                        x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                        CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                        [self makeCGContextWithX:point.x];
+                    }
+                }else{
+                    if ((idx == self.needDrawKLinePositionModels.count-1)/2)
+                    {
+                        x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                        CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                        [self makeCGContextWithX:point.x];
+                    }
+                }
+                
+                if (idx == self.needDrawKLinePositionModels.count-1  && idx > 22)
+                {
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    [self makeCGContextWithX:point.x];
+                }
+            }
+            
+        }];
+        
+        
         Y_KLine *kLine = [[Y_KLine alloc]initWithContext:context];
         kLine.maxY = Y_StockChartKLineMainViewMaxY;
+        kLine.FiveDay = self.FiveDay;
+        //__block NSMutableArray *positions = @[].mutableCopy;
         __block NSMutableArray *positions = @[].mutableCopy;
-        
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull kLinePositionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             kLine.kLinePositionModel = kLinePositionModel;
             kLine.kLineModel = self.needDrawKLineModels[idx];
             UIColor *kLineColor = [kLine draw];
             [kLineColors addObject:kLineColor];
             
-            //[positions addObject:[NSValue valueWithCGPoint:kLinePositionModel.ClosePoint]];
+            [positions addObject:[NSValue valueWithCGPoint:kLinePositionModel.ClosePoint]];
         }];
         //MALine.MAPositions = positions;
         //MALine.MAType = -1;
         //[MALine draw];
         self.breathingPoint.hidden = YES;
+        
     } else {
+        
+        __block NSString* lastTimeTemp = @"";
+        __block CGFloat lastPointX = 0;
+        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            
+            
+            CGPoint point = [[NSValue valueWithCGPoint:positionModel.ClosePoint] CGPointValue];
+            
+            
+            NSDictionary *attribute = @{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor assistTextColor]};
+            
+            if (self.FiveDay) {
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.needDrawKLineModels[idx].Date.doubleValue/1000];
+                NSDateFormatter *formatter = [NSDateFormatter new];
+                formatter.dateFormat = @"MM/dd";
+                NSString *dateStr = [formatter stringFromDate:date];
+                CGFloat x = point.x;
+                
+                if(idx == 0){
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                }
+                if (idx == self.needDrawKLinePositionModels.count-1  && idx > 22) {
+                    
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    
+                    [self makeCGContextWithX:point.x];
+                    
+                    
+                }
+                // && idx < self.needDrawKLinePositionModels.count-15 && idx > 22  && x - lastPointX > 90
+                if (![lastTimeTemp isEqualToString:dateStr]){
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    
+                    if (idx < self.needDrawKLinePositionModels.count-15 && idx > 22  && point.x - lastPointX > 90) {
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                        lastPointX = x;
+                    }else{
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor clearColor]}];
+                        
+                    }
+                    
+                    [self makeCGContextWithX:point.x];
+                    
+                }
+                
+                lastTimeTemp = dateStr;
+                
+            }else{
+                
+                
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.needDrawKLineModels[idx].Date.doubleValue/1000];
+                NSDateFormatter *formatter = [NSDateFormatter new];
+                formatter.dateFormat = @"HH:mm";
+                NSString *dateStr = [formatter stringFromDate:date];
+                CGFloat x = point.x;
+                
+                if(idx == 0){
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                }
+                if (self.needDrawKLinePositionModels.count%2 == 0) {
+                    if (idx == self.needDrawKLinePositionModels.count/2)
+                    {
+                        x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                        CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                        [self makeCGContextWithX:point.x];
+                    }
+                }else{
+                    if ((idx == self.needDrawKLinePositionModels.count-1)/2)
+                    {
+                        x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width/2;
+                        CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                        [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                        [self makeCGContextWithX:point.x];
+                    }
+                }
+                
+                if (idx == self.needDrawKLinePositionModels.count-1 && idx > 22)
+                {
+                    x = point.x - [self rectOfNSString:dateStr attribute:attribute].size.width;
+                    CGPoint drawDatePoint = CGPointMake(x, Y_StockChartKLineMainViewMaxY + 1.5);
+                    [dateStr drawAtPoint:drawDatePoint withAttributes:attribute];
+                    
+                    [self makeCGContextWithX:point.x];
+                }
+            }
+            
+        }];
+        
+        
         __block NSMutableArray *positions = @[].mutableCopy;
         [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
             UIColor *strokeColor = positionModel.OpenPoint.y < positionModel.ClosePoint.y ? [UIColor increaseColor] : [UIColor decreaseColor];
             [kLineColors addObject:strokeColor];
             [positions addObject:[NSValue valueWithCGPoint:positionModel.ClosePoint]];
             
-            if (idx == self.needDrawKLinePositionModels.count-1) {
+            if (idx == self.needDrawKLineModels.count-1) {
+                
+                self.breathingPoint.frame = CGRectMake([positions.lastObject CGPointValue].x-2, [positions.lastObject CGPointValue].y-2,4,4);
+            }else{
                 
             }
         }];
         MALine.MAPositions = positions;
         MALine.MAType = -1;
         [MALine draw];
-        self.breathingPoint.hidden = YES;
-        self.breathingPoint.frame = CGRectMake([positions.lastObject CGPointValue].x-2, [positions.lastObject CGPointValue].y-2,4,4);
         
-
-        __block CGPoint lastDrawDatePoint = CGPointZero;//fix
-        [self.needDrawKLinePositionModels enumerateObjectsUsingBlock:^(Y_KLinePositionModel * _Nonnull positionModel, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            CGPoint point = [positions[idx] CGPointValue];
-            
-            //日期
-            
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.needDrawKLineModels[idx].Date.doubleValue/1000];
-            NSDateFormatter *formatter = [NSDateFormatter new];
-            formatter.dateFormat = @"HH:mm";
-            NSString *dateStr = [formatter stringFromDate:date];
- 
-            CGPoint drawDatePoint = CGPointMake(point.x + 1, Y_StockChartKLineMainViewMaxY + 1.5);
-            if(CGPointEqualToPoint(lastDrawDatePoint, CGPointZero) || point.x - lastDrawDatePoint.x > 60 )
-            {
-                [dateStr drawAtPoint:drawDatePoint withAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:11],NSForegroundColorAttributeName : [UIColor assistTextColor]}];
-                lastDrawDatePoint = drawDatePoint;
-            }
-        }];
+        
     }
     
     if(self.targetLineStatus != Y_StockChartTargetLineStatusCloseMA && self.MainViewType == Y_StockChartcenterViewTypeKline){
@@ -209,17 +391,40 @@
     }
 }
 
+- (void)makeCGContextWithX:(CGFloat)x{
+    //1.获取上下文
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    //2.描述路径
+    UIBezierPath * path = [UIBezierPath bezierPath];
+    
+    //起点
+    [path moveToPoint:CGPointMake(x, 0)];
+    //终点
+    [path addLineToPoint:CGPointMake(x, Y_StockChartKLineMainViewMaxY)];
+    //闭合路径 也等于 [path addLineToPoint:CGPointMake(10, 10)];
+    [path closePath];
+    //设置颜色
+    [[UIColor borderLineColor]setStroke];
+    //3.添加路径
+    CGContextAddPath(contextRef, path.CGPath);
+    //CGContextSetLineWidth(contextRef, 0.5);
+    //显示路径
+    CGContextStrokePath(contextRef);
+}
+
+
+
 - (CALayer *)breathingPoint
 {
     if (!_breathingPoint) {
         _breathingPoint = [CAScrollLayer layer];
         [self.layer addSublayer:_breathingPoint];
-        _breathingPoint.backgroundColor = [UIColor whiteColor].CGColor;
+        _breathingPoint.backgroundColor = [UIColor timeLineLineColor].CGColor;
         _breathingPoint.cornerRadius = 2;
         _breathingPoint.masksToBounds = YES;
         _breathingPoint.borderWidth = 1;
         _breathingPoint.borderColor = [[UIColor timeLineLineColor] CGColor];
-        
+        _breathingPoint.hidden = YES;
         [_breathingPoint addAnimation:[self groupAnimationDurTimes:1.5f] forKey:@"breathingPoint"];
     }
     return _breathingPoint;
@@ -276,7 +481,7 @@
 - (void)updateMainViewWidth
 {
     //根据stockModels的个数和间隔和K线的宽度计算出self的宽度，并设置contentsize
-    CGFloat kLineViewWidth = self.kLineModels.count * [Y_StockChartGlobalVariable kLineWidth] + (self.kLineModels.count + 1) * [Y_StockChartGlobalVariable kLineGap] + 10;
+    CGFloat kLineViewWidth = self.kLineModels.count * [Y_StockChartGlobalVariable kLineWidth] + (self.kLineModels.count + 1) * [Y_StockChartGlobalVariable kLineGap] + 0;
     
     if(kLineViewWidth < self.parentScrollView.bounds.size.width) {
         kLineViewWidth = self.parentScrollView.bounds.size.width;
@@ -314,9 +519,9 @@
     NSInteger arrCount = self.needDrawKLinePositionModels.count;
     for (NSInteger index = startIndex > 0 ? startIndex - 1 : 0; index < arrCount; ++index) {
         Y_KLinePositionModel *kLinePositionModel = self.needDrawKLinePositionModels[index];
-        
-        CGFloat minX = kLinePositionModel.HighPoint.x - ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
-        CGFloat maxX = kLinePositionModel.HighPoint.x + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2);
+        NSNumber* num = self.needDrawKLinePositionTimeModels[index];
+        CGFloat minX = kLinePositionModel.HighPoint.x - ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2) - [num integerValue];
+        CGFloat maxX = kLinePositionModel.HighPoint.x + ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]/2) - [num integerValue];
         
         if(xPositoinInMainView > minX && xPositoinInMainView < maxX)
         {
@@ -324,7 +529,7 @@
             {
                 [self.delegate kLineMainViewLongPressKLinePositionModel:self.needDrawKLinePositionModels[index] kLineModel:self.needDrawKLineModels[index]];
             }
-            return kLinePositionModel.HighPoint;
+            return CGPointMake(kLinePositionModel.ClosePoint.x - [num integerValue],kLinePositionModel.ClosePoint.y);
         }
 
     }
@@ -389,6 +594,8 @@
     Y_KLineModel *firstModel = kLineModels.firstObject;
     __block CGFloat minAssert = firstModel.Low.floatValue;
     __block CGFloat maxAssert = firstModel.High.floatValue;
+    
+    NSLog(@"minAssert= %f / maxAssert= %f",minAssert,maxAssert);
 //    __block CGFloat minMA7 = CGFLOAT_MAX;
 //    __block CGFloat maxMA7 = CGFLOAT_MIN;
 //    __block CGFloat minMA30 = CGFLOAT_MAX;
@@ -426,8 +633,8 @@
     
     
     
-    maxAssert *= 1.0001;
-    minAssert *= 0.9991;
+    maxAssert += 10.0;
+    minAssert -= 10.0;
     
     
     CGFloat minY = Y_StockChartKLineMainViewMinY;
@@ -439,18 +646,47 @@
     
     
     [self.needDrawKLinePositionModels removeAllObjects];
+    [self.needDrawKLinePositionTimeModels removeAllObjects];
     [self.MA7Positions removeAllObjects];
     [self.MA30Positions removeAllObjects];
+    
+    
+    NSDate* oneDate;
+    NSDate* toDate;
+    NSInteger timgCount = 0;
+    // 日历对象
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    // 获得一个时间元素
+    NSCalendarUnit  unit =  NSCalendarUnitMinute;
+    NSDateComponents *  timeComponents;
     
     NSInteger kLineModelsCount = kLineModels.count;
     for (NSInteger idx = 0 ; idx < kLineModelsCount; ++idx)
     {
-        //K线坐标转换
+        //K线  坐标转换
         Y_KLineModel *kLineModel = kLineModels[idx];
         
-        CGFloat xPosition = self.startXPosition + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
+        double timeTamp = [kLineModel.Date doubleValue]/1000;
+        
+        if (idx == 0) {
+            oneDate = [NSDate dateWithTimeIntervalSince1970:timeTamp];
+        }else{
+            toDate = [NSDate dateWithTimeIntervalSince1970:timeTamp];
+            
+            timeComponents = [calender components:unit fromDate:oneDate toDate:toDate options:kNilOptions];
+            timgCount = 0;//[timeComponents minute];
+            
+        }
+        //NSLog(@"timgCount ==> %ld",timgCount);
+        CGFloat xPosition = self.startXPosition + timgCount + idx * ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap]);
+        //LCD =>
+        //1,以时间为x坐标，每天的00:00为坐标起点。
+        //将时间戳转换成时间，
+        //计算到当天00:00的时间间隔-分钟
+        
         CGPoint openPoint = CGPointMake(xPosition, ABS(maxY - (kLineModel.Open.floatValue - minAssert)/unitValue));
         CGFloat closePointY = ABS(maxY - (kLineModel.Close.floatValue - minAssert)/unitValue);
+        /*
         if(ABS(closePointY - openPoint.y) < Y_StockChartKLineMinWidth)
         {
             if(openPoint.y > closePointY)
@@ -481,7 +717,7 @@
                     }
                 }
             }
-        }
+        }*/
         
         CGPoint closePoint = CGPointMake(xPosition, closePointY);
         CGPoint highPoint = CGPointMake(xPosition, ABS(maxY - (kLineModel.High.floatValue - minAssert)/unitValue));
@@ -489,7 +725,7 @@
         
         Y_KLinePositionModel *kLinePositionModel = [Y_KLinePositionModel modelWithOpen:openPoint close:closePoint high:highPoint low:lowPoint];
         [self.needDrawKLinePositionModels addObject:kLinePositionModel];
-         
+        [self.needDrawKLinePositionTimeModels addObject:[NSNumber numberWithInteger:timgCount]];
         
         //MA坐标转换
         CGFloat ma7Y = maxY;
@@ -589,7 +825,6 @@ static char *observerContext = NULL;
             self.oldContentOffsetX = self.parentScrollView.contentOffset.x;
             [self drawMainView];
         }
-    
     }
 }
 
@@ -603,5 +838,14 @@ static char *observerContext = NULL;
 - (void)removeAllObserver
 {
     [_parentScrollView removeObserver:self forKeyPath:Y_StockChartContentOffsetKey context:observerContext];
+}
+
+- (CGRect)rectOfNSString:(NSString *)string attribute:(NSDictionary *)attribute {
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0)
+                                       options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin |
+                   NSStringDrawingUsesFontLeading
+                                    attributes:attribute
+                                       context:nil];
+    return rect;
 }
 @end

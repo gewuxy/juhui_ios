@@ -28,35 +28,35 @@ enum SP_UserAPI {
     case t_重置密码(mobile: String, pwd: String, code: String)
     
     static let url_用户信息获取 = "api/account/info/"
-    case t_用户信息获取(mobile: String, token:String)
+    case t_用户信息获取(mobile: String)
 }
 
 //MARK:--- 自己的版本 -----------------------------
 extension SP_UserAPI {
     func post(_ block:((Bool,Any,String) -> Void)? = nil) {
-        SP_Alamofire.shared._headers = [:]
+        SP_Alamofire.shared._headers = ["deviceuuid":SP_User.shared.deviceUUID]
         switch self {
         case .t_登录(let mobile, let pwd):
-            let param = ["mobile": mobile, "password": pwd,"client_id":"NEEF9MakoTu9k573c9ExiuMjEp8BZxJ5J0LUk1mr","client_secret":"9zShX4vdI7jggML2rE6TBmrtsXbAdIoBVeGHuDTQ2xdNaVqRLErct9Zh7UgICRkyHE5AkI9iKTwkLsLjPgrveUNSJBK9oPMxONSaxs3vzajeoOUR33YxgZ0ZpPfUAA6t"]
+            let param = ["mobile": mobile, "password": pwd.sp_SHA1(),"client_id":"NEEF9MakoTu9k573c9ExiuMjEp8BZxJ5J0LUk1mr","client_secret":"9zShX4vdI7jggML2rE6TBmrtsXbAdIoBVeGHuDTQ2xdNaVqRLErct9Zh7UgICRkyHE5AkI9iKTwkLsLjPgrveUNSJBK9oPMxONSaxs3vzajeoOUR33YxgZ0ZpPfUAA6t"]
             SP_Alamofire.post(main_url + SP_UserAPI.url_登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? "", error)
+                    block?(isOk, datas, error)
                 })
                 
             })
         case .t_退出登录:
-            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken,"deviceuuid":SP_User.shared.deviceUUID]
             let param = ["token":SP_User.shared.userToken]
             SP_Alamofire.get(main_url + SP_UserAPI.url_退出登录, param: param, block: { (isOk, data, error) in
                 print_Json("url_退出登录=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? "", error)
+                    block?(isOk, datas, error)
                 })
                 
             })
         case .t_注册(let mobile, let pwd, let code):
-            let param = ["mobile": mobile, "password": pwd, "code": code]
+            let param = ["mobile": mobile, "password": pwd.sp_SHA1(), "code": code]
             SP_Alamofire.post(main_url + SP_UserAPI.url_注册, param: param, block: { (isOk, data, error) in
                 print_Json("url_注册=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -69,29 +69,27 @@ extension SP_UserAPI {
             SP_Alamofire.post(main_url + SP_UserAPI.url_短信, param: param, block: { (isOk, data, error) in
                 print_Json("url_短信=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? "", error)
+                    block?(isOk, datas, error)
                 })
             })
         case .t_重置密码(let mobile, let pwd, let code):
-            let param = ["mobile": mobile, "password": pwd, "code": code]
+            let param = ["mobile": mobile, "password": pwd.sp_SHA1(), "code": code]
+            print_SP(param)
             SP_Alamofire.post(main_url + SP_UserAPI.url_重置密码, param: param, block: { (isOk, data, error) in
                 print_Json("url_重置密码=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? "", error)
+                    block?(isOk, datas, error)
                 })
             })
-        case .t_用户信息获取(let mobile,let token):
-            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+        case .t_用户信息获取(let mobile):
+            SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken,"deviceuuid":SP_User.shared.deviceUUID]
             let param = ["mobile": mobile]
             SP_Alamofire.get(main_url + SP_UserAPI.url_用户信息获取, param: param, block: { (isOk, data, error) in
                 print_Json("url_用户信息获取=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     //print_Json(datas)
-                    if (datas != nil) {
-                        //print_Json(datas)
-                        SP_UserModel.write(datas ?? SP_UserModel())
-                    }
-                    block?(isOk, datas ?? SP_UserModel(), error)
+                    SP_UserModel.write(datas)
+                    block?(isOk, datas, error)
                 })
                 
             })
@@ -160,7 +158,7 @@ extension SP_UserAPI: TargetType {
             return SP_UserAPI.url_短信
         case .t_重置密码(_, _, _):
             return SP_UserAPI.url_重置密码
-        case .t_用户信息获取(_,_):
+        case .t_用户信息获取(_):
             return SP_UserAPI.url_用户信息获取
         }
     }
@@ -177,7 +175,7 @@ extension SP_UserAPI: TargetType {
             return .post
         case .t_重置密码(_, _, _):
             return .post
-        case .t_用户信息获取(_,_):
+        case .t_用户信息获取(_):
             return .post
         }
     }
@@ -194,8 +192,8 @@ extension SP_UserAPI: TargetType {
             return ["mobile": mobile, "sms_type": type]
         case .t_重置密码(let mobile, let password, let code):
             return ["mobile": mobile, "password": password, "code": code]
-        case .t_用户信息获取(let mobile,let token):
-            return ["mobile": mobile,"token":token]
+        case .t_用户信息获取(let mobile):
+            return ["mobile": mobile]
         }
     }
     

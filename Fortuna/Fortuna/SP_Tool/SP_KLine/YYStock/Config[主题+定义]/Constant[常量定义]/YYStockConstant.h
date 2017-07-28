@@ -46,7 +46,7 @@
 /**
  * 圆点的半径
  */
-#define YYStockPointRadius 3
+#define YYStockPointRadius 1.5
 
 /**
  *  K线图上可画区域最小的Y
@@ -61,7 +61,7 @@
 /**
  *  K线图的成交量下面日期高度
  */
-#define YYStockLineDayHeight 20
+#define YYStockLineDayHeight 15
 
 
 /**

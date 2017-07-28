@@ -105,14 +105,16 @@ class JH_IM: SP_ParentVC {
     
     
     deinit {
-        
+        LGAudioPlayer.share().stopAudioPlayer()
         self.removeKeyboard()
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
-        self.socket.removeAllHandlers()
+        //self.socket.removeAllHandlers()
         self.socket.off(self._followData.code)
-        self.socket.reconnects = false
-        self.socket.reconnect()
+        //self.socket.reconnects = false
+        //self.socket.reconnect()
+        self.socket.disconnect()
+        
     }
     
 }
@@ -136,7 +138,7 @@ extension JH_IM {
         self.makeTableView()
         //self.makeTableViewDelegate()
         self.showKeyboard()
-        self.toRowBottom()
+        
         self.sp_addMJRefreshFooter()
         self.tableView.sp_footerBeginRefresh()
     }

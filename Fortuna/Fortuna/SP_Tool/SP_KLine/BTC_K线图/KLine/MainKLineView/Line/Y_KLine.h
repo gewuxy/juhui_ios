@@ -30,6 +30,11 @@
 @property (nonatomic, assign) CGFloat maxY;
 
 /**
+ *  是否为以日分割
+ */
+@property (nonatomic, assign) BOOL FiveDay;
+
+/**
  *  根据context初始化
  */
 - (instancetype)initWithContext:(CGContextRef)context;

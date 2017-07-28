@@ -221,7 +221,15 @@ static SP_InfoOC* shared = nil;
     }
 }
 
-
++ (NSString*) sp_getDateTimeStamp:(double)timeStamp WithFormat:(NSString*)format {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:format]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    return confromTimespStr;
+}
 
 
 

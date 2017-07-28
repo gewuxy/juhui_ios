@@ -41,13 +41,13 @@ struct SP_IM_TabModel {
     var isSend = false
     var timeString = ""
     
-    var isMsg = false
+    var isMsg = ""
     var popularity = ""
     var select = ""
 }
 
 extension SP_IM_TabModel:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }
@@ -80,7 +80,7 @@ extension SP_IM_TabModel:SP_JsonModel {
         }
         
         
-        isMsg = json["is_msg"].boolValue
+        isMsg = json["is_msg"].stringValue
         popularity = json["popularity"].stringValue
         select = json["select"].stringValue
     }

@@ -136,7 +136,7 @@
                                 <action selector="click_NaviButton:" destination="QIc-mq-RQP" eventType="touchUpInside" id="Dhf-YN-Wce"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-2J-Vxl">
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-2J-Vxl">
                             <rect key="frame" x="150.5" y="0.0" width="75" height="647"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <state key="normal" title="SupApp">

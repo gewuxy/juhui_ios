@@ -43,6 +43,10 @@ extension JH_MyInfo {
         vc.hidesBottomBarWhenPushed = true
         parentVC?.navigationController?.show(vc, sender: nil)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,17 +56,31 @@ extension JH_MyInfo {
         
         makeTableView()
         makeNavigation()
+        makeNotification()
     }
     fileprivate func makeNavigation() {
         n_view._title = sp_localized("个人信息")
         btn_save.setTitle(sp_localized("保存修改"), for: .normal)
-        changeFootView()
+        view_foot.isHidden = true
+        //changeFootView()
     }
     fileprivate func makeTableView() {
         
         tableView.delegate = self
         tableView.dataSource = self
         
+    }
+    fileprivate func makeNotification() {
+        sp_Notification.rx
+            .notification(SP_User.shared.ntfName_更新用户信息)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.dataArr = [M_JH_MyInfo(name:JH_MyInfoRow.t头像.rawValue,title:SP_UserModel.read().imgUrl),
+                                 M_JH_MyInfo(name:JH_MyInfoRow.t昵称.rawValue,title:SP_UserModel.read().nickname),
+                                 M_JH_MyInfo(name:JH_MyInfoRow.t手机号码.rawValue,title:SP_UserModel.read().mobile)]
+                self?.tableView.reloadData()
+            }).addDisposableTo(disposeBag)
     }
     fileprivate func changeFootView() {
         let arr = [M_JH_MyInfo(name:JH_MyInfoRow.t头像.rawValue,title:SP_UserModel.read().imgUrl),
@@ -79,9 +97,9 @@ extension JH_MyInfo {
         if srt0 == srt1 {
             view_foot.isHidden = true
         }else{
-            view_foot.isHidden = false
+            view_foot.isHidden = true
         }
-        
+        self.url_用户信息修改()
     }
     
     @IBAction func clickSave(_ sender: UIButton) {
@@ -117,26 +135,24 @@ extension JH_MyInfo:UITableViewDelegate,UITableViewDataSource {
             let cell = JH_MyInfoCell_Name.show(tableView, indexPath)
             cell.lab_name.text = sp_localized(dataArr[indexPath.row].name)
             cell.text_field.text = dataArr[indexPath.row].title
-            if dataArr[indexPath.row].name == JH_MyInfoRow.t手机号码.rawValue {
-                cell.text_field.isEnabled = false
-            }else{
-                cell.text_field.isEnabled = true
-            }
+            cell.text_field.isEnabled = false
             cell._block = { [weak self](type, str) in
                 self?.textChange(type, str,indexPath.row)
             }
-            
+            cell.btn_go.isHidden = dataArr[indexPath.row].name == JH_MyInfoRow.t手机号码.rawValue
+            cell.selectionStyle = dataArr[indexPath.row].name==JH_MyInfoRow.t手机号码.rawValue ? .none : .default
             return cell
         default:
             return UITableViewCell()
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         switch indexPath.row {
         case 0:
             uploadTopImage()
         case 1:
-            break
+            JH_MyChange.show(self, type: .t昵称)
         case 2:
             break
         default:
@@ -150,6 +166,7 @@ extension JH_MyInfo:UITableViewDelegate,UITableViewDataSource {
         case .tChange:
             dataArr[index].title = text
             changeFootView()
+            
         default:
             break
         }
@@ -185,7 +202,7 @@ class JH_MyInfoCell_Name: UITableViewCell,UITextFieldDelegate {
         lab_name.font = sp_fitFont18
         lab_name.textColor = UIColor.mainText_1
         text_field.font = sp_fitFont18
-        text_field.textColor = UIColor.mainText_1
+        text_field.textColor = UIColor.mainText_2
         text_field.placeholder = sp_localized("请输入")
         text_field.delegate = self
         view_line.backgroundColor = UIColor.main_line
@@ -193,6 +210,7 @@ class JH_MyInfoCell_Name: UITableViewCell,UITextFieldDelegate {
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var text_field: UITextField!
     @IBOutlet weak var view_line: UIView!
+    @IBOutlet weak var btn_go: UIButton!
     
     var _block:((_ type:SP_TextField_Type, _ text:String)->Void)?
     var _shouldChangeCharactersBlock:((_ textField: UITextField, _ range: NSRange, _ string: String)->Bool)?
@@ -230,8 +248,9 @@ extension JH_MyInfo {
         My_API.t_用户信息修改(nickname: dataArr[1].title, email: "", img_url: dataArr[0].title).post(M_MyCommon.self) { (isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
-                SP_HUD.show(text:sp_localized("保存成功"))
+                //SP_HUD.show(text:sp_localized("保存成功"))
                 SP_User.shared.url_用户信息()
+                //_ = self?.navigationController?.popViewController(animated: true)
             }else{
                 SP_HUD.show(text:error)
             }
@@ -255,20 +274,20 @@ extension JH_MyInfo {
             p.type = .tData
             
             SP_HUD.show(text: "进入后台上传")
-            
             My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
                 if isOk {
                     guard let datas = data as? M_MyCommon else{return}
                     self?.dataArr[0].title = datas.media_url
                     self?.tableView.reloadData()
                     self?.changeFootView()
+                    
                 }else{
                     
                 }
                 
             }) { (progress) in
                 
-                let progre = CGFloat(progress!.completedUnitCount)/CGFloat(progress!.totalUnitCount)
+                //let progre = CGFloat(progress!.completedUnitCount)/CGFloat(progress!.totalUnitCount)
                 //print_SP(progre)
             }
             

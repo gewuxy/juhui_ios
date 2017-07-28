@@ -25,12 +25,12 @@ extension JH_IM {
             print_SP("json ==> \(jsons)")
             self?.makeTabDatas(jsons)
         }
-        
+        /*
         self.socket.on(clientEvent: .disconnect) { (data, ack) in
             //iOS客户端下线
             print_SP("//iOS客户端下线\(data)")
             print_SP("//iOS客户端下线\(self.socket.socketURL)")
-        }
+        }*/
         
         self.socket.connect()
     }
@@ -80,7 +80,11 @@ extension JH_IM {
     }*/
     func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Back(true, block: {[weak self]_ in
-            self?._pageIndex += 1
+            if self?._tabDatas.count == 0 {
+                self?._pageIndex = 1
+            }else{
+                self?._pageIndex += 1
+            }
             self?.t_获取最近聊天记录()
         })
     }
@@ -102,24 +106,23 @@ extension JH_IM {
                 self?.tableView.reloadData()
                 self?.toRowBottom()
             }else{
-                let row = self!._tabDatas.count - 1
+                //let row = self!._tabDatas.count - 1
                 //datas += self!._tabDatas
                 self!._tabDatas += datas
                 self?.tableView?.reloadData()
-                
-                
             }
         }
     }
     
+    
     func makeTabDatas(_ jsons:[JSON]) {
         var models = [SP_IM_TabModel]()
         for item in jsons {
-            models.append(SP_IM_TabModel(item)!)
+            models.append(SP_IM_TabModel(item))
         }
         
         for item in models {
-            if item.isMsg {
+            if item.isMsg == "1" {
                 for (i,dat) in self._tabDatas.enumerated() {
                     if item.create_at == dat.create_at {
                         self._tabDatas[i].isLoading = false

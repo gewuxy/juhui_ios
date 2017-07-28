@@ -7,7 +7,7 @@
 //
 
 #import "Y_KLineView.h"
-#import "Y_KLineMainView.h"
+
 #import "Y_KLineMAView.h"
 #import "Y_VolumeMAView.h"
 #import "Y_AccessoryMAView.h"
@@ -18,13 +18,16 @@
 #import "Y_KLineVolumeView.h"
 #import "Y_StockChartRightYView.h"
 #import "Y_KLineAccessoryView.h"
+#import "YYTimeLineMaskView.h"
+#import "YYKlineMaskView.h"
+#import "YYStockTimeLineProtocol.h"
+#import "YYLineDataModel.h"
+#import "YYTimeLineModel.h"
+#import "YYCategories.h"
+#import "SP_InfoOC.h"
 @interface Y_KLineView() <UIScrollViewDelegate, Y_KLineMainViewDelegate, Y_KLineVolumeViewDelegate, Y_KLineAccessoryViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
-/**
- *  主K线图
- */
-@property (nonatomic, strong) Y_KLineMainView *kLineMainView;
+
 
 /**
  *  成交量图
@@ -76,11 +79,24 @@
  */
 @property (nonatomic, strong) UIView * verticalView;
 @property (nonatomic, strong) UIView * horizontalView;
+/**
+ 长按时出现的遮罩View
+ */
+@property (nonatomic, strong) YYTimeLineMaskView *maskView;
+
+/**
+ 当前绘制在屏幕上的数据源位置数组
+ */
+@property (nonatomic, copy) NSArray <NSValue *>*drawLinePositionModels;
 
 /**
  * 中间分割线
  */
 @property (nonatomic, strong) CAShapeLayer *midSeg;
+/**
+ * 最高点分割线
+ */
+@property (nonatomic, strong) CAShapeLayer *maxSeg;
 
 @property (nonatomic, strong) MASConstraint *kLineMainViewHeightConstraint;
 
@@ -121,18 +137,20 @@
         
         //缩放手势
         UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(event_pichMethod:)];
+        
         [_scrollView addGestureRecognizer:pinchGesture];
         
         //长按手势
         UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(event_longPressMethod:)];
+        longPressGesture.minimumPressDuration = 0.2f;
         [_scrollView addGestureRecognizer:longPressGesture];
         
         [self addSubview:_scrollView];
         
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
-            make.right.equalTo(self).offset(0);
-            make.left.equalTo(self.mas_left);
+            make.right.equalTo(self);
+            make.left.equalTo(self);
             make.bottom.equalTo(self.mas_bottom);
         }];
         
@@ -299,7 +317,6 @@
     return _accessoryView;
 }
 #pragma mark ---------- 中间 分割线 ----------
-
 - (CAShapeLayer *)midSeg{
     if (_midSeg == nil) {
         _midSeg = [CAShapeLayer layer];
@@ -310,6 +327,18 @@
         [self.layer addSublayer:_midSeg];
     }
     return _midSeg;
+}
+#pragma mark ---------- 最高点 分割线 ----------
+- (CAShapeLayer *)maxSeg{
+    if (_maxSeg == nil) {
+        _maxSeg = [CAShapeLayer layer];
+        _maxSeg.lineWidth = 0.5;
+        _maxSeg.lineJoin = kCALineJoinRound;
+        _maxSeg.lineCap = kCALineCapRound;
+        _maxSeg.strokeColor = [UIColor assistTextColor].CGColor;
+        [self.layer addSublayer:_maxSeg];
+    }
+    return _maxSeg;
 }
 - (void)drawBackLine{
     
@@ -323,6 +352,17 @@
     CGPathAddLineToPoint(path, NULL, self.bounds.size.width, (self.kLineMainView.bounds.size.height - (self.bounds.size.height-Y_StockChartKLineMainViewMaxY)) * 0.5);
     [self.midSeg setPath:path];
     CGPathRelease(path);
+    /*
+    // 中间线
+    [self.maxSeg setLineDashPattern:
+     [NSArray arrayWithObjects:[NSNumber numberWithInt:2],
+      [NSNumber numberWithInt:2],nil]];
+    
+    CGMutablePathRef path2 = CGPathCreateMutable();
+    CGPathMoveToPoint(path2, NULL, 0, Y_StockChartKLineMainViewMinY);
+    CGPathAddLineToPoint(path2, NULL, self.bounds.size.width, Y_StockChartKLineMainViewMinY);
+    [self.maxSeg setPath:path2];
+    CGPathRelease(path2);*/
 }
 
 #pragma mark - set方法
@@ -336,7 +376,7 @@
     _kLineModels = kLineModels;
     [self private_drawKLineMainView];
     //设置contentOffset
-    CGFloat kLineViewWidth = self.kLineModels.count * [Y_StockChartGlobalVariable kLineWidth] + (self.kLineModels.count + 1) * [Y_StockChartGlobalVariable kLineGap] + 10;
+    CGFloat kLineViewWidth = self.kLineModels.count * [Y_StockChartGlobalVariable kLineWidth] + (self.kLineModels.count + 1) * [Y_StockChartGlobalVariable kLineGap];
     CGFloat offset = kLineViewWidth - self.scrollView.frame.size.width;
     if (offset > 0)
     {
@@ -383,6 +423,7 @@
 #pragma mark 缩放执行方法
 - (void)event_pichMethod:(UIPinchGestureRecognizer *)pinch
 {
+    NSLog(@"%f",pinch.scale);
     static CGFloat oldScale = 1.0f;
     CGFloat difValue = pinch.scale - oldScale;
     if(ABS(difValue) > Y_StockChartScaleBound) {
@@ -415,6 +456,7 @@
     static CGFloat oldPositionX = 0;
     if(UIGestureRecognizerStateChanged == longPress.state || UIGestureRecognizerStateBegan == longPress.state)
     {
+        
         CGPoint location = [longPress locationInView:self.scrollView];
         if(ABS(oldPositionX - location.x) < ([Y_StockChartGlobalVariable kLineWidth] + [Y_StockChartGlobalVariable kLineGap])/2)
         {
@@ -425,6 +467,54 @@
         self.scrollView.scrollEnabled = NO;
         oldPositionX = location.x;
         
+        NSInteger startIndex = (NSInteger)(oldPositionX / ([Y_StockChartGlobalVariable kLineGap] + [Y_StockChartGlobalVariable kLineWidth]));
+        
+        if (startIndex < 0) startIndex = 0;
+        if (startIndex >= self.kLineModels.count) startIndex = self.kLineModels.count - 1;
+        
+        //遮罩十字线
+        if (!self.maskView) {
+            _maskView = [YYTimeLineMaskView new];
+            _maskView.backgroundColor = [UIColor clearColor];
+            [self addSubview:_maskView];
+            [_maskView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self);
+            }];
+        } else {
+            self.maskView.hidden = NO;
+        }
+        
+        NSMutableString * dateS = [NSMutableString stringWithString:[SP_InfoOC sp_getDateTimeStamp:[self.kLineModels[startIndex].Date doubleValue]/1000 WithFormat:@"yyyy-MM-dd HH:mm"]];
+        
+        NSMutableString * date0 = [NSMutableString stringWithString:[SP_InfoOC sp_getDateTimeStamp:[self.kLineModels[startIndex].PreviousKlineModel.Date doubleValue]/1000 WithFormat:@"HH:mm"]];
+        
+        if ([date0 isEqualToString:dateS]){
+            //dateS = [NSMutableString stringWithString:[SP_InfoOC sp_getDateTimeStamp:[self.kLineModels[startIndex].Date doubleValue]/1000 WithFormat:@"yyyy-MM-dd"]];
+        }
+        
+        NSDictionary* dict = @{@"price":[NSString stringWithFormat:@"%@",self.kLineModels[startIndex].Close],
+                               @"volume":[NSString stringWithFormat:@"%.0f",self.kLineModels[startIndex].Volume],
+                               @"avgPrice":[NSString stringWithFormat:@"%.2f",self.priceView.middleValue],
+                               @"minute":dateS
+                               };
+        
+        
+        YYTimeLineModel* model = [[YYTimeLineModel alloc] initWithDict:dict];
+        
+        self.maskView.selectedModel = model;
+        self.maskView.selectedPoint = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x];
+        self.maskView.stockScrollView = self.scrollView;
+        [self setNeedsDisplay];
+        [self.maskView setNeedsDisplay];
+        
+        
+        /*
+        if (self.delegate && [self.delegate respondsToSelector:@selector(YYStockView: selectedModel:)]) {
+            [self.delegate YYStockView:self selectedModel:selectedModel];
+        }*/
+        
+        
+        /*
         //初始化竖线
         if(!self.verticalView)
         {
@@ -439,21 +529,6 @@
                 make.left.equalTo(@(-10));
             }];
         }
-        //初始化横线
-        if(!self.horizontalView)
-        {
-            self.horizontalView = [UIView new];
-            self.horizontalView.clipsToBounds = YES;
-            [self.scrollView addSubview:self.horizontalView];
-            self.horizontalView.backgroundColor = [UIColor longPressLineColor];
-            [self.horizontalView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self).offset(0);
-                make.height.equalTo(@(Y_StockChartLongPressVerticalViewWidth));
-                make.width.equalTo(self.scrollView.mas_width);
-                make.top.equalTo(@(10));
-            }];
-        }
-        
         
         //更新竖线位置
         CGFloat rightXPosition = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x].x;
@@ -461,29 +536,31 @@
             make.left.equalTo(@(rightXPosition));
         }];
         [self.verticalView layoutIfNeeded];
-        self.verticalView.hidden = NO;
-        
-        //更新横线位置
-        CGFloat leftXPosition = [self.kLineMainView getExactXPositionWithOriginXPosition:location.x].y;
-        [self.horizontalView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@(leftXPosition));
-        }];
-        [self.horizontalView layoutIfNeeded];
-        self.horizontalView.hidden = NO;
+        self.verticalView.hidden = NO;*/
     }
     
     if(longPress.state == UIGestureRecognizerStateEnded)
     {
+        if (!self.maskView) {
+            /*
+            _maskView = [YYTimeLineMaskView new];
+            _maskView.backgroundColor = [UIColor clearColor];
+            [self addSubview:_maskView];
+            [_maskView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self);
+            }];*/
+        } else {
+            self.maskView.hidden = YES;
+        }
+        //恢复scrollView的滑动
+        self.scrollView.scrollEnabled = YES;
+        /*
         //取消竖线
         if(self.verticalView)
         {
             self.verticalView.hidden = YES;
         }
-        //取消横线
-        if(self.horizontalView)
-        {
-            self.horizontalView.hidden = YES;
-        }
+        
         oldPositionX = 0;
         //恢复scrollView的滑动
         self.scrollView.scrollEnabled = YES;
@@ -492,6 +569,7 @@
         [self.kLineMAView maProfileWithModel:lastModel];
         [self.volumeMAView maProfileWithModel:lastModel];
         [self.accessoryMAView maProfileWithModel:lastModel];
+        */
     }
 }
 
@@ -499,6 +577,47 @@
 - (void)reDraw
 {
     self.kLineMainView.MainViewType = self.MainViewType;
+    
+    if (self.MainViewType == Y_StockChartcenterViewTypeKline){
+        for (int i = 0; i < self.scrollView.gestureRecognizers.count; i++) {
+            if ([self.scrollView.gestureRecognizers[i] isKindOfClass: [UIPinchGestureRecognizer class]]) {
+                self.scrollView.gestureRecognizers[i].enabled = YES;
+                
+                //[Y_StockChartGlobalVariable setkLineWith:Y_StockChartKLineMaxWidth+1];
+                [Y_StockChartGlobalVariable setkLineWith:6];
+                
+                //更新MainView的宽度
+                [self.kLineMainView updateMainViewWidth];
+                
+                
+                [self.kLineMainView drawMainView];
+            }
+        }
+        
+         
+        
+    }else{
+        for (int i = 0; i < self.scrollView.gestureRecognizers.count; i++) {
+            if ([self.scrollView.gestureRecognizers[i] isKindOfClass: [UIPinchGestureRecognizer class]]) {
+                self.scrollView.gestureRecognizers[i].enabled = NO;
+                Y_StockChartKLineWidth = 2;
+                
+                [Y_StockChartGlobalVariable setkLineWith:1];
+                //更新MainView的宽度
+                [self.kLineMainView updateMainViewWidth];
+                
+                
+                [self.kLineMainView drawMainView];
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    self.kLineMainView.FiveDay = self.FiveDay;
     if(self.targetLineStatus >= 103)
     {
         self.kLineMainView.targetLineStatus = self.targetLineStatus;
@@ -506,6 +625,8 @@
     [self.kLineMainView drawMainView];
     
     [self drawBackLine];
+    
+    
 }
 
 
@@ -584,6 +705,15 @@
     [self.accessoryMAView maProfileWithModel:kLineModel];
 }
 #pragma mark - UIScrollView代理
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+}
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 //    static BOOL isNeedPostNotification = YES;
@@ -598,8 +728,33 @@
 //        isNeedPostNotification = YES;
 //    }
     
-    NSLog(@"这是  %f-----%f=====%f",scrollView.contentSize.width,scrollView.contentOffset.x,self.kLineMainView.frame.size.width);
+    //NSLog(@"这是  %f-----%f=====%f",scrollView.contentSize.width,scrollView.contentOffset.x,self.kLineMainView.frame.size.width);
+    self.kLineMainView.breathingPoint.hidden = YES;
+    //发送通知 -- 暂停刷新
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"YKStockChartViewReloadDataStop" object:@"关闭"];
+    CGPoint offset = scrollView.contentOffset;  // 当前滚动位移
+    CGRect bounds = scrollView.bounds;          // UIScrollView 可视
+    CGSize size = scrollView.contentSize;         // 滚动区域
+    UIEdgeInsets inset = scrollView.contentInset;
+    float x = offset.x + bounds.size.width - inset.right;
+    float w = size.width;
+    
+    float reload_distance = 0;
+    if (x >= (w + reload_distance)) {
+        [self performSelector:@selector(breathingPointHidden) withObject:nil afterDelay:0.5];
+        
+    }else{
+        
+        self.kLineMainView.breathingPoint.hidden = YES;
+    }
+    self.kLineMainView.scrollViewOffsetX = offset.x;
+    NSLog(@"scrollView.offset ==> %f",offset.x);
 }
+- (void)breathingPointHidden {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"YKStockChartViewReloadDataStop" object:@"开启"];
+    self.kLineMainView.breathingPoint.hidden = YES;
+}
+
 
 - (void)dealloc
 {

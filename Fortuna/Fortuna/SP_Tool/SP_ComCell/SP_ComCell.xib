@@ -36,21 +36,21 @@
                         <constraint firstAttribute="height" constant="17" id="Yvy-QQ-zXs"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玩车乐园" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8O-91-ryv">
-                    <rect key="frame" x="37" y="0.0" width="69.5" height="666"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8O-91-ryv">
+                    <rect key="frame" x="37" y="0.0" width="0.0" height="666"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1mS-nK-CVs">
-                    <rect key="frame" x="0.0" y="665" width="126.5" height="2"/>
+                    <rect key="frame" x="0.0" y="665" width="57" height="2"/>
                     <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="2" id="EOq-yx-5ai"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玩车乐园" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JX1-Tc-uvP">
-                    <rect key="frame" x="280.5" y="325" width="57.5" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JX1-Tc-uvP">
+                    <rect key="frame" x="338" y="333.5" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -60,6 +60,12 @@
                     <gestureRecognizers/>
                     <connections>
                         <action selector="viewTapClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="QTE-fo-f7l"/>
+                        <action selector="viewTapDown:" destination="iN0-l3-epB" eventType="touchDown" id="cjU-mc-9hc"/>
+                        <action selector="viewTapDragEnter:" destination="iN0-l3-epB" eventType="touchDragEnter" id="RdX-m1-ujm"/>
+                        <action selector="viewTapDragExit:" destination="iN0-l3-epB" eventType="touchDragExit" id="Fn6-pe-9Op"/>
+                        <action selector="viewTapEditingDidBegin:" destination="iN0-l3-epB" eventType="editingDidBegin" id="79M-Pw-Ubm"/>
+                        <action selector="viewTapEditingDidend:" destination="iN0-l3-epB" eventType="editingDidEnd" id="dcQ-49-LLO"/>
+                        <action selector="viewTapUpOutside:" destination="iN0-l3-epB" eventType="touchUpOutside" id="5G0-d3-Ivq"/>
                     </connections>
                 </button>
             </subviews>

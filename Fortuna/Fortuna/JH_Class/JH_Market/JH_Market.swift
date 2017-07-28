@@ -97,6 +97,8 @@ extension JH_Market:UITableViewDelegate {
         
         return sp_fitSize((70,75,80))
     }
+    
+    
 }
 extension JH_Market:UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,6 +131,7 @@ extension JH_Market:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         let model = indexPath.section == 0 ? _datas.high_ratio[indexPath.row] : _datas.low_ratio[indexPath.row]
         JH_AttentionDetails.show(self, data:model)
     }

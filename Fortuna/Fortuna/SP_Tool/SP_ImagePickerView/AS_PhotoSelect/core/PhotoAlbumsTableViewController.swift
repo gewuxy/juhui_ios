@@ -130,7 +130,7 @@ class PhotoAlbumsTableViewController: UITableViewController,PHPhotoLibraryChange
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        tableView.deselectRow(at: indexPath, animated: false)
         self.showDetailPageModel(self.albums[indexPath.row])
         
     }

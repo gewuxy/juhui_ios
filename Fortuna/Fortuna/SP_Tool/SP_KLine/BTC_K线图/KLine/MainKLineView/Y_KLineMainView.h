@@ -65,12 +65,20 @@
  *  是否为图表类型
  */
 @property (nonatomic, assign) Y_StockChartCenterViewType MainViewType;
+/**
+ *  是否为以日分割
+ */
+@property (nonatomic, assign) BOOL FiveDay;
 
 /**
  *  Accessory指标种类
  */
 @property (nonatomic, assign) Y_StockChartTargetLineStatus targetLineStatus;
 
+/**
+ *  添加一个圆点动画
+ */
+@property (nonatomic,strong)CALayer * breathingPoint;
 /**
  *  需要绘制Index开始值
  */
@@ -80,6 +88,11 @@
  *  捏合点
  */
 @property (nonatomic, assign) NSInteger pinchStartIndex;
+
+/**
+ *  捏合点
+ */
+@property (nonatomic, assign) CGFloat scrollViewOffsetX;
 #pragma event
 
 /**

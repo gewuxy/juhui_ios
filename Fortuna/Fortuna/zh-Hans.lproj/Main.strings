@@ -1,24 +1,24 @@
 
-/* Class = "UILabel"; text = "成交额"; ObjectID = "0Su-kL-YZf"; */
-"0Su-kL-YZf.text" = "成交额";
+/* Class = "UILabel"; text = "--"; ObjectID = "15p-nq-KFn"; */
+"15p-nq-KFn.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "20m-fz-WCM"; */
-"20m-fz-WCM.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "20m-fz-WCM"; */
+"20m-fz-WCM.text" = "--";
 
 /* Class = "UILabel"; text = "卖4"; ObjectID = "2DW-GD-ZRp"; */
 "2DW-GD-ZRp.text" = "卖4";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "2UG-Pq-bdS"; */
-"2UG-Pq-bdS.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "2UG-Pq-bdS"; */
+"2UG-Pq-bdS.text" = "--";
 
-/* Class = "UILabel"; text = "成交量"; ObjectID = "3DY-jC-sxr"; */
-"3DY-jC-sxr.text" = "成交量";
+/* Class = "UILabel"; text = "干红"; ObjectID = "2gy-8P-a5L"; */
+"2gy-8P-a5L.text" = "干红";
 
 /* Class = "UILabel"; text = "涨跌幅"; ObjectID = "3YC-6J-GpB"; */
 "3YC-6J-GpB.text" = "涨跌幅";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "3mQ-62-80m"; */
-"3mQ-62-80m.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "3mQ-62-80m"; */
+"3mQ-62-80m.text" = "--";
 
 /* Class = "UILabel"; text = "0000000"; ObjectID = "4TP-nB-UPL"; */
 "4TP-nB-UPL.text" = "0000000";
@@ -26,35 +26,71 @@
 /* Class = "UILabel"; text = "名称"; ObjectID = "5II-dF-JnU"; */
 "5II-dF-JnU.text" = "名称";
 
+/* Class = "UILabel"; text = "昵称"; ObjectID = "5O7-gb-9dA"; */
+"5O7-gb-9dA.text" = "昵称";
+
 /* Class = "UILabel"; text = "名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称"; ObjectID = "5We-7e-kqS"; */
 "5We-7e-kqS.text" = "名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称";
 
 /* Class = "UILabel"; text = "0000000"; ObjectID = "5gl-eq-Mwr"; */
 "5gl-eq-Mwr.text" = "0000000";
 
+/* Class = "UILabel"; text = "10000"; ObjectID = "5ze-Ag-XiM"; */
+"5ze-Ag-XiM.text" = "10000";
+
 /* Class = "UILabel"; text = "最新价"; ObjectID = "6Ai-mb-MwY"; */
 "6Ai-mb-MwY.text" = "最新价";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "6Qe-uM-9g0"; */
+"6Qe-uM-9g0.text" = "0";
 
 /* Class = "UILabel"; text = "总市值"; ObjectID = "6Qp-6G-ANO"; */
 "6Qp-6G-ANO.text" = "总市值";
 
-/* Class = "UILabel"; text = "换手率"; ObjectID = "6d2-a6-A7K"; */
-"6d2-a6-A7K.text" = "换手率";
+/* Class = "UILabel"; text = "0"; ObjectID = "6cq-co-wON"; */
+"6cq-co-wON.text" = "0";
 
-/* Class = "UILabel"; text = "内盘"; ObjectID = "7k5-Tc-1gw"; */
-"7k5-Tc-1gw.text" = "内盘";
+/* Class = "UILabel"; text = "振幅"; ObjectID = "6d2-a6-A7K"; */
+"6d2-a6-A7K.text" = "振幅";
+
+/* Class = "UILabel"; text = "干红"; ObjectID = "78C-b4-Yy9"; */
+"78C-b4-Yy9.text" = "干红";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "7Bl-vY-aY5"; */
+"7Bl-vY-aY5.text" = "--";
+
+/* Class = "UIButton"; normalTitle = "  自选"; ObjectID = "7Wb-Nt-O3m"; */
+"7Wb-Nt-O3m.normalTitle" = "  自选";
+
+/* Class = "UILabel"; text = "成交额"; ObjectID = "7k5-Tc-1gw"; */
+"7k5-Tc-1gw.text" = "成交额";
 
 /* Class = "UILabel"; text = "买5"; ObjectID = "7vo-Yb-Tkn"; */
 "7vo-Yb-Tkn.text" = "买5";
 
+/* Class = "UILabel"; text = "干红"; ObjectID = "81c-KQ-AFc"; */
+"81c-KQ-AFc.text" = "干红";
+
 /* Class = "UILabel"; text = "小白"; ObjectID = "87r-Vx-7nV"; */
 "87r-Vx-7nV.text" = "小白";
+
+/* Class = "UILabel"; text = "视频"; ObjectID = "8AX-YF-G0f"; */
+"8AX-YF-G0f.text" = "视频";
+
+/* Class = "UIButton"; normalTitle = "! 重发"; ObjectID = "8N1-q7-gWT"; */
+"8N1-q7-gWT.normalTitle" = "! 重发";
+
+/* Class = "UILabel"; text = "LabelLabel"; ObjectID = "8PG-4H-ZC0"; */
+"8PG-4H-ZC0.text" = "LabelLabel";
 
 /* Class = "UIButton"; normalTitle = "5日"; ObjectID = "8UE-cl-itc"; */
 "8UE-cl-itc.normalTitle" = "5日";
 
-/* Class = "UILabel"; text = "昨收"; ObjectID = "8XW-pb-i39"; */
-"8XW-pb-i39.text" = "昨收";
+/* Class = "UILabel"; text = "成交量"; ObjectID = "8XW-pb-i39"; */
+"8XW-pb-i39.text" = "成交量";
+
+/* Class = "UILabel"; text = "干红"; ObjectID = "8em-Pr-Ize"; */
+"8em-Pr-Ize.text" = "干红";
 
 /* Class = "UILabel"; text = "卖5"; ObjectID = "9ID-hz-IXF"; */
 "9ID-hz-IXF.text" = "卖5";
@@ -65,26 +101,50 @@
 /* Class = "UILabel"; text = "买2"; ObjectID = "A0T-TY-WMz"; */
 "A0T-TY-WMz.text" = "买2";
 
-/* Class = "UILabel"; text = "00.00%"; ObjectID = "A7k-Wp-ciE"; */
-"A7k-Wp-ciE.text" = "00.00%";
+/* Class = "UIButton"; normalTitle = "! 重发"; ObjectID = "A7b-JB-6FB"; */
+"A7b-JB-6FB.normalTitle" = "! 重发";
 
 /* Class = "UIButton"; normalTitle = "删除"; ObjectID = "AFI-Zb-WNK"; */
 "AFI-Zb-WNK.normalTitle" = "删除";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "ANA-dd-Doa"; */
-"ANA-dd-Doa.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "ANA-dd-Doa"; */
+"ANA-dd-Doa.text" = "--";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "AV7-rp-wAg"; */
+"AV7-rp-wAg.text" = "0";
+
+/* Class = "UITextField"; placeholder = "请输入"; ObjectID = "AaB-z3-RYG"; */
+"AaB-z3-RYG.placeholder" = "请输入";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AhL-Nk-jd9"; */
+"AhL-Nk-jd9.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "查看详情"; ObjectID = "BWC-nm-6eG"; */
+"BWC-nm-6eG.normalTitle" = "查看详情";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "CL6-y6-mkp"; */
+"CL6-y6-mkp.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "CQQ-Fp-3YL"; */
+"CQQ-Fp-3YL.text" = "Label";
+
+/* Class = "UILabel"; text = "LabelLabel"; ObjectID = "Cjr-Jg-bZS"; */
+"Cjr-Jg-bZS.text" = "LabelLabel";
 
 /* Class = "UINavigationItem"; title = "资讯"; ObjectID = "DAA-Ew-dL9"; */
 "DAA-Ew-dL9.title" = "资讯";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "DL8-8j-93G"; */
-"DL8-8j-93G.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "DL8-8j-93G"; */
+"DL8-8j-93G.text" = "--";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "DOO-81-XbQ"; */
+"DOO-81-XbQ.text" = "Label";
 
 /* Class = "UIViewController"; title = "我的"; ObjectID = "Dk9-Df-fxG"; */
 "Dk9-Df-fxG.title" = "我的";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "DkF-K1-jR7"; */
-"DkF-K1-jR7.text" = "Label";
+/* Class = "UILabel"; text = "000"; ObjectID = "DkF-K1-jR7"; */
+"DkF-K1-jR7.text" = "000";
 
 /* Class = "UIButton"; normalTitle = "1分"; ObjectID = "E3w-OF-3II"; */
 "E3w-OF-3II.normalTitle" = "1分";
@@ -92,8 +152,8 @@
 /* Class = "UILabel"; text = "卖5"; ObjectID = "EBl-gV-QkV"; */
 "EBl-gV-QkV.text" = "卖5";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "ELZ-Mh-sdN"; */
-"ELZ-Mh-sdN.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "ELZ-Mh-sdN"; */
+"ELZ-Mh-sdN.text" = "--";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "EiG-2O-jOA"; */
 "EiG-2O-jOA.text" = "名称";
@@ -101,23 +161,26 @@
 /* Class = "UILabel"; text = "卖3"; ObjectID = "FBO-Qi-E6q"; */
 "FBO-Qi-E6q.text" = "卖3";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "FXx-3p-doA"; */
-"FXx-3p-doA.text" = "00";
+/* Class = "UILabel"; text = "Label"; ObjectID = "FMh-R3-Ts6"; */
+"FMh-R3-Ts6.text" = "Label";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "FY1-Ma-uNf"; */
-"FY1-Ma-uNf.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "FXx-3p-doA"; */
+"FXx-3p-doA.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "FY1-Ma-uNf"; */
+"FY1-Ma-uNf.text" = "--";
 
 /* Class = "UILabel"; text = "买1"; ObjectID = "FZG-aP-pYQ"; */
 "FZG-aP-pYQ.text" = "买1";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "Fae-aT-mNh"; */
-"Fae-aT-mNh.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "Fae-aT-mNh"; */
+"Fae-aT-mNh.text" = "--";
 
 /* Class = "UILabel"; text = "000000"; ObjectID = "Fu5-y8-wxg"; */
 "Fu5-y8-wxg.text" = "000000";
 
-/* Class = "UILabel"; text = "外盘"; ObjectID = "GeA-om-Ehy"; */
-"GeA-om-Ehy.text" = "外盘";
+/* Class = "UILabel"; text = "浮动盈亏"; ObjectID = "G8G-xl-M1S"; */
+"G8G-xl-M1S.text" = "浮动盈亏";
 
 /* Class = "UILabel"; text = "0000000"; ObjectID = "H6B-Sx-x11"; */
 "H6B-Sx-x11.text" = "0000000";
@@ -125,26 +188,53 @@
 /* Class = "UIButton"; normalTitle = "5分"; ObjectID = "HAl-ZQ-eAm"; */
 "HAl-ZQ-eAm.normalTitle" = "5分";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "HHA-FY-fsP"; */
-"HHA-FY-fsP.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "HHA-FY-fsP"; */
+"HHA-FY-fsP.text" = "--";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "HQY-CS-aPG"; */
+"HQY-CS-aPG.text" = "0";
 
 /* Class = "UILabel"; text = "买4"; ObjectID = "Hs9-Mb-aWD"; */
 "Hs9-Mb-aWD.text" = "买4";
 
-/* Class = "UIButton"; normalTitle = "虚拟酒庄"; ObjectID = "Igr-Wv-gNM"; */
-"Igr-Wv-gNM.normalTitle" = "公众号";
+/* Class = "UILabel"; text = "Label"; ObjectID = "I04-RA-1Pk"; */
+"I04-RA-1Pk.text" = "Label";
 
-/* Class = "UILabel"; text = "000.00"; ObjectID = "IoV-Kc-BAA"; */
-"IoV-Kc-BAA.text" = "000.00";
+/* Class = "UIButton"; normalTitle = "查看详情"; ObjectID = "IRl-2J-7g9"; */
+"IRl-2J-7g9.normalTitle" = "查看详情";
+
+/* Class = "UIButton"; normalTitle = "公众号"; ObjectID = "Igr-Wv-gNM"; */
+"Igr-Wv-gNM.normalTitle" = "公众号";
 
 /* Class = "UILabel"; text = "0000000"; ObjectID = "KC3-v2-Aci"; */
 "KC3-v2-Aci.text" = "0000000";
 
-/* Class = "UILabel"; text = "开盘"; ObjectID = "KWA-L4-z4E"; */
-"KWA-L4-z4E.text" = "开盘";
+/* Class = "UILabel"; text = "持仓数"; ObjectID = "Ket-Zb-tHK"; */
+"Ket-Zb-tHK.text" = "持仓数";
 
 /* Class = "UIViewController"; title = "设置"; ObjectID = "Lei-tE-859"; */
 "Lei-tE-859.title" = "设置";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "Ls0-uX-DJA"; */
+"Ls0-uX-DJA.text" = "--";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "MrW-Ka-MP1"; */
+"MrW-Ka-MP1.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "查看详情"; ObjectID = "NMB-2t-LXF"; */
+"NMB-2t-LXF.normalTitle" = "查看详情";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "NOA-3P-fYG"; */
+"NOA-3P-fYG.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "登录巨汇"; ObjectID = "NTu-W3-YAI"; */
+"NTu-W3-YAI.normalTitle" = "登录巨汇";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "NgG-Bm-Jo5"; */
+"NgG-Bm-Jo5.text" = "0";
+
+/* Class = "UILabel"; text = "昵称"; ObjectID = "NiN-DX-wcP"; */
+"NiN-DX-wcP.text" = "昵称";
 
 /* Class = "UILabel"; text = "最低"; ObjectID = "NjS-Kg-mC1"; */
 "NjS-Kg-mC1.text" = "最低";
@@ -158,41 +248,50 @@
 /* Class = "UILabel"; text = "买2"; ObjectID = "Oq2-Wr-cOM"; */
 "Oq2-Wr-cOM.text" = "买2";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "Ow4-EN-ev4"; */
-"Ow4-EN-ev4.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "Ow4-EN-ev4"; */
+"Ow4-EN-ev4.text" = "--";
 
-/* Class = "UILabel"; text = "涨停"; ObjectID = "PSa-o6-apt"; */
-"PSa-o6-apt.text" = "涨停";
+/* Class = "UILabel"; text = "换手率"; ObjectID = "PSa-o6-apt"; */
+"PSa-o6-apt.text" = "换手率";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Pum-vh-i6n"; */
+"Pum-vh-i6n.text" = "0";
 
 /* Class = "UIButton"; normalTitle = "10分"; ObjectID = "Q9c-mS-1K9"; */
 "Q9c-mS-1K9.normalTitle" = "10分";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "Qb7-wD-pjR"; */
-"Qb7-wD-pjR.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "Qb7-wD-pjR"; */
+"Qb7-wD-pjR.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "QlC-s9-Wit"; */
-"QlC-s9-Wit.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "QlC-s9-Wit"; */
+"QlC-s9-Wit.text" = "--";
 
-/* Class = "UILabel"; text = "跌停"; ObjectID = "R1o-1o-v4J"; */
-"R1o-1o-v4J.text" = "跌停";
+/* Class = "UILabel"; text = "商品代码"; ObjectID = "REU-kA-76J"; */
+"REU-kA-76J.text" = "商品代码";
 
 /* Class = "UILabel"; text = "+00.00%"; ObjectID = "RGK-7Z-a8Q"; */
 "RGK-7Z-a8Q.text" = "+00.00%";
 
+/* Class = "UILabel"; text = "总资产"; ObjectID = "RPV-kd-ZVG"; */
+"RPV-kd-ZVG.text" = "总资产";
+
 /* Class = "UILabel"; text = "买3"; ObjectID = "RU8-Xt-7vs"; */
 "RU8-Xt-7vs.text" = "买3";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "Rxa-0e-PIS"; */
-"Rxa-0e-PIS.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "Rxa-0e-PIS"; */
+"Rxa-0e-PIS.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "S8l-ic-ki1"; */
-"S8l-ic-ki1.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "S8l-ic-ki1"; */
+"S8l-ic-ki1.text" = "--";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "SAa-P7-nFe"; */
-"SAa-P7-nFe.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "SAa-P7-nFe"; */
+"SAa-P7-nFe.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "SWT-GV-nHx"; */
-"SWT-GV-nHx.text" = "00.00";
+/* Class = "UITextView"; text = "中"; ObjectID = "SRn-oX-5TC"; */
+"SRn-oX-5TC.text" = "中";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "SWT-GV-nHx"; */
+"SWT-GV-nHx.text" = "--";
 
 /* Class = "UIViewController"; title = "行情"; ObjectID = "SXz-PP-c0V"; */
 "SXz-PP-c0V.title" = "行情";
@@ -200,11 +299,14 @@
 /* Class = "UIButton"; normalTitle = "全选（取消）"; ObjectID = "StJ-d1-odn"; */
 "StJ-d1-odn.normalTitle" = "全选（取消）";
 
+/* Class = "UILabel"; text = "盈亏"; ObjectID = "SzA-Uz-wP2"; */
+"SzA-Uz-wP2.text" = "盈亏";
+
 /* Class = "UILabel"; text = "名称"; ObjectID = "TOt-tT-Xb7"; */
 "TOt-tT-Xb7.text" = "名称";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "To2-TN-CFl"; */
-"To2-TN-CFl.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "To2-TN-CFl"; */
+"To2-TN-CFl.text" = "--";
 
 /* Class = "UITabBarItem"; title = "行情"; ObjectID = "Ume-lJ-gs2"; */
 "Ume-lJ-gs2.title" = "行情";
@@ -212,20 +314,23 @@
 /* Class = "UIButton"; normalTitle = "分钟"; ObjectID = "Us1-SG-VB5"; */
 "Us1-SG-VB5.normalTitle" = "分钟";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "V03-GS-hQE"; */
-"V03-GS-hQE.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "V03-GS-hQE"; */
+"V03-GS-hQE.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "VBh-ie-0JY"; */
-"VBh-ie-0JY.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "VBh-ie-0JY"; */
+"VBh-ie-0JY.text" = "--";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "VJd-FT-SOK"; */
-"VJd-FT-SOK.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "VJd-FT-SOK"; */
+"VJd-FT-SOK.text" = "--";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "VZd-Ed-RmT"; */
-"VZd-Ed-RmT.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "VZd-Ed-RmT"; */
+"VZd-Ed-RmT.text" = "--";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "W8a-GU-Rvw"; */
-"W8a-GU-Rvw.text" = "00";
+/* Class = "UIButton"; normalTitle = " + 自选 "; ObjectID = "Vlb-A1-m8G"; */
+"Vlb-A1-m8G.normalTitle" = " + 自选 ";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "W8a-GU-Rvw"; */
+"W8a-GU-Rvw.text" = "--";
 
 /* Class = "UINavigationItem"; title = "自选"; ObjectID = "WDQ-5O-84x"; */
 "WDQ-5O-84x.title" = "自选";
@@ -239,14 +344,17 @@
 /* Class = "UIButton"; normalTitle = "周K"; ObjectID = "XdP-Wm-kTL"; */
 "XdP-Wm-kTL.normalTitle" = "周K";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "YN6-lj-Qjb"; */
-"YN6-lj-Qjb.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "YN6-lj-Qjb"; */
+"YN6-lj-Qjb.text" = "--";
 
 /* Class = "UILabel"; text = "卖2"; ObjectID = "YSS-Q1-iZL"; */
 "YSS-Q1-iZL.text" = "卖2";
 
 /* Class = "UILabel"; text = "买3"; ObjectID = "ZBG-0L-gJj"; */
 "ZBG-0L-gJj.text" = "买3";
+
+/* Class = "UILabel"; text = "LabelLabel"; ObjectID = "ZMe-Fa-oPU"; */
+"ZMe-Fa-oPU.text" = "LabelLabel";
 
 /* Class = "UILabel"; text = "头像"; ObjectID = "a8j-4r-Aei"; */
 "a8j-4r-Aei.text" = "头像";
@@ -257,8 +365,29 @@
 /* Class = "UILabel"; text = "检查更新"; ObjectID = "atT-7S-v80"; */
 "atT-7S-v80.text" = "检查更新";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "bV5-Z7-Im4"; */
-"bV5-Z7-Im4.text" = "00";
+/* Class = "UILabel"; text = "0"; ObjectID = "b00-lS-CBM"; */
+"b00-lS-CBM.text" = "0";
+
+/* Class = "UIViewController"; title = "当日委托"; ObjectID = "b1u-KR-JM4"; */
+"b1u-KR-JM4.title" = "当日委托";
+
+/* Class = "UIViewController"; title = "历史委托"; ObjectID = "bMu-G5-Tq5"; */
+"bMu-G5-Tq5.title" = "历史委托";
+
+/* Class = "UILabel"; text = "昵称"; ObjectID = "bNR-Z7-70f"; */
+"bNR-Z7-70f.text" = "昵称";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bTA-bN-d5H"; */
+"bTA-bN-d5H.text" = "Label";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "bV5-Z7-Im4"; */
+"bV5-Z7-Im4.text" = "--";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bqY-tu-VrF"; */
+"bqY-tu-VrF.text" = "Label";
+
+/* Class = "UILabel"; text = "昵称"; ObjectID = "c5Q-gS-9SH"; */
+"c5Q-gS-9SH.text" = "昵称";
 
 /* Class = "UILabel"; text = "名称"; ObjectID = "cKr-JW-aNf"; */
 "cKr-JW-aNf.text" = "名称";
@@ -272,29 +401,41 @@
 /* Class = "UIViewController"; title = "自选编辑"; ObjectID = "dZ3-KM-OBZ"; */
 "dZ3-KM-OBZ.title" = "自选编辑";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "dbj-Xz-BPw"; */
-"dbj-Xz-BPw.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "dbj-Xz-BPw"; */
+"dbj-Xz-BPw.text" = "--";
+
+/* Class = "UILabel"; text = "当日参考盈亏"; ObjectID = "dp8-cA-wfo"; */
+"dp8-cA-wfo.text" = "当日参考盈亏";
 
 /* Class = "UIButton"; normalTitle = "下单"; ObjectID = "e3Y-vh-cbM"; */
 "e3Y-vh-cbM.normalTitle" = "下单";
 
+/* Class = "UIViewController"; title = "个人信息"; ObjectID = "eDN-nd-N7m"; */
+"eDN-nd-N7m.title" = "个人信息";
+
 /* Class = "UILabel"; text = "卖1"; ObjectID = "eJW-KG-Svy"; */
 "eJW-KG-Svy.text" = "卖1";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "eWn-gM-u56"; */
-"eWn-gM-u56.text" = "Label";
+/* Class = "UILabel"; text = "0"; ObjectID = "eUC-HL-uLy"; */
+"eUC-HL-uLy.text" = "0";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "eki-WM-cTI"; */
-"eki-WM-cTI.text" = "00";
+/* Class = "UILabel"; text = "000"; ObjectID = "eWn-gM-u56"; */
+"eWn-gM-u56.text" = "000";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "eki-WM-cTI"; */
+"eki-WM-cTI.text" = "--";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "f1j-pt-b1p"; */
+"f1j-pt-b1p.text" = "Label";
 
 /* Class = "UIViewController"; title = "资讯"; ObjectID = "fbq-eI-mMd"; */
 "fbq-eI-mMd.title" = "资讯";
 
-/* Class = "UILabel"; text = "名称"; ObjectID = "fed-of-C5z"; */
-"fed-of-C5z.text" = "名称";
-
 /* Class = "UILabel"; text = "涨停"; ObjectID = "fjz-hT-RGz"; */
 "fjz-hT-RGz.text" = "涨停";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "foL-jq-Rvo"; */
+"foL-jq-Rvo.text" = "0";
 
 /* Class = "UILabel"; text = "+00.00%"; ObjectID = "fou-vM-cVH"; */
 "fou-vM-cVH.text" = "+00.00%";
@@ -302,23 +443,26 @@
 /* Class = "UILabel"; text = "关于我们"; ObjectID = "gNA-bm-tp0"; */
 "gNA-bm-tp0.text" = "关于我们";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "gPU-Mg-P3H"; */
-"gPU-Mg-P3H.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "gPU-Mg-P3H"; */
+"gPU-Mg-P3H.text" = "--";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "gi0-JR-kPz"; */
-"gi0-JR-kPz.text" = "00";
+/* Class = "UILabel"; text = "0"; ObjectID = "gXr-Ot-c8n"; */
+"gXr-Ot-c8n.text" = "0";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "gk4-26-T6t"; */
-"gk4-26-T6t.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "gi0-JR-kPz"; */
+"gi0-JR-kPz.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "gz4-bi-wKi"; */
-"gz4-bi-wKi.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "gk4-26-T6t"; */
+"gk4-26-T6t.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "h7x-1d-W8O"; */
-"h7x-1d-W8O.text" = "00.00";
+/* Class = "UILabel"; text = "Label"; ObjectID = "gkk-oh-yVg"; */
+"gkk-oh-yVg.text" = "Label";
 
-/* Class = "UILabel"; text = "手机号码"; ObjectID = "h9i-PU-fmR"; */
-"h9i-PU-fmR.text" = "手机号码";
+/* Class = "UILabel"; text = "--"; ObjectID = "gz4-bi-wKi"; */
+"gz4-bi-wKi.text" = "--";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "h7x-1d-W8O"; */
+"h7x-1d-W8O.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "30分"; ObjectID = "hG7-ek-JEL"; */
 "hG7-ek-JEL.normalTitle" = "30分";
@@ -332,41 +476,56 @@
 /* Class = "UILabel"; text = "卖1"; ObjectID = "hgU-Xa-kBN"; */
 "hgU-Xa-kBN.text" = "卖1";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "hhm-zG-C7v"; */
+"hhm-zG-C7v.text" = "Label";
+
 /* Class = "UILabel"; text = "名称"; ObjectID = "htv-AG-ha4"; */
 "htv-AG-ha4.text" = "名称";
+
+/* Class = "UIButton"; normalTitle = "  人气"; ObjectID = "iO4-PA-YVY"; */
+"iO4-PA-YVY.normalTitle" = "  人气";
 
 /* Class = "UIButton"; normalTitle = "60分"; ObjectID = "iPh-FI-oJa"; */
 "iPh-FI-oJa.normalTitle" = "60分";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "iVM-vR-rLS"; */
-"iVM-vR-rLS.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "iVM-vR-rLS"; */
+"iVM-vR-rLS.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "分时"; ObjectID = "izR-ww-kWL"; */
 "izR-ww-kWL.normalTitle" = "分时";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "jMl-pg-wof"; */
-"jMl-pg-wof.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "jMl-pg-wof"; */
+"jMl-pg-wof.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "jsZ-W2-EHL"; */
-"jsZ-W2-EHL.text" = "00.00";
+/* Class = "UIViewController"; title = "当日成交"; ObjectID = "jPH-eg-a0r"; */
+"jPH-eg-a0r.title" = "当日成交";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "kFR-n7-zsy"; */
-"kFR-n7-zsy.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "kFR-n7-zsy"; */
+"kFR-n7-zsy.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "日K"; ObjectID = "kRC-Rt-YjK"; */
 "kRC-Rt-YjK.normalTitle" = "日K";
 
-/* Class = "UILabel"; text = "+00.00"; ObjectID = "l3C-c4-U5d"; */
-"l3C-c4-U5d.text" = "+00.00";
+/* Class = "UILabel"; text = "Label"; ObjectID = "kjA-vW-NnA"; */
+"kjA-vW-NnA.text" = "Label";
 
-/* Class = "UILabel"; text = "+00.00%"; ObjectID = "lhM-MU-bLK"; */
-"lhM-MU-bLK.text" = "+00.00%";
+/* Class = "UILabel"; text = "--"; ObjectID = "l3C-c4-U5d"; */
+"l3C-c4-U5d.text" = "--";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lcB-KI-AiL"; */
+"lcB-KI-AiL.text" = "Label";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "lhM-MU-bLK"; */
+"lhM-MU-bLK.text" = "--";
+
+/* Class = "UILabel"; text = "盈亏比例"; ObjectID = "m88-Hd-lnA"; */
+"m88-Hd-lnA.text" = "盈亏比例";
 
 /* Class = "UILabel"; text = "000000"; ObjectID = "mOu-ki-tZx"; */
 "mOu-ki-tZx.text" = "000000";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "mRe-MF-7C3"; */
-"mRe-MF-7C3.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "mRe-MF-7C3"; */
+"mRe-MF-7C3.text" = "--";
 
 /* Class = "UIViewController"; title = "自选"; ObjectID = "mTh-gb-yha"; */
 "mTh-gb-yha.title" = "自选";
@@ -377,23 +536,35 @@
 /* Class = "UIButton"; normalTitle = "五档"; ObjectID = "nKL-SP-meL"; */
 "nKL-SP-meL.normalTitle" = "五档";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "nT4-Yq-WgA"; */
-"nT4-Yq-WgA.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "nT4-Yq-WgA"; */
+"nT4-Yq-WgA.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "oIe-g7-Ni4"; */
-"oIe-g7-Ni4.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "oIe-g7-Ni4"; */
+"oIe-g7-Ni4.text" = "--";
 
 /* Class = "UITabBarItem"; title = "自选"; ObjectID = "oZV-Ke-FYP"; */
 "oZV-Ke-FYP.title" = "自选";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "obz-LP-VlX"; */
-"obz-LP-VlX.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "obz-LP-VlX"; */
+"obz-LP-VlX.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "pQ8-IA-uNP"; */
-"pQ8-IA-uNP.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "ooR-Yl-aye"; */
+"ooR-Yl-aye.text" = "--";
+
+/* Class = "UILabel"; text = "10000"; ObjectID = "pJW-NG-42A"; */
+"pJW-NG-42A.text" = "10000";
+
+/* Class = "UILabel"; text = "--"; ObjectID = "pQ8-IA-uNP"; */
+"pQ8-IA-uNP.text" = "--";
 
 /* Class = "UITabBarItem"; title = "我的"; ObjectID = "pTU-qs-yUw"; */
 "pTU-qs-yUw.title" = "我的";
+
+/* Class = "UIViewController"; title = "历史成交"; ObjectID = "pfq-lI-6YZ"; */
+"pfq-lI-6YZ.title" = "历史成交";
+
+/* Class = "UILabel"; text = "总市值"; ObjectID = "piD-cS-xsK"; */
+"piD-cS-xsK.text" = "总市值";
 
 /* Class = "UILabel"; text = "卖4"; ObjectID = "q3X-W3-Tll"; */
 "q3X-W3-Tll.text" = "卖4";
@@ -404,14 +575,23 @@
 /* Class = "UITabBarItem"; title = "资讯"; ObjectID = "qGA-hZ-OxF"; */
 "qGA-hZ-OxF.title" = "资讯";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "qWa-0r-L0X"; */
-"qWa-0r-L0X.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "qWa-0r-L0X"; */
+"qWa-0r-L0X.text" = "--";
 
 /* Class = "UILabel"; text = "卖3"; ObjectID = "qvl-3V-Jke"; */
 "qvl-3V-Jke.text" = "卖3";
 
-/* Class = "UILabel"; text = "00"; ObjectID = "rFw-KV-YNt"; */
-"rFw-KV-YNt.text" = "00";
+/* Class = "UILabel"; text = "--"; ObjectID = "rFw-KV-YNt"; */
+"rFw-KV-YNt.text" = "--";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "riL-kl-vLP"; */
+"riL-kl-vLP.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "保存修改"; ObjectID = "rt6-GE-TZa"; */
+"rt6-GE-TZa.normalTitle" = "保存修改";
+
+/* Class = "UIButton"; normalTitle = "查看详情"; ObjectID = "sLU-pS-QvZ"; */
+"sLU-pS-QvZ.normalTitle" = "查看详情";
 
 /* Class = "UIButton"; normalTitle = "+ 自选"; ObjectID = "sN0-cq-mDs"; */
 "sN0-cq-mDs.normalTitle" = "+ 自选";
@@ -419,11 +599,11 @@
 /* Class = "UIButton"; normalTitle = "买 入"; ObjectID = "szL-yj-n82"; */
 "szL-yj-n82.normalTitle" = "买 入";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "tD6-oI-4fH"; */
-"tD6-oI-4fH.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "tD6-oI-4fH"; */
+"tD6-oI-4fH.text" = "--";
 
-/* Class = "UILabel"; text = "00.00%"; ObjectID = "tE7-N3-brm"; */
-"tE7-N3-brm.text" = "00.00%";
+/* Class = "UILabel"; text = "--"; ObjectID = "tE7-N3-brm"; */
+"tE7-N3-brm.text" = "--";
 
 /* Class = "UILabel"; text = "+00.00%"; ObjectID = "tKU-eX-xq3"; */
 "tKU-eX-xq3.text" = "+00.00%";
@@ -431,29 +611,17 @@
 /* Class = "UILabel"; text = "拖动"; ObjectID = "tV9-Zv-eZ3"; */
 "tV9-Zv-eZ3.text" = "拖动";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "tfL-GP-iRt"; */
-"tfL-GP-iRt.text" = "00.00";
-
-/* Class = "UILabel"; text = "00.00"; ObjectID = "u7U-Yp-b9B"; */
-"u7U-Yp-b9B.text" = "00.00";
-
 /* Class = "UILabel"; text = "买4"; ObjectID = "uDb-xQ-m6W"; */
 "uDb-xQ-m6W.text" = "买4";
 
-/* Class = "UILabel"; text = "000.00"; ObjectID = "uye-Xy-QJz"; */
-"uye-Xy-QJz.text" = "000.00";
-
-/* Class = "UILabel"; text = "00.00"; ObjectID = "vFA-IG-1xw"; */
-"vFA-IG-1xw.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "vFA-IG-1xw"; */
+"vFA-IG-1xw.text" = "--";
 
 /* Class = "UIButton"; normalTitle = "明细"; ObjectID = "vN3-fl-71Q"; */
 "vN3-fl-71Q.normalTitle" = "明细";
 
-/* Class = "UILabel"; text = "昵称"; ObjectID = "vad-LR-Ekd"; */
-"vad-LR-Ekd.text" = "昵称";
-
-/* Class = "UILabel"; text = "00.00"; ObjectID = "vmm-GO-rET"; */
-"vmm-GO-rET.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "vmm-GO-rET"; */
+"vmm-GO-rET.text" = "--";
 
 /* Class = "UINavigationItem"; title = "行情"; ObjectID = "w0e-X5-mRV"; */
 "w0e-X5-mRV.title" = "行情";
@@ -461,20 +629,29 @@
 /* Class = "UILabel"; text = "0000000"; ObjectID = "wFv-np-Fqc"; */
 "wFv-np-Fqc.text" = "0000000";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "wMu-tD-AIZ"; */
-"wMu-tD-AIZ.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "wMu-tD-AIZ"; */
+"wMu-tD-AIZ.text" = "--";
 
-/* Class = "UILabel"; text = "振幅"; ObjectID = "wem-le-pM7"; */
-"wem-le-pM7.text" = "振幅";
+/* Class = "UIButton"; normalTitle = "! 重发"; ObjectID = "wdB-qj-gW5"; */
+"wdB-qj-gW5.normalTitle" = "! 重发";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "we4-lO-KKR"; */
+"we4-lO-KKR.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "wit-zD-gaX"; */
+"wit-zD-gaX.text" = "Label";
 
 /* Class = "UILabel"; text = "买5"; ObjectID = "wuJ-38-etB"; */
 "wuJ-38-etB.text" = "买5";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "wyh-fO-9g1"; */
-"wyh-fO-9g1.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "wyh-fO-9g1"; */
+"wyh-fO-9g1.text" = "--";
 
-/* Class = "UILabel"; text = "00.00"; ObjectID = "xIv-6X-af7"; */
-"xIv-6X-af7.text" = "00.00";
+/* Class = "UILabel"; text = "--"; ObjectID = "xIv-6X-af7"; */
+"xIv-6X-af7.text" = "--";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "xQb-yk-EKa"; */
+"xQb-yk-EKa.text" = "0";
 
 /* Class = "UINavigationItem"; title = "我的"; ObjectID = "xYy-P1-mG7"; */
 "xYy-P1-mG7.title" = "我的";
@@ -482,11 +659,20 @@
 /* Class = "UILabel"; text = "置顶"; ObjectID = "xcP-6D-SOa"; */
 "xcP-6D-SOa.text" = "置顶";
 
+/* Class = "UITextView"; text = "中新网6月27日电"; ObjectID = "xnv-Ev-K8M"; */
+"xnv-Ev-K8M.text" = "中新网6月27日电";
+
 /* Class = "UILabel"; text = "量比"; ObjectID = "xyX-eZ-C56"; */
 "xyX-eZ-C56.text" = "量比";
 
+/* Class = "UILabel"; text = "LabelLabel"; ObjectID = "y21-ic-j3b"; */
+"y21-ic-j3b.text" = "LabelLabel";
+
 /* Class = "UILabel"; text = "名称"; ObjectID = "y9D-ZM-aZJ"; */
 "y9D-ZM-aZJ.text" = "名称";
+
+/* Class = "UILabel"; text = "图片"; ObjectID = "yB7-Qe-OW2"; */
+"yB7-Qe-OW2.text" = "图片";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "ywx-D1-N9Q"; */
 "ywx-D1-N9Q.text" = "Label";

@@ -77,13 +77,13 @@ class JH_BuyAndSellCell_Data: UITableViewCell {
         for item in view_L.subviews {
             if let lab = item as? UILabel {
                 lab.font = sp_fitFont15
-                lab.textColor = UIColor.mainText_1
+                //lab.textColor = UIColor.mainText_1
             }
         }
         for item in view_R.subviews {
             if let lab = item as? UILabel {
                 lab.font = sp_fitFont15
-                lab.textColor = UIColor.mainText_1
+                //lab.textColor = UIColor.mainText_1
             }
         }
     }
@@ -116,7 +116,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
     
     lazy var _text_price:SP_TextField = {
         let text = SP_TextField.show(self.view_pice)
-        text.text_field.placeholder = "0.0"
+        text.text_field.placeholder = sp_localized("价格")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .decimalPad
         text.text_field.textAlignment = .center
@@ -145,7 +145,7 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
     }()
     lazy var _text_num:SP_TextField = {
         let text = SP_TextField.show(self.view_num)
-        text.text_field.placeholder = "0"
+        text.text_field.placeholder = sp_localized("数量")
         text.text_field.textColor = UIColor.mainText_1
         text.text_field.keyboardType = .numberPad
         text.text_field.textAlignment = .center
@@ -176,10 +176,12 @@ class JH_BuyAndSellCell_Deal: UITableViewCell {
     var _type = JH_BuyAndSellType.t买入
     var _model:M_Attention = M_Attention() {
         didSet{
+            
             lab_name.text = _model.name
             lab_no.text = _model.code
             _text_price.text_field.text = _model.proposedPrice
-            _text_num.text_field.text = _text_num.text_field.text!.isEmpty ? "10" : _text_num.text_field.text!
+            _text_num.text_field.text = _text_num.text_field.text!.isEmpty ? "" : _text_num.text_field.text!
+            
         }
     }
     
@@ -194,10 +196,10 @@ extension JH_BuyAndSellCell_Deal {
         
         makeUI()
         makeTextFieldDelegate()
-        makeRx()
         IQKeyboardManager.shared().shouldShowTextFieldPlaceholder = false
         
-        
+        makeRx()
+        self.updateBtnDeal(!self._text_price.text_field.text!.isEmpty && !self._text_num.text_field.text!.isEmpty)
     }
     @IBAction func btnClick(_ sender: UIButton) {
         keyBoardHidden()
@@ -222,14 +224,14 @@ extension JH_BuyAndSellCell_Deal {
         
         
         btn_deal.setTitle(sp_localized(type == .t买入 ? "买入" : "卖出") , for: .normal)
-        btn_deal.backgroundColor = type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal
+        //btn_deal.backgroundColor = type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal
         //阴影
         btn_deal.layer.shadowColor = (type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal).cgColor
-        btn_deal.layer.shadowOffset = CGSize(width: 0, height: 1)
+        btn_deal.layer.shadowOffset = CGSize(width: 0, height: 3)
         btn_deal.layer.shadowOpacity = 0.5
         
-        _text_price.text_field.text = "0.0"
-        _text_num.text_field.text = "10"
+        _text_price.text_field.text = ""
+        _text_num.text_field.text = ""
     }
     
     
@@ -239,6 +241,22 @@ extension JH_BuyAndSellCell_Deal {
 //MARK:--- 输入操作 -----------------------------
 extension JH_BuyAndSellCell_Deal {
     fileprivate func makeTextFieldDelegate() {
+        _text_price._block = { [unowned self](type,text) in
+            switch type {
+            case .tChange:
+                self.updateBtnDeal(!self._text_price.text_field.text!.isEmpty && !self._text_num.text_field.text!.isEmpty)
+            default:
+                break
+            }
+        }
+        _text_num._block = { [unowned self](type,text) in
+            switch type {
+            case .tChange:
+                self.updateBtnDeal(!self._text_price.text_field.text!.isEmpty && !self._text_num.text_field.text!.isEmpty)
+            default:
+                break
+            }
+        }
         _text_price._shouldChangeCharactersBlock = { [weak self](textField,range,str) -> Bool in
             let bool = textField.sp_limitForPrice(range, string: str, stringLength: 10, errorType: { (type) in
                 switch type {
@@ -269,17 +287,21 @@ extension JH_BuyAndSellCell_Deal {
         }
         
     }
-    
+    fileprivate func updateBtnDeal(_ isOk:Bool){
+        self.btn_deal.isEnabled = isOk
+        self.btn_deal.backgroundColor = isOk ? (self._type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal) : UIColor.main_btnNotEnb
+    }
     fileprivate func makeRx(){
-        let priceValid_1 = _text_price.text_field.rx.text.map { $0?.characters.count != 0 }.shareReplay(1)
-        let numValid_1 = _text_num.text_field.rx.text.map { $0?.characters.count != 0 }.shareReplay(1)
-        let allValid = Observable.combineLatest(priceValid_1, numValid_1) { $0 && $1 }.shareReplay(1)
-        allValid
-            .asObservable()
-            .subscribe(onNext: { [unowned self](isOk) in
-                self.btn_deal.isEnabled = isOk
-                self.btn_deal.backgroundColor = isOk ? (self._type == .t买入 ? UIColor.main_1 : UIColor.main_btnNormal) : UIColor.main_btnNotEnb
-            }).addDisposableTo(disposeBag)
+//        let priceValid_1 = _text_price.text_field.rx.text.map { $0?.characters.count != 0 }.shareReplay(1)
+//        let numValid_1 = _text_num.text_field.rx.text.map { $0?.characters.count != 0 }.shareReplay(1)
+//        let allValid = Observable.combineLatest(priceValid_1, numValid_1) { $0 && $1 }.shareReplay(1)
+//        allValid
+//            .asObservable()
+//            .subscribe(onNext: { [unowned self](isOk) in
+//                print_SP(isOk)
+//                self.updateBtnDeal(isOk)
+//                
+//            }).addDisposableTo(disposeBag)
         
         
         
@@ -313,23 +335,37 @@ extension JH_BuyAndSellCell_Deal {
     }
     
     fileprivate func textPriceAdd() {
+        guard !_text_price.text_field.text!.isEmpty else {
+            _text_price.text_field.text = "10.00"
+            self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
+            return
+        }
         let price = Double(_text_price.text_field.text!)! + 10.0
         _text_price.text_field.text = String(format: "%.2f", price)
+        
+        self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
     }
     fileprivate func textPriceSubtract() {
         if _type == .t买入 {
-            guard !_text_num.text_field.text!.isEmpty else {
-                _text_num.text_field.text = _model.proposedPrice
+            guard !_text_price.text_field.text!.isEmpty else {
                 return
             }
+            guard Double(_text_price.text_field.text!)! > 0 else {
+                return
+            }
+            
+            
             //买入价格不得低于现在的价格
 //            guard Double(_text_num.text_field.text!) == Double(_model.proposedPrice) else {
 //                _text_num.label_error.text = "*买入价格不得低于当前价格"
 //                return
 //            }
         }else{
-            guard !_text_num.text_field.text!.isEmpty else {
-                _text_num.text_field.text = "0.0"
+            guard !_text_price.text_field.text!.isEmpty else {
+                
+                return
+            }
+            guard Double(_text_price.text_field.text!)! > 0 else {
                 return
             }
             //买入价格不得低于现在的价格
@@ -340,28 +376,47 @@ extension JH_BuyAndSellCell_Deal {
             
         }
         
-        let price = Double(_text_price.text_field.text!)! - 10.0
+        var price = Double(_text_price.text_field.text!)!
+        if Double(_text_price.text_field.text!)! > 10.0 {
+            price -= 10.00
+        }else{
+            price -= 1.00
+        }
         _text_price.text_field.text = String(format: "%.2f", price)
+        
+        self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
     }
     fileprivate func textNumAdd() {
-//        guard !_text_num.text_field.text!.isEmpty else {
-//            _text_num.text_field.text = "1"
-//            return
-//        }
-        let price = Int(_text_num.text_field.text!)! + 1
+        guard !_text_num.text_field.text!.isEmpty else {
+            _text_num.text_field.text = "10"
+            self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
+            return
+        }
+        _text_num.label_error.text = ""
+        let price = Int(_text_num.text_field.text!)! + 10
         _text_num.text_field.text = String(format: "%d", price)
+        
+        self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
     }
     fileprivate func textNumSubtract() {
-//        guard !_text_num.text_field.text!.isEmpty else {
-//            _text_num.text_field.text = "1"
-//            return
-//        }
-//        guard Int(_text_num.text_field.text!) == 1 else {
-//            _text_num.label_error.text = "*数量不能小于 1"
-//            return
-//        }
-        let price = Double(_text_num.text_field.text!)! - 1
+        guard !_text_num.text_field.text!.isEmpty else {
+            _text_num.text_field.text = ""
+            return
+        }
+        guard Int(_text_num.text_field.text!)! > 1 else {
+            _text_num.label_error.text = "*数量不能小于 1"
+            return
+        }
+        _text_num.label_error.text = ""
+        var price = Int(_text_num.text_field.text!)!
+        if Int(_text_num.text_field.text!)! > 10 {
+            price -= 10
+        }else{
+            price -= 1
+        }
         _text_num.text_field.text = String(format: "%d", price)
+        
+        self.updateBtnDeal(!_text_price.text_field.text!.isEmpty && !_text_num.text_field.text!.isEmpty)
     }
     
 }

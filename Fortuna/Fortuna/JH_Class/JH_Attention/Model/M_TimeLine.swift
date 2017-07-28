@@ -24,7 +24,7 @@ struct M_TimeLine {
 }
 
 extension M_TimeLine:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }

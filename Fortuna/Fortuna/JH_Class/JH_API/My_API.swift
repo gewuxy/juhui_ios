@@ -23,6 +23,8 @@ let main_url = "https://jh.qiuxiaokun.com/"
 let my_pageSize = 20
 
 enum My_API {
+    static let url_SocketIO广播 = "http://39.108.142.204:8001/"
+    
     static let url_用户信息修改 = "api/account/info/"
     case t_用户信息修改(nickname:String,email:String,img_url:String)
     
@@ -47,7 +49,6 @@ enum My_API {
     static let url_卖出 = "api/wine/sell/"
     case t_卖出(code:String, price:String, num:String)
     
-    
     static let url_分时数据 = "api/wine/forchart/"
     case t_分时数据(code:String, period:String)
     
@@ -69,21 +70,41 @@ enum My_API {
     case t_媒体文件上传(uploadParams:[SP_UploadParam])
     case t_媒体文件上传2(file:URL)
     
-    static let url_SocketIO广播 = "http://39.108.142.204:8001"
+    static let url_当日成交 = "api/wine/todaydeal/"
+    case t_当日成交(page:Int)
     
+    static let url_当日委托 = "api/wine/todaycommission/"
+    case t_当日委托(page:Int)
+    
+    static let url_历史成交 = "api/wine/historydeal/"
+    case t_历史成交(page:Int)
+    
+    static let url_历史委托 = "api/wine/historycommission/"
+    case t_历史委托(page:Int)
+    
+    static let url_单品委托列表 = "api/wine/detailcancelcomm/"
+    case t_单品委托列表(code:String)
+    
+    static let url_我的持仓 = "api/account/myposition/"
+    case t_我的持仓(page:Int)
+    
+    static let url_撤销委托单 = "api/wine/cancelcommission/"
+    case t_撤销委托单(commission_id:String)
+    
+    static let url_获取资讯列表 = "api/news/getnews/"
+    case t_获取资讯列表(page:Int)
     
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
         //"token":SP_User.shared.userToken
-        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken,"deviceuuid":SP_User.shared.deviceUUID]
         var parame:[String:Any] = [:]
-        
         switch self {
         case .t_获取自选列表(let page):
             parame += ["page":page,"page_num":my_pageSize]
             print_Json("url_获取自选列表 parame=>\(parame))")
-            print_SP(SP_User.shared.userToken)
+            print_Json("url_获取自选列表 _headers=>\(SP_Alamofire.shared._headers))")
             SP_Alamofire.get(main_url+My_API.url_获取自选列表, param: parame, block: { (isOk, res, error) in
                 print_Json("url_获取自选列表=>\(JSON(res!))")
                 My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -177,7 +198,7 @@ extension My_API {
                 })
             })
         case .t_获取行情数据:
-            SP_Alamofire.shared._headers = [:]
+            SP_Alamofire.shared._headers = ["deviceuuid":SP_User.shared.deviceUUID]
             parame += [:]
             SP_Alamofire.get(main_url+My_API.url_获取行情数据, param: parame, block: { (isOk, res, error) in
                 print_Json("url_获取行情数据=>\(JSON(res!))")
@@ -193,13 +214,78 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        case .t_当日成交(let page):
+            parame += ["page":page, "page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_当日成交, param: parame, block: { (isOk, res, error) in
+                print_Json("url_当日成交=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        
+        case .t_当日委托(let page):
+            parame += ["page":page, "page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_当日委托, param: parame, block: { (isOk, res, error) in
+                print_Json("url_当日委托=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_历史成交(let page):
+            parame += ["page":page, "page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_历史成交, param: parame, block: { (isOk, res, error) in
+                print_Json("url_历史成交=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_历史委托(let page):
+            parame += ["page":page, "page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_历史委托, param: parame, block: { (isOk, res, error) in
+                print_Json("url_历史委托=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_单品委托列表(let code):
+            parame += ["code":code]
+            SP_Alamofire.post(main_url+My_API.url_单品委托列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_单品委托列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_我的持仓(let page):
+            parame += ["page":page, "page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_我的持仓, param: parame, block: { (isOk, res, error) in
+                print_Json("url_我的持仓=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_撤销委托单(let commission_id):
+            parame += ["commission_id":commission_id]
+            SP_Alamofire.post(main_url+My_API.url_撤销委托单, param: parame, block: { (isOk, res, error) in
+                print_Json("url_撤销委托单=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_获取资讯列表(let page):
+            parame += ["page":page,"page_num":my_pageSize]
+            SP_Alamofire.post(main_url+My_API.url_获取资讯列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取资讯列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
         
         default:break
         }
     }
     
     func upload<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil, progressBlock:sp_netProgressBlock? = nil) {
-        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken]
+        SP_Alamofire.shared._headers = ["Authorization":"Bearer "+SP_User.shared.userToken,"deviceuuid":SP_User.shared.deviceUUID]
         switch self {
         case .t_媒体文件上传(let uploadParams):
             SP_Alamofire.upload(main_url+My_API.url_媒体文件上传, param: [:], uploadParams: uploadParams, progressBlock: progressBlock, block: { (isOk, res, error) in
@@ -232,7 +318,7 @@ extension My_API {
 public protocol SP_JsonModel {
     //所有的转模型通过遵循 SP_JsonModel 协议
     init()
-    init?(_ json:JSON)
+    init(_ json:JSON)
     
 }
 extension My_API {

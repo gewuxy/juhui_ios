@@ -30,7 +30,7 @@
 /**
  *  K线最大的宽度
  */
-#define Y_StockChartKLineMaxWidth 20
+#define Y_StockChartKLineMaxWidth 15
 
 /**
  *  K线图最小的宽度
@@ -182,6 +182,11 @@
 #define Y_StockChartViewAccessoryMAViewHeight 0
 
 
+//Kline种类
+typedef NS_ENUM(NSInteger, Y_StockChartFiveDayViewType) {
+    Y_StockChartFiveDayViewTypeFiveline= 1, //K线
+    Y_StockChartFiveDayViewTypeTimeLine,  //分时图
+};
 
 //Kline种类
 typedef NS_ENUM(NSInteger, Y_StockChartCenterViewType) {

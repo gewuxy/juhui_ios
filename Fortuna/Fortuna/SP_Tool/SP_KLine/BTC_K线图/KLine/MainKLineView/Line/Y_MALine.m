@@ -48,13 +48,21 @@
     CGContextSetLineWidth(self.context, Y_StockChartMALineWidth);
     
     CGPoint firstPoint = [self.MAPositions.firstObject CGPointValue];
-    NSAssert(!isnan(firstPoint.x) && !isnan(firstPoint.y), @"出现NAN值：MA画线");
-    CGContextMoveToPoint(self.context, firstPoint.x, firstPoint.y);
+    //NSAssert(!isnan(firstPoint.x) && !isnan(firstPoint.y), @"出现NAN值：MA画线");
+    CGContextMoveToPoint(self.context, firstPoint.x, (firstPoint.y>0 ? firstPoint.y : firstPoint.y));
+    
+    
     
     for (NSInteger idx = 1; idx < self.MAPositions.count ; idx++)
     {
         CGPoint point = [self.MAPositions[idx] CGPointValue];
-        CGContextAddLineToPoint(self.context, point.x, point.y);
+        CGContextAddLineToPoint(self.context, point.x, (point.y>0.0f ? point.y : point.y));
+        
+        
+        
+        
+        //NSLog(@"x=%f / y=%f",point.x,point.y);
+        
 //
 //        
 //        //日期
@@ -72,6 +80,23 @@
     }
 //
     CGContextStrokePath(self.context);
+    
+    if (self.isBg) {
+        CGContextSetFillColorWithColor(self.context, [UIColor timeLineBgColor].CGColor);
+        CGPoint lastPoint = [self.MAPositions.lastObject CGPointValue];
+        
+        //画背景色
+        CGContextMoveToPoint(self.context, firstPoint.x, firstPoint.y);
+        for (NSInteger idx = 1; idx < self.MAPositions.count ; idx++)
+        {
+            CGPoint point = [self.MAPositions[idx] CGPointValue];
+            CGContextAddLineToPoint(self.context, point.x, point.y);
+        }
+        CGContextAddLineToPoint(self.context, lastPoint.x, self.maxY);
+        CGContextAddLineToPoint(self.context, firstPoint.x, self.maxY);
+        CGContextClosePath(self.context);
+        CGContextFillPath(self.context);
+    }
 }
 @end
 

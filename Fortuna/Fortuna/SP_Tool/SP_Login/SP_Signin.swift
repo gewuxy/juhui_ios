@@ -296,7 +296,7 @@ extension SP_Signin {
                 if isOk {
                     SP_HUD.show(text:sp_localized("修改成功,重新登录",from: "SP_Login"))
                     
-                    self?._isOkBlock?(true,self!._text_phone.text_field.text!,self!._text_pwd.text_field.text!)
+                    //self?._isOkBlock?(true,self!._text_phone.text_field.text!,self!._text_pwd.text_field.text!)
                     self?.clickN_btn_R1()
                 }else{
                     SP_HUD.show(detailText:error)
@@ -312,7 +312,7 @@ extension SP_Signin {
         SP_User.shared.sendSMS((mobile: _text_phone.text_field.text!, type: _vcType == .t注册 ? "1" : "2")) { (isOk, error) in
             if isOk {
                 SP_HUD.show(detailText:sp_localized("验证码已发送,60秒后过期",from: "SP_Login"))
-                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 90,enabText: sp_localized("重新获取",from: "SP_Login"),enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
+                SP_TimeSingleton.shared.starCountDown(self._text_verifi.button_R,countTime: 60,enabText: sp_localized("重新获取",from: "SP_Login"),enabledColor:(bg:self._text_verifi.button_R.backgroundColor!,text:UIColor.mainText_3))
             }else{
                 SP_HUD.show(detailText:error)
             }

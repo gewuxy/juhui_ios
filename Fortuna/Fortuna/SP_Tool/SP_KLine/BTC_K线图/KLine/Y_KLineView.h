@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Y_KLineModel.h"
 #import "Y_StockChartConstant.h"
+#import "Y_KLineMainView.h"
 @interface Y_KLineView : UIView
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+/**
+ *  主K线图
+ */
+@property (nonatomic, strong) Y_KLineMainView *kLineMainView;
 /**
  *  第一个View的高所占比例
  */
@@ -36,7 +42,10 @@
  *  K线类型
  */
 @property (nonatomic, assign) Y_StockChartCenterViewType MainViewType;
-
+/**
+ *  是否为以日分割
+ */
+@property (nonatomic, assign) BOOL FiveDay;
 /**
  *  Accessory指标种类
  */

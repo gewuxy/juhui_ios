@@ -17,7 +17,7 @@ struct M_Market {
 }
 
 extension M_Market:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }
@@ -25,13 +25,13 @@ extension M_Market:SP_JsonModel {
         let high_ratioArr = json["high_ratio"].arrayValue
         for item in high_ratioArr {
             let value = M_Attention(item)
-            high_ratio.append(value!)
+            high_ratio.append(value)
         }
         
         let low_ratioArr = json["low_ratio"].arrayValue
         for item in low_ratioArr {
             let value = M_Attention(item)
-            low_ratio.append(value!)
+            low_ratio.append(value)
         }
     }
 }

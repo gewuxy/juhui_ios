@@ -194,17 +194,17 @@ extension String {
     
     
 //    //MARK:---------- sha1 加密
-//    func xz_SHA1() -> String {
-//        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: true)!
-//        var digest = [UInt8](repeating: 0,count: Int(CC_SHA1_DIGEST_LENGTH))
-//        CC_SHA1((data as NSData).bytes, CC_LONG(data.count), &digest)
-//        
-//        let output = NSMutableString(capacity: Int(CC_SHA1_DIGEST_LENGTH))
-//        for byte in digest{
-//            output.appendFormat("%02x", byte)
-//        }
-//        return output as String
-//    }
+    func sp_SHA1() -> String {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: true)!
+        var digest = [UInt8](repeating: 0,count: Int(CC_SHA1_DIGEST_LENGTH))
+        CC_SHA1((data as NSData).bytes, CC_LONG(data.count), &digest)
+        
+        let output = NSMutableString(capacity: Int(CC_SHA1_DIGEST_LENGTH))
+        for byte in digest{
+            output.appendFormat("%02x", byte)
+        }
+        return output as String
+    }
     
     //MARK:---------- 筛除富文本
 //    func xz_RemoveRichText(_ regexString:String) -> String {

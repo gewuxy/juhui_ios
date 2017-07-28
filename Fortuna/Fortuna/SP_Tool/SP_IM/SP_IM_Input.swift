@@ -161,7 +161,7 @@ extension SP_IM_Input:UITextViewDelegate {
         print_Json(text)
         if text == "\n" {
             _shouldReturnBlock?()
-            text_View.resignFirstResponder()
+            //text_View.resignFirstResponder()
             return false
         }
         return true

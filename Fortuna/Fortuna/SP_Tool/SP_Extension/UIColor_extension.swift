@@ -50,7 +50,7 @@ extension UIColor {
     open class var main_btnNormal: UIColor {
         return UIColor.main_string("#5c86ff")
     }
-    ///按钮不可点
+    ///按钮点击
     open class var main_btnSelect: UIColor {
         return UIColor.main_string("#2860ff")
     }
@@ -59,6 +59,11 @@ extension UIColor {
     open class var main_bg: UIColor {
         //对应调色板上的银白
         return UIColor.main_string("#f2f2f2")
+    }
+    ///背景色高亮
+    open class var main_bgHigh: UIColor {
+        //对应调色板上的银白
+        return UIColor.main_string("#d9d9d9")
     }
     ///线条颜色
     open class var main_line: UIColor {

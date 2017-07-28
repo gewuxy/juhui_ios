@@ -63,6 +63,10 @@
  *  分时线界面线的颜色
  */
 +(UIColor *)timeLineLineColor;
+/**
+ *  分时线界面背景的颜色
+ */
++(UIColor *)timeLineBgColor;
 
 /**
  *  长按时线的颜色

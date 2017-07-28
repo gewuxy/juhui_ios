@@ -85,7 +85,10 @@ extension JH_IM {
         let vc = HXPhotoViewController()
         self.manager.type = HXPhotoManagerSelectedTypeVideo
         vc.delegate = self
+        self.manager.emptySelectedList()
         vc.manager = self.manager
+        vc.manager.emptySelectedList()
+        vc.manager.endSelectedVideos.removeAllObjects()
         let nVC = UINavigationController(rootViewController: vc)
         UIApplication.shared.statusBarStyle = .default
         self.present(nVC, animated: true, completion: nil)
@@ -95,7 +98,8 @@ extension JH_IM {
 extension JH_IM:HXPhotoViewControllerDelegate {
     
     func photoViewControllerDidNext(_ allList: [HXPhotoModel]!, photos: [HXPhotoModel]!, videos: [HXPhotoModel]!, original: Bool) {
-        
+        SP_SVHUD.setStyle(.dark)
+        SP_SVHUD.show()
         if photos.count > 0 {
             
             _inpPotos = photos
@@ -188,13 +192,13 @@ extension JH_IM {
         
         self.tableView.reloadData()
         self.toRowBottom()
-        SP_HUD.hidden()
+        SP_SVHUD.dismiss()
         My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
             if isOk {
                 guard let datas = data as? M_MyCommon else{return}
                 model.content = datas.media_url
                 model.videoImg = datas.media_img
-                self?.tableView?.reloadData()
+                //self?.tableView?.reloadData()
                 self?.sendMessage(model)
             }else{
                 
@@ -229,7 +233,7 @@ extension JH_IM {
         
         var model = SP_IM_TabModel()
         let imgPath:String = "file://"+SP_ToolOC.imagePath(forVideo: videoUrl!)
-        model.videoImg = "HuanChong"
+        model.videoImg = imgPath
         model.content = videoUrl!.absoluteString
         model.userLogo = SP_UserModel.read().imgUrl
         model.type = .tVideo
@@ -244,7 +248,7 @@ extension JH_IM {
         }
         self.tableView.reloadData()
         self.toRowBottom()
-        SP_HUD.hidden()
+        SP_SVHUD.dismiss()
         My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
             print_SP(isOk)
             if isOk {

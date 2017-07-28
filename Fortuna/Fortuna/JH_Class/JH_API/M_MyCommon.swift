@@ -16,7 +16,7 @@ struct M_MyCommon {
     var media_img = ""
 }
 extension M_MyCommon:SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }

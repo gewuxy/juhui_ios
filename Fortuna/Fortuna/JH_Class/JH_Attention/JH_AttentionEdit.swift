@@ -187,8 +187,9 @@ extension JH_AttentionEdit:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_AttentionCell_Edit.show(tableView, indexPath)
         let model = _datas[indexPath.row]
-        cell.lab_name.text = model.name
-        cell.btn_select.setImage(UIImage(named:model.isSelect ? "Attention选中" : "Attention没选中"), for: .normal)
+        //cell.lab_name.text = model.name
+        cell.btn_tap.setImage(UIImage(named:model.isSelect ? "Attention选中" : "Attention没选中"), for: .normal)
+        cell.btn_tap.setTitle(" "+model.name, for: .normal)
         cell._block = { [weak self] type in
             switch type {
             case .tSelect:

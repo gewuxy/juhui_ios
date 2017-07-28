@@ -93,8 +93,24 @@ class JH_AttentionCell_Normal: UITableViewCell {
         
         lab_price_W.constant = sp_fitSize((80,90,100))
         lab_range_W.constant = sp_fitSize((80,90,100))
+        
+        //self.addGestureRecognizer(longPress)
     }
-    
+    lazy var longPress:UILongPressGestureRecognizer = {
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        lo.minimumPressDuration = 0.5
+        return lo
+    }()
+    func longPressClick(_ sender:UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            self.backgroundColor = UIColor.main_bgHigh
+        case .ended:
+            self.backgroundColor = UIColor.white
+        default:
+            break
+        }
+    }
     @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var lab_code: UILabel!
@@ -119,6 +135,9 @@ class JH_AttentionCell_Edit: UITableViewCell {
         
         btn_select.setTitleColor(UIColor.mainText_1, for: .normal)
         btn_select.titleLabel?.font = sp_fitFont18
+        
+        btn_tap.setTitleColor(UIColor.mainText_1, for: .normal)
+        btn_tap.titleLabel?.font = sp_fitFont18
     }
     
     @IBOutlet weak var view_line: UIView!
@@ -149,7 +168,7 @@ class JH_AttentionCell_Edit: UITableViewCell {
 class JH_AttentionDetailsCell_Data: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath, openBlock:(()->Void)? = nil) -> JH_AttentionDetailsCell_Data {
         let cell = tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Data", for: indexPath) as! JH_AttentionDetailsCell_Data
-        cell._clickBlock = openBlock
+        //cell._clickBlock = openBlock
         return cell
     }
     
@@ -171,42 +190,32 @@ class JH_AttentionDetailsCell_Data: UITableViewCell {
     @IBOutlet weak var lab_MOL: UILabel!
     @IBOutlet weak var lab_range: UILabel!
     
-    @IBOutlet weak var lab_open: UILabel!
-    @IBOutlet weak var lab_turnover: UILabel!
+    
     @IBOutlet weak var lab_tall: UILabel!
     @IBOutlet weak var lab_low: UILabel!
     @IBOutlet weak var lab_rate: UILabel!
     @IBOutlet weak var lab_ratio: UILabel!
     
-    @IBOutlet weak var lab_open0: UILabel!
-    @IBOutlet weak var lab_turnover0: UILabel!
+    
     @IBOutlet weak var lab_tall0: UILabel!
     @IBOutlet weak var lab_low0: UILabel!
     @IBOutlet weak var lab_rate0: UILabel!
     @IBOutlet weak var lab_ratio0: UILabel!
     
-    @IBOutlet weak var btn_unfold: UIButton!
-    
-    var _clickBlock:(()->Void)?
-    @IBAction func clickBtn(_ sender: UIButton) {
-        _clickBlock?()
-    }
-    
-    
     fileprivate func makeUI() {
         view_price.backgroundColor = UIColor.clear
         view_data.backgroundColor = UIColor.clear
         view_unfold.backgroundColor = UIColor.clear
-        view_price_W.constant = (sp_ScreenWidth-30)/2-20
+        view_price_W.constant = (sp_ScreenWidth-30)/2 //+20
         
-        lab_price.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 30))
-        lab_MOL.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
-        lab_range.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 15))
+        lab_price.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 35))
+        lab_MOL.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
+        lab_range.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
         
         
         for item in view_data.subviews {
             if let lab = item as? UILabel {
-                lab.font = sp_fitFont16
+                lab.font = sp_fitFont15
             }
         }
     }
@@ -225,29 +234,26 @@ class JH_AttentionDetailsCell_Unfold: UITableViewCell {
     @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var view_bg: UIView!
     
-    @IBOutlet weak var lab_PRE: UILabel!
-    @IBOutlet weak var lab_VOL: UILabel!
+    @IBOutlet weak var lab_PRE: UILabel!//成交量
     
-    @IBOutlet weak var lab_InSize: UILabel!
-    @IBOutlet weak var lab_OutSize: UILabel!
     
-    @IBOutlet weak var lab_Up: UILabel!
-    @IBOutlet weak var lab_Down: UILabel!
+    @IBOutlet weak var lab_InSize: UILabel!//成交额
     
-    @IBOutlet weak var lab_MktCap: UILabel!
-    @IBOutlet weak var lab_swing: UILabel!
+    @IBOutlet weak var lab_Up: UILabel!//换手率
+   
+    
+    @IBOutlet weak var lab_MktCap: UILabel!//总市值
+    
     
     @IBOutlet weak var lab_PRE0: UILabel!
-    @IBOutlet weak var lab_VOL0: UILabel!
+    
     
     @IBOutlet weak var lab_InSize0: UILabel!
-    @IBOutlet weak var lab_OutSize0: UILabel!
+    
     
     @IBOutlet weak var lab_Up0: UILabel!
-    @IBOutlet weak var lab_Down0: UILabel!
     
     @IBOutlet weak var lab_MktCap0: UILabel!
-    @IBOutlet weak var lab_swing0: UILabel!
     
     fileprivate func makeUI() {
         view_line.backgroundColor = UIColor.main_bg
@@ -262,7 +268,7 @@ class JH_AttentionDetailsCell_Unfold: UITableViewCell {
 
 class JH_AttentionDetailsCell_Charts: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionDetailsCell_Charts {
-        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Charts", for: indexPath) as! JH_AttentionDetailsCell_Charts
+        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Charts") as! JH_AttentionDetailsCell_Charts
     }
     
     override func awakeFromNib() {
@@ -277,12 +283,21 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         view_topLine.backgroundColor = UIColor.main_1
         // --- 顶部分段
         view_top_H.constant = sp_fitSize((35, 40, 45))
-        btn_top6_W.constant = sp_fitSize((40, 50, 60))
+        btn_top6_W.constant = sp_fitSize((0,0, 0))
         // --- 右侧下拉时间
         view_time_H.constant = 0
-        view_time_W.constant = sp_fitSize((40, 50, 60))
+        view_time_W.constant = sp_ScreenWidth/6//sp_fitSize((40, 50, 60))
         btn_time1_H.constant = sp_fitSize((35, 40, 45))
         view_time.isHidden = true
+        //阴影
+        view_time.backgroundColor = UIColor.white
+        view_time.layer.shadowColor = UIColor.black.cgColor
+        view_time.layer.shadowOffset = CGSize(width: 0, height: 5)
+        view_time.layer.shadowOpacity = 0.9
+        
+        
+        
+        
         for item in view_time.subviews {
             if let btn = item as? UIButton {
                 btn.setTitleColor(UIColor.mainText_1, for: .normal)
@@ -299,21 +314,21 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         view_detailsLine.backgroundColor = UIColor.main_1
         for item in view_dtsLtop.subviews {
             if let lab = item as? UILabel {
-                lab.textColor = UIColor.mainText_1
-                lab.font = sp_fitFont12
+                //lab.textColor = UIColor.main_1
+                lab.font = sp_fitFont14
             }
         }
         for item in view_dtsLbottom.subviews {
             if let lab = item as? UILabel {
-                lab.textColor = UIColor.mainText_1
-                lab.font = sp_fitFont12
+                //lab.textColor = UIColor.main_1
+                lab.font = sp_fitFont14
             }
         }
         
         for item in view_detailsTop.subviews {
             if let btn = item as? UIButton {
                 btn.setTitleColor(UIColor.mainText_1, for: .normal)
-                btn.titleLabel?.font = sp_fitFont12
+                btn.titleLabel?.font = sp_fitFont14
             }
         }
         
@@ -334,36 +349,50 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     @IBOutlet weak var btn_top6_W: NSLayoutConstraint!
     
     @IBAction func clickBtnTop(_ sender: UIButton) {
+        
+        
         switch sender {
-        case btn_top5,btn_top6:
+        case btn_top5:
             _isOpen = !_isOpen
+            /*
             updateViewTopUI()
             btn_top5.setTitleColor(UIColor.main_1, for: .normal)
             btn_top5.titleLabel?.font = sp_fitFontB16
             view_topLine.snp.removeConstraints()
             view_topLine.snp.makeConstraints({ (make) in
                 make.bottom.equalToSuperview()
-                make.centerX.equalTo(btn_top5)
+                make.centerX.equalTo(sender).offset(-10)
                 make.width.equalTo(sp_fitSize((28, 32, 36)))
                 make.height.equalTo(2)
-            })
-            
+            })*/
+            /*
             if sender == btn_top5 && _timeBtnTag >= 0 {
                 _type = JH_ChartDataType(rawValue: _timeBtnTag + 5)!
                 _getDataBlock?(JH_ChartDataType(rawValue: _timeBtnTag + 5)!)
                 _stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
                 return
-            }
+            }*/
             
             showViewTime(_isOpen)
-            btn_top6.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
+            btn_top5.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
             
         
         default:
+            //隐藏或显示5挡图
+            switch sender {
+            case btn_top0:
+                view_details_W.constant = sp_fitSize((105,120,135))
+                view_details_L.constant = 10
+                view_details_R.constant = 10
+            default:
+                view_details_W.constant = 0
+                view_details_L.constant = 0
+                view_details_R.constant = 0
+            }
             if _isOpen {
                 _isOpen = !_isOpen
                 showViewTime(_isOpen)
-                btn_top6.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
+                btn_top5.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
             }
             
             updateViewTopUI()
@@ -399,6 +428,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
             
             //_stock.topBarView.select(sender.tag)
         }
+        
     }
     
     fileprivate func updateViewTopUI() {
@@ -426,19 +456,25 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
             view_time.isHidden = false
             view_time_H.constant = sp_fitSize((175, 200, 225))
             view_time.setNeedsLayout()
-            UIView.animate(withDuration: 0.2, animations: { [weak self]_ in
+            UIView.animate(withDuration: 0, animations: { [weak self]_ in
                 self?.view_time.layoutIfNeeded()
-            }) { (isOk) in
-                
+            }) { [weak self](isOk) in
+                //阴影
+                self?.view_time.backgroundColor = UIColor.white
+                self?.view_time.layer.shadowColor = UIColor.black.cgColor
+                self?.view_time.layer.shadowOffset = CGSize(width: 0, height: 5)
+                self?.view_time.layer.shadowOpacity = 0.9
             }
+            //btn_top5.isEnabled = false
         }else{
             view_time_H.constant = 0
             view_time.setNeedsLayout()
-            UIView.animate(withDuration: 0.2, animations: { [weak self]_ in
+            UIView.animate(withDuration: 0, animations: { [weak self]_ in
                 self?.view_time.layoutIfNeeded()
             }) { [weak self](isOk) in
                 self?.view_time.isHidden = true
             }
+            //btn_top5.isEnabled = true
         }
         
     }
@@ -454,11 +490,26 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         btn_top5.setTitle(sender.titleLabel!.text, for: .normal)
         _isOpen = !_isOpen
         showViewTime(_isOpen)
-        btn_top6.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
+        btn_top5.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
         _type = JH_ChartDataType(rawValue: _timeBtnTag + 5)!
         _getDataBlock?(JH_ChartDataType(rawValue: _timeBtnTag + 5)!)
         
         _stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
+        
+        updateViewTopUI()
+        btn_top5.setTitleColor(UIColor.main_1, for: .normal)
+        btn_top5.titleLabel?.font = sp_fitFontB16
+        view_topLine.snp.removeConstraints()
+        view_topLine.snp.makeConstraints({ (make) in
+            make.bottom.equalToSuperview()
+            make.centerX.equalTo(btn_top5).offset(-10)
+            make.width.equalTo(sp_fitSize((28, 32, 36)))
+            make.height.equalTo(2)
+        })
+        
+        view_details_W.constant = 0
+        view_details_L.constant = 0
+        view_details_R.constant = 0
     }
     
     
@@ -467,6 +518,8 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     @IBOutlet weak var view_detailsTop: UIView!
     @IBOutlet weak var view_detailsLine: UIView!
     @IBOutlet weak var view_details_W: NSLayoutConstraint!
+    @IBOutlet weak var view_details_L: NSLayoutConstraint!
+    @IBOutlet weak var view_details_R: NSLayoutConstraint!
     @IBOutlet weak var view_detailsTop_H: NSLayoutConstraint!
     
     @IBOutlet weak var btn_dtsL: UIButton!
@@ -524,7 +577,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     @IBAction func clickBtnDetails(_ sender: UIButton) {
         updateViewDetailsTopUI()
         sender.setTitleColor(UIColor.main_1, for: .normal)
-        sender.titleLabel?.font = sp_fitFontB12
+        sender.titleLabel?.font = sp_fitFontB14
         view_detailsLine.snp.removeConstraints()
         view_detailsLine.snp.makeConstraints({ (make) in
             make.bottom.equalToSuperview()
@@ -537,7 +590,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         for item in view_detailsTop.subviews {
             if let btn = item as? UIButton {
                 btn.setTitleColor(UIColor.mainText_1, for: .normal)
-                btn.titleLabel?.font = sp_fitFont12
+                btn.titleLabel?.font = sp_fitFont14
             }
         }
     }
@@ -574,17 +627,17 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     var _modelsDict:[String:Y_KLineGroupModel] = [:]
     lazy var _stockChartView:Y_StockChartView = {
         let view = Y_StockChartView()
-        view.itemModels = [Y_StockChartViewItemModel.init(title: "指标", type: .chartcenterViewTypeOther),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t分时.stringValue, type: .chartcenterViewTypeTimeLine),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t5日.stringValue, type: .chartcenterViewTypeTimeLine),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t日K.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t周K.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t月K.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t1分.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t5分.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t10分.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t30分.stringValue, type: .chartcenterViewTypeKline),
-                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t60分.stringValue, type: .chartcenterViewTypeKline)
+        view.itemModels = [Y_StockChartViewItemModel.init(title: "指标", type: .chartcenterViewTypeOther, fiveDay:false),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t分时.stringValue, type: .chartcenterViewTypeTimeLine, fiveDay:false),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t5日.stringValue, type: .chartcenterViewTypeTimeLine, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t日K.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t周K.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t月K.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t1分.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t5分.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t10分.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t30分.stringValue, type: .chartcenterViewTypeKline, fiveDay:true),
+                           Y_StockChartViewItemModel.init(title: JH_ChartDataType.t60分.stringValue, type: .chartcenterViewTypeKline, fiveDay:true)
             
         ]
         
@@ -622,14 +675,22 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
         
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
-            self?._getDataBlock?(self!._type)
+            self?.pollingGetLineData()
+            
         }
         
         self.view_charts.bringSubview(toFront: view_activi)
+        self.view_charts.bringSubview(toFront: lab_error)
         lab_error.textColor = UIColor.mainText_2
         lab_error.isHidden = true
     }
-    
+    fileprivate func pollingGetLineData(){
+        self._getDataBlock?(self._type)
+        //60秒轮询
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(600*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
+            self?.pollingGetLineData()
+        }
+    }
     func stockDatas(with index: Int) -> Any! {
         _type = JH_ChartDataType(rawValue: index-1)!
         
@@ -638,6 +699,8 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
         if let model = _modelsDict[_type.stringValue] {
             return model.models
         }else{
+            sp_Notification.post(name: Notification.Name(rawValue: "YKStockChartViewReloadDataStop"), object: "开启")
+            //self._stockChartView.isReloadDataStop = false
             _getDataBlock?(_type)
         }
         return nil

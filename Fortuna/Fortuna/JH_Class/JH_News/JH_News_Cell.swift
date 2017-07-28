@@ -17,8 +17,24 @@ class JH_NewsCell_List: UITableViewCell {
         super.awakeFromNib()
         view_line.backgroundColor = UIColor.main_line
         lab_name.textColor = UIColor.mainText_1
-        
+        //self.addGestureRecognizer(longPress)
     }
+    lazy var longPress:UILongPressGestureRecognizer = {
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        lo.minimumPressDuration = 0.5
+        return lo
+    }()
+    func longPressClick(_ sender:UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            self.backgroundColor = UIColor.main_bgHigh
+        case .ended:
+            self.backgroundColor = UIColor.white
+        default:
+            break
+        }
+    }
+    
     
     @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var lab_name: UILabel!

@@ -73,7 +73,11 @@
 {
     return [UIColor colorWithRGBHex:0x49a5ff];
 }
-
+#pragma mark 分时线界面背景的颜色
++(UIColor *)timeLineBgColor
+{
+    return [[UIColor colorWithRGBHex:0x49a5ff] colorWithAlphaComponent:0.1f];
+}
 #pragma mark 长按时线的颜色
 +(UIColor *)longPressLineColor
 {

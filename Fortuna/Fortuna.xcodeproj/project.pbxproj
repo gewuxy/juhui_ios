@@ -130,6 +130,7 @@
 		AB19937F1F03932500E710CB /* JH_IM_ImgAndVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB19937E1F03932500E710CB /* JH_IM_ImgAndVideo.swift */; };
 		AB1993831F03950100E710CB /* SP_FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB1993821F03950100E710CB /* SP_FileManager.m */; };
 		AB1993851F03A28B00E710CB /* M_MyCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1993841F03A28B00E710CB /* M_MyCommon.swift */; };
+		AB1EA0241F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1EA0231F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift */; };
 		AB24882E1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24882C1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift */; };
 		AB24882F1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24882D1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib */; };
 		AB2488311EF8E276004CE6BD /* JH_AttentionDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */; };
@@ -173,6 +174,8 @@
 		AB310AFB1F1CA565007F3778 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB310AD41F1CA565007F3778 /* View+MASAdditions.m */; };
 		AB310AFC1F1CA565007F3778 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AB310AD71F1CA565007F3778 /* ViewController+MASAdditions.m */; };
 		AB310AFD1F1CA565007F3778 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = AB310ADA1F1CA565007F3778 /* NetWorking.m */; };
+		AB3D09851F21F3AB00F1E16A /* M_MyPositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D09841F21F3AB00F1E16A /* M_MyPositions.swift */; };
+		AB3D09871F2217F300F1E16A /* M_News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D09861F2217F300F1E16A /* M_News.swift */; };
 		AB3F28C41EFD01690021DA1C /* SP_Login.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB3F28C61EFD01690021DA1C /* SP_Login.strings */; };
 		AB42C7BD1EF6BDDB00C51669 /* JH_BuyAndSell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BC1EF6BDDB00C51669 /* JH_BuyAndSell.swift */; };
 		AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42C7BE1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift */; };
@@ -281,6 +284,9 @@
 		AB68242C1EFA4FAC0079C58B /* SP_UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68242B1EFA4FAC0079C58B /* SP_UserAPI.swift */; };
 		AB6824341EFA619E0079C58B /* Observable+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6824311EFA619E0079C58B /* Observable+ObjectMapper.swift */; };
 		AB6824401EFA6A070079C58B /* SP_UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68243F1EFA6A070079C58B /* SP_UserModel.swift */; };
+		AB72547F1F2095600057024B /* JH_MyChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB72547E1F2095600057024B /* JH_MyChange.swift */; };
+		AB7254821F20E1700057024B /* M_MyDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7254811F20E1700057024B /* M_MyDeal.swift */; };
+		AB7254841F20E1820057024B /* M_MyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7254831F20E1820057024B /* M_MyDelegate.swift */; };
 		AB7778891EEA3362000DF065 /* SP_ComCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7778871EEA3362000DF065 /* SP_ComCell.swift */; };
 		AB77788A1EEA3362000DF065 /* SP_ComCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7778881EEA3362000DF065 /* SP_ComCell.xib */; };
 		AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82CEBC1EEE334400D015B1 /* My_Info.swift */; };
@@ -352,6 +358,9 @@
 		AB993D851F0B948700C06108 /* SP_AddPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB993D611F0B948700C06108 /* SP_AddPhoto.swift */; };
 		AB993D861F0B948700C06108 /* SP_AddPhotoPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB993D621F0B948700C06108 /* SP_AddPhotoPickerVC.swift */; };
 		AB993D871F0B948700C06108 /* SP_ImageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB993D631F0B948700C06108 /* SP_ImageUnit.swift */; };
+		ABAE354B1F1F0B9C007A9145 /* YYFiveRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAE35461F1F0B9C007A9145 /* YYFiveRecordModel.m */; };
+		ABAE354C1F1F0B9C007A9145 /* YYLineDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAE35481F1F0B9C007A9145 /* YYLineDataModel.m */; };
+		ABAE354D1F1F0B9C007A9145 /* YYTimeLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABAE354A1F1F0B9C007A9145 /* YYTimeLineModel.m */; };
 		ABCDFDFB1F01EDE100EA2F7A /* SP_PlaceHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFDFA1F01EDE100EA2F7A /* SP_PlaceHolderView.swift */; };
 		ABCDFDFD1F01EDE900EA2F7A /* SP_PlaceHolderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABCDFDFC1F01EDE900EA2F7A /* SP_PlaceHolderView.xib */; };
 		ABCDFE061F023DAC00EA2F7A /* SP_IM_Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDFE051F023DAC00EA2F7A /* SP_IM_Tab.swift */; };
@@ -560,9 +569,12 @@
 		AB1993811F03950100E710CB /* SP_FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SP_FileManager.h; sourceTree = "<group>"; };
 		AB1993821F03950100E710CB /* SP_FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SP_FileManager.m; sourceTree = "<group>"; };
 		AB1993841F03A28B00E710CB /* M_MyCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_MyCommon.swift; sourceTree = "<group>"; };
+		AB1EA0221F2988A600F196F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		AB1EA0231F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails_Datas.swift; sourceTree = "<group>"; };
 		AB24882C1EF8DFCD004CE6BD /* SP_UpdateVersionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UpdateVersionView.swift; sourceTree = "<group>"; };
 		AB24882D1EF8DFCD004CE6BD /* SP_UpdateVersionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_UpdateVersionView.xib; sourceTree = "<group>"; };
 		AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails.swift; sourceTree = "<group>"; };
+		AB292D181F2AD145008C775C /* SP_MyTestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SP_MyTestPlayground.playground; sourceTree = "<group>"; };
 		AB2DE4F61F163D4F006BEC0E /* SP_IM_Voice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_IM_Voice.swift; sourceTree = "<group>"; };
 		AB2E87E61F048F540071BE70 /* JH_HUD_Entrust.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JH_HUD_Entrust.xib; sourceTree = "<group>"; };
 		AB2E87F01F04FEEB0071BE70 /* SP_UMShare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UMShare.swift; sourceTree = "<group>"; };
@@ -640,9 +652,8 @@
 		AB310AD71F1CA565007F3778 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		AB310AD91F1CA565007F3778 /* NetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorking.h; sourceTree = "<group>"; };
 		AB310ADA1F1CA565007F3778 /* NetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorking.m; sourceTree = "<group>"; };
-		AB3F28BD1EFCFAF20021DA1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		AB3F28BF1EFCFAFF0021DA1C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		AB3F28C11EFCFB0E0021DA1C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		AB3D09841F21F3AB00F1E16A /* M_MyPositions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_MyPositions.swift; sourceTree = "<group>"; };
+		AB3D09861F2217F300F1E16A /* M_News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_News.swift; sourceTree = "<group>"; };
 		AB3F28C51EFD01690021DA1C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SP_Login.strings"; sourceTree = "<group>"; };
 		AB3F28C71EFD016F0021DA1C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SP_Login.strings"; sourceTree = "<group>"; };
 		AB3F28C81EFD01710021DA1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SP_Login.strings; sourceTree = "<group>"; };
@@ -766,6 +777,9 @@
 		AB68242B1EFA4FAC0079C58B /* SP_UserAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UserAPI.swift; sourceTree = "<group>"; };
 		AB6824311EFA619E0079C58B /* Observable+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+ObjectMapper.swift"; sourceTree = "<group>"; };
 		AB68243F1EFA6A070079C58B /* SP_UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_UserModel.swift; sourceTree = "<group>"; };
+		AB72547E1F2095600057024B /* JH_MyChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_MyChange.swift; sourceTree = "<group>"; };
+		AB7254811F20E1700057024B /* M_MyDeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_MyDeal.swift; sourceTree = "<group>"; };
+		AB7254831F20E1820057024B /* M_MyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_MyDelegate.swift; sourceTree = "<group>"; };
 		AB7778871EEA3362000DF065 /* SP_ComCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_ComCell.swift; sourceTree = "<group>"; };
 		AB7778881EEA3362000DF065 /* SP_ComCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_ComCell.xib; sourceTree = "<group>"; };
 		AB82CEBC1EEE334400D015B1 /* My_Info.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_Info.swift; sourceTree = "<group>"; };
@@ -864,6 +878,12 @@
 		AB993D611F0B948700C06108 /* SP_AddPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_AddPhoto.swift; sourceTree = "<group>"; };
 		AB993D621F0B948700C06108 /* SP_AddPhotoPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_AddPhotoPickerVC.swift; sourceTree = "<group>"; };
 		AB993D631F0B948700C06108 /* SP_ImageUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_ImageUnit.swift; sourceTree = "<group>"; };
+		ABAE35451F1F0B9C007A9145 /* YYFiveRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFiveRecordModel.h; sourceTree = "<group>"; };
+		ABAE35461F1F0B9C007A9145 /* YYFiveRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFiveRecordModel.m; sourceTree = "<group>"; };
+		ABAE35471F1F0B9C007A9145 /* YYLineDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLineDataModel.h; sourceTree = "<group>"; };
+		ABAE35481F1F0B9C007A9145 /* YYLineDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLineDataModel.m; sourceTree = "<group>"; };
+		ABAE35491F1F0B9C007A9145 /* YYTimeLineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTimeLineModel.h; sourceTree = "<group>"; };
+		ABAE354A1F1F0B9C007A9145 /* YYTimeLineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTimeLineModel.m; sourceTree = "<group>"; };
 		ABCDFDFA1F01EDE100EA2F7A /* SP_PlaceHolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_PlaceHolderView.swift; sourceTree = "<group>"; };
 		ABCDFDFC1F01EDE900EA2F7A /* SP_PlaceHolderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_PlaceHolderView.xib; sourceTree = "<group>"; };
 		ABCDFE051F023DAC00EA2F7A /* SP_IM_Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_IM_Tab.swift; sourceTree = "<group>"; };
@@ -1239,6 +1259,13 @@
 				AB1993821F03950100E710CB /* SP_FileManager.m */,
 			);
 			path = SP_FileManager;
+			sourceTree = "<group>";
+		};
+		AB23BB8A1F282CCF004D858E /* SP_Stock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SP_Stock;
 			sourceTree = "<group>";
 		};
 		AB24882B1EF8DFCD004CE6BD /* SP_UpdateVersion */ = {
@@ -1619,6 +1646,7 @@
 				AB5901521EE9338000826A37 /* JH_Attention.swift */,
 				AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */,
 				AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */,
+				AB1EA0231F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift */,
 				ABD8F3071F1A011500B48104 /* JH_AttentionKLine.swift */,
 				AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */,
 				AB4EB79F1F0A42C200D8CA0D /* JH_AttentionDetails_Cell.swift */,
@@ -1644,6 +1672,7 @@
 				AB59014E1EE9336900826A37 /* JH_My.swift */,
 				AB8B21E51EFCC16300B944AA /* JH_MySetting.swift */,
 				AB993D3A1F0B694F00C06108 /* JH_MyInfo.swift */,
+				AB72547E1F2095600057024B /* JH_MyChange.swift */,
 				AB9920AA1F11E0BA00CFBB6C /* JH_MyPositions.swift */,
 				AB9920AC1F11E0DD00CFBB6C /* JH_MyTodayDeal.swift */,
 				AB9920AE1F11E0F900CFBB6C /* JH_MyTodayDelegate.swift */,
@@ -1651,6 +1680,7 @@
 				AB9920B21F11E13000CFBB6C /* JH_MyHistoryDelegate.swift */,
 				AB58FD2D1F13282100DF15FE /* JH_MyDealDetails.swift */,
 				AB9920B41F120F3B00CFBB6C /* JH_MyCell.swift */,
+				AB7254801F20E1560057024B /* Model */,
 			);
 			path = JH_My;
 			sourceTree = "<group>";
@@ -1661,6 +1691,7 @@
 				AB59014C1EE9335A00826A37 /* JH_News.swift */,
 				AB4A75C41EEFCC920014F633 /* JH_NewsDetials.swift */,
 				AB4A75C21EEFB3CA0014F633 /* JH_News_Cell.swift */,
+				AB3D09861F2217F300F1E16A /* M_News.swift */,
 			);
 			path = JH_News;
 			sourceTree = "<group>";
@@ -1674,6 +1705,8 @@
 				AB5901991EE94B9100826A37 /* SP_InfoOC.m */,
 				AB82CED51EEE3E0000D015B1 /* SP_ToolOC.h */,
 				AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */,
+				AB292D181F2AD145008C775C /* SP_MyTestPlayground.playground */,
+				AB23BB8A1F282CCF004D858E /* SP_Stock */,
 				AB4EEAFD1F1778EC00DDCBA4 /* SP_PhotoBrowser */,
 				AB993D3C1F0B948700C06108 /* SP_ImagePickerView */,
 				AB4EB71E1F0A427900D8CA0D /* SP_KLine */,
@@ -1923,6 +1956,16 @@
 			path = SP_NetWorking;
 			sourceTree = "<group>";
 		};
+		AB7254801F20E1560057024B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB7254811F20E1700057024B /* M_MyDeal.swift */,
+				AB7254831F20E1820057024B /* M_MyDelegate.swift */,
+				AB3D09841F21F3AB00F1E16A /* M_MyPositions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AB7778861EEA335B000DF065 /* SP_ComCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1935,6 +1978,7 @@
 		AB993CD91F0B39A200C06108 /* YYStock */ = {
 			isa = PBXGroup;
 			children = (
+				ABAE35441F1F0B9C007A9145 /* StockDataModel[数据源Model] */,
 				AB993CDA1F0B39A200C06108 /* Config[主题+定义] */,
 				AB993CE31F0B39A200C06108 /* Packages */,
 				AB993CE71F0B39A200C06108 /* Stock */,
@@ -2249,6 +2293,19 @@
 				AB993D5C1F0B948700C06108 /* picture_unselect@2x.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		ABAE35441F1F0B9C007A9145 /* StockDataModel[数据源Model] */ = {
+			isa = PBXGroup;
+			children = (
+				ABAE35451F1F0B9C007A9145 /* YYFiveRecordModel.h */,
+				ABAE35461F1F0B9C007A9145 /* YYFiveRecordModel.m */,
+				ABAE35471F1F0B9C007A9145 /* YYLineDataModel.h */,
+				ABAE35481F1F0B9C007A9145 /* YYLineDataModel.m */,
+				ABAE35491F1F0B9C007A9145 /* YYTimeLineModel.h */,
+				ABAE354A1F1F0B9C007A9145 /* YYTimeLineModel.m */,
+			);
+			path = "StockDataModel[数据源Model]";
 			sourceTree = "<group>";
 		};
 		ABCDFDF91F01EDD200EA2F7A /* SP_PlaceHolderView */ = {
@@ -2625,6 +2682,7 @@
 				AB310AF81F1CA565007F3778 /* MASViewConstraint.m in Sources */,
 				AB5901D91EE94B9200826A37 /* SP_GridView.swift in Sources */,
 				AB0BD3A51F18985300899D0F /* KZVideoListViewController.m in Sources */,
+				AB3D09871F2217F300F1E16A /* M_News.swift in Sources */,
 				AB310AF71F1CA565007F3778 /* MASViewAttribute.m in Sources */,
 				AB5901E41EE94B9200826A37 /* SP_InfoOC.m in Sources */,
 				AB993D871F0B948700C06108 /* SP_ImageUnit.swift in Sources */,
@@ -2645,6 +2703,7 @@
 				AB68242C1EFA4FAC0079C58B /* SP_UserAPI.swift in Sources */,
 				AB4A75BD1EEF77B10014F633 /* SP_User.swift in Sources */,
 				AB564F3B1EFBA29E005E3ABB /* SP_MBProgressHUD.m in Sources */,
+				AB72547F1F2095600057024B /* JH_MyChange.swift in Sources */,
 				AB5901D51EE94B9200826A37 /* UIText_extension.swift in Sources */,
 				AB4A75C51EEFCC920014F633 /* JH_NewsDetials.swift in Sources */,
 				AB19932A1F03925F00E710CB /* HXAlbumModel.m in Sources */,
@@ -2679,6 +2738,7 @@
 				AB5901E91EE94B9200826A37 /* SP_MJDIYHeader.swift in Sources */,
 				AB310AF91F1CA565007F3778 /* NSArray+MASAdditions.m in Sources */,
 				AB5901D81EE94B9200826A37 /* UIViewController+Extension.swift in Sources */,
+				AB7254841F20E1820057024B /* M_MyDelegate.swift in Sources */,
 				AB0BD3A41F18985300899D0F /* KZVideoConfig.m in Sources */,
 				AB19933B1F03925F00E710CB /* HXVideoPresentTransition.m in Sources */,
 				AB0BD3AA1F18985300899D0F /* README.md in Sources */,
@@ -2745,10 +2805,12 @@
 				AB5901DE1EE94B9200826A37 /* SP_GuideVC.swift in Sources */,
 				AB4A75BF1EEF7E550014F633 /* JH_AttentionEdit.swift in Sources */,
 				AB5901EB1EE94B9200826A37 /* SP_MJRefreshDatas.swift in Sources */,
+				ABAE354D1F1F0B9C007A9145 /* YYTimeLineModel.m in Sources */,
 				AB5901D21EE94B9200826A37 /* UIColor_extension.swift in Sources */,
 				AB993D711F0B948700C06108 /* PhotoImageManager.swift in Sources */,
 				AB19937F1F03932500E710CB /* JH_IM_ImgAndVideo.swift in Sources */,
 				AB310AE71F1CA565007F3778 /* Y_KLineModel.m in Sources */,
+				AB7254821F20E1700057024B /* M_MyDeal.swift in Sources */,
 				AB993D771F0B948700C06108 /* PhotoPreviewViewController.swift in Sources */,
 				AB993D321F0B39A200C06108 /* YYStockView_Kline.m in Sources */,
 				AB993D281F0B39A200C06108 /* YYKlineMaskView.m in Sources */,
@@ -2775,6 +2837,7 @@
 				AB5901CF1EE94B9200826A37 /* String_extension.swift in Sources */,
 				AB6824401EFA6A070079C58B /* SP_UserModel.swift in Sources */,
 				AB310ADB1F1CA565007F3778 /* Y_StockChartGlobalVariable.m in Sources */,
+				ABAE354B1F1F0B9C007A9145 /* YYFiveRecordModel.m in Sources */,
 				AB1993831F03950100E710CB /* SP_FileManager.m in Sources */,
 				ABD8F3081F1A011500B48104 /* JH_AttentionKLine.swift in Sources */,
 				AB5901DB1EE94B9200826A37 /* SP_TabMenuView.swift in Sources */,
@@ -2821,6 +2884,7 @@
 				AB5901C71EE94B9200826A37 /* DragableTableExtension.swift in Sources */,
 				AB993D811F0B948700C06108 /* PhotoImageModel.swift in Sources */,
 				AB59014F1EE9336900826A37 /* JH_My.swift in Sources */,
+				ABAE354C1F1F0B9C007A9145 /* YYLineDataModel.m in Sources */,
 				AB993D681F0B948700C06108 /* NSIndexSet+Extension.swift in Sources */,
 				AB993D201F0B39A200C06108 /* UIColor+YYStockTheme.m in Sources */,
 				AB5901E71EE94B9200826A37 /* SP_MJDIYAutoFooter.swift in Sources */,
@@ -2845,9 +2909,11 @@
 				AB993D2A1F0B39A200C06108 /* YYStockViewMaskView.m in Sources */,
 				AB310AE21F1CA565007F3778 /* Y_MALine.m in Sources */,
 				AB5901511EE9337400826A37 /* JH_Market.swift in Sources */,
+				AB3D09851F21F3AB00F1E16A /* M_MyPositions.swift in Sources */,
 				AB993D671F0B948700C06108 /* ImageModel.swift in Sources */,
 				AB19932F1F03925F00E710CB /* HXPhotoConst.m in Sources */,
 				AB310AEF1F1CA565007F3778 /* Y_KLineVolumeView.m in Sources */,
+				AB1EA0241F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift in Sources */,
 				AB310AF51F1CA565007F3778 /* MASConstraintMaker.m in Sources */,
 				ABCDFE061F023DAC00EA2F7A /* SP_IM_Tab.swift in Sources */,
 				AB993D661F0B948700C06108 /* AlbumToolbarView.swift in Sources */,
@@ -2891,9 +2957,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AB0235691EE55659007AB6BB /* Base */,
-				AB3F28BD1EFCFAF20021DA1C /* en */,
-				AB3F28BF1EFCFAFF0021DA1C /* zh-Hans */,
-				AB3F28C11EFCFB0E0021DA1C /* zh-Hant */,
+				AB1EA0221F2988A600F196F2 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

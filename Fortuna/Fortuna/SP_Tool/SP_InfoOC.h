@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger) {
 + (UIFont*) sp_fontFitWithSize:(CGFloat)size weightType:(SP_UIFontWeight)weightType;
 + (CGFloat) sp_fitWithSize:(CGFloat)size;
 + (SP_DeviceModel)sp_deviceModel;
-
++ (NSString*) sp_getDateTimeStamp:(double)timeStamp WithFormat:(NSString*)format;
 
 
 @end

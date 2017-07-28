@@ -10,8 +10,8 @@ import UIKit
 
 import RxCocoa
 import RxSwift
-
-
+import SocketIO
+import SwiftyJSON
 
 class JH_Attention: SP_ParentVC {
 
@@ -21,8 +21,40 @@ class JH_Attention: SP_ParentVC {
     fileprivate var _pageIndex = 1
     fileprivate var _datas = [M_Attention]()
     
+    // 通讯连接//.forcePolling(false)
+    static let socket:SocketIOClient = SocketIOClient(socketURL: URL(string: My_API.url_SocketIO广播)!, config: [.log(false)])
     
     
+    //MARK:--- SocketIO -----------------------------
+    func makeSocketIO() {
+        JH_Attention.socket.on(clientEvent: .connect) { (data, ack) in
+            //iOS客户端上线
+            //self?.socket.emit("login", self!._followData.code)
+        }
+        JH_Attention.socket.on("last_price") { [weak self](res, ack) in
+             guard self != nil else{return}
+            //接收到广播
+            let json:[JSON] = JSON(res).arrayValue
+            //print_SP("json ==> \(json)")
+            guard json.count > 0 else{return}
+            let model = M_AttentionDetail(json[0])
+            for (i,item) in self!._datas.enumerated() {
+                if item.code == model.code {
+                    self!._datas[i].last_price = model.lastest_price
+                    self?._datas[i].quoteChange = model.increase_ratio
+                    let index = IndexPath(row: i, section: 0)
+                    self?.tableView.reloadRows(at: [index], with: .none)
+                    
+                }
+            }
+        }
+        /*
+         self.socket.on(clientEvent: .disconnect) { (data, ack) in
+         
+         }*/
+        
+        JH_Attention.socket.connect()
+    }
 }
 
 
@@ -32,11 +64,11 @@ extension JH_Attention {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeNavigation()
-        makeUI()
-        makeNotification()
-        
-        
+        self.makeNavigation()
+        self.makeUI()
+        self.makeNotification()
+        self.makeSocketIO()
+        //print_SP(SP_User.shared.deviceUUID)
     }
     fileprivate func makeNavigation() {
         
@@ -55,13 +87,13 @@ extension JH_Attention {
         makeTableView()
     }
     func makeTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
-        _placeHolderType = .tOnlyImage
-        tableView.cyl_reloadData()
-        sp_addMJRefreshHeader()
-        tableView.sp_headerBeginRefresh()
+        self._placeHolderType = .tOnlyImage
+        self.tableView.cyl_reloadData()
+        self.sp_addMJRefreshHeader()
+        self.tableView.sp_headerBeginRefresh()
     }
     
     fileprivate func makeNotification() {
@@ -80,8 +112,9 @@ extension JH_Attention {
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
                 self?._datas.removeAll()
-                //self?._pageIndex = 1
-                //self?.t_获取自选列表()
+                //self?.tableView.cyl_reloadData()
+                self?._pageIndex = 1
+                self?.t_获取自选列表()
                 
             }).addDisposableTo(disposeBag)
         sp_Notification.rx
@@ -118,6 +151,9 @@ extension JH_Attention {
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
+                self?._pageIndex = 1
+                self?.t_获取自选列表()
+                /*
                 guard let data = n.object as? M_Attention else{
                     self?._pageIndex = 1
                     self?.t_获取自选列表()
@@ -128,7 +164,7 @@ extension JH_Attention {
                 if self?._datas.count == 0 {
                     self?._pageIndex = 1
                     self?.t_获取自选列表()
-                }
+                }*/
             }).addDisposableTo(disposeBag)
         
         sp_Notification.rx
@@ -169,8 +205,8 @@ extension JH_Attention {
             if lab == My_NetCodeError.t需要登录.stringValue {
                 SP_Login.show(self)
             }else{
-                _placeHolderType = .tOnlyImage
-                tableView.sp_headerBeginRefresh()
+                self._placeHolderType = .tOnlyImage
+                self.tableView.sp_headerBeginRefresh()
             }
             
         }
@@ -179,7 +215,7 @@ extension JH_Attention {
     
 }
 
-extension JH_Attention:UITableViewDelegate {
+extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _datas.count
     }
@@ -193,8 +229,6 @@ extension JH_Attention:UITableViewDelegate {
         
         return sp_fitSize((70,75,80))
     }
-}
-extension JH_Attention:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_AttentionCell_Normal.show(tableView, indexPath)
         let model = _datas[indexPath.row]
@@ -207,10 +241,43 @@ extension JH_Attention:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         JH_AttentionDetails.show(self, data:_datas[indexPath.row])
         
     }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            t_删除自选数据(indexPath.row)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        if action == #selector(copy(_:)) {
+            return true
+        }
+        return false
+    }
+    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(copy(_:)) {
+            UIPasteboard.general.string = _datas[indexPath.row].name
+        }
+    }*/
 }
+
 
 
 //MARK:--- 网络 -----------------------------
@@ -223,8 +290,8 @@ extension JH_Attention {
     }
     fileprivate func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
-            self?.tableView.cyl_reloadData()
-            self?.sp_EndRefresh()
+            //self?.tableView.cyl_reloadData()
+            //self?.sp_EndRefresh()
             self?._pageIndex += 1
             self?.t_获取自选列表()
             
@@ -243,7 +310,7 @@ extension JH_Attention {
             
             if isOk {
                 guard var datas = data as? [M_Attention] else{return}
-                self?.sp_addMJRefreshFooter()
+                
                 var ddd = [M_Attention]()
                 for var item in datas {
                     item.isFollow = true
@@ -252,18 +319,20 @@ extension JH_Attention {
                 datas = ddd
                 if self?._pageIndex == 1 {
                     self?._datas = datas
-                    
+                    self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {
                         self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有自选酒"), btnTitle:sp_localized("点击添加"))
-                        self?.tableView.cyl_reloadData()
                     }else if datas.count < my_pageSize{
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
-                        self?.tableView.cyl_reloadData()
-                    }else{
+                        
+                    }
+                    
+                        /*
+                    else{
                         self?.tableView.cyl_reloadData()
                         self?._pageIndex += 1
                         self?.t_获取自选列表()
-                    }
+                    }*/
                     
                 }else{
                     self?._datas += datas
@@ -272,6 +341,7 @@ extension JH_Attention {
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
                     }
                 }
+                self?.tableView.cyl_reloadData()
             }else{
                 self?._datas.removeAll()
                 self?._placeHolderType = .tNetError(labTitle: error)
@@ -281,7 +351,23 @@ extension JH_Attention {
         }
     }
     
-    
+    fileprivate func t_删除自选数据(_ index:Int) {
+        
+        
+        SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
+        My_API.t_删除自选数据(code:_datas[index].code).post(M_Attention.self) { [weak self](isOk, data, error) in
+            SP_HUD.hidden()
+            if isOk {
+                SP_HUD.show(text:sp_localized("已删除"))
+                self?._datas.remove(at: index)
+                self?.tableView.cyl_reloadData()
+            }else{
+                SP_HUD.show(text:error)
+            }
+            
+        }
+    }
+
     
 }
 

@@ -13,11 +13,11 @@ extension JH_IM {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) { [weak self] _ in
             self?.tableView?.setContentOffset(CGPoint.zero, animated:true)
-            /*
+            
             guard self != nil else{return}
             guard self!._tabDatas.count > 0 else{return}
             let indexPath = IndexPath(row: 0, section: 0)
-            self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)*/
+            self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
         
     }
@@ -122,12 +122,36 @@ extension JH_IM:UITableViewDelegate,UITableViewDataSource {
                 cell.text_title.text = model.content
                 cell.btn_logo.sp_ImageName(model.userLogo)
                 cell.isLoading = model.isLoading
+                if model.isLoading {
+                    cell._block = { type in
+                        
+                    }
+                }else{
+                    cell._block = { type in
+                        switch type {
+                        case .tLogo:
+                            SP_PhotoBrowser.show(self, images: [model.userLogo], index:0)
+                        default:
+                            break
+                        }
+                        
+                    }
+                }
                 return cell
             }else{
                 let cell = SP_IM_TabCell_HeText.show(tableView, indexPath)
                 cell.text_title.text = model.content
                 cell.btn_logo.sp_ImageName(model.userLogo)
                 cell.lab_name.text = model.userName.isEmpty ? model.userMobile : model.userName
+                cell._block = { type in
+                    switch type {
+                    case .tLogo:
+                        SP_PhotoBrowser.show(self, images: [model.userLogo], index:0)
+                    default:
+                        break
+                    }
+                    
+                }
                 return cell
             }
         case .tImage:
@@ -142,7 +166,7 @@ extension JH_IM:UITableViewDelegate,UITableViewDataSource {
                         
                     }
                 }else{
-                    cell.btn_Img.sp_ImageName(model.content)
+                    cell.btn_Img.sp_ImageName(model.content, ph:false)
                     cell._block = { type in
                         switch type {
                         case .tImg:
@@ -220,9 +244,23 @@ extension JH_IM:UITableViewDelegate,UITableViewDataSource {
         case .tVoice:
             if model.isMe {
                 let cell = SP_IM_TabCell_MeVoice.show(tableView, indexPath)
+                cell.btn_logo.sp_ImageName(model.userLogo)
                 cell.isLoading = model.isLoading
                 if !model.isLoading && !model.isSendFailure {
                     cell.button_CF.setTitle(model.videoImg, for: .normal)
+                    let strArr = model.videoImg.components(separatedBy: "\"")
+                    let str = strArr.joined()
+                    if let time = Double(str) {
+                        if time <= 1 {
+                            //最小宽度
+                            cell.btn_Img_W.constant = 60.0
+                        }else{
+                            //宽度根据时间适配
+                            cell.btn_Img_W.constant = (sp_ScreenWidth-200)/60 * CGFloat(time) + 60.0
+                        }
+                    }else{
+                        cell.btn_Img_W.constant = 60.0
+                    }
                     cell.button_CF.isHidden = false
                     cell.button_CF.isEnabled = false
                     cell.button_CF.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -248,6 +286,20 @@ extension JH_IM:UITableViewDelegate,UITableViewDataSource {
                 cell.btn_logo.sp_ImageName(model.userLogo)
                 cell.lab_name.text = model.userName.isEmpty ? model.userMobile : model.userName
                 cell.lab_time.text = model.videoImg
+                let strArr = model.videoImg.components(separatedBy: "\"")
+                let str = strArr.joined()
+                if let time = Double(str) {
+                    if time <= 1 {
+                        //最小宽度
+                        cell.btn_Img_W.constant = 60.0
+                    }else{
+                        //宽度根据时间适配
+                        cell.btn_Img_W.constant = (sp_ScreenWidth-200)/60 * CGFloat(time) + 60.0
+                    }
+                }else{
+                    cell.btn_Img_W.constant = 60.0
+                }
+                
                 cell._block = { [weak self]type in
                     switch type {
                     case .tVoice:

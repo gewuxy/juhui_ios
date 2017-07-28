@@ -21,7 +21,7 @@ let MJRefreshDIY_Title_Refreshing_Down   = ""
 let MJRefreshDIY_Title_Refreshing_Up     = ""
 ///上下拉数据加载完毕状态
 let MJRefreshDIY_Title_NoMoreData_Down   = ""
-let MJRefreshDIY_Title_NoMoreData_Up     = sp_localized("全部加载完毕,下拉可以刷新！")
+let MJRefreshDIY_Title_NoMoreData_Up     = ""//sp_localized("全部加载完毕,下拉可以刷新！")
 ///显示刷新状态的Label字体
 let MJRefreshDIY_StateLabelFont = UIFont.systemFont(ofSize: 15.0)
 ///显示刷新状态的Label颜色

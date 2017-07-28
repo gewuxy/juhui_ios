@@ -88,7 +88,7 @@ struct SP_UserModel {
 //    }
 //}
 extension SP_UserModel: SP_JsonModel {
-    init?(_ json: JSON) {
+    init(_ json: JSON) {
         if json.isEmpty{
             return
         }

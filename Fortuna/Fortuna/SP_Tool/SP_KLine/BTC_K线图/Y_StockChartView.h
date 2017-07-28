@@ -86,6 +86,8 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
  */
 @property(nonatomic,assign,readwrite) NSInteger currentIndex;
 
+@property(nonatomic,assign) BOOL isReloadDataStop;
+
 -(void) reloadData;
 @end
 
@@ -96,6 +98,8 @@ typedef NS_ENUM(NSInteger, Y_KLineType) {
 
 @property (nonatomic, assign) Y_StockChartCenterViewType centerViewType;
 
-+ (instancetype)itemModelWithTitle:(NSString *)title type:(Y_StockChartCenterViewType)type;
+@property (nonatomic, assign) BOOL FiveDay;
+
++ (instancetype)itemModelWithTitle:(NSString *)title type:(Y_StockChartCenterViewType)type fiveDay:(BOOL)fiveDay;
 
 @end

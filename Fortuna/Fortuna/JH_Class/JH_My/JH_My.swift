@@ -50,7 +50,7 @@ extension JH_My {
         self.makeImage_Bg()
         self.makeTableView()
         self.makeNotification()
-        self.makeLogin()
+        //self.makeLogin()
     }
     fileprivate func makeNavigation() {
         self.n_view.n_btn_L1_Image = ""
@@ -104,20 +104,10 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         return _sectionsHead.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch _sectionsHead[section].type {
-        case .t用户:
-            return 1
-        default:
-            return 0
-        }
+        return 1
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch _sectionsHead[section].type {
-        case .t用户:
-            return sp_SectionH_Min
-        default:
-            return sp_SectionH_Top
-        }
+        return sp_SectionH_Min
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch _sectionsHead[section].type {
@@ -132,33 +122,10 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         case .t用户:
             return _height_Top
         default:
-            return 0
+            return 50
         }
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch _sectionsHead[section].type {
-        case .t用户:
-            return nil
-        default:
-            
-            let headView = SP_ComCell.show((_sectionsHead[section].imgL,_sectionsHead[section].imgR), title: (sp_localized(_sectionsHead[section].type.rawValue),_sectionsHead[section].txtR), hiddenLine: false)
-            headView.frame = CGRect(x: 0, y: 0, width: sp_ScreenWidth, height: 50)
-            headView._tapBlock = { [unowned self]() in
-                self.didSelectAt(section)
-            }
-            headView.updateUI(labelL:(font: SP_InfoOC.sp_fontFit(withSize: 18), color: UIColor.mainText_1), imageW:(L:_sectionsHead[section].imgL.isEmpty ? 0 : 24,R:17))
-            headView.label_L_ConstrL.constant = 20
-            switch _sectionsHead[section].type {
-            case .t我的持仓, .t设置, .t历史委托:
-                headView.view_Line.isHidden = true
-            default:
-                headView.view_Line.isHidden = false
-            }
-            
-            return headView
-            
-        }
-    }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.main_bg
@@ -169,13 +136,32 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
         case .t用户:
             let cell = JH_MyCell_User.show(tableView, indexPath)
             cell.relod()
+            cell._loginBlock = {
+                SP_Login.show(self, block: { [weak self](isOk) in
+                    self?.tableView.reloadData()
+                })
+            }
             return cell
         default:
-            return UITableViewCell()
+            let cell = JH_MyCell_List.show(tableView, indexPath)
+            cell.btn_L.setBackgroundImage(UIImage(named:_sectionsHead[indexPath.section].imgL), for: .normal)
+            cell.btn_L_W.constant = _sectionsHead[indexPath.section].imgL.isEmpty ? 0 : 24
+            cell.btn_R_W.constant = 17
+            cell.btn_R.setBackgroundImage(UIImage(named:_sectionsHead[indexPath.section].imgR), for: .normal)
+            cell.lab_title.text? = sp_localized(_sectionsHead[indexPath.section].type.rawValue)
+            cell.lab_title_L.constant = _sectionsHead[indexPath.section].imgL.isEmpty ? 0 : 15
+            switch _sectionsHead[indexPath.section].type {
+            case .t我的持仓, .t设置, .t历史委托:
+                cell.view_line.isHidden = true
+            default:
+                cell.view_line.isHidden = false
+            }
+            return cell
         }
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         self.didSelectAt(indexPath.section)
         
     }
@@ -197,7 +183,7 @@ extension JH_My:UITableViewDelegate,UITableViewDataSource {
             case .t当日成交:
                 JH_MyTodayDeal.show(self)
             case .t当日委托:
-                JH_MyTodayDelegate.show(self)
+                JH_MyTodayDelegate.show(self, dType:.t当日委托列表)
             case .t历史成交:
                 JH_MyHistoryDeal.show(self)
             case .t历史委托:
@@ -235,21 +221,58 @@ class JH_MyCell_User: UITableViewCell {
         
         img_Logo.layer.cornerRadius = img_logo_W.constant/2
         view_logoBg.layer.cornerRadius = (img_logo_W.constant + 20)/2
-        
+        btn_login.backgroundColor = UIColor.main_btnNormal
     }
     @IBOutlet weak var view_logoBg: UIView!
     @IBOutlet weak var img_Logo: UIImageView!
     @IBOutlet weak var img_logo_W: NSLayoutConstraint!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var lab_subName: UILabel!
-    
+    @IBOutlet weak var btn_login: UIButton!
+    var _loginBlock:(()->Void)?
     func relod(){
-        img_Logo.sp_ImageName(SP_UserModel.read().imgUrl)
+        
+        img_Logo.sp_ImageName(SP_UserModel.read().imgUrl.isEmpty ? "180x180" : SP_UserModel.read().imgUrl)
         lab_name.text = SP_UserModel.read().nickname.isEmpty ? SP_UserModel.read().mobile : SP_UserModel.read().nickname
         lab_subName.text = SP_UserModel.read().email
+        
+        if SP_User.shared.userIsLogin {
+            btn_login.isHidden = true
+        }else{
+            btn_login.isHidden = false
+        }
+    }
+    @IBAction func clickBtnLogin(_ sender: UIButton) {
+        _loginBlock?()
     }
     
 }
 
+//MARK:--- 列 -----------------------------
+class JH_MyCell_List: UITableViewCell {
+    class func show(_ tableView: UITableView, _ indexPath: IndexPath)->JH_MyCell_List {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JH_MyCell_List", for: indexPath) as! JH_MyCell_List
+        return cell
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.makeUI()
+    }
+    
+    
+    @IBOutlet weak var btn_L: UIButton!
+    @IBOutlet weak var btn_L_W: NSLayoutConstraint!
+    @IBOutlet weak var btn_R: UIButton!
+    @IBOutlet weak var btn_R_W: NSLayoutConstraint!
+    @IBOutlet weak var lab_title: UILabel!
+    @IBOutlet weak var lab_title_L: NSLayoutConstraint!
+    @IBOutlet weak var view_line: UIView!
+    
+    fileprivate func makeUI() {
+        view_line.backgroundColor = UIColor.main_line
+        self.lab_title.textColor = UIColor.mainText_1
+        self.lab_title.font = sp_fitFont18
+    }
+}
 
 

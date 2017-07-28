@@ -213,6 +213,7 @@ extension JH_Search:UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         self._text_search.text_field.resignFirstResponder()
         JH_AttentionDetails.show(self, data:_datas[indexPath.row])
     }
@@ -229,10 +230,10 @@ extension JH_Search {
     }
     fileprivate func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
-            self?.tableView.cyl_reloadData()
+            //self?.tableView.cyl_reloadData()
             self?._pageIndex += 1
             self?.t_自选搜索()
-            self?.sp_EndRefresh()
+            //self?.sp_EndRefresh()
         }
     }
     
@@ -253,15 +254,17 @@ extension JH_Search {
                     self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {
                         self?._placeHolderType = .tNoData(labTitle:sp_localized("没有搜到"),btnTitle:sp_localized("搜其他的"))
-                        self?.tableView.cyl_reloadData()
+                        //self?.tableView.cyl_reloadData()
                     }else if datas.count < my_pageSize{
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
-                        self?.tableView.cyl_reloadData()
-                    }else{
+                        
+                    }
+                    
+                    /*else{
                         self?.tableView.cyl_reloadData()
                         self?._pageIndex += 1
                         self?.t_自选搜索()
-                    }
+                    }*/
                     
                 }else{
                     self?._datas += datas
@@ -271,6 +274,7 @@ extension JH_Search {
                         
                     }
                 }
+                self?.tableView.cyl_reloadData()
             }else{
                 self?._placeHolderType = .tNetError(labTitle:error)
                 self?.tableView.cyl_reloadData()
@@ -280,10 +284,6 @@ extension JH_Search {
     }
     
     fileprivate func t_添加或删除(_ index:Int) {
-        guard SP_User.shared.userIsLogin else{
-            SP_Login.show(self)
-            return
-        }
         
         if !_datas[index].isFollow {
             t_添加自选数据(index)

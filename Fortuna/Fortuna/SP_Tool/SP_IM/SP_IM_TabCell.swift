@@ -207,6 +207,7 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
     @IBOutlet weak var btn_logo: UIButton!
     @IBOutlet weak var btn_Img: UIButton!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var btn_Img_W: NSLayoutConstraint!
     
     @IBOutlet weak var button_CF: UIButton!
     
@@ -285,6 +286,7 @@ class SP_IM_TabCell_HeVoice: UITableViewCell {
     @IBOutlet weak var btn_Img: UIButton!
     @IBOutlet weak var lab_name: UILabel!
     @IBOutlet weak var lab_time: UILabel!
+    @IBOutlet weak var btn_Img_W: NSLayoutConstraint!
     
     var _block:((SP_IM_TabCellClickButtonType)->Void)?
     @IBAction func buttonClick(_ sender: UIButton) {

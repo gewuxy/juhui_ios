@@ -72,6 +72,10 @@ extension JH_MySetting {
                     self?.btn_exitLogin.isEnabled = true
                     self?.makeUI()
                     SP_HUD.show(text:sp_localized("已退出"))
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
+                        _ = self?.navigationController?.popViewController(animated: true)
+                    }
+                    
                 }
                 
             }

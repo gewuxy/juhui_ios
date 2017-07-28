@@ -82,7 +82,15 @@ open class SP_UMShare {
             messageObject.shareObject = shareImageObject
         case .webPage:
             //创建网页内容对象
-            shareWebpageObject = UMShareWebpageObject.shareObject(withTitle: shareTitle2, descr: shareText2, thumImage: shareImage)
+            if shareImage.hasPrefix("http://") || shareImage.hasPrefix("https://") {
+                if let data:Data = try? Data(contentsOf: URL(string: shareImage)!) {
+                    shareWebpageObject = UMShareWebpageObject.shareObject(withTitle: shareTitle2, descr: shareText2, thumImage: data)
+                }else{
+                    shareWebpageObject = UMShareWebpageObject.shareObject(withTitle: shareTitle2, descr: shareText2, thumImage: shareImage)
+                }
+            }else{
+                shareWebpageObject = UMShareWebpageObject.shareObject(withTitle: shareTitle2, descr: shareText2, thumImage: shareImage)
+            }
             shareWebpageObject.webpageUrl = shareURL2
             //分享消息对象设置分享内容对象
             messageObject.shareObject = shareWebpageObject

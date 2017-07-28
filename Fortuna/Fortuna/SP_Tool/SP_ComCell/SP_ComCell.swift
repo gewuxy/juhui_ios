@@ -71,7 +71,42 @@ class SP_ComCell: UIView {
     @IBOutlet weak var view_Line: UIView!
     
     @IBAction func viewTapClick(_ sender: UIButton) {
+        self.backgroundColor = UIColor.main_bgHigh
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) { [weak self]_ in
+            self?.backgroundColor = UIColor.white
+        }
         _tapBlock?()
+    }
+    @IBAction func viewTapDown(_ sender: UIButton) {
+        self.backgroundColor = UIColor.main_bgHigh
+    }
+    @IBAction func viewTapDragExit(_ sender: UIButton) {
+        self.backgroundColor = UIColor.white
+    }
+    @IBAction func viewTapDragEnter(_ sender: UIButton) {
+        self.backgroundColor = UIColor.main_bgHigh
+    }
+    @IBAction func viewTapUpOutside(_ sender: Any) {
+        self.backgroundColor = UIColor.white
+    }
+    @IBAction func viewTapEditingDidBegin(_ sender: Any) {
+        self.backgroundColor = UIColor.main_bgHigh
+    }
+    @IBAction func viewTapEditingDidend(_ sender: Any) {
+        self.backgroundColor = UIColor.white
+    }
+    
+    
+    @IBAction func longPressClick(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            break
+            //self.backgroundColor = UIColor.main_bgHigh
+        case .ended:
+            self.backgroundColor = UIColor.white
+        default:
+            break
+        }
     }
 
 }

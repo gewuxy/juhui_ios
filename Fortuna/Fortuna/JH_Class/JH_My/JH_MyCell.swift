@@ -15,16 +15,34 @@ class JH_MyPositionsCell: UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        makeUI()
+        //self.addGestureRecognizer(longPress)
+    }
+    lazy var longPress:UILongPressGestureRecognizer = {
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        lo.minimumPressDuration = 0.5
+        return lo
+    }()
+    func longPressClick(_ sender:UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            self.backgroundColor = UIColor.main_bgHigh
+        case .ended:
+            self.backgroundColor = UIColor.white
+        default:
+            break
+        }
     }
     
     
+    @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var lab_code: UILabel!
     @IBOutlet weak var lab_yk: UILabel!
     @IBOutlet weak var lab_ratio: UILabel!
     @IBOutlet weak var lab_num: UILabel!
     
     fileprivate func makeUI() {
+        self.view_line.backgroundColor = UIColor.main_line
         self.lab_code.textColor = UIColor.mainText_1
         self.lab_yk.textColor = UIColor.mainText_4
         self.lab_ratio.textColor = UIColor.mainText_4
@@ -128,6 +146,7 @@ class JH_MyTodayDelegateCell: UITableViewCell {
     @IBOutlet weak var lab_price: UILabel!
     @IBOutlet weak var lab_num: UILabel!
     @IBOutlet weak var lab_time: UILabel!
+    @IBOutlet weak var img_jr: UIImageView!
     
     @IBOutlet weak var btn_look: UIButton!
     var _block:(()->Void)?
@@ -261,7 +280,7 @@ class JH_MyDealDetailsCell: UITableViewCell {
     fileprivate func makeUI() {
         
         self.lab_L.textColor = UIColor.mainText_2
-        self.lab_R.textColor = UIColor.mainText_2
+        self.lab_R.textColor = UIColor.mainText_3
         
         self.lab_L.font = sp_fitFont18
         self.lab_R.font = sp_fitFont18

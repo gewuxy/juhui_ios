@@ -16,6 +16,8 @@ import Moya
 let sp_Url登录接口 = "apis/account/login/"
 /// 用户账号
 let sp_UserAccount     =  "SP_UserAccount"
+/// 用户设备码
+let sp_UserUUID     =  "SP_UserUUID"
 /// 用户Token
 let sp_UserToken     =  "SP_UserToken"
 /// 用户密码
@@ -55,6 +57,47 @@ open class SP_User {
         case tQQ = "tQQ"
         
     }
+    var deviceUUID:String {
+        get{
+            var str = sp_UserDefaultsGet(sp_UserUUID) as? String ?? ""
+            if str.isEmpty {
+                //1.获取时间戳
+                let timestamp = String(format:"%.0f",Date().timeIntervalSince1970)
+                //2.产生随机数字符串
+                let sjs = Int(arc4random_uniform(UInt32(100000)))
+                //let sjs2 = Int(arc4random_uniform(UInt32(100000)))%Int(arc4random_uniform(UInt32(100000)))
+                let randomNum = String(format:"%.0f",sjs)
+                //3.获取时间，精确到毫秒
+                let date = Date()
+                let format = "YYYYMMddhhmmssSSS"
+                let dateformatter = DateFormatter()
+                dateformatter.dateFormat = format
+                let time = dateformatter.string(from: date)
+                //4,产生随机字符串
+                let characters = "abc0defghi1jklmnop2qrstu3vwxyzA4BCDEF5GHIJKL6MNOPQ7RST8UVW9XYZ"
+                var ranStr = ""
+                var ranStr2 = ""
+                for _ in 0..<10 {
+                    let index1 = Int(arc4random_uniform(UInt32(characters.characters.count)))
+                    let index2 = Int(arc4random_uniform(UInt32(characters.characters.count)))
+                    ranStr.append(characters[characters.index(characters.startIndex, offsetBy: index1)])
+                    ranStr2.append(characters[characters.index(characters.startIndex, offsetBy: index2)])
+                }
+                
+                //5.拼接字符串
+                let uuid = ranStr + timestamp + randomNum + time + ranStr2
+                
+                sp_UserDefaultsSet(sp_UserUUID, value: uuid)
+                sp_UserDefaultsSyn()
+            }
+            
+            str = sp_UserDefaultsGet(sp_UserUUID) as? String ?? ""
+            
+            return str
+        }
+    }
+    
+    
     /*
     var userLoginType:sp_LoginType {
         set{
@@ -136,7 +179,7 @@ open class SP_User {
     let disposeBag = DisposeBag()
     let userProvider = RxMoyaProvider<SP_UserAPI>()
     
-    func removeUser() {
+    func removeUser(_ ntf:Bool = true) {
         
         self.userToken = ""
         self.userPwd = ""
@@ -144,8 +187,10 @@ open class SP_User {
         self.userWXUnionId = ""
         self.userQQUnionId = ""
         SP_UserModel.remove()
+        if ntf {
+            sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
+        }
         
-        sp_Notification.post(name: SP_User.shared.ntfName_退出登陆了, object: false)
         
         //JPUSHService.setAlias("", callbackSelector: nil, object: self)
     }
@@ -158,7 +203,7 @@ open class SP_User {
     
     //登录失效处理
     func needLogin() {
-        removeUser()
+        removeUser(false)
     }
     
     func login(_ block: ((Bool,String)->Void)? = nil) {
@@ -315,13 +360,18 @@ open class SP_User {
     }
     
     func loginOut(_ block:((Bool,String)->Void)? = nil) {
+        SP_User.shared.removeUser()
+        self.url_用户信息()
+        block?(true,"")
+        
+        /*
         SP_UserAPI
             .t_退出登录
             .post { (isOk, datas, error) in
                 SP_User.shared.removeUser()
                 self.url_用户信息()
                 block?(isOk,error)
-        }
+        }*/
     }
     
     //极光推送注册别名 回调#selector(SP_User.tagsAliasCallBack(_:))
@@ -333,7 +383,7 @@ open class SP_User {
     
     func url_用户信息(_ block:(()->Void)? = nil) {
         SP_UserAPI
-            .t_用户信息获取(mobile: userAccount,token:userToken)
+            .t_用户信息获取(mobile: userAccount)
             .post { (isOk, datas, error) in
                 sp_Notification.post(name: SP_User.shared.ntfName_更新用户信息, object: nil)
                 block?()
