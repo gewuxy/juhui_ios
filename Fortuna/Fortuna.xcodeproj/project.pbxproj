@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */; };
 		AB0235651EE55659007AB6BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235641EE55659007AB6BB /* AppDelegate.swift */; };
 		AB0235671EE55659007AB6BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235661EE55659007AB6BB /* ViewController.swift */; };
 		AB02356A1EE55659007AB6BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0235681EE55659007AB6BB /* Main.storyboard */; };
@@ -396,6 +397,7 @@
 /* Begin PBXFileReference section */
 		08E06043883348CF7E614613 /* Pods_Fortuna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fortuna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		268CBCFA064A0E914995A7A9 /* Pods-Fortuna.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fortuna.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fortuna/Pods-Fortuna.debug.xcconfig"; sourceTree = "<group>"; };
+		47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetailsFull.swift; sourceTree = "<group>"; };
 		AB0235611EE55658007AB6BB /* Fortuna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fortuna.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0235641EE55659007AB6BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB0235661EE55659007AB6BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1646,6 +1648,7 @@
 				AB5901521EE9338000826A37 /* JH_Attention.swift */,
 				AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */,
 				AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */,
+				47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */,
 				AB1EA0231F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift */,
 				ABD8F3071F1A011500B48104 /* JH_AttentionKLine.swift */,
 				AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */,
@@ -2636,7 +2639,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		90B0C4BDEAAAA120786FA5CB /* [CP] Embed Pods Frameworks */ = {
@@ -2730,6 +2733,7 @@
 				AB993D6F1F0B948700C06108 /* PhotoFetchOptions.swift in Sources */,
 				AB310AF11F1CA565007F3778 /* Y_StockChartView.m in Sources */,
 				AB4EEB051F1778EC00DDCBA4 /* SP_PhotoProgressView.swift in Sources */,
+				47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */,
 				AB993D861F0B948700C06108 /* SP_AddPhotoPickerVC.swift in Sources */,
 				AB310AFA1F1CA565007F3778 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				AB2488311EF8E276004CE6BD /* JH_AttentionDetails.swift in Sources */,

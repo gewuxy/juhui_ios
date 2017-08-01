@@ -74,7 +74,20 @@ extension JH_NewsDetials {
             make.top.equalToSuperview().offset(64)
             make.leading.trailing.bottom.equalToSuperview()
         }
-        let strUrl = "<html><head><style type=\"text/css\">body{ font-size:50px;} img{width: 100%;height: auto;} </style><title>巨汇</title></head><body>" + _datas.article + "</body></html>"
+        let strUrl = "<html><head>"
+            + "<style type=\"text/css\">body{ font-size:44px; color: #4d4d4d} img{width: 100%;height: auto;} </style>"
+            + "<title>巨汇</title>"
+            + "</head><body>"
+            + "<br><h3 style=\"text-align:center\">" + _datas.title + "</h3>"
+            + "<p style=\"text-align:center\">"
+            + "来源：" + _datas.origin + "&nbsp&nbsp&nbsp&nbsp"
+            + "日期：" + _datas.news_time + "<br>"
+            + "作者：" + _datas.author
+            + "</p>"
+            + _datas.article
+            + "</body></html>"
+        
+        
         _wkwebView.loadHTMLString(strUrl, baseURL: nil)
         /*
         guard _datas.href.hasPrefix("http://") || _datas.href.hasPrefix("https://") else {

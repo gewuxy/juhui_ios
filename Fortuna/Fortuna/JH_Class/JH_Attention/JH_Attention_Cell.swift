@@ -74,7 +74,7 @@ enum JH_ChartDataType:Int {
 //MARK:--- 自选页面 -----------------------------
 class JH_AttentionCell_Normal: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionCell_Normal {
-        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionCell_Normal", for: indexPath) as! JH_AttentionCell_Normal
+        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionCell_Normal") as! JH_AttentionCell_Normal
     }
     
     override func awakeFromNib() {
@@ -123,7 +123,7 @@ class JH_AttentionCell_Normal: UITableViewCell {
 //MARK:--- 编辑页面 -----------------------------
 class JH_AttentionCell_Edit: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionCell_Edit {
-        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionCell_Edit", for: indexPath) as! JH_AttentionCell_Edit
+        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionCell_Edit") as! JH_AttentionCell_Edit
     }
     
     override func awakeFromNib() {
@@ -167,7 +167,7 @@ class JH_AttentionCell_Edit: UITableViewCell {
 //MARK:--- 详情页面 -----------------------------
 class JH_AttentionDetailsCell_Data: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath, openBlock:(()->Void)? = nil) -> JH_AttentionDetailsCell_Data {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Data", for: indexPath) as! JH_AttentionDetailsCell_Data
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Data") as! JH_AttentionDetailsCell_Data
         //cell._clickBlock = openBlock
         return cell
     }
@@ -186,16 +186,14 @@ class JH_AttentionDetailsCell_Data: UITableViewCell {
     @IBOutlet weak var view_unfold: UIView!
     @IBOutlet weak var view_price_W: NSLayoutConstraint!
     
-    @IBOutlet weak var lab_price: UILabel!
-    @IBOutlet weak var lab_MOL: UILabel!
-    @IBOutlet weak var lab_range: UILabel!
+    @IBOutlet weak var lab_price: UILabel!//最新价
+    @IBOutlet weak var lab_MOL: UILabel!//涨幅值
+    @IBOutlet weak var lab_range: UILabel!//涨幅比例
     
-    
-    @IBOutlet weak var lab_tall: UILabel!
-    @IBOutlet weak var lab_low: UILabel!
-    @IBOutlet weak var lab_rate: UILabel!
-    @IBOutlet weak var lab_ratio: UILabel!
-    
+    @IBOutlet weak var lab_tall: UILabel!//最高
+    @IBOutlet weak var lab_low: UILabel!//最低
+    @IBOutlet weak var lab_rate: UILabel!//振幅
+    @IBOutlet weak var lab_ratio: UILabel!//量比
     
     @IBOutlet weak var lab_tall0: UILabel!
     @IBOutlet weak var lab_low0: UILabel!
@@ -223,7 +221,7 @@ class JH_AttentionDetailsCell_Data: UITableViewCell {
 }
 class JH_AttentionDetailsCell_Unfold: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionDetailsCell_Unfold {
-        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Unfold", for: indexPath) as! JH_AttentionDetailsCell_Unfold
+        return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Unfold") as! JH_AttentionDetailsCell_Unfold
     }
     
     override func awakeFromNib() {
@@ -235,24 +233,12 @@ class JH_AttentionDetailsCell_Unfold: UITableViewCell {
     @IBOutlet weak var view_bg: UIView!
     
     @IBOutlet weak var lab_PRE: UILabel!//成交量
-    
-    
     @IBOutlet weak var lab_InSize: UILabel!//成交额
-    
     @IBOutlet weak var lab_Up: UILabel!//换手率
-   
-    
     @IBOutlet weak var lab_MktCap: UILabel!//总市值
-    
-    
     @IBOutlet weak var lab_PRE0: UILabel!
-    
-    
     @IBOutlet weak var lab_InSize0: UILabel!
-    
-    
     @IBOutlet weak var lab_Up0: UILabel!
-    
     @IBOutlet weak var lab_MktCap0: UILabel!
     
     fileprivate func makeUI() {
@@ -266,6 +252,74 @@ class JH_AttentionDetailsCell_Unfold: UITableViewCell {
     }
 }
 
+//MARK:--- 详情页面 全屏 -----------------------------
+class JH_AttentionDetailsCell_DataFull: UITableViewCell {
+    class func show(_ tableView:UITableView) -> JH_AttentionDetailsCell_DataFull {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_DataFull") as! JH_AttentionDetailsCell_DataFull
+        //cell._clickBlock = openBlock
+        return cell
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        makeUI()
+        
+        
+        
+        
+    }
+    
+    @IBOutlet weak var view_price: UIView!
+    @IBOutlet weak var view_data: UIView!
+    @IBOutlet weak var view_unfold: UIView!
+    @IBOutlet weak var view_price_W: NSLayoutConstraint!
+    
+    @IBOutlet weak var lab_price: UILabel!//最新价
+    @IBOutlet weak var lab_MOL: UILabel!//涨幅值
+    @IBOutlet weak var lab_range: UILabel!//涨幅比例
+    
+    @IBOutlet weak var lab_tall: UILabel!//最高
+    @IBOutlet weak var lab_low: UILabel!//最低
+    @IBOutlet weak var lab_rate: UILabel!//振幅
+    @IBOutlet weak var lab_ratio: UILabel!//量比
+    
+    @IBOutlet weak var lab_tall0: UILabel!
+    @IBOutlet weak var lab_low0: UILabel!
+    @IBOutlet weak var lab_rate0: UILabel!
+    @IBOutlet weak var lab_ratio0: UILabel!
+    
+    @IBOutlet weak var lab_PRE: UILabel!//成交量
+    @IBOutlet weak var lab_InSize: UILabel!//成交额
+    @IBOutlet weak var lab_Up: UILabel!//换手率
+    @IBOutlet weak var lab_MktCap: UILabel!//总市值
+    
+    @IBOutlet weak var lab_PRE0: UILabel!
+    @IBOutlet weak var lab_InSize0: UILabel!
+    @IBOutlet weak var lab_Up0: UILabel!
+    @IBOutlet weak var lab_MktCap0: UILabel!
+    
+    fileprivate func makeUI() {
+        view_price.backgroundColor = UIColor.clear
+        view_data.backgroundColor = UIColor.clear
+        view_unfold.backgroundColor = UIColor.clear
+        view_price_W.constant = (sp_ScreenWidth-30)/2 //+20
+        
+        lab_price.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 35))
+        lab_MOL.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
+        lab_range.font = UIFont.systemFont(ofSize: SP_InfoOC.sp_fit(withSize: 16))
+        
+        
+        for item in view_data.subviews {
+            if let lab = item as? UILabel {
+                lab.font = sp_fitFont15
+            }
+        }
+    }
+    
+}
+
+
+
 class JH_AttentionDetailsCell_Charts: UITableViewCell {
     class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionDetailsCell_Charts {
         return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetailsCell_Charts") as! JH_AttentionDetailsCell_Charts
@@ -275,7 +329,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         super.awakeFromNib()
         
         makeUI()
-        clickBtnTop(btn_top0)
+        //clickBtnTop(btn_top0)
         clickBtnDetails(btn_dtsL)
     }
     
@@ -354,24 +408,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
         switch sender {
         case btn_top5:
             _isOpen = !_isOpen
-            /*
-            updateViewTopUI()
-            btn_top5.setTitleColor(UIColor.main_1, for: .normal)
-            btn_top5.titleLabel?.font = sp_fitFontB16
-            view_topLine.snp.removeConstraints()
-            view_topLine.snp.makeConstraints({ (make) in
-                make.bottom.equalToSuperview()
-                make.centerX.equalTo(sender).offset(-10)
-                make.width.equalTo(sp_fitSize((28, 32, 36)))
-                make.height.equalTo(2)
-            })*/
-            /*
-            if sender == btn_top5 && _timeBtnTag >= 0 {
-                _type = JH_ChartDataType(rawValue: _timeBtnTag + 5)!
-                _getDataBlock?(JH_ChartDataType(rawValue: _timeBtnTag + 5)!)
-                _stockChartView.segmentView.selectedIndex = UInt(_timeBtnTag + 5 + 1)
-                return
-            }*/
+            
             
             showViewTime(_isOpen)
             btn_top5.setImage(UIImage(named:_isOpen ? "Attention置顶" : "Attention展开"), for: .normal)
@@ -408,25 +445,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
             _type = JH_ChartDataType(rawValue: sender.tag)!
             _getDataBlock?(JH_ChartDataType(rawValue: sender.tag)!)
             _stockChartView.segmentView.selectedIndex =  UInt(sender.tag + 1)
-            /*
-            switch sender {
-            case btn_top0:
-                _stockChartView.segmentView.selectedIndex = 1
-            case btn_top1:
-                _stockChartView.segmentView.selectedIndex = 2
-            case btn_top2:
-                _stockChartView.segmentView.selectedIndex = 3
-            case btn_top3:
-                _stockChartView.segmentView.selectedIndex = 4
-            case btn_top4:
-                _stockChartView.segmentView.selectedIndex = 5
-            default:
-                break
-            }*/
             
-            
-            
-            //_stock.topBarView.select(sender.tag)
         }
         
     }
@@ -603,6 +622,11 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     @IBOutlet weak var lab_chartsL: UILabel!
     @IBOutlet weak var lab_chartsR: UILabel!
     @IBOutlet weak var lab_error: UILabel!
+    @IBOutlet weak var btn_fullScreen: UIButton!
+    var _blockFullScreen:(()->Void)?
+    @IBAction func clickFullScreen(_ sender: UIButton) {
+        _blockFullScreen?()
+    }
     
     
     
@@ -624,7 +648,7 @@ class JH_AttentionDetailsCell_Charts: UITableViewCell {
     //MARK:--- Y_StockChartView -----------------------------
     
     var _currentIndex = -1
-    var _modelsDict:[String:Y_KLineGroupModel] = [:]
+    
     lazy var _stockChartView:Y_StockChartView = {
         let view = Y_StockChartView()
         view.itemModels = [Y_StockChartViewItemModel.init(title: "指标", type: .chartcenterViewTypeOther, fiveDay:false),
@@ -696,7 +720,7 @@ extension JH_AttentionDetailsCell_Charts:Y_StockChartViewDataSource {
         
         _currentIndex = index
         
-        if let model = _modelsDict[_type.stringValue] {
+        if let model = JH_AttentionDetails._modelsDict[_type.stringValue] {
             return model.models
         }else{
             sp_Notification.post(name: Notification.Name(rawValue: "YKStockChartViewReloadDataStop"), object: "开启")

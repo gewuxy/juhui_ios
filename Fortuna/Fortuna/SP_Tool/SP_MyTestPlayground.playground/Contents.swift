@@ -103,11 +103,47 @@ print(datas)
 
 
 
+let dic:[String:Any] = ["1":123,
+                        "q":"666",
+                        "qmwk":666]
+_ = dic.contains(where: { (key,value) -> Bool in
+    //这里可以根据 key & value 做更多的处理，抛出你想要的
+    
+    return key == "1"
+})
+_ = dic.keys.contains("1")
 
 
-
-
-
-
-
+struct M_User {
+    var id = ""
+}
+//有时候不必那么麻烦，简单的if 或 guard 就能获得想要的
+func makeDict() {
+    if let value = dic["123"] {
+        //存在 key "123" 执行
+    }else{
+        //不存在 key "123" 执行
+    }
+    
+    
+    guard let value = dic["123"] else {
+        //不存在 key "123" 执行
+        return
+    }
+    //存在 key "123" 往下执行
+    
+    let dic2:[String:Any] = ["1":123,
+                            "q":"666",
+                            "qmwk":666,
+                            "myModel":M_User(id: "123")
+                            ]
+    
+    guard let value2 = dic2["123"] as? M_User else {
+        //不存在 key "123" 执行 || value 不为 M_User
+        return
+    }
+    //存在 key "123" && value 为 M_User 往下执行
+    
+    
+}
 

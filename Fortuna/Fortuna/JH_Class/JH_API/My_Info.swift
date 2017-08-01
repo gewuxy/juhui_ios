@@ -29,5 +29,5 @@ let ntf_Name_自选删除 = Notification.Name(rawValue: "ntf_Name_自选删除")
 let ntf_Name_自选添加 = Notification.Name(rawValue: "ntf_Name_自选添加")
 let ntf_Name_自选排序 = Notification.Name(rawValue: "ntf_Name_自选排序")
 let ntf_Name_撤销委托 = Notification.Name(rawValue: "ntf_Name_撤销委托")
-
+let ntf_Name_K线选择更新 = Notification.Name(rawValue: "ntf_Name_K线选择更新")
 

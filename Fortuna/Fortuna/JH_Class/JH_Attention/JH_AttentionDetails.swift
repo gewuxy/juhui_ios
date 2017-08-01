@@ -13,6 +13,9 @@ import RxCocoa
 import RxSwift
 class JH_AttentionDetails: SP_ParentVC {
 
+    static var _modelsDict:[String:Y_KLineGroupModel] = [:]
+    static var _selectType = JH_ChartDataType.t分时
+    
     let disposeBag = DisposeBag()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var view_toolBar: UIView!
@@ -31,7 +34,7 @@ class JH_AttentionDetails: SP_ParentVC {
     lazy var _datasDelegate = [M_MyDelegate]()
     
     //type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts
-    var _selectType = JH_ChartDataType.t分时
+    
     var _cell:JH_AttentionDetailsCell_Charts?
     
     
@@ -53,6 +56,8 @@ extension JH_AttentionDetails {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        JH_AttentionDetails._modelsDict.removeAll()
+        self.makeNotification()
         self.makeNavigation()
         self.makeUI()
         self.makeTableView()
@@ -117,6 +122,13 @@ extension JH_AttentionDetails {
                 self?.t_单品委托列表()
             }).addDisposableTo(disposeBag)
         
+        sp_Notification.rx
+            .notification(ntf_Name_K线选择更新)
+            .takeUntil(self.rx.deallocated)
+            .asObservable()
+            .subscribe(onNext: { [weak self](n) in
+                self?.tableView.reloadData()
+            }).addDisposableTo(disposeBag)
     }
     override func clickN_btn_R1() {
         /*
@@ -187,11 +199,10 @@ extension JH_AttentionDetails {
             let model = M_AttentionDetail(json[0])
             guard self?._datas.code == model.code else{return}
             self?.t_详情页基础数据()
-            //self?._dataDetails = model
-            //self?.tableView.reloadData()
+            
             guard self != nil else{return}
             if self!._cell != nil {
-                self?.getLineData(self!._selectType,self!._cell!,false)
+                self?.getLineData(JH_AttentionDetails._selectType,self!._cell!,false)
             }
         }
         /*
@@ -226,7 +237,7 @@ extension JH_AttentionDetails:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case sectionType.tData.rawValue:
-            return indexPath.row == 0 ? sp_fitSize((105,120,135)) : sp_fitSize((70,75,80))
+            return indexPath.row == 0 ? sp_fitSize((100,115,130)) : sp_fitSize((70,75,80))
         case sectionType.tCharts.rawValue:
             return sp_fitSize((288,308,338))
         default:
@@ -239,10 +250,7 @@ extension JH_AttentionDetails:UITableViewDataSource{
         switch indexPath.section {
         case sectionType.tData.rawValue:
             if indexPath.row == 0 {
-                let cell = JH_AttentionDetailsCell_Data.show(tableView, indexPath, openBlock:{ [unowned self]_ in
-                    self._tUnfoldOpen = !self._tUnfoldOpen
-                    self.tableView.reloadData()
-                })
+                let cell = JH_AttentionDetailsCell_Data.show(tableView, indexPath, openBlock:nil)
                 //cell.btn_unfold.setImage(UIImage(named: _tUnfoldOpen ? "Attention置顶" : "Attention展开"), for: .normal)
                 cell.lab_price.text = _dataDetails.lastest_price
                 cell.lab_range.text = _dataDetails.increase_ratio
@@ -263,12 +271,28 @@ extension JH_AttentionDetails:UITableViewDataSource{
             }
         case sectionType.tCharts.rawValue:
             let cell = JH_AttentionDetailsCell_Charts.show(tableView, indexPath)
+            for item in cell.view_top.subviews {
+                if let btn = item as? UIButton, btn.tag == JH_AttentionDetails._selectType.rawValue  {
+                    cell.clickBtnTop(btn)
+                }
+            }
+            for item in cell.view_time.subviews {
+                if let btn = item as? UIButton, btn.tag + 5 == JH_AttentionDetails._selectType.rawValue  {
+                    cell.clickBtnTop(cell.btn_top5)
+                    cell.clickTimeButton(btn)
+                }
+            }
             cell._datas = _datas
             makeBuyAndSell(cell)
             self._cell = cell
+            cell.btn_top5.imageEdgeInsets = UIEdgeInsetsMake(15, sp_fitSize((40,42,46)), 15, sp_fitSize((5,5,5)))
             cell._getDataBlock = { [weak self]type in
-                self?._selectType = type
-                self?.getLineData(type, cell)
+                JH_AttentionDetails._selectType = type
+                self?.getLineData(JH_AttentionDetails._selectType, cell)
+            }
+            cell._blockFullScreen = {[weak self]_ in
+                guard self != nil else{return}
+                JH_AttentionDetailsFull.show(self, data: self!._datas, dataDetails:self!._dataDetails)
             }
             return cell
             
@@ -279,6 +303,11 @@ extension JH_AttentionDetails:UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        if indexPath.section == sectionType.tCharts.rawValue {
+            //JH_AttentionDetailsFull.show(self, data: _datas, dataDetails:_dataDetails)
+            
+        }
+        
     }
     
     fileprivate func makeBuyAndSell(_ cell:JH_AttentionDetailsCell_Charts) {
@@ -336,7 +365,7 @@ extension JH_AttentionDetails {
     fileprivate func t_分时数据(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?, _ loading:Bool = true) {
         guard cell != nil else {return}
         if loading {
-            if cell!._modelsDict[type.stringValue] == nil {
+            if JH_AttentionDetails._modelsDict[type.stringValue] == nil {
                 cell?.view_activi.isHidden = false
                 cell?.view_activi.startAnimating()
                 cell?.lab_error.isHidden = true
@@ -361,7 +390,7 @@ extension JH_AttentionDetails {
                 cell?.lab_error.isHidden = true
                 DispatchQueue.global().async {
                     
-                    let datas = self!.makeKTimeLineData(type, timeLines: data0)
+                    let datas = makeKTimeLineData(type, timeLines: data0)
                     
                     var arr:[Any] = []
                     var arrs:[Any] = []
@@ -380,7 +409,7 @@ extension JH_AttentionDetails {
                     _groupModel = Y_KLineGroupModel.object(with: arrs)
                     
                     DispatchQueue.main.async { [weak cell]_ in
-                        cell?._modelsDict[type.stringValue] = _groupModel
+                        JH_AttentionDetails._modelsDict[type.stringValue] = _groupModel
                         cell?._stockChartView.isHidden = false
                         cell?._stockChartView.reloadData()
                     }
@@ -399,7 +428,7 @@ extension JH_AttentionDetails {
     fileprivate func t_K线图数据(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?, _ loading:Bool = true) {
         guard cell != nil else {return}
         if loading {
-            if cell!._modelsDict[type.stringValue] == nil {
+            if JH_AttentionDetails._modelsDict[type.stringValue] == nil {
                 cell?.view_activi.isHidden = false
                 cell?.view_activi.startAnimating()
                 cell?.lab_error.isHidden = true
@@ -424,7 +453,7 @@ extension JH_AttentionDetails {
                 
                 DispatchQueue.global().async {
                     
-                    let datas = self!.makeKTimeLineData(type, timeLines: data0)
+                    let datas = makeKTimeLineData(type, timeLines: data0)
                     
                     guard datas.count > 0 else{return}
                     var arr:[Any] = []
@@ -443,7 +472,7 @@ extension JH_AttentionDetails {
                     print_Json(arrs)
                     _groupModel = Y_KLineGroupModel.object(with: arrs)
                     DispatchQueue.main.async { [weak cell]_ in
-                        cell?._modelsDict[type.stringValue] = _groupModel
+                        JH_AttentionDetails._modelsDict[type.stringValue] = _groupModel
                         cell?._stockChartView.isHidden = false
                         
                         cell?._stockChartView.reloadData()
@@ -473,7 +502,7 @@ extension JH_AttentionDetails {
                         var _groupModel = Y_KLineGroupModel()
                         _groupModel = Y_KLineGroupModel.object(with: arr)
                         
-                        cell?._modelsDict[type.stringValue] = _groupModel
+                        JH_AttentionDetails._modelsDict[type.stringValue] = _groupModel
                         cell?._stockChartView.reloadData()
                         
                     }
@@ -493,7 +522,8 @@ extension JH_AttentionDetails {
                 guard let datas = data as? M_AttentionDetail else{return}
                 self?._dataDetails = datas
                 self?._datas.proposedPrice = datas.lastest_price
-                self?.tableView.reloadData()
+                let rows = [IndexPath(row: 0, section: 0),IndexPath(row: 1, section: 0)]
+                self?.tableView.reloadRows(at: rows, with: .none)
             }else{
                 SP_HUD.show(text:error)
             }
@@ -530,7 +560,7 @@ extension JH_AttentionDetails {
         _datas.isFollow = false
         makeUI()
         sp_Notification.post(name: ntf_Name_自选删除, object: _datas)
-        self.tableView.reloadData()
+        
     }
     
     fileprivate func t_添加自选数据() {

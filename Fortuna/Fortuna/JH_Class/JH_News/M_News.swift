@@ -15,6 +15,10 @@ struct M_News {
     var text = ""
     var news_time =  ""
     var thumb_img =  ""
+    var author = ""
+    var origin = ""
+    
+    
     var newsYY:String {
         let arr = news_time.components(separatedBy: " ")
         return arr.count > 0 ? arr.first! : "--"
@@ -32,6 +36,8 @@ extension M_News:SP_JsonModel {
         if json.isEmpty{
             return
         }
+        author = json["author"].stringValue
+        origin = json["origin"].stringValue
         article = json["article"].stringValue
         href = json["href"].stringValue
         title = json["title"].stringValue
