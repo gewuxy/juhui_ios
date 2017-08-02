@@ -486,16 +486,17 @@ extension JH_AttentionDetails {
             
         }
     }
+    
     fileprivate func testReloadData(_ type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts?) {
         cell?.view_charts.bringSubview(toFront: cell!.view_activi)
         cell?.view_activi.isHidden = false
         cell?.view_activi.startAnimating()
         cell?.lab_error.isHidden = true
         let param = ["type":type.testString,"symbol":"huobibtccny","size":"300"]
-        SP_Alamofire.post("https://www.btc123.com/kline/klineapi", param: param) { [weak self](isOk, res, error) in
+        SP_Alamofire.post("https://www.btc123.com/kline/klineapi", param: param) { [weak cell](isOk, res, error) in
             cell?.view_activi.isHidden = true
             cell?.view_activi.stopAnimating()
-            print_Json(JSON(res))
+            
             if isOk {
                 if let json = res as? [String:Any], let bool = json["isSuc"] as? Bool, bool {
                     if let arr = json["datas"] as? [Any] {

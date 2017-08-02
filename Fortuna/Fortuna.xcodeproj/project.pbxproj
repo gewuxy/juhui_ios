@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		470B2CA41F31C1A30053CCAE /* NSObject+WZXArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2C9F1F31C1A30053CCAE /* NSObject+WZXArchiver.m */; };
+		470B2CA51F31C1A30053CCAE /* NSObject+WZXProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA11F31C1A30053CCAE /* NSObject+WZXProperties.m */; };
+		470B2CA61F31C1A30053CCAE /* WZXArchiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA31F31C1A30053CCAE /* WZXArchiverManager.m */; };
+		470B2CAA1F31C2AB0053CCAE /* FCFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA91F31C2AB0053CCAE /* FCFileManager.m */; };
 		47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */; };
 		AB0235651EE55659007AB6BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235641EE55659007AB6BB /* AppDelegate.swift */; };
 		AB0235671EE55659007AB6BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235661EE55659007AB6BB /* ViewController.swift */; };
@@ -397,6 +401,14 @@
 /* Begin PBXFileReference section */
 		08E06043883348CF7E614613 /* Pods_Fortuna.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fortuna.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		268CBCFA064A0E914995A7A9 /* Pods-Fortuna.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fortuna.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fortuna/Pods-Fortuna.debug.xcconfig"; sourceTree = "<group>"; };
+		470B2C9E1F31C1A30053CCAE /* NSObject+WZXArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WZXArchiver.h"; sourceTree = "<group>"; };
+		470B2C9F1F31C1A30053CCAE /* NSObject+WZXArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WZXArchiver.m"; sourceTree = "<group>"; };
+		470B2CA01F31C1A30053CCAE /* NSObject+WZXProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+WZXProperties.h"; sourceTree = "<group>"; };
+		470B2CA11F31C1A30053CCAE /* NSObject+WZXProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+WZXProperties.m"; sourceTree = "<group>"; };
+		470B2CA21F31C1A30053CCAE /* WZXArchiverManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZXArchiverManager.h; sourceTree = "<group>"; };
+		470B2CA31F31C1A30053CCAE /* WZXArchiverManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZXArchiverManager.m; sourceTree = "<group>"; };
+		470B2CA81F31C2AB0053CCAE /* FCFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCFileManager.h; sourceTree = "<group>"; };
+		470B2CA91F31C2AB0053CCAE /* FCFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCFileManager.m; sourceTree = "<group>"; };
 		47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetailsFull.swift; sourceTree = "<group>"; };
 		AB0235611EE55658007AB6BB /* Fortuna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fortuna.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0235641EE55659007AB6BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -930,6 +942,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		470B2C9D1F31C1A30053CCAE /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				470B2C9E1F31C1A30053CCAE /* NSObject+WZXArchiver.h */,
+				470B2C9F1F31C1A30053CCAE /* NSObject+WZXArchiver.m */,
+				470B2CA01F31C1A30053CCAE /* NSObject+WZXProperties.h */,
+				470B2CA11F31C1A30053CCAE /* NSObject+WZXProperties.m */,
+				470B2CA21F31C1A30053CCAE /* WZXArchiverManager.h */,
+				470B2CA31F31C1A30053CCAE /* WZXArchiverManager.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		470B2CA71F31C2AB0053CCAE /* FCFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				470B2CA81F31C2AB0053CCAE /* FCFileManager.h */,
+				470B2CA91F31C2AB0053CCAE /* FCFileManager.m */,
+			);
+			path = FCFileManager;
+			sourceTree = "<group>";
+		};
 		99B48EE3D032EE841B94338D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1259,6 +1293,8 @@
 			children = (
 				AB1993811F03950100E710CB /* SP_FileManager.h */,
 				AB1993821F03950100E710CB /* SP_FileManager.m */,
+				470B2CA71F31C2AB0053CCAE /* FCFileManager */,
+				470B2C9D1F31C1A30053CCAE /* Sources */,
 			);
 			path = SP_FileManager;
 			sourceTree = "<group>";
@@ -2718,6 +2754,7 @@
 				AB6824281EFA20950079C58B /* SP_Alamofire.swift in Sources */,
 				AB310AEE1F1CA565007F3778 /* Y_KLineVolume.m in Sources */,
 				AB993D821F0B948700C06108 /* SinglePhotoPreviewViewController.swift in Sources */,
+				470B2CA61F31C1A30053CCAE /* WZXArchiverManager.m in Sources */,
 				AB5901BD1EE94B9200826A37 /* SP_AdsColleCell.swift in Sources */,
 				AB0235671EE55659007AB6BB /* ViewController.swift in Sources */,
 				AB993D6A1F0B948700C06108 /* PhotoAlbumTableViewCell.swift in Sources */,
@@ -2759,6 +2796,7 @@
 				AB5901E11EE94B9200826A37 /* LBPIconFont.m in Sources */,
 				AB9920B11F11E11600CFBB6C /* JH_MyHistoryDeal.swift in Sources */,
 				AB993D791F0B948700C06108 /* UIImage+Extension.swift in Sources */,
+				470B2CAA1F31C2AB0053CCAE /* FCFileManager.m in Sources */,
 				AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */,
 				AB5901CC1EE94B9200826A37 /* NSTimer_extension.swift in Sources */,
 				AB1993371F03925F00E710CB /* HXPhotoViewCell.m in Sources */,
@@ -2769,6 +2807,7 @@
 				AB19933C1F03925F00E710CB /* HXVideoPreviewViewController.m in Sources */,
 				AB310AFB1F1CA565007F3778 /* View+MASAdditions.m in Sources */,
 				AB1993851F03A28B00E710CB /* M_MyCommon.swift in Sources */,
+				470B2CA51F31C1A30053CCAE /* NSObject+WZXProperties.m in Sources */,
 				AB5901E21EE94B9200826A37 /* UIColor+picker.m in Sources */,
 				AB5901CE1EE94B9200826A37 /* SP_TimeSingleton.swift in Sources */,
 				AB993D2F1F0B39A200C06108 /* YYTimeLineMaskView.m in Sources */,
@@ -2892,6 +2931,7 @@
 				AB993D681F0B948700C06108 /* NSIndexSet+Extension.swift in Sources */,
 				AB993D201F0B39A200C06108 /* UIColor+YYStockTheme.m in Sources */,
 				AB5901E71EE94B9200826A37 /* SP_MJDIYAutoFooter.swift in Sources */,
+				470B2CA41F31C1A30053CCAE /* NSObject+WZXArchiver.m in Sources */,
 				AB310AED1F1CA565007F3778 /* Y_VolumeMAView.m in Sources */,
 				AB5901FA1EE94B9200826A37 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				AB310ADF1F1CA565007F3778 /* Y_KLineAccessoryView.m in Sources */,
@@ -3122,7 +3162,7 @@
 				DEVELOPMENT_TEAM = CH2826Y5LN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Fortuna/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3146,7 +3186,7 @@
 				DEVELOPMENT_TEAM = CH2826Y5LN;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Fortuna/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

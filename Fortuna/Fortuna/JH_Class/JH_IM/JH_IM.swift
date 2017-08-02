@@ -16,9 +16,9 @@ import SwiftyJSON
 class JH_IM: SP_ParentVC {
     
     @IBOutlet weak var view_Top: UIView!
-    @IBOutlet weak var tableView: UITableView!
+    //@IBOutlet weak var tableView: UITableView!
     //@IBOutlet weak var view_Sco: UIScrollView!
-    //@IBOutlet weak var view_Tab: UIView!
+    @IBOutlet weak var view_Tab: UIView!
     @IBOutlet weak var view_Bot: UIView!
     @IBOutlet weak var view_hud: UIView!
     @IBOutlet weak var view_Bot_B: NSLayoutConstraint!
@@ -32,20 +32,14 @@ class JH_IM: SP_ParentVC {
     @IBOutlet weak var btn_numFollow: UIButton!
     @IBOutlet weak var btn_follow: UIButton!
     let disposeBag = DisposeBag()
-    /*
+    
     lazy var view_BG: UIView = {
         let view = UIView()
         return view
     }()
-    lazy var view_Tab: UIView = {
-        let view = UIView()
-        return view
-    }()
-    lazy var view_Bot: UIView = {
-        let view = UIView()
-        return view
-    }()
-    */
+    
+    
+ 
     var _keyBoardHeight:CGFloat = 0.0 {
         didSet{
             //self.view_Sco.contentSize = CGSize(width: sp_ScreenWidth, height: sp_ScreenHeight-64-35-self._keyBoardHeight)
@@ -62,7 +56,7 @@ class JH_IM: SP_ParentVC {
     }
     
     
-    /*
+    
     lazy var _tabView:SP_IM_Tab = {
         let vc = SP_IM_Tab.initSPVC()
         self.addChildViewController(vc)
@@ -71,7 +65,7 @@ class JH_IM: SP_ParentVC {
             make.edges.equalToSuperview()
         }
         return vc
-    }()*/
+    }()
     
     lazy var _inputView:SP_IM_Input = {
         let view = SP_IM_Input.show(self.view_Bot)
@@ -135,12 +129,11 @@ extension JH_IM {
         self.makeNavigation()
         self.makeUI()
         self.makeTextInput()
-        self.makeTableView()
-        //self.makeTableViewDelegate()
+        self.makeTableViewDelegate()
         self.showKeyboard()
         
-        self.sp_addMJRefreshFooter()
-        self.tableView.sp_footerBeginRefresh()
+        self.sp_addMJRefreshHeader()
+        self._tabView.tableView?.sp_headerBeginRefresh()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

@@ -94,7 +94,7 @@ class SP_IM_Tab: UIViewController {
     var _numberOfRowsInSection:((Int)->Int)?
     var _heightForHeaderInSection:((Int)->CGFloat)?
     var _heightForFooterInSection:((Int)->CGFloat)?
-    var _heightForRow:((IndexPath)->CGFloat)?
+    var _heightForRow:((UITableView,IndexPath)->CGFloat)?
     var _cellForRowAt:((UITableView,IndexPath)->UITableViewCell)?
     var _cellWillDisplay:((UITableViewCell,IndexPath)->Void)?
     
@@ -115,7 +115,7 @@ extension SP_IM_Tab {
     func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 60
+        tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
         
     }
@@ -139,7 +139,7 @@ extension SP_IM_Tab:UITableViewDelegate,UITableViewDataSource {
         return _viewForFooterInSection?(section) ?? nil
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return _heightForRow?(indexPath) ?? UITableViewAutomaticDimension
+        return _heightForRow?(tableView,indexPath) ?? UITableViewAutomaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 //MARK:--- 底部选择 弹窗 -----------------------------
 extension JH_IM {
     func makeHudImg() {
@@ -144,11 +145,11 @@ extension JH_IM {
                 options.resizeMode = .exact
                 PHImageManager.default().requestImage(for: item.asset, targetSize: CGSize(width: item.asset.pixelWidth, height: item.asset.pixelHeight), contentMode: .aspectFit, options: options, resultHandler: { [weak self](image, dact) in
                     guard self != nil else{return}
-                    self?.uploadImages([SP_ImageUnit.toJpgData(image!, isZip: true)], index:0)
+                    self?.uploadImage(SP_ImageUnit.toJpgData(image!, isZip: true), index:0, fileUrl:"")
                 })
             case HXPhotoModelMediaTypeCameraPhoto:
                 
-                self.uploadImages([SP_ImageUnit.toJpgData(item.thumbPhoto, isZip: true)], index:0)
+                self.uploadImage(SP_ImageUnit.toJpgData(item.thumbPhoto, isZip: true), index:0, fileUrl:"")
                 
             default:
                 break
@@ -156,18 +157,7 @@ extension JH_IM {
         }
     }
     //MARK:--- 上传图片
-    func uploadImages( _ datas:[Data], index:Int){
-        guard datas.count > 0 else {
-            return
-        }
-        
-        
-        for item in datas {
-            
-            uploadTopImage(item, i:index)
-        }
-    }
-    func uploadTopImage(_ data:Data, i:Int) {
+    func uploadImage(_ data:Data, index:Int, fileUrl:String) {
         var p = SP_UploadParam()
         p.fileData = data //as? Data ?? Data()
         p.filename =  Date.sp_Date("yyyyMMddHHmmssSSS") + ".jpg"
@@ -178,27 +168,25 @@ extension JH_IM {
         
         var model = SP_IM_TabModel()
         model.type = .tImage
-        model.loadingImage = UIImage(data: data)
         model.userLogo = SP_UserModel.read().imgUrl
         model.isMe = true
         model.isLoading = true
         model.create_at = String(format: "%.0f", Date().timeIntervalSince1970*1000)
-        print_SP(model)
-        if self._tabDatas.count > 0 {
-            self._tabDatas.insert(model, at: 0)
-        }else{
-            self._tabDatas.append(model)
-        }
-        
-        self.tableView.reloadData()
-        self.toRowBottom()
+        let fileStr = model.create_at + ".jpg"
+        let path = FCFileManager.pathForDocumentsDirectory(withPath: fileStr)
+        FCFileManager.writeFile(atPath: fileStr, content: data as NSObject! )
+        model.content = "file://" + path!//UIImage(data: data) //UIImage(data: data)
+        //print_SP(path)
+        self._tabDatas.append(model)
+        self._tabView.tableView?.reloadData()
+        self.toRowBottom(time:0.2)
         SP_SVHUD.dismiss()
         My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
             if isOk {
                 guard let datas = data as? M_MyCommon else{return}
                 model.content = datas.media_url
                 model.videoImg = datas.media_img
-                //self?.tableView?.reloadData()
+                
                 self?.sendMessage(model)
             }else{
                 
@@ -241,12 +229,8 @@ extension JH_IM {
         model.isLoading = true
         model.create_at = String(format: "%.0f", Date().timeIntervalSince1970*1000)
         print_SP(model)
-        if self._tabDatas.count > 0 {
-            self._tabDatas.insert(model, at: 0)
-        }else{
-            self._tabDatas.append(model)
-        }
-        self.tableView.reloadData()
+        self._tabDatas.append(model)
+        self._tabView.tableView?.reloadData()
         self.toRowBottom()
         SP_SVHUD.dismiss()
         My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
@@ -258,11 +242,12 @@ extension JH_IM {
                 for (i,dat) in self!._tabDatas.enumerated() {
                     if model.create_at == dat.create_at {
                         self?._tabDatas[i].content = model.content
-                        self?._tabDatas[i].videoImg = model.videoImg
+                        //self?._tabDatas[i].videoImg = model.videoImg
                     }
                     
                 }
-                self?.tableView?.reloadData()
+                self?._tabView.tableView?.reloadData()
+                self?.toRowBottom(time:0.2)
                 self?.sendMessage(model)
                 
             }else{
@@ -305,12 +290,8 @@ extension JH_IM {
         model.isLoading = true
         model.create_at = String(format: "%.0f", Date().timeIntervalSince1970*1000)
         print_SP(model)
-        if self._tabDatas.count > 0 {
-            self._tabDatas.insert(model, at: 0)
-        }else{
-            self._tabDatas.append(model)
-        }
-        self.tableView.reloadData()
+        self._tabDatas.append(model)
+        self._tabView.tableView?.reloadData()
         self.toRowBottom()
         SP_HUD.hidden()
         My_API.t_媒体文件上传(uploadParams: [p]).upload(M_MyCommon.self, block: { [weak self](isOk, data, error) in
@@ -324,7 +305,7 @@ extension JH_IM {
                     }
                     
                 }
-                self?.tableView?.reloadData()
+                self?._tabView.tableView?.reloadData()
                 self?.sendMessage(model)
             }else{
                 

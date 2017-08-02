@@ -256,6 +256,7 @@
     NSString *documentDir= [NSSearchPathForDirectoriesInDomains ( NSDocumentDirectory , NSUserDomainMask , YES ) objectAtIndex : 0 ];
     
     NSData *imagedata=UIImageJPEGRepresentation(thumbnailImage, 0.5);
+    
     NSString *tempImageStr = [NSString stringWithFormat:@"VideoImage-%f.jpg",[[NSDate date] timeIntervalSince1970]*1000];
     
     NSString *tempImage = [documentDir stringByAppendingPathComponent:tempImageStr];

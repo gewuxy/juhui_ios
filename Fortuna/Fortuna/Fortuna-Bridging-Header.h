@@ -1,7 +1,8 @@
 //
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
-
+#import "FCFileManager.h"
+#import "NSObject+WZXArchiver.h"
 //照片视频选择器
 #import "HXPhotoView.h"
 #import "HXPhotoViewController.h"

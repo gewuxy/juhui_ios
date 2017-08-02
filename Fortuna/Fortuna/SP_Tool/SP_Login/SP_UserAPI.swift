@@ -60,10 +60,10 @@ extension SP_UserAPI {
             SP_Alamofire.post(main_url + SP_UserAPI.url_注册, param: param, block: { (isOk, data, error) in
                 print_Json("url_注册=>\(JSON(data!))")
                 My_API.map_Object(SP_UserModel.self, response: data, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas ?? "", error)
+                    block?(isOk, datas, error)
                 })
             })
-        case .t_短信(let mobile, let type):
+        case .t_短信(let mobile, _):
             //, "sms_type": type
             let param = ["mobile": mobile]
             SP_Alamofire.post(main_url + SP_UserAPI.url_短信, param: param, block: { (isOk, data, error) in

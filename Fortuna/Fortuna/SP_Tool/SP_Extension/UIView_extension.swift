@@ -143,10 +143,18 @@ extension UIImageView {
         //self.image = UIImage(named: phStr)
         
         if name.hasPrefix("http://") || name.hasPrefix("https://") {
-            self.yy_setImage(with: URL(string:name), placeholder: UIImage(named:phStr), options: .progressiveBlur)
+            self.yy_setImage(with: URL(string:name), placeholder: UIImage(named:phStr), options: [.progressiveBlur,.setImageWithFadeAnimation], manager: YYWebImageManager.shared(), progress: { (l, r) in
+                
+            }, transform: { (image, url) -> UIImage? in
+                return image
+            }, completion: { (image, url, type, stage, error) in
+                
+            })//.yy_setImage(with: URL(string:name), placeholder: UIImage(named:phStr), options: .progressiveBlur)
             //self.sd_setImage(with: URL(string:name), placeholderImage: UIImage(named:phStr))
         }else if name.hasPrefix("file://") {
-            self.yy_setImage(with: URL(fileURLWithPath: name), placeholder: UIImage(named:phStr), options: .progressiveBlur)
+            var name2 = name
+            name2[0..<7] = ""
+            self.yy_setImage(with: URL(fileURLWithPath: name2), placeholder: UIImage(named:phStr), options: .progressiveBlur)
         }else{
             guard name.isEmpty else {
                 self.image = UIImage(named: name)

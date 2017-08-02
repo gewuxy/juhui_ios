@@ -16,14 +16,14 @@ enum SP_IM_TabCellClickButtonType {
     case tChongFa
 }
 class SP_IM_TabCell_HeText: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeText {//, for: indexPath
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_HeText {//, for: indexPath
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeText") as! SP_IM_TabCell_HeText
         return cell
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -45,7 +45,7 @@ class SP_IM_TabCell_HeText: UITableViewCell {
     }
 }
 class SP_IM_TabCell_HeImg: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeImg {
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_HeImg {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeImg") as! SP_IM_TabCell_HeImg
         return cell
     }
@@ -53,7 +53,7 @@ class SP_IM_TabCell_HeImg: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         btn_Img.imageView?.contentMode = .scaleAspectFill
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -76,7 +76,7 @@ class SP_IM_TabCell_HeImg: UITableViewCell {
 
 
 class SP_IM_TabCell_MeText: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeText {
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_MeText {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeText") as! SP_IM_TabCell_MeText
         return cell
     }
@@ -85,7 +85,7 @@ class SP_IM_TabCell_MeText: UITableViewCell {
         super.awakeFromNib()
         
         activityView.isHidden = true
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -134,7 +134,7 @@ class SP_IM_TabCell_MeText: UITableViewCell {
 }
 
 class SP_IM_TabCell_MeImg: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeImg {
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_MeImg {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeImg") as! SP_IM_TabCell_MeImg
         return cell
     }
@@ -143,7 +143,7 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
         super.awakeFromNib()
         
         btn_Img.imageView?.contentMode = .scaleAspectFill
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
     @IBOutlet weak var btn_logo: UIButton!
@@ -189,7 +189,7 @@ class SP_IM_TabCell_MeImg: UITableViewCell {
     }
 }
 class SP_IM_TabCell_MeVoice: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_MeVoice {
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_MeVoice {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_MeVoice") as! SP_IM_TabCell_MeVoice
         return cell
     }
@@ -200,7 +200,7 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
         
         btn_Img.layer.borderColor = UIColor.main_line.cgColor
         btn_Img.layer.borderWidth = 0.5
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
         self.btn_Img.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
     }
     
@@ -267,7 +267,7 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
 }
 
 class SP_IM_TabCell_HeVoice: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> SP_IM_TabCell_HeVoice {
+    class func show(_ tableView:UITableView) -> SP_IM_TabCell_HeVoice {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SP_IM_TabCell_HeVoice") as! SP_IM_TabCell_HeVoice
         return cell
     }
@@ -275,7 +275,7 @@ class SP_IM_TabCell_HeVoice: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
+        //self.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI))
         btn_Img.layer.borderColor = UIColor.main_line.cgColor
         btn_Img.layer.borderWidth = 0.5
         lab_time.textColor = UIColor.main_1

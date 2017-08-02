@@ -28,7 +28,7 @@ target 'Fortuna' do
     #pod 'MPBluetoothKit'
     
     #高度自适应
-    #pod 'UITableView+FDTemplateLayoutCell'
+    pod 'UITableView+FDTemplateLayoutCell'
     
     #图表库
     pod 'Charts'
@@ -54,7 +54,7 @@ target 'Fortuna' do
     pod 'WebViewJavascriptBridge'
     pod 'IMYWebView'
     
-    pod 'DZNEmptyDataSet'
+    #pod 'DZNEmptyDataSet'
     pod 'CYLTableViewPlaceHolder'
     
     # 即时通讯组件

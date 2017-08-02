@@ -28,7 +28,7 @@ class SP_PhotoPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         //手势
         self.addGestureRecognizer(singleTap)
         self.addGestureRecognizer(doubleTap)
-        
+        SP_SVHUD.setStyle(.light)
         SP_SVHUD.show()
         /*/self.addSubview(loadingView)
         self.scrollView.zoomScale = self.scrollView.minimumZoomScale

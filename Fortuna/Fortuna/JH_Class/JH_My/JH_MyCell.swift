@@ -19,7 +19,7 @@ class JH_MyPositionsCell: UITableViewCell {
         //self.addGestureRecognizer(longPress)
     }
     lazy var longPress:UILongPressGestureRecognizer = {
-        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_MyPositionsCell.longPressClick(_:)))
         lo.minimumPressDuration = 0.5
         return lo
     }()

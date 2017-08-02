@@ -32,32 +32,20 @@ extension JH_IM {
                     self?.view_Bot_H.constant = 50
                     self?.view_Bot.setNeedsLayout()
                     self?.view_Bot.layoutIfNeeded()
-                    /*
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(50)
-                    })*/
+                    
                 }else if height < 100 {
                     self?.view_Bot_H.constant = height + 10
                     self?.view_Bot.setNeedsLayout()
                     self?.view_Bot.layoutIfNeeded()
-                    /*
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(height + 10)
-                    })*/
+                    
                 }else{
                     self?.view_Bot_H.constant = 110
                     self?.view_Bot.setNeedsLayout()
                     self?.view_Bot.layoutIfNeeded()
-                    /*
-                    self?.view_Bot.snp.updateConstraints({ (make) in
-                        make.height.equalTo(110)
-                    })*/
                 }
                 self?.toRowBottom()
             case .tB:
                 break
-                //self?._keyBoardHeight = height
-                //self?.toRowBottom()
             }
         }
         
@@ -98,15 +86,10 @@ extension JH_IM {
             model.isMe = true
             model.isLoading = true
             model.create_at = String(format: "%.0f", Date().timeIntervalSince1970*1000)
-            if self._tabDatas.count > 0 {
-                self._tabDatas.insert(model, at: 0)
-            }else{
-                self._tabDatas.append(model)
-            }
+            self._tabDatas.append(model)
+            self._tabView.tableView?.reloadData()
             
             self.sendMessage(model)
-            
-            self.tableView?.reloadData()
             self.toRowBottom()
             self._inputView.text_View.text = ""
             self._inputView.textViewDidChange(self._inputView.text_View)

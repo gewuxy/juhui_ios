@@ -123,7 +123,7 @@ extension UIButton {
         //self.image = UIImage(named: phStr)
         
         if name.hasPrefix("http://") || name.hasPrefix("https://") {
-            self.yy_setImage(with: URL(string:name), for:forState, placeholder: UIImage(named:phStr), options: .progressiveBlur)
+            self.yy_setImage(with: URL(string:name), for:forState, placeholder: UIImage(named:phStr), options: [.progressiveBlur,.setImageWithFadeAnimation])
             //self.sd_setImage(with: URL(string:name), placeholderImage: UIImage(named:phStr))
         }else if name.hasPrefix("file://") {
             var name2 = name

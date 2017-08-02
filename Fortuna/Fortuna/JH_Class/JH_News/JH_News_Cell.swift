@@ -20,7 +20,7 @@ class JH_NewsCell_List: UITableViewCell {
         //self.addGestureRecognizer(longPress)
     }
     lazy var longPress:UILongPressGestureRecognizer = {
-        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
+        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_NewsCell_List.longPressClick(_:)))
         lo.minimumPressDuration = 0.5
         return lo
     }()

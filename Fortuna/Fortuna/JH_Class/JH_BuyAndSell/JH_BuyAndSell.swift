@@ -203,10 +203,7 @@ extension JH_BuyAndSell {
             }else{
                 SP_HUD.show(text:error)
             }
-            //30秒轮询
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(30*NSEC_PER_SEC))/Double(NSEC_PER_SEC)) { [weak self]_ in
-                //self?.t_详情页基础数据()
-            }
+            
             
         }
     }

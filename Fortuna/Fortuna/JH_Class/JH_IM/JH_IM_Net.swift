@@ -48,18 +48,11 @@ extension JH_IM {
                                      "type":String(format:"%d",model.type.rawValue),
                                      "content":model.content,
                                      "create_at":model.create_at]
-        /*
-        var jsonStr:String = ""
-        do {
-            let list = try JSONSerialization.data(withJSONObject: prama, options: .prettyPrinted)
-            jsonStr = String(data: list, encoding: String.Encoding.utf8)!
-            let arr = jsonStr.components(separatedBy: "\n")
-            jsonStr = arr.joined()
-            print_SP(jsonStr)
-        } catch {
-            print(error)
-        }*/
-        print_SP("//iOS客户端发送消息\(self.socket.socketURL)")
+        
+        //let json = JSON(prama)
+        
+        
+        //print_SP("//iOS客户端发送消息\(self.socket.socketURL)")
         self.socket.emit(self._followData.code, prama)
         /*
         SP_Alamofire.post("http://39.108.142.204:8001/send_msg/", param: prama, block: { (isOk, res, error) in
@@ -68,69 +61,77 @@ extension JH_IM {
         })*/
     }
     
-    
-    
     //MARK:--- t_获取最近聊天记录 -----------------------------
-    /*
+    
     func sp_addMJRefreshHeader() {
-        self.tableView?.sp_headerAddMJRefresh { [weak self]_ in
-            self?._pageIndex += 1
-            self?.t_获取最近聊天记录()
-        }
-    }*/
-    func sp_addMJRefreshFooter() {
-        tableView?.sp_footerAddMJRefresh_Back(true, block: {[weak self]_ in
+        self._tabView.tableView?.sp_headerAddMJRefresh { [weak self]_ in
             if self?._tabDatas.count == 0 {
                 self?._pageIndex = 1
             }else{
                 self?._pageIndex += 1
             }
             self?.t_获取最近聊天记录()
-        })
+        }
     }
+    
     func sp_EndRefresh()  {
-        self.tableView?.sp_footerEndRefresh()
+        self._tabView.tableView?.sp_headerEndRefresh()
     }
     
     func t_获取最近聊天记录() {
         My_API.t_获取最近聊天记录(code:_followData.code, page:_pageIndex).post(SP_IM_TabModel.self) { [weak self](isOk, data, error) in
             self?.sp_EndRefresh()
             guard self != nil else{return}
-            guard let datas = data as? [SP_IM_TabModel] else{return}
-            /*
+            guard var datas = data as? [SP_IM_TabModel] else{return}
+            
             datas.sort(by: { (one, two) -> Bool in
                 one.create_at < two.create_at
-            })*/
+            })
             if self!._pageIndex == 1 {
                 self?._tabDatas = datas
-                self?.tableView.reloadData()
+                self?._tabView.tableView?.reloadData()
                 self?.toRowBottom()
             }else{
-                //let row = self!._tabDatas.count - 1
-                //datas += self!._tabDatas
-                self!._tabDatas += datas
-                self?.tableView?.reloadData()
+                guard datas.count > 0 else{ self!._pageIndex -= 1; return}
+                let count = self!._tabDatas.count
+                datas += self!._tabDatas
+                self!._tabDatas = datas
+                self?._tabView.tableView?.reloadData()
+                guard self!._tabDatas.count - count > 0 else{return}
+                let indexPath = IndexPath(row: self!._tabDatas.count - count, section: 0)
+                self?._tabView.tableView?.scrollToRow(at: indexPath, at: .middle, animated: false)
             }
         }
     }
     
     
     func makeTabDatas(_ jsons:[JSON]) {
+        
         var models = [SP_IM_TabModel]()
         for item in jsons {
             models.append(SP_IM_TabModel(item))
         }
-        
         for item in models {
             if item.isMsg == "1" {
-                for (i,dat) in self._tabDatas.enumerated() {
-                    if item.create_at == dat.create_at {
-                        self._tabDatas[i].isLoading = false
-                        self._tabDatas[i].content = item.content
-                        self._tabDatas[i].videoImg = item.videoImg
+                if item.isMe {
+                    for (i,dat) in self._tabDatas.enumerated() {
+                        if item.create_at == dat.create_at {
+                            self._tabDatas[i].isLoading = false
+                            switch dat.type {
+                            case .tText,.tVideo,.tVoice:
+                                self._tabDatas[i].content = item.content
+                            default:
+                                break
+                            }
+                        }
+                        
                     }
-                    
+                }else{
+                    self._tabDatas.append(item)
                 }
+                
+                self._tabView.tableView?.reloadData()
+                self.toRowBottom()
             }else{
                 self.btn_numRen.setTitle(" "+item.popularity, for: .normal)
                 self.btn_numFollow.setTitle(" "+item.select, for: .normal)
@@ -138,7 +139,7 @@ extension JH_IM {
             
             
         }
-        self.tableView?.reloadData()
+        
     }
     
     

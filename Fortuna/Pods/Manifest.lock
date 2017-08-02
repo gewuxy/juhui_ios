@@ -19,7 +19,6 @@ PODS:
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
   - CYLTableViewPlaceHolder (1.0.8)
-  - DZNEmptyDataSet (1.8.1)
   - IMYWebView (0.8.1)
   - IQKeyboardManager (4.0.9)
   - Masonry (1.0.2)
@@ -48,6 +47,7 @@ PODS:
   - Socket.IO-Client-Swift (9.0.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - UITableView+FDTemplateLayoutCell (1.6)
   - UMengUShare/Core (6.4.3):
     - UMengUShare/Network
   - UMengUShare/Network (6.4.3)
@@ -80,7 +80,6 @@ DEPENDENCIES:
   - Alamofire
   - Charts
   - CYLTableViewPlaceHolder
-  - DZNEmptyDataSet
   - IMYWebView
   - IQKeyboardManager
   - Masonry
@@ -96,6 +95,7 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift
   - SVProgressHUD
   - SwiftyJSON
+  - UITableView+FDTemplateLayoutCell
   - UMengUShare/Social/ReducedQQ
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/ReducedWeChat
@@ -115,7 +115,6 @@ SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   CYLTableViewPlaceHolder: 44075c119aab78bbc514c75d771d6565e19938e8
-  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   IMYWebView: a6a9a52718ba6a44fb927d65f6d60930a8218cea
   IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -132,6 +131,7 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: c4c6f4193305a65fdee226a9bf9329151a304d0b
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   UMengUShare: d39cb682598df87ebdd3c055d03d00eb0102d42c
   WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
   YYAsyncLayer: df6b01ebc695c5f6b4c15dd5c23fa3e081eb25c0
@@ -143,6 +143,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: cb20bd93defe8e19420d2e063606bb1bdd37a456
+PODFILE CHECKSUM: ecdfc82e06ece18c5adfd59c255cb1a82c17b175
 
 COCOAPODS: 1.2.1
