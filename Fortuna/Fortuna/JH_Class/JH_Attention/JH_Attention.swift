@@ -12,6 +12,8 @@ import RxCocoa
 import RxSwift
 import SocketIO
 import SwiftyJSON
+import Realm
+import RealmSwift
 
 class JH_Attention: SP_ParentVC {
 
@@ -84,6 +86,16 @@ extension JH_Attention {
     fileprivate func makeUI() {
         lab_range_W.constant = sp_fitSize((95,110,125))
         
+        do {
+            let realm = try Realm()
+            if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_AttentionRealm") {
+                for item in theRealms.attentions {
+                    _datas.append(item.read())
+                }
+            }
+        } catch let err {
+            print(err)
+        }
         makeTableView()
     }
     func makeTableView() {
@@ -208,12 +220,10 @@ extension JH_Attention {
                 self._placeHolderType = .tOnlyImage
                 self.tableView.sp_headerBeginRefresh()
             }
-            
         }
     }
-    
-    
 }
+
 
 extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -254,13 +264,6 @@ extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
     /*
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -290,8 +293,6 @@ extension JH_Attention {
     }
     fileprivate func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
-            //self?.tableView.cyl_reloadData()
-            //self?.sp_EndRefresh()
             self?._pageIndex += 1
             self?.t_获取自选列表()
             
@@ -305,6 +306,7 @@ extension JH_Attention {
     }
     
     fileprivate func t_获取自选列表() {
+        
         My_API.t_获取自选列表(page:_pageIndex).post(M_Attention.self) { [weak self](isOk, data, error) in
             self?.sp_EndRefresh()
             
@@ -312,12 +314,39 @@ extension JH_Attention {
                 guard var datas = data as? [M_Attention] else{return}
                 
                 var ddd = [M_Attention]()
+                
                 for var item in datas {
                     item.isFollow = true
                     ddd.append(item)
                 }
                 datas = ddd
                 if self?._pageIndex == 1 {
+                    DispatchQueue.global().async { [weak self] _ in
+                        do {
+                            let realm = try Realm()
+                            let m_AttentionRealmS = M_AttentionRealmS()
+                            m_AttentionRealmS.id = "m_AttentionRealm"
+                            for item in datas {
+                                let m_AttentionRealm = M_AttentionRealm()
+                                m_AttentionRealm.write(item)
+                                m_AttentionRealmS.attentions.append(m_AttentionRealm)
+                            }
+                            try realm.write {
+                                //写入，根据主键更新
+                                realm.add(m_AttentionRealmS, update: true)
+                            }
+                            //打印出数据库地址
+                            //print(realm.configuration.fileURL)
+                            
+                            DispatchQueue.main.async { _ in
+                                
+                            }
+                            
+                        } catch let err {
+                            print(err)
+                        }
+                    }
+                    
                     self?._datas = datas
                     self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {
@@ -326,24 +355,18 @@ extension JH_Attention {
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
                         
                     }
-                    
-                        /*
-                    else{
-                        self?.tableView.cyl_reloadData()
-                        self?._pageIndex += 1
-                        self?.t_获取自选列表()
-                    }*/
-                    
                 }else{
                     self?._datas += datas
                     
                     if datas.count < my_pageSize {
+                        self?._footRefersh = false
+                        self?.sp_addMJRefreshFooter()
                         self?.tableView?.sp_footerEndRefreshNoMoreData()
                     }
                 }
                 self?.tableView.cyl_reloadData()
             }else{
-                self?._datas.removeAll()
+                
                 self?._placeHolderType = .tNetError(labTitle: error)
                 self?.tableView.cyl_reloadData()
             }
@@ -352,8 +375,6 @@ extension JH_Attention {
     }
     
     fileprivate func t_删除自选数据(_ index:Int) {
-        
-        
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
         My_API.t_删除自选数据(code:_datas[index].code).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()

@@ -24,11 +24,15 @@ target 'Fortuna' do
     pod 'Moya/RxSwift'
     #pod 'Moya'
     
+    #pod 'Realm'
+    pod 'RealmSwift'
+    pod 'RxRealmDataSources'
+    pod 'RxRealm'
     #蓝牙
     #pod 'MPBluetoothKit'
     
     #高度自适应
-    pod 'UITableView+FDTemplateLayoutCell'
+    #pod 'UITableView+FDTemplateLayoutCell'
     
     #图表库
     pod 'Charts'
@@ -80,6 +84,9 @@ target 'Fortuna' do
     
     # 集成新浪微博(完整版25.3M)
     #pod 'UMengUShare/Social/Sina'
+    
+    pod 'Bugly'
+    
 end
 
 post_install do |installer|

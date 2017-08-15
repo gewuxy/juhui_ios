@@ -8,6 +8,73 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
+import Realm
+
+/*
+ 因为已经建立好了模型，
+ 原则：不改变原有模型设计之上来添加功能，尽量将模块分离.
+ */
+class M_AttentionRealmS: Object {
+    var id = ""
+    
+    var attentions = List<M_AttentionRealm>()
+    
+    var high_ratio = List<M_AttentionRealm>()
+    var low_ratio = List<M_AttentionRealm>()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+}
+
+class M_AttentionRealm: Object {
+    dynamic var code =  ""
+    dynamic var id =  ""
+    dynamic var isDelete =  false
+    dynamic var name =  ""
+    dynamic var proposedPrice =  "--"
+    dynamic var quoteChange =  "--"
+    dynamic var winery =  ""
+    dynamic var last_price = "--"
+    
+    dynamic var isFollow = false//是否已加自选
+    dynamic var isSelect = false
+    
+    dynamic var ratio = ""
+    
+    override static func primaryKey() -> String? {
+        return "code"
+    }
+    
+    func write(_ model:M_Attention) {
+        code = model.code
+        id = model.id
+        isDelete = model.isDelete
+        name = model.name
+        proposedPrice = model.proposedPrice
+        quoteChange = model.quoteChange
+        winery = model.winery
+        last_price = model.last_price
+        isFollow = model.isFollow
+        isSelect = model.isSelect
+        ratio = model.ratio
+    }
+    func read() -> M_Attention {
+        return M_Attention(code: code,
+                           id: id,
+                           isDelete: isDelete,
+                           name: name,
+                           proposedPrice: proposedPrice,
+                           quoteChange: quoteChange,
+                           winery: winery,
+                           last_price: last_price,
+                           isFollow: isFollow,
+                           isSelect: isSelect,
+                           ratio: ratio)
+        
+    }
+}
 
 struct M_Attention {
     var code =  ""

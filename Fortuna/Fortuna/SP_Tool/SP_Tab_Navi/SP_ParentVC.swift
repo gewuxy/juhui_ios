@@ -67,7 +67,7 @@ class SP_ParentVC: UIViewController {
         return view
     }()
     
-        
+    var _footRefersh = true//底部加载更多
     
     
     

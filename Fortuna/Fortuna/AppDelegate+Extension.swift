@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import IQKeyboardManager
+import Bugly
 extension AppDelegate {
     //MARK:----------- 状态栏全局样式
     func setupGlobalStyle() {
@@ -49,6 +50,10 @@ extension AppDelegate {
         
         userLogin()
         umShare()
+        
+        makeBugly()
+        
+        makeIQKeyboardManager()
     }
     fileprivate func makeIQKeyboardManager() {
         IQKeyboardManager.shared().isEnabled = true
@@ -58,6 +63,9 @@ extension AppDelegate {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         IQKeyboardManager.shared().shouldShowTextFieldPlaceholder = false
         //IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
+    }
+    fileprivate func makeBugly() {
+        Bugly.start(withAppId: "da08b6df83")
     }
     
     private static var tabBar:SP_TabBarController = {

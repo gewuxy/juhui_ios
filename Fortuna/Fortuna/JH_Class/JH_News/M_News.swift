@@ -8,6 +8,50 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
+import Realm
+
+
+class M_NewsRealm: Object {
+    dynamic var id = 0
+    dynamic var article = ""
+    dynamic var href =  ""
+    dynamic var title =  ""
+    dynamic var text = ""
+    dynamic var news_time =  ""
+    dynamic var thumb_img =  ""
+    dynamic var author = ""
+    dynamic var origin = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    func write(_ model:M_News, _ index:Int) {
+        id = index
+        article = model.article
+        href =  model.href
+        title =  model.title
+        text = model.text
+        news_time =  model.news_time
+        thumb_img =  model.thumb_img
+        author = model.author
+        origin = model.origin
+    }
+    func read() -> M_News {
+        return M_News(article: article,
+                      href: href,
+                      title: title,
+                      text: text,
+                      news_time: news_time,
+                      thumb_img: thumb_img,
+                      author: author,
+                      origin: origin)
+        
+    }
+}
+
+
 struct M_News {
     var article = ""
     var href =  ""

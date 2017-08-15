@@ -8,7 +8,7 @@
 
 import Foundation
 import MediaPlayer
-import UITableView_FDTemplateLayoutCell
+//import UITableView_FDTemplateLayoutCell
 extension JH_IM {
     func toRowBottom(_ animated:Bool = false, time:Double = 0.0){
         

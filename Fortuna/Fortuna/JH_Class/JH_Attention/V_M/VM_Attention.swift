@@ -7,3 +7,19 @@
 //
 
 import Foundation
+import RealmSwift
+import RxRealm
+import RxSwift
+import RxCocoa
+import RxDataSources
+
+
+class VM_Attention {
+    //MARK:--- 输入 ----------
+    let disposeBag = DisposeBag()
+    
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, M_Attention>>()
+    let _datas = Variable([SectionModel<String, M_Attention>]())
+    
+    
+}

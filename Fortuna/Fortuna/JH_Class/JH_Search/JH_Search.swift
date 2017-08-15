@@ -49,7 +49,11 @@ class JH_Search: SP_ParentVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
-    
+    var dataSoure  = [["title":"图片选择demo","selectorString":"selectPhotos"]
+        ,["title":"图片选择demo2","selectorString":"selectPhotos2"]
+        ,["title":"图片裁剪压缩demo","selectorString":"compressionPhoto"]
+        ,["title":"图片添加水印","selectorString":"imageAddWaterMark"]
+        ,["title":"图片轮播","selectorString":"cycleScrollView"]]
 }
 extension JH_Search {
     override class func initSPVC() -> JH_Search {
@@ -71,6 +75,11 @@ extension JH_Search {
         n_view.n_btn_R1_R.constant = 15
         
         makeSearchRx()
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.001) { [weak self] _ in
+            _ = self?.dataSoure[0]["selectorString"] ?? ""
+        }
     }
     
     fileprivate func makeTableView() {

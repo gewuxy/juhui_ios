@@ -8,6 +8,10 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
+import Realm
+
+
 
 struct M_Market {
     var high_ratio = [M_Attention]()

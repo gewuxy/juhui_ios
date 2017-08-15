@@ -8,6 +8,8 @@
 
 import UIKit
 import SafariServices
+import RealmSwift
+
 class JH_News: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
@@ -34,6 +36,18 @@ extension JH_News {
         n_view.n_btn_L1_Image = ""
     }
     fileprivate func makeUI() {
+        
+        do {
+            let realm = try Realm()
+            let theRealms:Results<M_NewsRealm> = realm.objects(M_NewsRealm.self)
+            
+            for item in theRealms {
+                _datas.append(item.read())
+            }
+        } catch let err {
+            print(err)
+        }
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self._placeHolderType = .tOnlyImage
@@ -43,6 +57,7 @@ extension JH_News {
     }
 }
 extension JH_News:UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return _datas.count
     }
@@ -52,16 +67,26 @@ extension JH_News:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+//        if indexPath.section == self._datas.count - 1 && indexPath.row == self._datas[indexPath.section].count - 5 && self._footRefersh {
+//            self._pageIndex += 1
+//            self.t_获取资讯列表()
+//        }
+        
+        if let cell = cell as? JH_NewsCell_List {
+            let model = _datas[indexPath.row]
+            cell.img_Logo.sp_ImageName(model.thumb_img)
+            cell.lab_name.text = model.title
+            cell.lab_time.text = model.newsYY
+            cell.lab_time2.text = model.newsMM
+        }
+        
+    }
 }
 extension JH_News:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_NewsCell_List.show(tableView, indexPath)
-        let model = _datas[indexPath.row]
-        cell.img_Logo.sp_ImageName(model.thumb_img)
-        cell.lab_name.text = model.title
-        cell.lab_time.text = model.newsYY
-        cell.lab_time2.text = model.newsMM
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -75,6 +100,7 @@ extension JH_News {
     fileprivate func sp_addMJRefreshHeader() {
         tableView?.sp_headerAddMJRefresh { [weak self]_ in
             self?._pageIndex = 1
+            self?._footRefersh = true
             self?.t_获取资讯列表()
         }
     }
@@ -82,8 +108,7 @@ extension JH_News {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
             self?._pageIndex += 1
             self?.t_获取资讯列表()
-            self?.tableView.cyl_reloadData()
-            self?.sp_EndRefresh()
+            
             
         }
     }
@@ -99,14 +124,42 @@ extension JH_News {
             if isOk {
                 guard let datas = data as? [M_News] else{return}
                 if self?._pageIndex == 1 {
+                    DispatchQueue.global().async {
+                        do {
+                            let realm = try Realm()
+                            for (index,item) in datas.enumerated() {
+                                let m_AttentionRealm = M_NewsRealm()
+                                m_AttentionRealm.write(item, index)
+                                try realm.write {
+                                    //写入，根据主键更新
+                                    realm.add(m_AttentionRealm, update: true)
+                                }
+                            }
+                            //打印出数据库地址
+                            //print(realm.configuration.fileURL)
+                            
+                            DispatchQueue.main.async { _ in
+                                
+                            }
+                            
+                        } catch let err {
+                            print(err)
+                        }
+                    }
+                    
+                    
+                    
                     self!._datas = datas
                     if datas.count > 0 {
-                        self!.sp_addMJRefreshFooter()
-                    }else {
+                        self?.sp_addMJRefreshFooter()
+                    }else{
                         self?._placeHolderType = .tNoData(labTitle: sp_localized("9011110"), btnTitle:sp_localized("点击刷新"))
                     }
                 }else{
                     self!._datas += datas
+                    if datas.count == 0 {
+                        self?.tableView.sp_footerEndRefreshNoMoreData()
+                    }
                 }
                 self?.tableView.cyl_reloadData()
             }else{

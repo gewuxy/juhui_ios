@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import RealmSwift
 class JH_Market: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
@@ -31,6 +31,21 @@ extension JH_Market {
         n_view.n_btn_L1_Image = ""
     }
     fileprivate func makeTableView() {
+        do {
+            let realm = try Realm()
+            if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_MarketRealm") {
+                for item in theRealms.high_ratio {
+                    self._datas.high_ratio.append(item.read())
+                }
+                for item in theRealms.low_ratio {
+                    self._datas.low_ratio.append(item.read())
+                }
+            }
+            
+        } catch let err {
+            print(err)
+        }
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self._placeHolderType = .tOnlyImage
@@ -157,6 +172,39 @@ extension JH_Market {
             
             if isOk {
                 guard let datas = data as? M_Market else{return}
+                DispatchQueue.global().async {
+                    do {
+                        let realm = try Realm()
+                        let m_MarketRealm = M_AttentionRealmS()
+                        m_MarketRealm.id = "m_MarketRealm"
+                        m_MarketRealm.high_ratio.removeAll()
+                        m_MarketRealm.low_ratio.removeAll()
+                        for item in datas.high_ratio {
+                            let m_AttentionRealm = M_AttentionRealm()
+                            m_AttentionRealm.write(item)
+                            m_MarketRealm.high_ratio.append(m_AttentionRealm)
+                        }
+                        for item in datas.low_ratio {
+                            let m_AttentionRealm = M_AttentionRealm()
+                            m_AttentionRealm.write(item)
+                            m_MarketRealm.low_ratio.append(m_AttentionRealm)
+                        }
+                        try realm.write {
+                            //写入，根据主键更新
+                            realm.add(m_MarketRealm, update: true)
+                        }
+                        //打印出数据库地址
+                        //print(realm.configuration.fileURL)
+                        
+                        DispatchQueue.main.async { _ in
+                            
+                        }
+                        
+                    } catch let err {
+                        print(err)
+                    }
+                }
+                
                 self?._datas = datas
                 if datas.high_ratio.count == 0 && datas.low_ratio.count == 0 {
                     self?._placeHolderType = .tNoData(labTitle: sp_localized("9011110"), btnTitle:sp_localized("点击刷新"))

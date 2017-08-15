@@ -11,6 +11,7 @@
 		470B2CA51F31C1A30053CCAE /* NSObject+WZXProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA11F31C1A30053CCAE /* NSObject+WZXProperties.m */; };
 		470B2CA61F31C1A30053CCAE /* WZXArchiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA31F31C1A30053CCAE /* WZXArchiverManager.m */; };
 		470B2CAA1F31C2AB0053CCAE /* FCFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 470B2CA91F31C2AB0053CCAE /* FCFileManager.m */; };
+		4742D6611F42B86100374F95 /* SP_Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4742D6601F42B86100374F95 /* SP_Realm.swift */; };
 		47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */; };
 		AB0235651EE55659007AB6BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235641EE55659007AB6BB /* AppDelegate.swift */; };
 		AB0235671EE55659007AB6BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235661EE55659007AB6BB /* ViewController.swift */; };
@@ -409,6 +410,7 @@
 		470B2CA31F31C1A30053CCAE /* WZXArchiverManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WZXArchiverManager.m; sourceTree = "<group>"; };
 		470B2CA81F31C2AB0053CCAE /* FCFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCFileManager.h; sourceTree = "<group>"; };
 		470B2CA91F31C2AB0053CCAE /* FCFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCFileManager.m; sourceTree = "<group>"; };
+		4742D6601F42B86100374F95 /* SP_Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_Realm.swift; sourceTree = "<group>"; };
 		47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetailsFull.swift; sourceTree = "<group>"; };
 		AB0235611EE55658007AB6BB /* Fortuna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fortuna.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0235641EE55659007AB6BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -962,6 +964,14 @@
 				470B2CA91F31C2AB0053CCAE /* FCFileManager.m */,
 			);
 			path = FCFileManager;
+			sourceTree = "<group>";
+		};
+		4742D65F1F42B83A00374F95 /* SP_Realm */ = {
+			isa = PBXGroup;
+			children = (
+				4742D6601F42B86100374F95 /* SP_Realm.swift */,
+			);
+			path = SP_Realm;
 			sourceTree = "<group>";
 		};
 		99B48EE3D032EE841B94338D /* Frameworks */ = {
@@ -1770,6 +1780,7 @@
 				AB5901A61EE94B9100826A37 /* SP_Tab_Navi */,
 				AB5901B71EE94B9200826A37 /* SP_TextField */,
 				ABCDFDFE1F023A3C00EA2F7A /* SP_IM */,
+				4742D65F1F42B83A00374F95 /* SP_Realm */,
 			);
 			path = SP_Tool;
 			sourceTree = "<group>";
@@ -2479,7 +2490,7 @@
 				TargetAttributes = {
 					AB0235601EE55658007AB6BB = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = CH2826Y5LN;
+						DevelopmentTeam = ZNU52R64T4;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -2767,6 +2778,7 @@
 				AB310AEA1F1CA565007F3778 /* 指标公式.md in Sources */,
 				AB993D2B1F0B39A200C06108 /* YYStockScrollView.m in Sources */,
 				AB310AE91F1CA565007F3778 /* Y_KLineVolumePositionModel.m in Sources */,
+				4742D6611F42B86100374F95 /* SP_Realm.swift in Sources */,
 				AB993D6F1F0B948700C06108 /* PhotoFetchOptions.swift in Sources */,
 				AB310AF11F1CA565007F3778 /* Y_StockChartView.m in Sources */,
 				AB4EEB051F1778EC00DDCBA4 /* SP_PhotoProgressView.swift in Sources */,
@@ -3159,7 +3171,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CH2826Y5LN;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZNU52R64T4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Fortuna/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3169,7 +3182,7 @@
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/lame",
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapptest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3183,7 +3196,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CH2826Y5LN;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZNU52R64T4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Fortuna/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3193,7 +3207,7 @@
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/lame",
 					"$(PROJECT_DIR)/Fortuna/SP_Tool/SP_IM/LGSound/Vendor/AMR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.juhui.iosapptest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Fortuna/Fortuna-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
