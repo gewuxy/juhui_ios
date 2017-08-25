@@ -233,7 +233,7 @@ extension JH_IM {
         if self.isVideo {
             player?.stop()
         }
-        
+        LGAudioPlayer.share().stopAudioPlayer()
         LGAudioPlayer.share().playAudio(withURLString: urlStr, at: UInt(index), withParentButton: playBtn)
         
     }

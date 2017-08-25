@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import YYImage
 enum SP_IM_TabCellClickButtonType {
     case tLogo
     case tImg
@@ -246,6 +246,11 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
         }
     }
     
+    lazy var yyFrameImage:UIImage = {
+        let paths = ["","",""]
+        let image = YYFrameImage(imagePaths: paths, oneFrameDuration: 0.1, loopCount: 0)
+        return image!
+    }()
     func voicePlay() {
         /*
         UIImage *image = [YYImage imageNamed:@"ani.gif"];
@@ -258,6 +263,8 @@ class SP_IM_TabCell_MeVoice: UITableViewCell {
          UIImageView *imageView = [YYAnimatedImageView alloc] initWithImage:image];
          [self.view addSubview:imageView];
          */
+        
+        let paths = ["","",""]
         
         
     }

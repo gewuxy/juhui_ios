@@ -10,6 +10,7 @@ import UIKit
 
 import RxCocoa
 import RxSwift
+import RxDataSources
 import SocketIO
 import SwiftyJSON
 import Realm
@@ -19,7 +20,15 @@ class JH_Attention: SP_ParentVC {
 
     let disposeBag = DisposeBag()
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView2: UITableView!
     @IBOutlet weak var lab_range_W: NSLayoutConstraint!
+    @IBOutlet weak var segmented: UISegmentedControl!
+    
+    
+    let dataSourceF = RxTableViewSectionedReloadDataSource<SectionModel<Int, Int>>()
+    
+    let dataCellsF = Variable([SectionModel<Int, Int>]())
+    
     fileprivate var _pageIndex = 1
     fileprivate var _datas = [M_Attention]()
     
@@ -73,7 +82,7 @@ extension JH_Attention {
         //print_SP(SP_User.shared.deviceUUID)
     }
     fileprivate func makeNavigation() {
-        
+        n_view._title = ""
         n_view.n_btn_L1_Image = ""
         n_view.n_btn_L1_Text = sp_localized("编辑")
         n_view.n_btn_R1_Image = "Attention搜索w"
@@ -81,6 +90,22 @@ extension JH_Attention {
         n_view.n_btn_L1_L.constant = 15
         n_view.n_btn_R1_R.constant = 15
         
+        n_view.n_view_Title.addSubview(segmented)
+        segmented.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+        segmented.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFont(ofSize: 16 )], for: .normal)
+        
+        segmented.rx
+            .selectedSegmentIndex
+            .map({$0 == 0})
+            .shareReplay(1)
+            .asObservable()
+            .bind(onNext: { [weak self](bool) in
+                self?.tableView2.isHidden = bool
+                self?.n_view.n_btn_L1.isHidden = !bool
+            })
+            .addDisposableTo(disposeBag)
     }
     
     fileprivate func makeUI() {
@@ -97,6 +122,7 @@ extension JH_Attention {
             print(err)
         }
         makeTableView()
+        makeTableViewFriend()
     }
     func makeTableView() {
         self.tableView.delegate = self
@@ -206,7 +232,7 @@ extension JH_Attention {
         JH_Search.show(self)
     }
     
-    override func placeHolderViewClick() {
+    override func sp_placeHolderViewClick() {
         switch _placeHolderType {
         case .tOnlyImage:
             break
@@ -223,7 +249,23 @@ extension JH_Attention {
         }
     }
 }
-
+extension JH_Attention {
+    fileprivate func makeTableViewFriend() {
+        dataCellsF.value = [
+            SectionModel(model:0,items:[0,1,2,3,4,5,6,7,8,9]),
+            SectionModel(model:1,items:[10,11,12,13,14,15,16,17,18,19])
+        ]
+        dataSourceF.configureCell = { (dat,tab,indexPath,mo) in
+            let cell = tab.dequeueReusableCell(withIdentifier: "My_MsgVCCell")
+            cell?.textLabel?.text = "\(mo)"
+            return cell!
+        }
+        
+        dataCellsF.asDriver()
+            .drive(tableView2.rx.items(dataSource: dataSourceF))
+            .addDisposableTo(disposeBag)
+    }
+}
 
 extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -240,7 +282,7 @@ extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
         return sp_fitSize((70,75,80))
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = JH_AttentionCell_Normal.show(tableView, indexPath)
+        let cell = JH_AttentionCell_Normal.show(tableView)
         let model = _datas[indexPath.row]
         cell.lab_name.text = model.name
         cell.lab_code.text = model.code
@@ -321,7 +363,7 @@ extension JH_Attention {
                 }
                 datas = ddd
                 if self?._pageIndex == 1 {
-                    DispatchQueue.global().async { [weak self] _ in
+                    DispatchQueue.global().async {
                         do {
                             let realm = try Realm()
                             let m_AttentionRealmS = M_AttentionRealmS()

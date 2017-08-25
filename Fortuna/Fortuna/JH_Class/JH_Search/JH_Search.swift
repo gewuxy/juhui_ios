@@ -97,7 +97,7 @@ extension JH_Search {
         
     }
     
-    override func placeHolderViewClick() {
+    override func sp_placeHolderViewClick() {
         switch _placeHolderType {
         case .tOnlyImage:
             break

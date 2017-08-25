@@ -17,8 +17,10 @@
  */
 
 import UIKit
-
 import CYLTableViewPlaceHolder
+import RxCocoa
+import RxSwift
+
 enum sp_PlaceHolderType {
     case tOnlyImage
     case tNoData(labTitle:String, btnTitle:String)
@@ -29,6 +31,7 @@ class SP_ParentVC: UIViewController {
     
     var _placeHolderType = sp_PlaceHolderType.tOnlyImage {
         didSet{
+            //self._placeHolderView.isHidden = false
             switch _placeHolderType {
             case .tOnlyImage:
                 _placeHolderView.lab_title.text = ""
@@ -47,6 +50,7 @@ class SP_ParentVC: UIViewController {
             }
         }
     }
+    
     lazy var _placeHolderView:SP_PlaceHolderView = {
         let view = SP_PlaceHolderView.show()
         view.lab_detalTitle_T.constant = 0
@@ -55,7 +59,7 @@ class SP_ParentVC: UIViewController {
         view.btn_title.setTitleColor(UIColor.main_1, for: .normal)
         view.btn_title.titleLabel?.font = sp_fitFont20
         view._titleBlock = { [weak self]_ in
-            self?.placeHolderViewClick()
+            self?.sp_placeHolderViewClick()
         }
         return view
     }()
@@ -68,9 +72,22 @@ class SP_ParentVC: UIViewController {
     }()
     
     var _footRefersh = true//底部加载更多
-    
-    
-    
+}
+
+
+extension SP_ParentVC {
+    func sp_addPlaceHolderView() {
+        self.view.addSubview(_placeHolderView)
+        _placeHolderView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalTo(self.n_view.snp.bottom)
+        }
+        
+        
+    }
+    func sp_placeHolderViewClick() {
+        
+    }
 }
 
 extension SP_ParentVC:CYLTableViewPlaceHolderDelegate {
@@ -81,11 +98,6 @@ extension SP_ParentVC:CYLTableViewPlaceHolderDelegate {
 //    func enableScrollWhenPlaceHolderViewShowing() -> Bool {
 //        return true
 //    }
-    
-    func placeHolderViewClick() {
-        
-    }
-    
 }
 
 
@@ -102,6 +114,8 @@ extension SP_ParentVC {
         //全屏幕右划返回，隐藏导航栏
         self.fd_prefersNavigationBarHidden = true
         sp_makeNaviDefault()
+        
+        
         n_view._clickBlock = { [unowned self]tag in
             switch tag {
             case 0:

@@ -28,6 +28,10 @@ target 'Fortuna' do
     pod 'RealmSwift'
     pod 'RxRealmDataSources'
     pod 'RxRealm'
+    
+    pod 'Then'
+    #下拉弹窗
+    pod 'YCXMenu'
     #蓝牙
     #pod 'MPBluetoothKit'
     
@@ -84,6 +88,9 @@ target 'Fortuna' do
     
     # 集成新浪微博(完整版25.3M)
     #pod 'UMengUShare/Social/Sina'
+    
+    # 集成友盟统计
+    pod 'UMengAnalytics-NO-IDFA'
     
     pod 'Bugly'
     

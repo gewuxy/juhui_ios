@@ -26,12 +26,14 @@ class JH_AttentionDetails: SP_ParentVC {
     fileprivate enum sectionType:Int {
         case tData = 0
         case tCharts
+        case tNews
     }
     lazy var _tUnfoldOpen = false
     
     lazy var _datas = M_Attention()
     lazy var _dataDetails = M_AttentionDetail()
     lazy var _datasDelegate = [M_MyDelegate]()
+    lazy var _dataNews = [M_News]()
     
     //type:JH_ChartDataType, _ cell:JH_AttentionDetailsCell_Charts
     
@@ -63,7 +65,7 @@ extension JH_AttentionDetails {
         self.makeTableView()
         //self.t_详情页基础数据()
         self.makeSocketIO()
-        
+        self.sp_addMJRefreshHeader()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -215,8 +217,7 @@ extension JH_AttentionDetails {
 }
 extension JH_AttentionDetails:UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return sectionType.tCharts.rawValue + 1
+        return sectionType.tNews.rawValue + 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -224,12 +225,20 @@ extension JH_AttentionDetails:UITableViewDelegate {
             return _tUnfoldOpen ? 2 : 2
         case sectionType.tCharts.rawValue:
             return 1
+        case sectionType.tNews.rawValue:
+            return _dataNews.count
         default:
             return 0
         }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sp_SectionH_Min
+        switch section {
+        case sectionType.tNews.rawValue:
+            return sp_SectionH_Top
+        default:
+            return sp_SectionH_Min
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return sp_SectionH_Foot
@@ -240,8 +249,20 @@ extension JH_AttentionDetails:UITableViewDelegate {
             return indexPath.row == 0 ? sp_fitSize((100,115,130)) : sp_fitSize((70,75,80))
         case sectionType.tCharts.rawValue:
             return sp_fitSize((288,308,338))
+        case sectionType.tNews.rawValue:
+            return 90 //sp_fitSize((288,308,338))
         default:
             return 0
+        }
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case sectionType.tNews.rawValue:
+            let view = UIView()
+            view.backgroundColor = UIColor.white
+            return view
+        default:
+            return nil
         }
     }
 }
@@ -295,7 +316,14 @@ extension JH_AttentionDetails:UITableViewDataSource{
                 JH_AttentionDetailsFull.show(self, data: self!._datas, dataDetails:self!._dataDetails)
             }
             return cell
-            
+        case sectionType.tCharts.rawValue:
+            let model = _dataNews[indexPath.row]
+            let cell = JH_NewsCell_List.show(tableView)
+            cell.img_Logo.sp_ImageName(model.thumb_img)
+            cell.lab_name.text = model.title
+            cell.lab_time.text = model.newsYY
+            cell.lab_time2.text = model.newsMM
+            return cell
         default:
             return UITableViewCell()
         }
@@ -303,9 +331,9 @@ extension JH_AttentionDetails:UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if indexPath.section == sectionType.tCharts.rawValue {
+        if indexPath.section == sectionType.tNews.rawValue {
             //JH_AttentionDetailsFull.show(self, data: _datas, dataDetails:_dataDetails)
-            
+            JH_NewsDetials.show(self,data:_dataNews[indexPath.row])
         }
         
     }
@@ -517,6 +545,22 @@ extension JH_AttentionDetails {
 }
 
 extension JH_AttentionDetails {
+    fileprivate func sp_addMJRefreshHeader() {
+        tableView?.sp_headerAddMJRefresh { [weak self]_ in
+            
+            self?.t_详情页基础数据()
+        }
+    }
+    fileprivate func sp_addMJRefreshFooter() {
+        tableView?.sp_footerAddMJRefresh_Auto { _ in
+            
+        }
+    }
+    
+    fileprivate func sp_EndRefresh()  {
+        tableView?.sp_headerEndRefresh()
+        tableView?.sp_footerEndRefresh()
+    }
     fileprivate func t_详情页基础数据() {
         My_API.t_详情页基础数据(code: _datas.code).post(M_AttentionDetail.self) { [weak self](isOk, data, error) in
             if isOk {

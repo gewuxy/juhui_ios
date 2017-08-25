@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import IQKeyboardManager
 import Bugly
+
 extension AppDelegate {
     //MARK:----------- 状态栏全局样式
     func setupGlobalStyle() {
@@ -69,10 +70,10 @@ extension AppDelegate {
     }
     
     private static var tabBar:SP_TabBarController = {
-        let viewControllers = [JH_Attention.initSPVC(),JH_News.initSPVC(),JH_Market.initSPVC(),JH_My.initSPVC()]
-        let titles = [sp_localized("自选"),sp_localized("资讯"),sp_localized("行情"),sp_localized("我的")]
-        let images = ["N自选","N资讯","N行情","N我的"]
-        let selectedImages = ["S自选","S资讯","S行情","S我的"]
+        let viewControllers = [JH_News.initSPVC(),JH_Attention.initSPVC(),JH_Market.initSPVC(),JH_My.initSPVC()]
+        let titles = [sp_localized("资讯"),sp_localized("自选"),sp_localized("行情"),sp_localized("我的")]
+        let images = ["N资讯","N自选","N行情","N我的"]
+        let selectedImages = ["S资讯","S自选","S行情","S我的"]
         let vc = SP_TabBarController.initTabbar(viewControllers, titles: titles, images: images, selectedImages: selectedImages, selectedIndex: 0)
         vc.setProperty(true, colorNormal: UIColor.mainText_2, colorSelected: UIColor.main_1, titleFontNormal: 10.0, titleFontSelected: 10.0, imageInsets: UIEdgeInsetsMake(0, 0, 0, 0))
         
@@ -117,7 +118,15 @@ extension AppDelegate {
         //UMSocialManager.default().setPlaform(.sina, appKey: key_SinaappID, appSecret: key_SinaappSecret, redirectURL: my_ShareUrl)
         // ----- 设置支付宝
         
+        umAnalytics()
+    }
+    //MARK:--- 友盟统计 ----------
+    func umAnalytics() {
+        UMAnalyticsConfig.sharedInstance().appKey = key_UMengAppKey
+        UMAnalyticsConfig.sharedInstance().channelId = "App Store"
+        MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
         
+        MobClick.setLogEnabled(true)//集成测试打开
     }
     //MARK:--- 登录
     func userLogin(_ new:Bool = true) {

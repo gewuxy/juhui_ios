@@ -155,7 +155,7 @@ extension JH_AttentionEdit {
         }
     }
     
-    override func placeHolderViewClick() {
+    override func sp_placeHolderViewClick() {
         switch _placeHolderType {
         case .tOnlyImage:
             break

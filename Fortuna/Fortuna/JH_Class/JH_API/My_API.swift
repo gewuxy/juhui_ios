@@ -94,6 +94,9 @@ enum My_API {
     static let url_获取资讯列表 = "api/news/getnews/"
     case t_获取资讯列表(page:Int)
     
+    //MARK:--- Liv-ex ----------
+    static let url_Liv获取指数表现 = "/df/indexperformance/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100"
+    case t_Liv获取指数表现(token:Int)
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {

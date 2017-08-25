@@ -10,6 +10,8 @@ import Foundation
 //let result = gregorian.dateComponents([Calendar.Component.second], from: tiDate, to: timDate)
 //var minuteCount:Int = result.second!
 
+var arr:[Int] = []
+arr.insert(0, at: 0)
 
 
 

@@ -61,6 +61,8 @@ PODS:
   - Socket.IO-Client-Swift (9.0.0)
   - SVProgressHUD (2.1.2)
   - SwiftyJSON (3.1.4)
+  - Then (2.1.0)
+  - UMengAnalytics-NO-IDFA (4.2.5)
   - UMengUShare/Core (6.4.3):
     - UMengUShare/Network
   - UMengUShare/Network (6.4.3)
@@ -73,6 +75,7 @@ PODS:
   - UMengUShare/UI (6.4.3):
     - UMengUShare/Core
   - WebViewJavascriptBridge (6.0.2)
+  - YCXMenu (0.0.11)
   - YYAsyncLayer (1.0)
   - YYCache (1.0.4)
   - YYCategories (1.0.4):
@@ -112,11 +115,14 @@ DEPENDENCIES:
   - Socket.IO-Client-Swift
   - SVProgressHUD
   - SwiftyJSON
+  - Then
+  - UMengAnalytics-NO-IDFA
   - UMengUShare/Social/ReducedQQ
   - UMengUShare/Social/ReducedSina
   - UMengUShare/Social/ReducedWeChat
   - UMengUShare/UI
   - WebViewJavascriptBridge
+  - YCXMenu
   - YYAsyncLayer
   - YYCache
   - YYCategories
@@ -152,8 +158,11 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: c4c6f4193305a65fdee226a9bf9329151a304d0b
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Then: 8496793c8fcac95482b943909b440724c7d8d82c
+  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
   UMengUShare: d39cb682598df87ebdd3c055d03d00eb0102d42c
   WebViewJavascriptBridge: 791ee0e26d1bf15efe5fb7fb9666a71a19b89d77
+  YCXMenu: 6003bcd20d8ac72e3eb3c442c97ed21948c6dc1f
   YYAsyncLayer: df6b01ebc695c5f6b4c15dd5c23fa3e081eb25c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
@@ -163,6 +172,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: d8402ee533b32f8deb48022e2c3e8dae28a5a3aa
+PODFILE CHECKSUM: dd6e21561a5ab51c0820522b65b2bd47bfbd38e0
 
 COCOAPODS: 1.2.1

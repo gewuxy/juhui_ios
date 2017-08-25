@@ -79,7 +79,7 @@ extension JH_MyPositions {
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
     }
-    override func placeHolderViewClick() {
+    override func sp_placeHolderViewClick() {
         switch _placeHolderType {
         case .tOnlyImage:
             break

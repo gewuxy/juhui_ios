@@ -73,7 +73,7 @@ enum JH_ChartDataType:Int {
 
 //MARK:--- 自选页面 -----------------------------
 class JH_AttentionCell_Normal: UITableViewCell {
-    class func show(_ tableView:UITableView, _ indexPath:IndexPath) -> JH_AttentionCell_Normal {
+    class func show(_ tableView:UITableView) -> JH_AttentionCell_Normal {
         return tableView.dequeueReusableCell(withIdentifier: "JH_AttentionCell_Normal") as! JH_AttentionCell_Normal
     }
     
