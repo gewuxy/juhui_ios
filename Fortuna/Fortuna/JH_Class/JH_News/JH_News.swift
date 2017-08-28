@@ -84,12 +84,12 @@ extension JH_News {
         YCXMenu.setHasShadow(true)
         YCXMenu.setTintColor(UIColor.mainText_1)
         YCXMenu.setSelectedColor(UIColor.black)
-        YCXMenu.show(in: self.view, from: fromRect, menuItems: menuItems) { [weak self](index, item) in
+        YCXMenu.show(in: self.view, from: fromRect, menuItems: menuItems) { (index, item) in
             switch index {
             case 0:
-                let vc = SP_RichTextEdit()
-                vc.hidesBottomBarWhenPushed = true
-                self?.navigationController?.pushViewController(vc, animated: true)
+                SP_RichTextEdit.show(self)
+            case 1:
+                SP_RichTextEdit.show(self, type:.t长文)
             default:break
             }
         }
