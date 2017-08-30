@@ -25,13 +25,11 @@ class JH_Attention: SP_ParentVC {
     @IBOutlet weak var segmented: UISegmentedControl!
     
     
-    let dataSourceF = RxTableViewSectionedReloadDataSource<SectionModel<Int, Int>>()
     
-    let dataCellsF = Variable([SectionModel<Int, Int>]())
     
     fileprivate var _pageIndex = 1
     fileprivate var _datas = [M_Attention]()
-    
+    fileprivate var _datasF = [M_Friends]()
     // 通讯连接//.forcePolling(false)
     static let socket:SocketIOClient = SocketIOClient(socketURL: URL(string: My_API.url_SocketIO广播)!, config: [.log(false)])
     
@@ -79,7 +77,7 @@ extension JH_Attention {
         self.makeUI()
         self.makeNotification()
         self.makeSocketIO()
-        //print_SP(SP_User.shared.deviceUUID)
+        
     }
     fileprivate func makeNavigation() {
         n_view._title = ""
@@ -104,6 +102,11 @@ extension JH_Attention {
             .bind(onNext: { [weak self](bool) in
                 self?.tableView2.isHidden = bool
                 self?.n_view.n_btn_L1.isHidden = !bool
+                if self?._datas.count == 0 && bool {
+                    self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有自选酒"), btnTitle:sp_localized("点击添加"))
+                }else if self?._datasF.count == 0 && !bool {
+                    self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有关注"), btnTitle:sp_localized("点击添加"))
+                }
             })
             .addDisposableTo(disposeBag)
     }
@@ -124,15 +127,7 @@ extension JH_Attention {
         makeTableView()
         makeTableViewFriend()
     }
-    func makeTableView() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        self._placeHolderType = .tOnlyImage
-        self.tableView.cyl_reloadData()
-        self.sp_addMJRefreshHeader()
-        self.tableView.sp_headerBeginRefresh()
-    }
+    
     
     fileprivate func makeNotification() {
         sp_Notification.rx
@@ -237,7 +232,12 @@ extension JH_Attention {
         case .tOnlyImage:
             break
         case .tNoData(_,_):
-            clickN_btn_R1()
+            if self.tableView2.isHidden {
+                clickN_btn_R1()
+            }else{
+                
+            }
+            
             //self.navigationController?.tabBarController?.selectedIndex = 2
         case .tNetError(let lab):
             if lab == My_NetCodeError.t需要登录.stringValue {
@@ -250,26 +250,34 @@ extension JH_Attention {
     }
 }
 extension JH_Attention {
-    fileprivate func makeTableViewFriend() {
-        dataCellsF.value = [
-            SectionModel(model:0,items:[0,1,2,3,4,5,6,7,8,9]),
-            SectionModel(model:1,items:[10,11,12,13,14,15,16,17,18,19])
-        ]
-        dataSourceF.configureCell = { (dat,tab,indexPath,mo) in
-            let cell = tab.dequeueReusableCell(withIdentifier: "My_MsgVCCell")
-            cell?.textLabel?.text = "\(mo)"
-            return cell!
-        }
+    func makeTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
-        dataCellsF.asDriver()
-            .drive(tableView2.rx.items(dataSource: dataSourceF))
-            .addDisposableTo(disposeBag)
+        self._placeHolderType = .tOnlyImage
+        self.tableView.cyl_reloadData()
+        self.sp_addMJRefreshHeader()
+        self.tableView.sp_headerBeginRefresh()
+    }
+    fileprivate func makeTableViewFriend() {
+        self.tableView2.delegate = self
+        self.tableView2.dataSource = self
+        
+        self._placeHolderType = .tOnlyImage
+        self.tableView2.cyl_reloadData()
     }
 }
 
 extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _datas.count
+        switch tableView {
+        case self.tableView:
+            return _datas.count
+        case self.tableView2:
+            return _datasF.count
+        default:
+            return 0
+        }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
@@ -278,32 +286,74 @@ extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
         return sp_SectionH_Min
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableView {
+        case self.tableView:
+            return sp_fitSize((70,75,80))
+        case self.tableView2:
+            return 60
+        default:
+            return 0
+        }
         
-        return sp_fitSize((70,75,80))
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = JH_AttentionCell_Normal.show(tableView)
-        let model = _datas[indexPath.row]
-        cell.lab_name.text = model.name
-        cell.lab_code.text = model.code
-        cell.lab_price.text = model.last_price
-        cell.lab_range.text = model.quoteChange
-        cell.lab_range.textColor = model.quoteChange.hasPrefix("-") ? UIColor.mainText_5 : UIColor.mainText_4
-        return cell
+        switch tableView {
+        case self.tableView:
+            let cell = JH_AttentionCell_Normal.show(tableView)
+            let model = _datas[indexPath.row]
+            cell.lab_name.text = model.name
+            cell.lab_code.text = model.code
+            cell.lab_price.text = model.last_price
+            cell.lab_range.text = model.quoteChange
+            cell.lab_range.textColor = model.quoteChange.hasPrefix("-") ? UIColor.mainText_5 : UIColor.mainText_4
+            return cell
+        case self.tableView2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "My_MsgVCCell")
+            cell?.textLabel?.text = "\(indexPath.row)"
+            return cell!
+        default:
+            return UITableViewCell()
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        JH_AttentionDetails.show(self, data:_datas[indexPath.row])
+        switch tableView {
+        case self.tableView:
+            JH_AttentionDetails.show(self, data:_datas[indexPath.row])
+        case self.tableView2:
+            break
+        default:
+            break
+        }
+        
+        
         
     }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .delete
+        switch tableView {
+        case self.tableView:
+            return .delete
+        case self.tableView2:
+            return .none
+        default:
+            return .none
+        }
+        
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            t_删除自选数据(indexPath.row)
+        switch tableView {
+        case self.tableView:
+            if editingStyle == .delete {
+                t_删除自选数据(indexPath.row)
+            }
+        case self.tableView2:
+            break
+        default:
+            break
         }
+        
     }
     
     /*

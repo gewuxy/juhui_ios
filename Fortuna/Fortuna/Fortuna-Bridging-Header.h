@@ -53,4 +53,4 @@
 
 //富文本编辑器
 //#import "LMSegmentedControl.h"
-
+#import "RichTextViewController.h"

@@ -38,6 +38,7 @@ extension My_MsgVC {
 }
 extension My_MsgVC {
     fileprivate func makeTableViewRx(){
+        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
         dataCells.value = [
             SectionModel(model:0,items:[0,1,2,3,4,5,6,7,8,9]),
             SectionModel(model:1,items:[10,11,12,13,14,15,16,17,18,19])
@@ -52,5 +53,13 @@ extension My_MsgVC {
             .drive(tableView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
         
+    }
+}
+extension My_MsgVC:UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sp_SectionH_Min
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return sp_SectionH_Min
     }
 }

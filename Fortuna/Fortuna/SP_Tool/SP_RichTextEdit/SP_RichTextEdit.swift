@@ -8,7 +8,6 @@
 
 import UIKit
 import YYText
-import YCXMenu
 import RxCocoa
 import RxSwift
 
@@ -19,6 +18,8 @@ class SP_RichTextEdit: SP_ParentVC {
     let disposeBag = DisposeBag()
     var _vcType = SP_RichTextEditType.t短评
     //MARK:--- 工具栏 ----------
+    var toolBarConfi  = SP_RichTextEdit_ToolBarConfi()
+    
     lazy var toolBar:SP_RichTextEditToolBar =  {
         let view = SP_RichTextEditToolBar.show()
         view.frame.size.height = 40
@@ -54,8 +55,16 @@ class SP_RichTextEdit: SP_ParentVC {
         return text
     }()
     
+    var dataTexts:[M_SP_RichText] = [M_SP_RichText()] {
+        didSet{
+            //self.makeTextContent()
+        }
+    }
     
-    
+    var locationStr:NSMutableAttributedString = NSMutableAttributedString()
+    var isDelete = false //是否是回删
+    var newRange:NSRange?
+    var newstr = ""    //记录最新内容的字符串
 }
 
 
@@ -74,35 +83,17 @@ extension SP_RichTextEdit {
         self.makeNavigation()
         self.makeToolBar()
         self.makeYYtextView()
+        
+        //testText()
     }
     fileprivate func makeNavigation() {
         self.n_view._title = sp_localized(_vcType.rawValue)
+        self.n_view.n_btn_R1_Text = "发布"
+    }
+    override func clickN_btn_R1() {
+        print_SP(self.textView.attributedText)
     }
     
-}
-extension SP_RichTextEdit {
-    
-    fileprivate func makeToolBar() {
-        toolBar.tool_B.rx.tap
-            .asObservable()
-            .subscribe(onNext: { [weak self](isOK) in
-                //self?.makeMenu()
-            }).addDisposableTo(disposeBag)
-    }
-    fileprivate func makeMenu(){
-        let menuItems = [
-            YCXMenuItem.init(sp_localized("短评"), image: nil, tag: 0, userInfo: ["title":"短评"]),
-            YCXMenuItem.init(sp_localized("长文"), image: nil, tag: 1, userInfo: ["title":"长文"]),
-            YCXMenuItem.init(sp_localized("活动"), image: nil, tag: 2, userInfo: ["title":"活动"])]
-        let point = toolBar.tool_B.convert(toolBar.tool_B.center, to: sp_MainWindow)
-        let fromRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
-        YCXMenu.setHasShadow(true)
-        YCXMenu.setTintColor(UIColor.mainText_1)
-        YCXMenu.setSelectedColor(UIColor.black)
-        YCXMenu.show(in: sp_MainWindow, from: fromRect, menuItems: menuItems) { (index, item) in
-            
-        }
-    }
 }
 extension SP_RichTextEdit {
     fileprivate func makeYYtextView() {
@@ -123,21 +114,142 @@ extension SP_RichTextEdit {
         }
         
     }
+    func dataTextsAppendItem() {
+        
+        guard dataTexts.last!.isEdit else {
+            
+            return
+        }
+        dataTexts.append(M_SP_RichText())
+    }
+    
+    func setInitLocation() {
+        self.locationStr = NSMutableAttributedString(attributedString: self.textView.attributedText!)
+        
+    }
+    //MARK:--- 设置样式 ----------
+    func setStyle() {
+        //把最新的内容进行替换
+        self.setInitLocation()
+        //是否回删
+        if isDelete {return}
+        
+        
+        var attributes:[String:Any] = [:]
+        if toolBarConfi.isBold {
+            attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: toolBarConfi.fontSize)]
+            
+        }
+        else
+        {
+            attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: toolBarConfi.fontSize)]
+            
+        }
+        
+        let replaceStr = NSAttributedString(string: self.newstr, attributes: attributes)
+        self.locationStr.replaceCharacters(in: self.newRange!, with: replaceStr)
+        
+        textView.attributedText = self.locationStr
+        
+        //这里需要把光标的位置重新设定
+        self.textView.selectedRange = NSMakeRange(self.newRange!.location+self.newRange!.length, 0)
+        
+    }
+    
+    fileprivate func makeTextContent() {
+        let text:NSMutableAttributedString = NSMutableAttributedString()
+        for item in dataTexts {
+            switch item.type {
+            case 0:
+                var attributes:[String:Any] = [:]
+                if item.isBold {
+                    attributes = [NSFontAttributeName
+                        :UIFont.boldSystemFont(ofSize: CGFloat(item.fontSize))]
+                }else{
+                    attributes = [NSFontAttributeName
+                        :UIFont.systemFont(ofSize: CGFloat(item.fontSize))]
+                }
+                text.append(NSAttributedString(string: item.text, attributes: attributes))
+            default:
+                break
+            }
+        }
+        
+        textView.attributedText = text
+    }
+    
+    fileprivate func testText() {
+        
+        var model0 = M_SP_RichText()
+        model0.type = 0
+        model0.text = "12345"
+        
+        var model1 = M_SP_RichText()
+        model1.type = 0
+        model1.text = "12345"
+        model1.isBold = true
+        
+        var model2 = M_SP_RichText()
+        model2.type = 0
+        model2.text = "12345"
+        model2.isBold = true
+        model2.fontSize = 36
+        
+        dataTexts = [model0,model1,model2]
+        
+        makeTextContent()
+    }
 }
 
 extension SP_RichTextEdit:YYTextViewDelegate {
-    func textViewDidBeginEditing(_ textView: YYTextView) {
-        
-    }
+    
     func textView(_ textView: YYTextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        print_SP("range.location ==> \(range.location)")
-        print_SP("text.characters.count ==> \(text.characters.count)")
-        if textView == textViewTitle {
+        switch textView{
+        case textViewTitle:
             if (range.location >= 30 || range.location + text.characters.count > 30) {
                 return false
+            }else{
+                return true
             }
+        case textView:
+            
+            return true
+        default:
             return true
         }
-        return true
+        
+        
+    }
+    
+    func textViewDidChange(_ textView: YYTextView) {
+        
+        let len = textView.attributedText!.length - self.locationStr.length
+        print_SP("len => \(len)")
+        if len > 0 {
+            self.isDelete = false
+            self.newRange = NSMakeRange(self.textView.selectedRange.location-len, len)
+            self.newstr = textView.text.substring(with: self.textView.text.sp_range(from: self.newRange!)!)
+        }else{
+            self.isDelete = true
+        }
+        
+        self.setStyle()
+        
+        /*
+        //判断当前输入法是否是中文
+        let isChinese = !(textView.textInputMode?.primaryLanguage == "en-US")
+        //[[ self.textView text] stringByReplacingOccurrencesOfString:@"?" withString:@""];
+        if isChinese { //中文输入法下
+            //获取高亮部分 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+            let selectedRange = self.textView.markedTextRange
+            if (selectedRange != nil) {
+                let position = self.textView.position(from: selectedRange!.start, offset: 0)
+                if (position != nil) {
+                    
+                }
+            }
+        }else{
+            self.setStyle()
+        }*/
     }
 }

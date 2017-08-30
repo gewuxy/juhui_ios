@@ -13,29 +13,41 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULE-X9-Pj4" customClass="SP_RichTextEditToolBar" customModule="Fortuna" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHM-ET-Okj">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHM-ET-Okj">
                     <rect key="frame" x="0.0" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="B"/>
+                    <state key="normal" title="B">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULy-sC-Tpd">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULy-sC-Tpd">
                     <rect key="frame" x="62.5" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="H"/>
+                    <state key="normal" title="H">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WN-Ba-5jA">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WN-Ba-5jA">
                     <rect key="frame" x="125" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="超链接"/>
+                    <state key="normal" title="超链接">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPL-5S-8Oy">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPL-5S-8Oy">
                     <rect key="frame" x="187.5" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="@"/>
+                    <state key="normal" title="@">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVm-Xs-mQZ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVm-Xs-mQZ">
                     <rect key="frame" x="312.5" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="图片"/>
+                    <state key="normal" title="图片">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-VZ-nXp">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-VZ-nXp">
                     <rect key="frame" x="250" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="$"/>
+                    <state key="normal" title="$">
+                        <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qad-RD-w5r">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -45,7 +57,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.9103702910958904" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="QHM-ET-Okj" firstAttribute="top" secondItem="ULE-X9-Pj4" secondAttribute="top" id="12r-ml-gpr"/>
                 <constraint firstItem="2Te-VZ-nXp" firstAttribute="leading" secondItem="rPL-5S-8Oy" secondAttribute="trailing" id="2qN-Yi-BJd"/>
@@ -79,8 +91,8 @@
                 <outlet property="tool_A" destination="ULy-sC-Tpd" id="ml3-Uq-HdK"/>
                 <outlet property="tool_B" destination="QHM-ET-Okj" id="iIs-XM-GIw"/>
                 <outlet property="tool_Friend" destination="rPL-5S-8Oy" id="4wt-be-kVa"/>
-                <outlet property="tool_Img" destination="4WN-Ba-5jA" id="9bH-wk-Qct"/>
-                <outlet property="tool_Link" destination="CVm-Xs-mQZ" id="wYR-qv-kBH"/>
+                <outlet property="tool_Img" destination="CVm-Xs-mQZ" id="en1-0U-3W2"/>
+                <outlet property="tool_Link" destination="4WN-Ba-5jA" id="k9u-Mt-MKK"/>
                 <outlet property="tool_Wine" destination="2Te-VZ-nXp" id="b4d-jv-4lx"/>
                 <outlet property="view_Line" destination="Qad-RD-w5r" id="EkR-OZ-bm4"/>
             </connections>
