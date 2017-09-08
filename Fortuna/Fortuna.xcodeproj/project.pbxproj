@@ -29,6 +29,11 @@
 		476D293F1F4BC45200AD7DBF /* My_NewsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D293E1F4BC45200AD7DBF /* My_NewsVM.swift */; };
 		476D29491F4C3B8D00AD7DBF /* SP_RichTextEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476D29471F4C3B8D00AD7DBF /* SP_RichTextEdit.swift */; };
 		476D294A1F4C3B8D00AD7DBF /* SP_RichTextEditStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 476D29481F4C3B8D00AD7DBF /* SP_RichTextEditStoryboard.storyboard */; };
+		477338FD1F5E803C0008CDA1 /* LMTextHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 477338FC1F5E803C0008CDA1 /* LMTextHTMLParser.m */; };
+		477339021F5E806A0008CDA1 /* NSTextAttachment+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 477338FF1F5E806A0008CDA1 /* NSTextAttachment+LMText.m */; };
+		477339031F5E806A0008CDA1 /* UIFont+LMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 477339011F5E806A0008CDA1 /* UIFont+LMText.m */; };
+		477339081F5E811A0008CDA1 /* LMParagraphConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 477339051F5E811A0008CDA1 /* LMParagraphConfig.m */; };
+		477339091F5E811A0008CDA1 /* LMTextStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 477339071F5E811A0008CDA1 /* LMTextStyle.m */; };
 		479065AE1F53BEA600640B9A /* SP_RichTextEdit_ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479065AD1F53BEA600640B9A /* SP_RichTextEdit_ToolBar.swift */; };
 		479065B01F53F26B00640B9A /* M_SP_RichText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479065AF1F53F26B00640B9A /* M_SP_RichText.swift */; };
 		479065C71F55462400640B9A /* RichText.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479065B41F55462400640B9A /* RichText.storyboard */; };
@@ -68,12 +73,17 @@
 		479066251F5547B100640B9A /* NSString+CaclSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 479066231F5547B100640B9A /* NSString+CaclSize.m */; };
 		479066291F5570EC00640B9A /* My_SearchFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479066281F5570EC00640B9A /* My_SearchFriendsVC.swift */; };
 		4790662B1F55733D00640B9A /* My_SearchWineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4790662A1F55733D00640B9A /* My_SearchWineVC.swift */; };
-		479FD4DB1F56671900C93406 /* M_Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FD4DA1F56671900C93406 /* M_Friends.swift */; };
+		479593051F5D368100BF523D /* My_NewsPostDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479593041F5D368100BF523D /* My_NewsPostDetail.swift */; };
+		479593071F5D455600BF523D /* SP_RichTextEditAddLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479593061F5D455600BF523D /* SP_RichTextEditAddLinkView.swift */; };
+		479593091F5D456000BF523D /* SP_RichTextEditAddLinkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479593081F5D456000BF523D /* SP_RichTextEditAddLinkView.xib */; };
+		47C8AEDF1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C8AEDE1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift */; };
 		47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */; };
 		47E505991F4F031B0093540C /* My_MsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E505981F4F031B0093540C /* My_MsgVC.swift */; };
 		47EE30901F4FCA730016BA5E /* SP_RichTextEditToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EE308F1F4FCA730016BA5E /* SP_RichTextEditToolBar.swift */; };
 		47EE30951F500C1A0016BA5E /* SP_RichTextEditToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EE30941F500C1A0016BA5E /* SP_RichTextEditToolBar.xib */; };
 		47EE30971F5014190016BA5E /* SP_RichTextEdit_EnumType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EE30961F5014190016BA5E /* SP_RichTextEdit_EnumType.swift */; };
+		47F5488D1F58345C00C28AED /* My_FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5488C1F58345C00C28AED /* My_FriendsVC.swift */; };
+		47F5488F1F585A5D00C28AED /* M_Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5488E1F585A5D00C28AED /* M_Friends.swift */; };
 		AB0235651EE55659007AB6BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235641EE55659007AB6BB /* AppDelegate.swift */; };
 		AB0235671EE55659007AB6BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0235661EE55659007AB6BB /* ViewController.swift */; };
 		AB02356A1EE55659007AB6BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0235681EE55659007AB6BB /* Main.storyboard */; };
@@ -495,6 +505,16 @@
 		476D293E1F4BC45200AD7DBF /* My_NewsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_NewsVM.swift; sourceTree = "<group>"; };
 		476D29471F4C3B8D00AD7DBF /* SP_RichTextEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEdit.swift; sourceTree = "<group>"; };
 		476D29481F4C3B8D00AD7DBF /* SP_RichTextEditStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SP_RichTextEditStoryboard.storyboard; sourceTree = "<group>"; };
+		477338FB1F5E803C0008CDA1 /* LMTextHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextHTMLParser.h; sourceTree = "<group>"; };
+		477338FC1F5E803C0008CDA1 /* LMTextHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextHTMLParser.m; sourceTree = "<group>"; };
+		477338FE1F5E806A0008CDA1 /* NSTextAttachment+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextAttachment+LMText.h"; sourceTree = "<group>"; };
+		477338FF1F5E806A0008CDA1 /* NSTextAttachment+LMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextAttachment+LMText.m"; sourceTree = "<group>"; };
+		477339001F5E806A0008CDA1 /* UIFont+LMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+LMText.h"; sourceTree = "<group>"; };
+		477339011F5E806A0008CDA1 /* UIFont+LMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+LMText.m"; sourceTree = "<group>"; };
+		477339041F5E811A0008CDA1 /* LMParagraphConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMParagraphConfig.h; sourceTree = "<group>"; };
+		477339051F5E811A0008CDA1 /* LMParagraphConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMParagraphConfig.m; sourceTree = "<group>"; };
+		477339061F5E811A0008CDA1 /* LMTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextStyle.h; sourceTree = "<group>"; };
+		477339071F5E811A0008CDA1 /* LMTextStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextStyle.m; sourceTree = "<group>"; };
 		479065AD1F53BEA600640B9A /* SP_RichTextEdit_ToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEdit_ToolBar.swift; sourceTree = "<group>"; };
 		479065AF1F53F26B00640B9A /* M_SP_RichText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_SP_RichText.swift; sourceTree = "<group>"; };
 		479065B41F55462400640B9A /* RichText.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RichText.storyboard; sourceTree = "<group>"; };
@@ -572,12 +592,17 @@
 		479066231F5547B100640B9A /* NSString+CaclSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CaclSize.m"; sourceTree = "<group>"; };
 		479066281F5570EC00640B9A /* My_SearchFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_SearchFriendsVC.swift; sourceTree = "<group>"; };
 		4790662A1F55733D00640B9A /* My_SearchWineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_SearchWineVC.swift; sourceTree = "<group>"; };
-		479FD4DA1F56671900C93406 /* M_Friends.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_Friends.swift; sourceTree = "<group>"; };
+		479593041F5D368100BF523D /* My_NewsPostDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_NewsPostDetail.swift; sourceTree = "<group>"; };
+		479593061F5D455600BF523D /* SP_RichTextEditAddLinkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEditAddLinkView.swift; sourceTree = "<group>"; };
+		479593081F5D456000BF523D /* SP_RichTextEditAddLinkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_RichTextEditAddLinkView.xib; sourceTree = "<group>"; };
+		47C8AEDE1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_FriendsVC_Cell.swift; sourceTree = "<group>"; };
 		47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetailsFull.swift; sourceTree = "<group>"; };
 		47E505981F4F031B0093540C /* My_MsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_MsgVC.swift; sourceTree = "<group>"; };
 		47EE308F1F4FCA730016BA5E /* SP_RichTextEditToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEditToolBar.swift; sourceTree = "<group>"; };
 		47EE30941F500C1A0016BA5E /* SP_RichTextEditToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_RichTextEditToolBar.xib; sourceTree = "<group>"; };
 		47EE30961F5014190016BA5E /* SP_RichTextEdit_EnumType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEdit_EnumType.swift; sourceTree = "<group>"; };
+		47F5488C1F58345C00C28AED /* My_FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_FriendsVC.swift; sourceTree = "<group>"; };
+		47F5488E1F585A5D00C28AED /* M_Friends.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_Friends.swift; sourceTree = "<group>"; };
 		AB0235611EE55658007AB6BB /* Fortuna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fortuna.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0235641EE55659007AB6BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB0235661EE55659007AB6BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1374,8 +1399,30 @@
 			children = (
 				47EE308F1F4FCA730016BA5E /* SP_RichTextEditToolBar.swift */,
 				47EE30941F500C1A0016BA5E /* SP_RichTextEditToolBar.xib */,
+				479593061F5D455600BF523D /* SP_RichTextEditAddLinkView.swift */,
+				479593081F5D456000BF523D /* SP_RichTextEditAddLinkView.xib */,
+				477338FB1F5E803C0008CDA1 /* LMTextHTMLParser.h */,
+				477338FC1F5E803C0008CDA1 /* LMTextHTMLParser.m */,
+				477338FE1F5E806A0008CDA1 /* NSTextAttachment+LMText.h */,
+				477338FF1F5E806A0008CDA1 /* NSTextAttachment+LMText.m */,
+				477339001F5E806A0008CDA1 /* UIFont+LMText.h */,
+				477339011F5E806A0008CDA1 /* UIFont+LMText.m */,
+				477339041F5E811A0008CDA1 /* LMParagraphConfig.h */,
+				477339051F5E811A0008CDA1 /* LMParagraphConfig.m */,
+				477339061F5E811A0008CDA1 /* LMTextStyle.h */,
+				477339071F5E811A0008CDA1 /* LMTextStyle.m */,
 			);
 			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		47F5488B1F58344A00C28AED /* My_Friends */ = {
+			isa = PBXGroup;
+			children = (
+				47F5488C1F58345C00C28AED /* My_FriendsVC.swift */,
+				47C8AEDE1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift */,
+				47F5488E1F585A5D00C28AED /* M_Friends.swift */,
+			);
+			path = My_Friends;
 			sourceTree = "<group>";
 		};
 		99B48EE3D032EE841B94338D /* Frameworks */ = {
@@ -2077,6 +2124,7 @@
 				AB42C7BB1EF6BDC700C51669 /* JH_BuyAndSell */,
 				AB4A75C71EEFE8580014F633 /* JH_Search */,
 				AB5901481EE9331200826A37 /* JH_Attention */,
+				47F5488B1F58344A00C28AED /* My_Friends */,
 				AB59014B1EE9331200826A37 /* JH_News */,
 				47E505971F4F030B0093540C /* My_Msg */,
 				AB5901491EE9331200826A37 /* JH_Market */,
@@ -2147,6 +2195,7 @@
 			children = (
 				AB59014C1EE9335A00826A37 /* JH_News.swift */,
 				AB4A75C41EEFCC920014F633 /* JH_NewsDetials.swift */,
+				479593041F5D368100BF523D /* My_NewsPostDetail.swift */,
 				476D29371F4BC42B00AD7DBF /* Model */,
 				476D29391F4BC42B00AD7DBF /* View */,
 				476D293B1F4BC42B00AD7DBF /* ViewModel */,
@@ -2391,7 +2440,6 @@
 			children = (
 				AB67EBFB1F00A389009FF2DC /* M_Attention.swift */,
 				AB44C9451F0C88E20040E3F7 /* M_TimeLine.swift */,
-				479FD4DA1F56671900C93406 /* M_Friends.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3019,6 +3067,7 @@
 				AB993D7D1F0B948700C06108 /* image_select@2x.png in Resources */,
 				AB5901BE1EE94B9200826A37 /* SP_AdsColleCell.xib in Resources */,
 				AB1993771F03925F00E710CB /* video_next_button_highlighted@2x.png in Resources */,
+				479593091F5D456000BF523D /* SP_RichTextEditAddLinkView.xib in Resources */,
 				AB993D651F0B948700C06108 /* AS_AddImageCell.xib in Resources */,
 				AB1993751F03925F00E710CB /* video_next_button@2x.png in Resources */,
 				AB1992B21F033DD600E710CB /* SP_IM.storyboard in Resources */,
@@ -3157,13 +3206,16 @@
 				AB19937D1F03925F00E710CB /* UIView+HXExtension.m in Sources */,
 				AB44C9AB1F0CBA9F0040E3F7 /* SP_LineBgView.swift in Sources */,
 				AB564F311EFB930A005E3ABB /* SP_MBHUD.swift in Sources */,
+				477339021F5E806A0008CDA1 /* NSTextAttachment+LMText.m in Sources */,
 				AB993D211F0B39A200C06108 /* YYStockVariable.m in Sources */,
 				AB993D6C1F0B948700C06108 /* photoCollectionViewCell.swift in Sources */,
 				AB0BD3921F1896C000899D0F /* LGAudioPlayer.m in Sources */,
+				47C8AEDF1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift in Sources */,
 				AB19937C1F03925F00E710CB /* UIImage+HXExtension.m in Sources */,
 				AB993D731F0B948700C06108 /* PhotoPickerController.swift in Sources */,
 				479065CC1F55462400640B9A /* NSAttributedString+RichText.m in Sources */,
 				AB1992B41F0355AB00E710CB /* SP_IM_TabCell.swift in Sources */,
+				479593071F5D455600BF523D /* SP_RichTextEditAddLinkView.swift in Sources */,
 				479065CE1F55462400640B9A /* PictureModel.m in Sources */,
 				AB993D291F0B39A200C06108 /* YYKlineVolumeView.m in Sources */,
 				AB5901C51EE94B9200826A37 /* CGSize_extension.swift in Sources */,
@@ -3191,6 +3243,7 @@
 				479065B01F53F26B00640B9A /* M_SP_RichText.swift in Sources */,
 				479065F41F55474300640B9A /* SDWebImageDecoder.m in Sources */,
 				AB993D831F0B948700C06108 /* PostFormData.swift in Sources */,
+				47F5488D1F58345C00C28AED /* My_FriendsVC.swift in Sources */,
 				AB19933A1F03925F00E710CB /* HXTransition.m in Sources */,
 				AB993D851F0B948700C06108 /* SP_AddPhoto.swift in Sources */,
 				AB310AE31F1CA565007F3778 /* Y_KLineMainView.m in Sources */,
@@ -3202,6 +3255,7 @@
 				AB310AE91F1CA565007F3778 /* Y_KLineVolumePositionModel.m in Sources */,
 				479065F71F55474300640B9A /* SDWebImageManager.m in Sources */,
 				4742D6611F42B86100374F95 /* SP_Realm.swift in Sources */,
+				479593051F5D368100BF523D /* My_NewsPostDetail.swift in Sources */,
 				AB993D6F1F0B948700C06108 /* PhotoFetchOptions.swift in Sources */,
 				AB310AF11F1CA565007F3778 /* Y_StockChartView.m in Sources */,
 				AB4EEB051F1778EC00DDCBA4 /* SP_PhotoProgressView.swift in Sources */,
@@ -3217,6 +3271,7 @@
 				AB5901E91EE94B9200826A37 /* SP_MJDIYHeader.swift in Sources */,
 				476D293F1F4BC45200AD7DBF /* My_NewsVM.swift in Sources */,
 				AB310AF91F1CA565007F3778 /* NSArray+MASAdditions.m in Sources */,
+				477339091F5E811A0008CDA1 /* LMTextStyle.m in Sources */,
 				AB5901D81EE94B9200826A37 /* UIViewController+Extension.swift in Sources */,
 				479065CA1F55462400640B9A /* ImageTextAttachment.m in Sources */,
 				AB7254841F20E1820057024B /* M_MyDelegate.swift in Sources */,
@@ -3238,6 +3293,7 @@
 				AB9920B11F11E11600CFBB6C /* JH_MyHistoryDeal.swift in Sources */,
 				479065C91F55462400640B9A /* ArchiveFile.m in Sources */,
 				AB993D791F0B948700C06108 /* UIImage+Extension.swift in Sources */,
+				477339031F5E806A0008CDA1 /* UIFont+LMText.m in Sources */,
 				4790661E1F55475C00640B9A /* NSObject+MJProperty.m in Sources */,
 				470B2CAA1F31C2AB0053CCAE /* FCFileManager.m in Sources */,
 				AB82CEBD1EEE334400D015B1 /* My_Info.swift in Sources */,
@@ -3259,7 +3315,6 @@
 				AB0BD3A61F18985300899D0F /* KZVideoPlayer.m in Sources */,
 				AB1993341F03925F00E710CB /* HXPhotoSubViewCell.m in Sources */,
 				AB5901EC1EE94B9200826A37 /* Reachability.swift in Sources */,
-				479FD4DB1F56671900C93406 /* M_Friends.swift in Sources */,
 				ABFC47D91EEE49550057BD58 /* SP_Signin.swift in Sources */,
 				AB19932E1F03925F00E710CB /* HXCollectionView.m in Sources */,
 				47143D461F4D7A5F00B145B5 /* NXBRichTextView.m in Sources */,
@@ -3323,6 +3378,7 @@
 				AB5901C41EE94B9200826A37 /* Cell_extension.swift in Sources */,
 				AB5901BF1EE94B9200826A37 /* SP_AdsCollectionView.swift in Sources */,
 				479065CD1F55462400640B9A /* NSString+Regular.m in Sources */,
+				477339081F5E811A0008CDA1 /* LMParagraphConfig.m in Sources */,
 				AB1993351F03925F00E710CB /* HXPhotoTools.m in Sources */,
 				AB310AF31F1CA565007F3778 /* MASCompositeConstraint.m in Sources */,
 				AB4A75C11EEF86470014F633 /* JH_Attention_Cell.swift in Sources */,
@@ -3407,6 +3463,7 @@
 				AB5901E71EE94B9200826A37 /* SP_MJDIYAutoFooter.swift in Sources */,
 				470B2CA41F31C1A30053CCAE /* NSObject+WZXArchiver.m in Sources */,
 				AB310AED1F1CA565007F3778 /* Y_VolumeMAView.m in Sources */,
+				47F5488F1F585A5D00C28AED /* M_Friends.swift in Sources */,
 				AB5901FA1EE94B9200826A37 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				AB310ADF1F1CA565007F3778 /* Y_KLineAccessoryView.m in Sources */,
 				AB993D741F0B948700C06108 /* PhotoPreviewBottomBarView.swift in Sources */,
@@ -3424,6 +3481,7 @@
 				47143D471F4D7A5F00B145B5 /* NXBSelectPhotosModel.m in Sources */,
 				AB1993301F03925F00E710CB /* HXPhotoManager.m in Sources */,
 				4790661B1F55475C00640B9A /* NSObject+MJClass.m in Sources */,
+				477338FD1F5E803C0008CDA1 /* LMTextHTMLParser.m in Sources */,
 				AB19937B1F03925F00E710CB /* UIButton+HXExtension.m in Sources */,
 				AB2DE4F71F163D4F006BEC0E /* SP_IM_Voice.swift in Sources */,
 				AB993D241F0B39A200C06108 /* YYVolumePositionModel.m in Sources */,

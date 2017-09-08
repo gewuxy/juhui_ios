@@ -80,7 +80,7 @@ extension SP_ParentVC {
         self.view.addSubview(_placeHolderView)
         _placeHolderView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
-            make.top.equalTo(self.n_view.snp.bottom)
+            make.top.equalToSuperview().offset(64)
         }
         
         

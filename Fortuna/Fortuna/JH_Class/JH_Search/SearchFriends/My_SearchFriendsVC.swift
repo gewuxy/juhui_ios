@@ -10,6 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import SwiftyJSON
+import Realm
+import RealmSwift
+
 class My_SearchFriendsVC: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
@@ -39,15 +43,41 @@ extension My_SearchFriendsVC {
 }
 extension My_SearchFriendsVC {
     fileprivate func makeTableViewRx(){
+        dataCells.value = [SectionModel(model:0,items:[])]
+        /*
+        do {
+            let realm = try Realm()
+            if let theRealms:M_FriendsRealmS = realm.object(ofType: M_FriendsRealmS.self, forPrimaryKey: "m_FriendsRealmfollowlist") {
+                for item in theRealms.followlist {
+                    dataCells.value[0].items.append(item.read())
+                }
+            }
+        } catch let err {
+            print(err)
+        }*/
+        
+        self._placeHolderType = .tOnlyImage
+        self.sp_addPlaceHolderView()
+        
+        self.sp_addMJRefreshHeader()
+        self.tableView.sp_headerBeginRefresh()
+        self.sp_addPlaceHolderView()
+        
+        // 用所有的 [Item] 是否为空绑定 view 是否隐藏
+        dataCells.asObservable()
+            .map {  $0.map { $0.items }.reduce([], +)  }
+            .map { !$0.isEmpty }
+            .bind(to: _placeHolderView.rx.isHidden)
+            .addDisposableTo(disposeBag)
+        
         tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
-        dataCells.value = [
-            SectionModel(model:0,items:[M_Friends()]),
-            SectionModel(model:1,items:[M_Friends()])
-        ]
+        
         dataSource.configureCell = { (dat,tab,indexPath,mo) in
-            let cell = tab.dequeueReusableCell(withIdentifier: "My_MsgVCCell")
-            cell?.textLabel?.text = mo.name
-            return cell!
+            let cell = My_FriendsCell_List.show(tab)
+            cell.lab_name.text = mo.name
+            cell.btn_logo.sp_ImageName(mo.logo)
+            return cell
+
         }
         
         dataCells.asDriver()
@@ -72,3 +102,54 @@ extension My_SearchFriendsVC:UITableViewDelegate {
         return sp_SectionH_Min
     }
 }
+
+extension My_SearchFriendsVC {
+    fileprivate func sp_addMJRefreshHeader() {
+        tableView?.sp_headerAddMJRefresh { [weak self]_ in
+            self?.t_获取朋友列表()
+        }
+    }
+    fileprivate func sp_EndRefresh()  {
+        tableView?.sp_headerEndRefresh()
+        
+    }
+    fileprivate func t_获取朋友列表() {
+        My_API.t_获取朋友列表.post(M_Friends.self) { [weak self](isOk, data, error) in
+            self?.sp_EndRefresh()
+            if isOk {
+                guard let datas = data as? [M_Friends] else{return}
+                /*
+                DispatchQueue.global().async {
+                    do {
+                        let realm = try Realm()
+                        let m_AttentionRealmS = M_FriendsRealmS()
+                        m_AttentionRealmS.id = "m_FriendsRealmfollowlist"
+                        for item in datas {
+                            let m_AttentionRealm = M_FriendsRealm()
+                            m_AttentionRealm.write(item)
+                            m_AttentionRealmS.followlist.append(m_AttentionRealm)
+                        }
+                        
+                        try realm.write {
+                            //写入，根据主键更新
+                            realm.add(m_AttentionRealmS, update: true)
+                        }
+                        DispatchQueue.main.async { _ in
+                        }
+                    } catch let err {
+                        print(err)
+                    }
+                }*/
+                self?.dataCells.value[0].items = datas
+                if datas.count == 0 {
+                    self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有关注"), btnTitle:"")
+                }else if datas.count < my_pageSize{
+                    self?.tableView?.sp_footerEndRefreshNoMoreData()
+                }
+            }else{
+                self?._placeHolderType = .tNetError(labTitle: error)
+            }
+        }
+    }
+}
+

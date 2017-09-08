@@ -5,10 +5,10 @@ use_frameworks!
 target 'Fortuna' do
     pod 'Alamofire'
     pod 'AFNetworking'
-    
+    pod 'UICKeyChainStore'
     pod 'SwiftyJSON'
     pod 'ObjectMapper'
-    
+    #pod 'HandyJSON'
     #pod 'SDWebImage'
     
     pod 'SnapKit'

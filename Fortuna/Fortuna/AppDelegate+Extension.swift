@@ -127,6 +127,8 @@ extension AppDelegate {
         MobClick.start(withConfigure: UMAnalyticsConfig.sharedInstance())
         
         MobClick.setLogEnabled(true)//集成测试打开
+        //351e35bd3c109a1ede163f90212f77de9a582bba
+        
     }
     //MARK:--- 登录
     func userLogin(_ new:Bool = true) {

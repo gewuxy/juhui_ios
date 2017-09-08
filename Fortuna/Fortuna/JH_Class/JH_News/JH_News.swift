@@ -14,17 +14,25 @@ import RxCocoa
 import RxDataSources
 import Then
 import YCXMenu
+import SwiftyJSON
 
+import YYText
+import YYImage
 class JH_News: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
     let disposeBag = DisposeBag()
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, M_News>>()
+    //let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, M_NewsS>>()
     
-    let dataCells = Variable([SectionModel<Int, M_News>]())
+    //let dataCells = Variable([SectionModel<Int, M_NewsS>]())
     
     var _pageIndex = 1
-    //var _datas = [M_News]()
+    
+    var _dataNewsS:[M_NewsS] = [] {
+        didSet{
+            self.tableView.cyl_reloadData()
+        }
+    }
     
     lazy var btn_Search:UIButton = {
         let btn = UIButton()
@@ -69,8 +77,9 @@ extension JH_News {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeNavigation()
-        makeUI()
+        self.makeNavigation()
+        self.makeTableView()
+        
     }
     override func clickN_btn_L1() {
         My_MsgVC.show(self)
@@ -87,19 +96,7 @@ extension JH_News {
         YCXMenu.show(in: self.view, from: fromRect, menuItems: menuItems) { [weak self](index, item) in
             switch index {
             case 0:
-                let vc = RichTextViewController.initVC()
-                vc?.textType = .attributedString
-                self?.present(vc!, animated: true, completion: {
-                })
-                vc?.lab_title.text = "短评"
-                vc?.finished = { (content, imageArr) in
-                    
-                }
-                vc?.atSelect = { () -> [Any] in
-                    My_SearchFriendsVC.show(vc)
-                    
-                    return []
-                }
+                SP_RichTextEdit.show(self, type:.t短评)
             case 1:
                 SP_RichTextEdit.show(self, type:.t长文)
             default:break
@@ -118,6 +115,64 @@ extension JH_News {
         lab_Msg.text = " 99 "
         
     }
+    
+    override func sp_placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            self._placeHolderType = .tOnlyImage
+            self.tableView.sp_headerBeginRefresh()
+        case .tNetError(let lab):
+            if lab == My_NetCodeError.t需要登录.stringValue {
+                SP_Login.show(self)
+            }else{
+                self._placeHolderType = .tOnlyImage
+                self.tableView.sp_headerBeginRefresh()
+            }
+        }
+    }
+    
+}
+extension JH_News {
+    fileprivate func makeTableView() {
+        /*
+        do {
+            let realm = try Realm()
+            let theRealms:Results<M_NewsSRealm> = realm.objects(M_NewsSRealm.self)
+            
+            for item in theRealms {
+                _dataNewsS.append(item.read())
+                
+            }
+        } catch let err {
+            print(err)
+        }*/
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self._placeHolderType = .tOnlyImage
+        self.tableView.cyl_reloadData()
+        self.sp_addMJRefreshHeader()
+        self.tableView.sp_headerBeginRefresh()
+        
+        
+//        var mo1 = M_NewsS()
+//        mo1.type = .t新闻
+//        mo1.news = dataCells.value[0].items.first ?? M_News()
+//        
+//        var mo2 = M_NewsS()
+//        mo2.type = .t帖子
+//        mo2.content = [M_SP_RichText]()
+//        
+//        self._dataNewsS = [mo2,mo1]
+        
+        
+    }
+}
+/*
+//MARK:--- 旧 ----------
+extension JH_News {
     fileprivate func makeUI() {
         
         do {
@@ -143,26 +198,6 @@ extension JH_News {
         
         
     }
-    
-    override func sp_placeHolderViewClick() {
-        switch _placeHolderType {
-        case .tOnlyImage:
-            break
-        case .tNoData(_,_):
-            self._placeHolderType = .tOnlyImage
-            self.tableView.sp_headerBeginRefresh()
-        case .tNetError(let lab):
-            if lab == My_NetCodeError.t需要登录.stringValue {
-                SP_Login.show(self)
-            }else{
-                self._placeHolderType = .tOnlyImage
-                self.tableView.sp_headerBeginRefresh()
-            }
-        }
-    }
-    
-}
-extension JH_News {
     fileprivate func makeTableView() {
         
         dataCells.asObservable()
@@ -209,18 +244,170 @@ extension JH_News {
             .addDisposableTo(disposeBag)
     }
 }
+
+
 extension JH_News:UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return sp_fitSize((90, 100, 110))
     }
-     /*
+}*/
+extension JH_News:UITableViewDelegate,UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1//self._dataNewsS.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return _dataNewsS.count
+//        if self._dataNewsS[section].type == .t新闻 {
+//            return 1
+//        }else{
+//            return 3
+//        }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return sp_fitSize((90, 100, 110))
+        
+//        if self._dataNewsS[indexPath.section].type == .t新闻 {
+//            return sp_fitSize((90, 100, 110))
+//        }else{
+//            switch indexPath.row {
+//            case 0:
+//                return 60
+//            case 1:
+//                return 60
+//            case 2:
+//                return 40
+//            default:
+//                return 0
+//            }
+//        }
+        
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return sp_SectionH_Min
+        if section == 0 {
+            return sp_SectionH_Min
+        }else{
+            return sp_SectionH_Min
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
     }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JH_NewsPostCell_List.show(tableView)
+        let model = _dataNewsS[indexPath.row]
+        cell.img_Logo.sp_ImageName(model.first_img)
+        cell.lab_name.text = model.author_name
+        cell.lab_comm.text = "评论:" + String(format: "%d", model.comments_count)
+        let locationStr:NSMutableAttributedString = NSMutableAttributedString(string: "", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18)])
+        if !model.title.isEmpty {
+            let tagText = NSAttributedString(string: model.title, attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 18)])
+            let tagText2 = NSAttributedString(string: "\n", attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 0)])
+            locationStr.append(tagText)
+            locationStr.append(tagText2)
+        }
+        for item in model.content {
+            
+            switch item.type {
+            case M_SP_RichTextType.t文字.rawValue:
+                let tagText = NSAttributedString(string: item.text, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 16)])
+                locationStr.append(tagText)
+            case M_SP_RichTextType.t关注.rawValue:
+                let tagText = NSMutableAttributedString(string: item.text)
+                tagText.yy_font = UIFont.systemFont(ofSize: 16)
+                tagText.yy_color = UIColor.main_btnNormal
+                tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
+                let highlight = YYTextHighlight()
+                highlight.tapAction = { (containerView,text,range,rect) in
+                    SP_HUD.showMsg("朋友")
+                }
+                tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
+                locationStr.append(tagText)
+            case M_SP_RichTextType.t自选酒.rawValue:
+                let tagText = NSMutableAttributedString(string: item.text)
+                tagText.yy_font = UIFont.systemFont(ofSize: 16)
+                tagText.yy_color = UIColor.main_btnNormal
+                tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
+                let highlight = YYTextHighlight()
+                highlight.tapAction = { (containerView,text,range,rect) in
+                    SP_HUD.showMsg("点击了自选酒")
+                }
+                tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
+                locationStr.append(tagText)
+            case M_SP_RichTextType.t超链接.rawValue:
+                let tagText = NSMutableAttributedString(string: item.text)
+                tagText.yy_font = UIFont.systemFont(ofSize: 16)
+                tagText.yy_color = UIColor.main_btnNormal
+                tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
+                let highlight = YYTextHighlight()
+                highlight.tapAction = { (containerView,text,range,rect) in
+                    SP_HUD.showMsg("点击了超链接")
+                }
+                tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
+                locationStr.append(tagText)
+            default:
+                break
+            }
+            
+        }
+        cell.textView.attributedText = locationStr
+        return cell
+        /*
+        if self._dataNewsS[indexPath.section].type == .t新闻 {
+            let cell = JH_NewsCell_List.show(tableView)
+            let model = self._dataNewsS[indexPath.section].news
+            cell.img_Logo.sp_ImageName(model.thumb_img)
+            cell.lab_name.text = model.title
+            cell.lab_time.text = model.newsYY
+            cell.lab_time2.text = model.newsMM
+            return cell
+        }else{
+            switch indexPath.row {
+            case 0:
+                let cell = JH_NewsCell_User.show(tableView)
+                return cell
+            case 1:
+                let cell = JH_NewsCell_Content.show(tableView)
+                return cell
+            case 2:
+                let cell = JH_NewsCell_Btn.show(tableView)
+                return cell
+            default:
+                return UITableViewCell()
+            }
+            
+        }*/
+    }
     
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if self._dataNewsS[indexPath.section].type == .t新闻 {
+            //let model = self._dataNewsS[indexPath.section].news
+            //JH_NewsDetials.show(self,data:model)
+            My_NewsPostDetail.show(self, _dataNewsS[indexPath.row], block:{ [weak self](type) in
+                switch type {
+                case .t关注(let follow):
+                    self?._dataNewsS[indexPath.section].is_concerned = follow
+                    var fff = M_Friends()
+                    fff.id = self!._dataNewsS[indexPath.section].author_id
+                    fff.name = self!._dataNewsS[indexPath.section].author_name
+                    fff.logo = self!._dataNewsS[indexPath.section].author_img
+                    sp_Notification.post(name: follow ? ntf_Name_朋友添加 : ntf_Name_朋友删除, object: fff)
+                case .t赞:
+                    break
+                case .t评论:
+                    self?._dataNewsS[indexPath.section].comments_count += 1
+                case .t转发:
+                    break
+                }
+            })
+        }else{
+            My_NewsPostDetail.show(self, _dataNewsS[indexPath.row])
+        }
+    }
    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -229,15 +416,7 @@ extension JH_News:UITableViewDelegate {
 //            self.t_获取资讯列表()
 //        }
         
-        if let cell = cell as? JH_NewsCell_List {
-            let model = _datas[indexPath.row]
-            cell.img_Logo.sp_ImageName(model.thumb_img)
-            cell.lab_name.text = model.title
-            cell.lab_time.text = model.newsYY
-            cell.lab_time2.text = model.newsMM
-        }
-        
-    }*/
+    }
 }
 
 extension JH_News {
@@ -245,14 +424,15 @@ extension JH_News {
         tableView?.sp_headerAddMJRefresh { [weak self]_ in
             self?._pageIndex = 1
             self?._footRefersh = true
-            self?.t_获取资讯列表()
+            //self?.t_获取资讯列表()
+            self?.t_获取短评列表()
         }
     }
     fileprivate func sp_addMJRefreshFooter() {
         tableView?.sp_footerAddMJRefresh_Auto { [weak self]_ in
             self?._pageIndex += 1
-            self?.t_获取资讯列表()
-            
+            //self?.t_获取资讯列表()
+            self?.t_获取短评列表()
             
         }
     }
@@ -261,7 +441,7 @@ extension JH_News {
         tableView?.sp_headerEndRefresh()
         tableView?.sp_footerEndRefresh()
     }
-    
+    /*
     fileprivate func t_获取资讯列表() {
         My_API.t_获取资讯列表(page:_pageIndex).post(M_News.self) { [weak self](isOk, data, error) in
             self?.sp_EndRefresh()
@@ -306,6 +486,59 @@ extension JH_News {
                 }
             }else{
                 if self!.dataCells.value.count > 0 {
+                    SP_HUD.showMsg(error)
+                }else{
+                    self?._placeHolderType = .tNetError(labTitle: error)
+                }
+            }
+        }
+    }*/
+    
+    fileprivate func t_获取短评列表() {
+        My_API.t_获取短评列表(page:_pageIndex).post(M_NewsS.self) { [weak self](isOk, data, error) in
+            self?.sp_EndRefresh()
+            
+            guard self != nil else{return}
+            if isOk {
+                guard let datas = data as? [M_NewsS] else{return}
+                if self?._pageIndex == 1 {
+                    /*
+                    DispatchQueue.global().async {
+                        do {
+                            let realm = try Realm()
+                            for (index,item) in datas.enumerated() {
+                                let m_AttentionRealm = M_NewsSRealm()
+                                m_AttentionRealm.write(item, index)
+                                try realm.write {
+                                    //写入，根据主键更新
+                                    realm.add(m_AttentionRealm, update: true)
+                                }
+                            }
+                            DispatchQueue.main.async { _ in
+                            }
+                        } catch let err {
+                            print(err)
+                        }
+                    }*/
+                    //self?.dataCells.value[0].items = datas
+                    //self!._datas = datas
+                    if datas.count > 0 {
+                        self?._dataNewsS = datas
+                        self?.sp_addMJRefreshFooter()
+                    }else{
+                        self?._placeHolderType = .tNoData(labTitle: sp_localized("9011110"), btnTitle:sp_localized("点击刷新"))
+                        
+                    }
+                }else{
+                    self?._dataNewsS += datas
+                    
+                    if datas.count == 0 {
+                        self?.tableView.sp_footerEndRefreshNoMoreData()
+                        
+                    }
+                }
+            }else{
+                if self!._dataNewsS.count > 0 {
                     SP_HUD.showMsg(error)
                 }else{
                     self?._placeHolderType = .tNetError(labTitle: error)

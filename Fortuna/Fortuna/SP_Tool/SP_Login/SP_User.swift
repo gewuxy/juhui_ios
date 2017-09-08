@@ -11,6 +11,7 @@ import SwiftyJSON
 import RxCocoa
 import RxSwift
 import Moya
+import UICKeyChainStore
 
 //LogInApi,Foreign_Login
 let sp_Url登录接口 = "apis/account/login/"
@@ -44,7 +45,7 @@ open class SP_User {
     lazy var ntfName_成功登陆了 = NSNotification.Name(rawValue: "ntfName_成功登陆了")
     lazy var ntfName_退出登陆了 = NSNotification.Name(rawValue: "ntfName_退出登陆了")
     lazy var ntfName_更新用户信息 = NSNotification.Name(rawValue: "ntfName_更新用户信息")
-    
+    let my_keyChain = UICKeyChainStore(service: "com.sifenzi.friends-Home.juhui.iosapp")
     var userIsLogin: Bool {
         let isLogin = userToken.isEmpty ? false : true
         return isLogin
@@ -59,7 +60,9 @@ open class SP_User {
     }
     var deviceUUID:String {
         get{
-            var str = sp_UserDefaultsGet(sp_UserUUID) as? String ?? ""
+            
+            var str = my_keyChain.string(forKey: sp_UserUUID) ?? ""
+            
             if str.isEmpty {
                 //1.获取时间戳
                 let timestamp = String(format:"%.0f",Date().timeIntervalSince1970)
@@ -87,12 +90,9 @@ open class SP_User {
                 //5.拼接字符串
                 let uuid = ranStr + timestamp + randomNum + time + ranStr2
                 
-                sp_UserDefaultsSet(sp_UserUUID, value: uuid)
-                sp_UserDefaultsSyn()
+                my_keyChain.setString(uuid, forKey: sp_UserUUID)
             }
-            
-            str = sp_UserDefaultsGet(sp_UserUUID) as? String ?? ""
-            
+            str = my_keyChain.string(forKey: sp_UserUUID) ?? ""
             return str
         }
     }
@@ -156,11 +156,10 @@ open class SP_User {
     
     var userPwd:String {
         set{
-            sp_UserDefaultsSet(sp_UserPwd, value: newValue)
-            sp_UserDefaultsSyn()
+            my_keyChain.setString(newValue, forKey: sp_UserPwd)
         }
         get{
-            return sp_UserDefaultsGet(sp_UserPwd) as? String ?? ""
+            return my_keyChain.string(forKey: sp_UserPwd) ?? ""
         }
         
     }

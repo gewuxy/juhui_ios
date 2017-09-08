@@ -11,24 +11,41 @@ import SwiftyJSON
 
 
 struct M_SP_RichText {
-    var type = 0  //0:普通文字，1：图片，2：@标签，3：$标签
+    
+    var type:String = ""  //[Text]:普通文字，[Image]：图片，[@]：@标签，[#]：#标签 [://]:网址
     var text = ""
     var isBold = false
-    var fontSize:Int = 18
+    var fontPt:CGFloat = 18
+    var fontPx:CGFloat = 36
     
     var imgUrl = ""
-    var imgFile = ""
+    
+    var imgWidth:CGFloat = 0
+    var imgHeight:CGFloat = 0
     
     var code = ""
     
-    //是否进行了编辑了
-    var isEdit = false
+    var link = ""
+
 }
 
-extension M_SP_RichText:SP_JsonModel {
+extension M_SP_RichText: SP_JsonModel {
     init(_ json: JSON) {
-        guard !json.isEmpty else {return}
+        if json.isEmpty {return}
+        type = json["type"].stringValue //M_SP_RichTextType.t其他.rawValue  //[Text]:普通文字，[Image]：图片，[@]：@标签，[#]：#标签 [://]:网址
+        text = json["text"].stringValue
+        isBold = json["isBold"].boolValue
+        fontPt = CGFloat(json["fontPt"].doubleValue)
+        fontPx = CGFloat(json["fontPx"].doubleValue)
         
-        fontSize = json["fontSize"].intValue
+        imgUrl = json["imgUrl"].stringValue
+        
+        imgWidth = CGFloat(json["imgWidth"].doubleValue)
+        imgHeight = CGFloat(json["imgHeight"].doubleValue)
+        
+        code = json["code"].stringValue
+        
+        link = json["link"].stringValue
     }
 }
+

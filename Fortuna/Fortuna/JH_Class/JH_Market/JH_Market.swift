@@ -44,6 +44,7 @@ extension JH_Market {
         n_view.n_btn_L1_Image = ""
     }
     fileprivate func makeTableView() {
+        /*
         do {
             let realm = try Realm()
             if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_MarketRealm") {
@@ -57,7 +58,7 @@ extension JH_Market {
             
         } catch let err {
             print(err)
-        }
+        }*/
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -225,6 +226,7 @@ extension JH_Market {
     fileprivate func sp_addMJRefreshHeader() {
         tableView?.sp_headerAddMJRefresh { [weak self]_ in
             self?.t_获取行情数据()
+            self?.t_Liv获取指数表现()
         }
     }
     
@@ -239,6 +241,7 @@ extension JH_Market {
             
             if isOk {
                 guard let datas = data as? M_Market else{return}
+                /*
                 DispatchQueue.global().async {
                     do {
                         let realm = try Realm()
@@ -270,7 +273,7 @@ extension JH_Market {
                     } catch let err {
                         print(err)
                     }
-                }
+                }*/
                 if self?.dataCells.value.count == 0 {
                     
                 }
@@ -287,6 +290,11 @@ extension JH_Market {
                 self?._placeHolderType = .tNetError(labTitle: error)
                 self?.tableView.cyl_reloadData()
             }
+            
+        }
+    }
+    fileprivate func t_Liv获取指数表现() {
+        My_API.t_Liv获取指数表现.post(M_MyCommon.self) { (isOk, data, error) in
             
         }
     }

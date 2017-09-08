@@ -11,11 +11,11 @@ import Foundation
 extension UIAlertController {
     class func showAler(_ pVc:UIViewController?,btnText:[String], title:String = "", message:String = "", block:((String)->Void)? = nil) {
         let aler = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         for item in btnText {
             let action = UIAlertAction(title: item, style: .default, handler: { _ in
                 block?(item)
             })
+            
             aler.addAction(action)
         }
         

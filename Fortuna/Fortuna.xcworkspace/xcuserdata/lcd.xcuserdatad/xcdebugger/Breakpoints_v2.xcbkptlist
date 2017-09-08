@@ -70,12 +70,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fortuna/SP_Tool/SP_RichTextEdit/SP_RichTextEdit.swift"
-            timestampString = "525751648.849584"
+            timestampString = "526529018.828793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "dataTextsAppendItem()"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
+            landmarkName = "textViewDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -85,13 +85,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fortuna/SP_Tool/SP_RichTextEdit/SP_RichTextEdit.swift"
-            timestampString = "525751648.849584"
+            filePath = "Fortuna/JH_Class/JH_News/JH_News.swift"
+            timestampString = "526459976.023989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "makeTextContent()"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fortuna/SP_Tool/SP_RichTextEdit/M_SP_RichText.swift"
+            timestampString = "526448112.124855"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "init(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -101,30 +117,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fortuna/SP_Tool/SP_RichTextEdit/SP_RichTextEdit.swift"
-            timestampString = "525751648.849584"
+            filePath = "Fortuna/JH_Class/JH_News/Model/M_News.swift"
+            timestampString = "526557315.479438"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "makeTextContent()"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "init(_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fortuna/SP_Tool/SP_RichTextEdit/SP_RichTextEdit.swift"
-            timestampString = "525601471.281679"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "SP_RichTextEdit"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

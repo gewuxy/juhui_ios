@@ -91,12 +91,42 @@ enum My_API {
     static let url_撤销委托单 = "api/wine/cancelcommission/"
     case t_撤销委托单(commission_id:String)
     
+    //MARK:--- 帖子新闻 ----------
     static let url_获取资讯列表 = "api/news/getnews/"
     case t_获取资讯列表(page:Int)
     
+    static let url_获取朋友列表 = "api/account/getattentionobj/"
+    case t_获取朋友列表
+    static let url_删除朋友关注 = "api/account/cancelattention/"
+    case t_删除朋友关注(user_id:String)
+    static let url_添加朋友关注 = "api/account/addattention/"
+    case t_添加朋友关注(user_id:String)
+    
+    /*content:正文,title:标题,bastract:摘要,first_img:首图,area:位置,friends:朋友,wines:自选酒*/
+    static let url_发表短评接口 = "api/commentary/saveblog/"
+    case t_发表短评接口(content:String,title:String,bastract:String,first_img:String,friends:String,wines:String)
+    
+    static let url_获取短评列表 = "api/commentary/getbloglist/"
+    case t_获取短评列表(page:Int)
+    
+    static let url_发表短评评论接口 = "api/commentary/savecomment/"
+    case t_发表短评评论接口(content:String,blog_id:String)
+    
+    static let url_获取短评详细内容 = "api/commentary/getblogdetail/"
+    case t_获取短评详细内容(blog_id:String)
+    
+    static let url_短评点赞 = "api/commentary/savelike/"
+    case t_短评点赞(blog_id:String)
+    
+    
+    
+    
     //MARK:--- Liv-ex ----------
     static let url_Liv获取指数表现 = "/df/indexperformance/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100"
-    case t_Liv获取指数表现(token:Int)
+    case t_Liv获取指数表现
+    
+    static let url_Liv获取指数所有历史数据 = "/df/indexfullhistory/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100"
+    case t_Liv获取指数所有历史数据
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
@@ -274,6 +304,7 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        //MARK:--- 帖子新闻 ----------
         case .t_获取资讯列表(let page):
             parame += ["page":page,"page_num":my_pageSize]
             SP_Alamofire.post(main_url+My_API.url_获取资讯列表, param: parame, block: { (isOk, res, error) in
@@ -282,7 +313,79 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
-        
+        case .t_获取朋友列表:
+            SP_Alamofire.get(main_url+My_API.url_获取朋友列表, param: [:], block: { (isOk, res, error) in
+                print_Json("url_获取朋友列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_添加朋友关注(let user_id):
+            SP_Alamofire.post(main_url+My_API.url_添加朋友关注, param: ["user_id":user_id], block: { (isOk, res, error) in
+                print_Json("url_添加朋友关注=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_删除朋友关注(let user_id):
+            SP_Alamofire.post(main_url+My_API.url_删除朋友关注, param: ["user_id":user_id], block: { (isOk, res, error) in
+                print_Json("url_删除朋友关注=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_发表短评接口(let content, let title, let bastract, let first_img, let friends, let wines):
+            let params = ["content":content,
+                          "title":title,
+                          "abstract":bastract,
+                          "first_img":first_img,
+                          "friends":friends,
+                          "wines":wines]
+            SP_Alamofire.post(main_url+My_API.url_发表短评接口, param: params, block: { (isOk, res, error) in
+                print_Json("url_发表短评接口=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_发表短评评论接口(let content,let blog_id):
+            let params = ["content":content,
+                          "blog_id":blog_id]
+            SP_Alamofire.post(main_url+My_API.url_发表短评评论接口, param: params, block: { (isOk, res, error) in
+                print_Json("url_发表短评评论接口=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_获取短评列表(let page):
+            parame += ["page":page,"page_num":my_pageSize]
+            SP_Alamofire.get(main_url+My_API.url_获取短评列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取短评列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_短评点赞(let blog_id):
+            SP_Alamofire.post(main_url+My_API.url_短评点赞, param: ["blog_id":blog_id], block: { (isOk, res, error) in
+                print_Json("url_短评点赞=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            //MARK:--- t_Liv获取指数表现 ----------
+        case .t_Liv获取指数表现:
+            SP_Alamofire.get(main_url+My_API.url_Liv获取指数表现, param: [:], block: { (isOk, res, error) in
+                print_Json("url_Liv获取指数表现=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_Liv获取指数所有历史数据:
+            SP_Alamofire.get(main_url+My_API.url_Liv获取指数所有历史数据, param: [:], block: { (isOk, res, error) in
+                print_Json("url_Liv获取指数所有历史数据=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
         default:break
         }
     }

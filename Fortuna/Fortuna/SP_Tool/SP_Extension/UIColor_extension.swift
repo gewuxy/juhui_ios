@@ -46,7 +46,7 @@ extension UIColor {
     open class var main_btnNotEnb: UIColor {
         return UIColor.main_string("#b2b2b2")
     }
-    ///按钮不可点
+    ///按钮可点
     open class var main_btnNormal: UIColor {
         return UIColor.main_string("#5c86ff")
     }

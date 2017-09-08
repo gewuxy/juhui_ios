@@ -25,6 +25,9 @@ let my_ShareDownUrl  = ""
 
 
 //MARK:--- NotificationName -----------------------------
+
+let ntf_Name_朋友添加 = Notification.Name(rawValue: "ntf_Name_朋友添加")
+let ntf_Name_朋友删除 = Notification.Name(rawValue: "ntf_Name_朋友删除")
 let ntf_Name_自选删除 = Notification.Name(rawValue: "ntf_Name_自选删除")
 let ntf_Name_自选添加 = Notification.Name(rawValue: "ntf_Name_自选添加")
 let ntf_Name_自选排序 = Notification.Name(rawValue: "ntf_Name_自选排序")

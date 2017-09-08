@@ -33,19 +33,19 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPL-5S-8Oy">
                     <rect key="frame" x="187.5" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="@">
+                    <state key="normal" title="图片">
                         <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVm-Xs-mQZ">
                     <rect key="frame" x="312.5" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="图片">
+                    <state key="normal" title="#">
                         <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-VZ-nXp">
                     <rect key="frame" x="250" y="0.0" width="62.5" height="667"/>
-                    <state key="normal" title="$">
+                    <state key="normal" title="@">
                         <color key="titleColor" red="0.29803921570000003" green="0.29803921570000003" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
@@ -90,10 +90,10 @@
             <connections>
                 <outlet property="tool_A" destination="ULy-sC-Tpd" id="ml3-Uq-HdK"/>
                 <outlet property="tool_B" destination="QHM-ET-Okj" id="iIs-XM-GIw"/>
-                <outlet property="tool_Friend" destination="rPL-5S-8Oy" id="4wt-be-kVa"/>
-                <outlet property="tool_Img" destination="CVm-Xs-mQZ" id="en1-0U-3W2"/>
+                <outlet property="tool_Friend" destination="2Te-VZ-nXp" id="Nt7-mg-QfV"/>
+                <outlet property="tool_Img" destination="rPL-5S-8Oy" id="PsN-1Q-d9n"/>
                 <outlet property="tool_Link" destination="4WN-Ba-5jA" id="k9u-Mt-MKK"/>
-                <outlet property="tool_Wine" destination="2Te-VZ-nXp" id="b4d-jv-4lx"/>
+                <outlet property="tool_Wine" destination="CVm-Xs-mQZ" id="3Py-GC-caH"/>
                 <outlet property="view_Line" destination="Qad-RD-w5r" id="EkR-OZ-bm4"/>
             </connections>
         </view>

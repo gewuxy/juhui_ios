@@ -2,6 +2,26 @@
 
 import UIKit
 import Foundation
+import SwiftyJSON
+
+
+
+let strrrr = "type:[Text]<*|属性:参数|*>text:123456<*|属性:参数|*>fontPt:18<*|属性:参数|*>fontPx:36<*|属性:参数|*>isBold:0<*|属性:参数|*>code:<*|属性:参数|*>link:<*|属性:参数|*>imgUrl:<*|属性:参数|*>imgWidth:<*|属性:参数|*>imgHeight:<*|属性:参数|*><*|换行:字符串|*>type:[Text]<*|属性:参数|*>text:\n<*|属性:参数|*>fontPt:18<*|属性:参数|*>fontPx:36<*|属性:参数|*>isBold:0<*|属性:参数|*>code:<*|属性:参数|*>link:<*|属性:参数|*>imgUrl:<*|属性:参数|*>imgWidth:<*|属性:参数|*>imgHeight:<*|属性:参数|*><*|换行:字符串|*>type:[Image]<*|属性:参数|*>text:<*|属性:参数|*>fontPt:0<*|属性:参数|*>fontPx:0<*|属性:参数|*>isBold:0<*|属性:参数|*>code:<*|属性:参数|*>link:<*|属性:参数|*>imgUrl:https://jh.qiuxiaokun.com/media/chat/img/1504765872069_20170907143106052.jpg<*|属性:参数|*>imgWidth:300.00<*|属性:参数|*>imgHeight:169.00<*|属性:参数|*><*|换行:字符串|*>type:[Text]<*|属性:参数|*>text:\n￼<*|属性:参数|*>fontPt:18<*|属性:参数|*>fontPx:36<*|属性:参数|*>isBold:0<*|属性:参数|*>code:<*|属性:参数|*>link:<*|属性:参数|*>imgUrl:<*|属性:参数|*>imgWidth:<*|属性:参数|*>imgHeight:<*|属性:参数|*><*|换行:字符串|*>type:[@]<*|属性:参数|*>text: @用户:117 <*|属性:参数|*>fontPt:0<*|属性:参数|*>fontPx:0<*|属性:参数|*>isBold:0<*|性:参数|*>imgHeight:<*|属性:参数|*><*|换行:字符串|*>type:[@]<*|属性:参数|*>text: @用户:117 <*|属性:参数|*>fontPt:0<*|属性:参数|*>fontPx:0<*|属性:参数|*>isBold:0<*|属性:参数|*>code:117<*|属性:参数|*>link:<*|属性:参数|*>imgUrl:<*|属性:参数|*>imgWidth:<*|属性:参数|*>imgHeight:<*|属性:参数|*><*|换行:字符串|*>"
+
+
+
+//var arr00 = JSON(conter)
+
+let arr00 = strrrr.components(separatedBy: "<*|换行:字符串|*>")
+
+for item in arr00 {
+    let arr11 = item.components(separatedBy: "<*|属性:参数|*>")
+    for item in arr11 {
+        print(item)
+    }
+    
+}
+
 
 
 //let gregorian = Calendar(identifier: .gregorian)
@@ -62,14 +82,14 @@ func makeMidTimeData(_ timeLines:[(name:Int,timestamp:String)], component:Calend
                         
                         //if new_TimeLines.count > i + j + tiCount {
                         //}
-                        print("-----开始->")
-                        print(i )
-                        //print(j)
-                        //print(tiCount)
-                        //print(i + tiCount)
+                        //print("-----开始->")
+                        //print(i )
+                        ////print(j)
+                        ////print(tiCount)
+                        ////print(i + tiCount)
                         new_TimeLines.insert(model, at: new_TimeLines.count-1)//(model, at: i + tiCount)
-                        print(new_TimeLines )
-                        print("-----结束->")
+                        //print(new_TimeLines )
+                        //print("-----结束->")
                     }
                     
                     
@@ -100,7 +120,7 @@ let data = [(1,"1499184000000"),
 let datas = makeMidTimeData(data, component:.second, timeCountMax:24*3600, timeNum: 24*3600)
 
 
-print(datas)
+//print(datas)
 
 
 
