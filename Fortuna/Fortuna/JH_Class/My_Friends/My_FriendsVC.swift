@@ -13,8 +13,8 @@ import RxSwift
 import RxDataSources
 
 import SwiftyJSON
-import Realm
-import RealmSwift
+//import Realm
+////import RealmSwift
 
 class My_FriendsVC: SP_ParentVC {
 

@@ -8,10 +8,10 @@
 
 import Foundation
 import SwiftyJSON
-import RealmSwift
-import Realm
+////import RealmSwift
+//import Realm
 
-
+/*
 class M_NewsRealm: Object {
     dynamic var id = 0
     dynamic var article = ""
@@ -50,7 +50,7 @@ class M_NewsRealm: Object {
         
     }
 }
-
+*/
 
 struct M_News {
     var article = ""
@@ -91,7 +91,7 @@ extension M_News:SP_JsonModel {
 }
 
 
-
+/*
 class M_NewsSRealm: Object {
     dynamic var type = M_NewsS.newsType.t新闻.rawValue
     dynamic var contentString = ""
@@ -157,7 +157,7 @@ class M_NewsSRealm: Object {
         
     }
 }
-
+*/
 struct M_NewsS {
     enum newsType:Int {
         case t新闻 = 0

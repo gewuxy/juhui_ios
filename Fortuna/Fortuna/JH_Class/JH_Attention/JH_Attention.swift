@@ -13,8 +13,8 @@ import RxSwift
 import RxDataSources
 import SocketIO
 import SwiftyJSON
-import Realm
-import RealmSwift
+//import Realm
+////import RealmSwift
 
 class JH_Attention: SP_ParentVC {
 

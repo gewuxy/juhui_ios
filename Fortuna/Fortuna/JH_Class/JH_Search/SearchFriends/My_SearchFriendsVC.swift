@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import SwiftyJSON
-import Realm
-import RealmSwift
+//import Realm
+////import RealmSwift
 
 class My_SearchFriendsVC: SP_ParentVC {
 

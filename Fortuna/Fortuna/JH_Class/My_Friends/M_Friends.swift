@@ -8,9 +8,9 @@
 
 import Foundation
 import SwiftyJSON
-import RealmSwift
-import Realm
-
+////import RealmSwift
+//import Realm
+/*
 class M_FriendsRealmS: Object {
     var id = ""
     
@@ -46,6 +46,7 @@ class M_FriendsRealm: Object {
         
     }
 }
+*/
 
 struct M_Friends {
     var name = "用户:--"
