@@ -163,6 +163,7 @@ struct M_NewsS {
         case t新闻 = 0
         case t帖子
     }
+    var parent_blog_id = ""
     var type = newsType.t新闻
     var contentString = ""
     var content = [M_SP_RichText]()
@@ -188,7 +189,7 @@ extension M_NewsS:SP_JsonModel {
         if json.isEmpty{
             return
         }
-        
+        parent_blog_id = json["parent_blog_id"].stringValue
         type = M_NewsS.newsType(rawValue: json["type"].intValue) ?? .t新闻
         blog_id = json["blog_id"].stringValue
         likes_count = json["likes_count"].intValue
@@ -202,7 +203,8 @@ extension M_NewsS:SP_JsonModel {
         author_id = json["author_id"].stringValue
         first_img = json["first_img"].stringValue
         contentString = json["content"].stringValue
-        bastractString = json["bastract"].stringValue
+        bastractString = json["abstract"].stringValue
+        
         is_concerned = json["is_concerned"].boolValue
         let arrContentString = contentString.components(separatedBy: "<*|换行:字符串|*>")
         for item in arrContentString {

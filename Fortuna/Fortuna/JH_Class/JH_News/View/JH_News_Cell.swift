@@ -36,37 +36,77 @@ class JH_NewsPostCell_List: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        view_line.backgroundColor = UIColor.main_line
-        lab_name.textColor = UIColor.mainText_2
-        lab_comm.textColor = UIColor.mainText_2
-        lab_name.font = sp_fitFont16
-        lab_comm.font = sp_fitFont16
-        view_text.clipsToBounds = true
         
-        view_text.addSubview(textView)
-//        textView.snp.makeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//        }
+        self.contentView.addSubview(textView)
+        self.contentView.addSubview(img_Logo)
+        self.contentView.addSubview(lab_name)
+        self.contentView.addSubview(lab_comm)
+        self.contentView.addSubview(view_line)
+        textView.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview().offset(10)
+            make.right.equalTo(img_Logo.snp.left).offset(-10)
+            make.height.greaterThanOrEqualTo(80)
+        }
+        img_Logo.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.width.equalTo(0)
+            make.height.equalTo(0)
+        }
+        lab_name.snp.makeConstraints { (make) in
+            make.top.equalTo(textView.snp.bottom).offset(5)
+            make.left.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
+        }
+        lab_comm.snp.makeConstraints { (make) in
+            make.centerY.equalTo(lab_name.snp.centerY)
+            make.left.equalTo(lab_name.snp.right).offset(10)
+            make.right.greaterThanOrEqualTo(img_Logo.snp.left).offset(-10)
+            
+        }
+        view_line.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
     }
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        textView.frame = view_text.bounds
+        
     }
     lazy var textView:YYLabel = {
         let text = YYLabel()
-        text.numberOfLines = 0
+        text.numberOfLines = 5
+        text.preferredMaxLayoutWidth = sp_ScreenWidth - 20
         text.isUserInteractionEnabled = true
-        text.textVerticalAlignment = .top
         text.textColor = UIColor.mainText_1
         return text
     }()
     
-    @IBOutlet weak var view_text: UIView!
-    @IBOutlet weak var view_line: UIView!
-    @IBOutlet weak var lab_name: UILabel!
-    @IBOutlet weak var lab_comm: UILabel!
     
-    @IBOutlet weak var img_Logo: UIImageView!
+    lazy var view_line: UIView  = {
+        let view = UIView()
+        view.backgroundColor = UIColor.main_line
+        return view
+    }()
+    lazy var lab_name: UILabel  = {
+        let lab = UILabel()
+        lab.textColor = UIColor.mainText_2
+        lab.font = sp_fitFont16
+        return lab
+    }()
+    lazy var lab_comm: UILabel  = {
+        let lab = UILabel()
+        lab.textColor = UIColor.mainText_2
+        lab.font = sp_fitFont16
+        return lab
+    }()
+    
+    lazy var img_Logo: UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFill
+        img.clipsToBounds = true
+        return img
+    }()
 }
 
 

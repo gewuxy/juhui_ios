@@ -44,6 +44,9 @@ extension JH_Market {
         n_view.n_btn_L1_Image = ""
     }
     fileprivate func makeTableView() {
+        if let realm = try? Realm() {
+            print(realm.configuration.fileURL)
+        }
         /*
         do {
             let realm = try Realm()

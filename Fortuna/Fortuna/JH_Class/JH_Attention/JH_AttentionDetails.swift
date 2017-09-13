@@ -39,7 +39,11 @@ class JH_AttentionDetails: SP_ParentVC {
     
     var _cell:JH_AttentionDetailsCell_Charts?
     
-    
+    lazy var _postVC:My_Questionary = {
+        let vc = My_Questionary.initSPVC()
+        self.addChildViewController(vc)
+        return vc
+    }()
 }
 
 extension JH_AttentionDetails {
@@ -66,6 +70,7 @@ extension JH_AttentionDetails {
         //self.t_详情页基础数据()
         self.makeSocketIO()
         self.sp_addMJRefreshHeader()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -226,7 +231,7 @@ extension JH_AttentionDetails:UITableViewDelegate {
         case sectionType.tCharts.rawValue:
             return 1
         case sectionType.tNews.rawValue:
-            return _dataNews.count
+            return 1
         default:
             return 0
         }
@@ -234,14 +239,20 @@ extension JH_AttentionDetails:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case sectionType.tNews.rawValue:
-            return sp_SectionH_Top
+            return sp_SectionH_Min
         default:
             return sp_SectionH_Min
         }
         
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return sp_SectionH_Foot
+        switch section {
+        case sectionType.tNews.rawValue:
+            return sp_SectionH_Min
+        default:
+            return sp_SectionH_Foot
+        }
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
@@ -250,7 +261,7 @@ extension JH_AttentionDetails:UITableViewDelegate {
         case sectionType.tCharts.rawValue:
             return sp_fitSize((288,308,338))
         case sectionType.tNews.rawValue:
-            return 90 //sp_fitSize((288,308,338))
+            return sp_ScreenHeight-64-50//90 //sp_fitSize((288,308,338))
         default:
             return 0
         }
@@ -260,10 +271,15 @@ extension JH_AttentionDetails:UITableViewDelegate {
         case sectionType.tNews.rawValue:
             let view = UIView()
             view.backgroundColor = UIColor.white
-            return view
+            return nil
         default:
             return nil
         }
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.main_bg
+        return view
     }
 }
 extension JH_AttentionDetails:UITableViewDataSource{
@@ -324,6 +340,22 @@ extension JH_AttentionDetails:UITableViewDataSource{
             cell.lab_time.text = model.newsYY
             cell.lab_time2.text = model.newsMM
             return cell
+        case sectionType.tNews.rawValue:
+            var cell = tableView.dequeueReusableCell(withIdentifier: "JH_AttentionDetails_PostNewsVC")
+            if cell == nil {
+                cell = UITableViewCell(style: .default, reuseIdentifier: "JH_AttentionDetails_PostNewsVC")
+                cell?.contentView.addSubview(_postVC.view)
+                cell?.clipsToBounds = true
+                cell?.contentView.clipsToBounds = true
+                cell?.selectionStyle = .none
+                _postVC.view.snp.makeConstraints({ (make) in
+                    make.left.right.bottom.equalToSuperview()
+                    make.top.equalToSuperview().offset(-20)
+                })
+                //_postVC.view.frame = CGRect(x: 0, y: -24, width: sp_ScreenWidth, height: sp_ScreenHeight-64-50+24)
+                
+            }
+            return cell!
         default:
             return UITableViewCell()
         }
@@ -331,11 +363,12 @@ extension JH_AttentionDetails:UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        if indexPath.section == sectionType.tNews.rawValue {
-            //JH_AttentionDetailsFull.show(self, data: _datas, dataDetails:_dataDetails)
-            JH_NewsDetials.show(self,data:_dataNews[indexPath.row])
-        }
         
+        
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.tableView.bounces = !(scrollView.contentOffset.y > 20)
+        _postVC.view.isUserInteractionEnabled = !(scrollView.contentSize.height - scrollView.contentOffset.y > (sp_ScreenHeight-60))
     }
     
     fileprivate func makeBuyAndSell(_ cell:JH_AttentionDetailsCell_Charts) {
@@ -563,6 +596,7 @@ extension JH_AttentionDetails {
     }
     fileprivate func t_详情页基础数据() {
         My_API.t_详情页基础数据(code: _datas.code).post(M_AttentionDetail.self) { [weak self](isOk, data, error) in
+            self?.sp_EndRefresh()
             if isOk {
                 guard let datas = data as? M_AttentionDetail else{return}
                 self?._dataDetails = datas

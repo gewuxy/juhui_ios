@@ -18,6 +18,7 @@ class SP_RichTextEdit: SP_ParentVC {
     let disposeBag = DisposeBag()
     var _vcType = SP_RichTextEditType.t短评
     var _blog_id = ""//短评ID
+    var _parent_blog_Title = ""
     var _placeholderText = ""
     var _vcBlock:(()->Void)?
     //MARK:--- 工具栏 ----------
@@ -76,12 +77,13 @@ extension SP_RichTextEdit {
     override class func initSPVC() -> SP_RichTextEdit {
         return UIStoryboard(name: "SP_RichTextEditStoryboard", bundle: nil).instantiateViewController(withIdentifier: "SP_RichTextEdit") as! SP_RichTextEdit
     }
-    class func show(_ pVC:UIViewController?, type:SP_RichTextEditType = .t短评, blog_id:String = "", placeholderText:String = sp_localized("正文"), block:(()->Void)? = nil) {
+    class func show(_ pVC:UIViewController?, type:SP_RichTextEditType = .t短评, blog_id:String = "", parent_blog_Title:String = "", placeholderText:String = sp_localized("正文"), block:(()->Void)? = nil) {
         let vc = SP_RichTextEdit.initSPVC()
         vc._vcType = type
         vc._placeholderText = placeholderText
         vc._blog_id = blog_id
         vc._vcBlock = block
+        vc._parent_blog_Title = parent_blog_Title
         vc.hidesBottomBarWhenPushed = true
         pVC?.navigationController?.show(vc, sender: nil)
     }
@@ -110,6 +112,9 @@ extension SP_RichTextEdit {
         if _vcType == .t长文 {
             title = self.textViewTitle.text
         }
+        if _vcType == .t转发 {
+            title = "【转】" + _parent_blog_Title
+        }
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在发布"))
         self.n_view.n_btn_R1.isEnabled = false
         switch _vcType {
@@ -118,25 +123,26 @@ extension SP_RichTextEdit {
                 SP_HUD.hidden()
                 self?.n_view.n_btn_R1.isEnabled = true
                 if isOk {
+                    self?._vcBlock?()
                     SP_HUD.showMsg(sp_localized("已发表"))
                     _ = self?.navigationController?.popViewController(animated: true)
                 }else{
                     SP_HUD.showMsg(error)
                 }
             }
-        case .t短评,.t长文:
-            My_API.t_发表短评接口(content: self.attributedTextToJSON().content, title: title, bastract: self.attributedTextToJSON().bastract, first_img: self.attributedTextToJSON().first_img, friends: self.attributedTextToJSON().friends, wines: self.attributedTextToJSON().wines).post(M_MyCommon.self) { [weak self](isOk, data, error) in
+        case .t短评,.t长文, .t转发:
+            My_API.t_发表短评接口(content: self.attributedTextToJSON().content, title: title, bastract: self.attributedTextToJSON().bastract, first_img: self.attributedTextToJSON().first_img, friends: self.attributedTextToJSON().friends, wines: self.attributedTextToJSON().wines,parent_blog_id:self._blog_id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
                 SP_HUD.hidden()
                 self?.n_view.n_btn_R1.isEnabled = true
                 if isOk {
+                    self?._vcBlock?()
                     SP_HUD.showMsg(sp_localized("已发布"))
                     _ = self?.navigationController?.popViewController(animated: true)
                 }else{
                     SP_HUD.showMsg(error)
                 }
             }
-        default:
-            SP_HUD.showMsg(sp_localized("未开放接口"))
+        
         }
         
     }
@@ -198,31 +204,14 @@ extension SP_RichTextEdit {
             else if binding != nil {
                 if text.hasPrefix(M_SP_RichTextType.t关注.prefixValue) {
                     let code:String = attributes["NSLanguage"] as? String ?? ""
-                    /*
-                    let dict = ["type":M_SP_RichTextType.t关注.rawValue,
-                                "code":code,
-                                "link":"",
-                                "imgUrl":"",
-                                "imgWidth":"",
-                                "imgHeight":"",
-                                "text":text,
-                                "fontPt":String(format:"%.0f",18),
-                                "fontPx":String(format:"%.0f",18*2),
-                                "isBold":"0"]
-                    arrContent.append(dict)
-                    arrBastract.append(dict)*/
+                    
                     let str = ("type:" + M_SP_RichTextType.t关注.rawValue + "<*|属性:参数|*>")
                         + ("text:" + text + "<*|属性:参数|*>")
                         + ("fontPt:" + String(format:"%.0f",18.0) + "<*|属性:参数|*>")
                         + ("fontPx:" + String(format:"%.0f",18.0*2) + "<*|属性:参数|*>")
                         + ("isBold:" + "0" + "<*|属性:参数|*>")
                         + ("code:" + code + "<*|属性:参数|*>")
-//                        + ("link:" + "" + "<*|属性:参数|*>")
-//                        + ("imgUrl:" + "" + "<*|属性:参数|*>")
-//                        + ("imgWidth:" + "" + "<*|属性:参数|*>")
-//                        + ("imgHeight:" + "" + "<*|属性:参数|*>")
-                    
-                    //print_SP(str)
+
                     strContent += (str + "<*|换行:字符串|*>")
                     if strBastractIndex <= 10 {
                         strBastract += (str + "<*|换行:字符串|*>")
@@ -231,31 +220,14 @@ extension SP_RichTextEdit {
                     friends += friends.isEmpty ? code : ("|"+code)
                 }else if text.hasPrefix(M_SP_RichTextType.t自选酒.prefixValue) {
                     let code:String = attributes["NSLanguage"] as? String ?? ""
-                    /*
-                    let dict = ["type":M_SP_RichTextType.t自选酒.rawValue,
-                                "code":code,
-                                "link":"",
-                                "imgUrl":"",
-                                "imgWidth":"",
-                                "imgHeight":"",
-                                "text":text,
-                                "fontPt":String(format:"%.0f",18),
-                                "fontPx":String(format:"%.0f",18*2),
-                                "isBold":"0"]
-                    arrContent.append(dict)
-                    arrBastract.append(dict)*/
+                    
                     let str = ("type:" + M_SP_RichTextType.t自选酒.rawValue + "<*|属性:参数|*>")
                         + ("text:" + text + "<*|属性:参数|*>")
                         + ("fontPt:" + String(format:"%.0f",18.0) + "<*|属性:参数|*>")
                         + ("fontPx:" + String(format:"%.0f",18.0*2) + "<*|属性:参数|*>")
                         + ("isBold:" + "0" + "<*|属性:参数|*>")
                         + ("code:" + code + "<*|属性:参数|*>")
-//                        + ("link:" + "" + "<*|属性:参数|*>")
-//                        + ("imgUrl:" + "" + "<*|属性:参数|*>")
-//                        + ("imgWidth:" + "" + "<*|属性:参数|*>")
-//                        + ("imgHeight:" + "" + "<*|属性:参数|*>")
-                    
-                    
+
                     strContent += (str + "<*|换行:字符串|*>")
                     if strBastractIndex <= 10 {
                         strBastract += (str + "<*|换行:字符串|*>")
@@ -264,30 +236,13 @@ extension SP_RichTextEdit {
                     wines += wines.isEmpty ? code : ("|"+code)
                 }else if text.hasPrefix(M_SP_RichTextType.t超链接.prefixValue) {
                     let code:String = attributes["NSLanguage"] as? String ?? ""
-                    /*
-                    let dict = ["type":M_SP_RichTextType.t超链接.rawValue,
-                                "link":code,
-                                "code":"",
-                                "imgUrl":"",
-                                "imgWidth":"",
-                                "imgHeight":"",
-                                "text":text,
-                                "fontPt":String(format:"%.0f",18),
-                                "fontPx":String(format:"%.0f",18*2),
-                                "isBold":"0"]
-                    arrContent.append(dict)
-                    arrBastract.append(dict)*/
+                    
                     let str = ("type:" + M_SP_RichTextType.t超链接.rawValue + "<*|属性:参数|*>")
                         + ("text:" + text + "<*|属性:参数|*>")
                         + ("fontPt:" + String(format:"%.0f",18.0) + "<*|属性:参数|*>")
                         + ("fontPx:" + String(format:"%.0f",18.0*2) + "<*|属性:参数|*>")
                         + ("isBold:" + "0" + "<*|属性:参数|*>")
                         + ("link:" + code + "<*|属性:参数|*>")
-//                        + ("code:" + "" + "<*|属性:参数|*>")
-//                        + ("imgUrl:" + "" + "<*|属性:参数|*>")
-//                        + ("imgWidth:" + "" + "<*|属性:参数|*>")
-//                        + ("imgHeight:" + "" + "<*|属性:参数|*>")
-                    
                     
                     strContent += (str + "<*|换行:字符串|*>")
                     if strBastractIndex <= 10 {
@@ -302,30 +257,13 @@ extension SP_RichTextEdit {
                 let font:UIFont = attributes[NSFontAttributeName] as? UIFont ?? UIFont.systemFont(ofSize: 18)
                 let isBold = font.description.contains("font-weight: bold")
                 let fontSize:CGFloat = CGFloat(font.fontDescriptor.fontAttributes["NSFontSizeAttribute"] as? Float ?? 18.0)
-                /*
-                let dict = ["type":M_SP_RichTextType.t文字.rawValue,
-                            "text":text,
-                            "fontPt":String(format:"%.0f",fontSize),
-                            "fontPx":String(format:"%.0f",fontSize*2),
-                            "isBold":isBold ? "1" : "0",
-                            "link":"",
-                            "code":"",
-                            "imgUrl":"",
-                            "imgWidth":"",
-                            "imgHeight":""]
                 
-                arrContent.append(dict)
-                arrBastract.append(dict)*/
                 let str = ("type:" + M_SP_RichTextType.t文字.rawValue + "<*|属性:参数|*>")
                     + ("text:" + text + "<*|属性:参数|*>")
                     + ("fontPt:" + String(format:"%.0f",fontSize) + "<*|属性:参数|*>")
                     + ("fontPx:" + String(format:"%.0f",fontSize*2) + "<*|属性:参数|*>")
                     + ("isBold:" + (isBold ? "1" : "0") + "<*|属性:参数|*>")
-//                    + ("code:" + "" + "<*|属性:参数|*>")
-//                    + ("link:" + "" + "<*|属性:参数|*>")
-//                    + ("imgUrl:" + "" + "<*|属性:参数|*>")
-//                    + ("imgWidth:" + "" + "<*|属性:参数|*>")
-//                    + ("imgHeight:" + "" + "<*|属性:参数|*>")
+
                 strContent += (str + "<*|换行:字符串|*>")
                 if strBastractIndex <= 10 {
                     strBastract += (str + "<*|换行:字符串|*>")
@@ -337,18 +275,17 @@ extension SP_RichTextEdit {
             effectiveRange = NSMakeRange(effectiveRange.location + effectiveRange.length, 0);
         }
         
-        
-        
         //let content:String = JSON(arrContent).rawString([.castNilToNSNull: true]) ?? ""
         
-        
-        
-        
         //let bastract = JSON(arrContent).rawString([.castNilToNSNull: true]) ?? ""
-        
-        
-        
-        return (strContent,strBastract,first_img,friends,wines)
+        var strBastract2 = ""
+        for item in strBastract.characters {
+            if item != "\n" {
+                strBastract2.append(item)
+            }
+        }
+        print(strBastract2)
+        return (strContent,strBastract2,first_img,friends,wines)
     }
     
     

@@ -104,7 +104,7 @@ enum My_API {
     
     /*content:正文,title:标题,bastract:摘要,first_img:首图,area:位置,friends:朋友,wines:自选酒*/
     static let url_发表短评接口 = "api/commentary/saveblog/"
-    case t_发表短评接口(content:String,title:String,bastract:String,first_img:String,friends:String,wines:String)
+    case t_发表短评接口(content:String,title:String,bastract:String,first_img:String,friends:String,wines:String,parent_blog_id:String)
     
     static let url_获取短评列表 = "api/commentary/getbloglist/"
     case t_获取短评列表(page:Int)
@@ -112,13 +112,23 @@ enum My_API {
     static let url_发表短评评论接口 = "api/commentary/savecomment/"
     case t_发表短评评论接口(content:String,blog_id:String)
     
+    static let url_删除短评 = "api/commentary/deleteblog/"
+    case t_删除短评(blog_id:String)
+    
     static let url_获取短评详细内容 = "api/commentary/getblogdetail/"
     case t_获取短评详细内容(blog_id:String)
     
     static let url_短评点赞 = "api/commentary/savelike/"
     case t_短评点赞(blog_id:String)
     
+    static let url_获取短评评论 = "api/commentary/getcomments/"
+    case t_获取短评评论(blog_id:String, page:Int)
     
+    static let url_删除短评评论 = "api/commentary/deletecomment/"
+    case t_删除短评评论(blog_id:String)
+    
+    static let url_短评评论点赞 = "api/commentary/savecommentlike/"
+    case t_短评评论点赞(comment_id:String)
     
     
     //MARK:--- Liv-ex ----------
@@ -334,23 +344,26 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
-        case .t_发表短评接口(let content, let title, let bastract, let first_img, let friends, let wines):
-            let params = ["content":content,
+        case .t_发表短评接口(let content, let title, let bastract, let first_img, let friends, let wines,let parent_blog_id):
+            parame   =   ["content":content,
                           "title":title,
                           "abstract":bastract,
                           "first_img":first_img,
                           "friends":friends,
-                          "wines":wines]
-            SP_Alamofire.post(main_url+My_API.url_发表短评接口, param: params, block: { (isOk, res, error) in
+                          "wines":wines,
+                          "parent_blog_id":parent_blog_id
+            ]
+            SP_Alamofire.post(main_url+My_API.url_发表短评接口, param: parame, block: { (isOk, res, error) in
                 print_Json("url_发表短评接口=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas, error)
                 })
             })
         case .t_发表短评评论接口(let content,let blog_id):
-            let params = ["content":content,
-                          "blog_id":blog_id]
-            SP_Alamofire.post(main_url+My_API.url_发表短评评论接口, param: params, block: { (isOk, res, error) in
+            parame = ["content":content,
+                      "blog_id":blog_id]
+            
+            SP_Alamofire.post(main_url+My_API.url_发表短评评论接口, param: parame, block: { (isOk, res, error) in
                 print_Json("url_发表短评评论接口=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas, error)
@@ -364,10 +377,34 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        case .t_获取短评详细内容(let blog_id):
+            SP_Alamofire.get(main_url+My_API.url_获取短评详细内容, param: ["blog_id":blog_id], block: { (isOk, res, error) in
+                print_Json("url_获取短评详细内容=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            
         case .t_短评点赞(let blog_id):
             SP_Alamofire.post(main_url+My_API.url_短评点赞, param: ["blog_id":blog_id], block: { (isOk, res, error) in
                 print_Json("url_短评点赞=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_短评评论点赞(let comment_id):
+            SP_Alamofire.post(main_url+My_API.url_短评评论点赞, param: ["comment_id":comment_id], block: { (isOk, res, error) in
+                print_Json("url_短评评论点赞=>\(JSON(res!))")
+                My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            
+        case .t_获取短评评论(let blog_id, let page):
+            parame += ["page":page,"page_num":my_pageSize,"blog_id":blog_id]
+            SP_Alamofire.get(main_url+My_API.url_获取短评评论, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取短评评论=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
                     block?(isOk, datas, error)
                 })
             })

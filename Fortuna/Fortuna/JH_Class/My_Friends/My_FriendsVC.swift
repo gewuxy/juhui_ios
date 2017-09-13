@@ -20,9 +20,12 @@ class My_FriendsVC: SP_ParentVC {
 
     let disposeBag = DisposeBag()
     @IBOutlet weak var tableView: UITableView!
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, M_Friends>>()
     
-    let dataCells = Variable([SectionModel<Int, M_Friends>]())
+    var datas = [M_Friends]() {
+        didSet{
+            self.tableView.cyl_reloadData()
+        }
+    }
 
 }
 
@@ -51,7 +54,7 @@ extension My_FriendsVC {
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
-                self?.dataCells.value[0].items.removeAll()
+                self?.datas.removeAll()
                 self?.t_获取朋友列表()
                 
             }).addDisposableTo(disposeBag)
@@ -63,21 +66,21 @@ extension My_FriendsVC {
                 guard self != nil else{return}
                 guard let data = n.object as? [M_Friends] else{
                     if let dat = n.object as? M_Friends {
-                        for (i,item) in self!.dataCells.value[0].items.enumerated() {
+                        for (i,item) in self!.datas.enumerated() {
                             if item.id == dat.id {
-                                self!.dataCells.value[0].items.remove(at: i)
+                                self!.datas.remove(at: i)
                             }
                         }
                     }
                     self?.tableView.cyl_reloadData()
-                    if self?.dataCells.value[0].items.count == 0 {
+                    if self?.datas.count == 0 {
                         self?.t_获取朋友列表()
                     }
                     return
                 }
-                self?.dataCells.value[0].items = data
+                self?.datas = data
                 self?.tableView.cyl_reloadData()
-                if self?.dataCells.value[0].items.count == 0 {
+                if self?.datas.count == 0 {
                     self?.t_获取朋友列表()
                 }
             }).addDisposableTo(disposeBag)
@@ -115,7 +118,6 @@ extension My_FriendsVC {
     fileprivate func makeUI() {
         self.n_view.isHidden = true
         
-        dataCells.value = [SectionModel(model:0,items:[M_Friends()])]
         /*
         do {
             let realm = try Realm()
@@ -130,52 +132,23 @@ extension My_FriendsVC {
         makeTableView()
     }
     func makeTableView() {
-        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         self._placeHolderType = .tOnlyImage
-        self.sp_addPlaceHolderView()
-        _placeHolderView.snp.updateConstraints({ (make) in
-            make.top.equalToSuperview().offset(0)
-        })
+        
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
-        
-        
-        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
-        
-        // 用所有的 [Item] 是否为空绑定 view 是否隐藏
-        dataCells.asObservable()
-            .map {  $0.map { $0.items }.reduce([], +)  }
-            .map { !$0.isEmpty }
-            .bind(to: _placeHolderView.rx.isHidden)
-            .addDisposableTo(disposeBag)
-        
-        
-        dataSource.configureCell = { (dat,tab,ind,mo) in
-            let cell = My_FriendsCell_List.show(tab)
-            cell.lab_name.text = mo.name
-            cell.btn_logo.sp_ImageName(mo.logo)
-            return cell
-        }
-        
-        dataCells.asDriver()
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .addDisposableTo(disposeBag)
-        
-        tableView.rx
-            .modelSelected(M_Friends.self)
-            .subscribe(onNext: { [weak self](model) in
-                self?.tableView.deselectRow(at: self!.tableView.indexPathForSelectedRow!, animated: true)
-                
-            })
-            .addDisposableTo(disposeBag)
-        
-        //tableView.rx.setDataSource(self).addDisposableTo(disposeBag)
     }
     
 }
 
-extension My_FriendsVC:UITableViewDelegate {
-    
+extension My_FriendsVC:UITableViewDelegate,UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.datas.count
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
     }
@@ -186,7 +159,16 @@ extension My_FriendsVC:UITableViewDelegate {
 //        return sp_fitSize((70,75,80))
 //        
 //    }
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = My_FriendsCell_List.show(tableView)
+        let mo = self.datas[indexPath.row]
+        cell.lab_name.text = mo.name
+        cell.btn_logo.sp_ImageName(mo.logo)
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
         
@@ -253,7 +235,7 @@ extension My_FriendsVC {
                         print(err)
                     }
                 }*/
-                self?.dataCells.value[0].items = datas
+                self?.datas = datas
                 if datas.count == 0 {
                     self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有关注"), btnTitle:sp_localized("去逛逛"))
                 }else if datas.count < my_pageSize{
@@ -267,11 +249,11 @@ extension My_FriendsVC {
     
     fileprivate func t_删除朋友关注(_ index:Int) {
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
-        My_API.t_删除朋友关注(user_id:dataCells.value[0].items[index].id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
+        My_API.t_删除朋友关注(user_id:datas[index].id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
                 SP_HUD.show(text:sp_localized("已删除"))
-                self?.dataCells.value[0].items.remove(at: index)
+                self?.datas.remove(at: index)
             }else{
                 SP_HUD.show(text:error)
             }

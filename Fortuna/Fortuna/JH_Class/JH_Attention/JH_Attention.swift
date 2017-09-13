@@ -24,9 +24,7 @@ class JH_Attention: SP_ParentVC {
     @IBOutlet weak var lab_range_W: NSLayoutConstraint!
     @IBOutlet weak var segmented: UISegmentedControl!
     
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, M_Attention>>()
-    
-    let dataCells = Variable([SectionModel<Int, M_Attention>]())
+    var datas = [M_Attention]()
     
     fileprivate var _pageIndex = 1
     
@@ -47,13 +45,12 @@ class JH_Attention: SP_ParentVC {
             //print_SP("json ==> \(json)")
             guard json.count > 0 else{return}
             let model = M_AttentionDetail(json[0])
-            for (i,item) in self!.dataCells.value[0].items.enumerated() {
+            for (i,item) in self!.datas.enumerated() {
                 if item.code == model.code {
-                    self!.dataCells.value[0].items[i].last_price = model.lastest_price
-                    self?.dataCells.value[0].items[i].quoteChange = model.increase_ratio
+                    self!.datas[i].last_price = model.lastest_price
+                    self?.datas[i].quoteChange = model.increase_ratio
                     let index = IndexPath(row: i, section: 0)
                     self?.tableView.reloadRows(at: [index], with: .none)
-                    
                 }
             }
         }
@@ -123,13 +120,12 @@ extension JH_Attention {
         
         lab_range_W.constant = sp_fitSize((95,110,125))
         
-        dataCells.value = [SectionModel(model:0,items:[])]
         /*
         do {
             let realm = try Realm()
             if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_AttentionRealm") {
                 for item in theRealms.attentions {
-                    dataCells.value[0].items.append(item.read())
+                    datas.append(item.read())
                 }
             }
         } catch let err {
@@ -155,7 +151,7 @@ extension JH_Attention {
             .takeUntil(self.rx.deallocated)
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
-                self?.dataCells.value[0].items.removeAll()
+                self?.datas.removeAll()
                 
                 self?._pageIndex = 1
                 self?.t_获取自选列表()
@@ -169,22 +165,22 @@ extension JH_Attention {
                 guard self != nil else{return}
                 guard let data = n.object as? [M_Attention] else{
                     if let dat = n.object as? M_Attention {
-                        for (i,item) in self!.dataCells.value[0].items.enumerated() {
+                        for (i,item) in self!.datas.enumerated() {
                             if item.code == dat.code {
-                                self!.dataCells.value[0].items.remove(at: i)
+                                self!.datas.remove(at: i)
                             }
                         }
                     }
-                    
-                    if self?.dataCells.value[0].items.count == 0 {
+                    self?.tableView.cyl_reloadData()
+                    if self?.datas.count == 0 {
                         self?._pageIndex = 1
                         self?.t_获取自选列表()
                     }
                     return
                 }
-                self?.dataCells.value[0].items = data
+                self?.datas = data
                 
-                if self?.dataCells.value[0].items.count == 0 {
+                if self?.datas.count == 0 {
                     self?._pageIndex = 1
                     self?.t_获取自选列表()
                 }
@@ -206,13 +202,13 @@ extension JH_Attention {
             .asObservable()
             .subscribe(onNext: { [weak self](n) in
                 guard let data = n.object as? [M_Attention] else{return}
-                self?.dataCells.value[0].items = data
+                self?.datas = data
                 
             }).addDisposableTo(disposeBag)
     }
     
     override func clickN_btn_L1() {
-        guard dataCells.value[0].items.count > 0 else {
+        guard datas.count > 0 else {
             UIAlertController.showAler(self, btnText: [sp_localized("取消") ,sp_localized("去添加")], title: sp_localized("您还没有自选酒"), block: { [weak self](text) in
                 if text == sp_localized("去添加") {
                     self?.clickN_btn_R1()
@@ -221,7 +217,7 @@ extension JH_Attention {
             })
             return
         }
-        JH_AttentionEdit.show(self, datas:dataCells.value[0].items, pageIndex:_pageIndex)
+        JH_AttentionEdit.show(self, datas:datas, pageIndex:_pageIndex)
     }
     override func clickN_btn_R1() {
         JH_Search.show(self)
@@ -246,51 +242,26 @@ extension JH_Attention {
 }
 extension JH_Attention {
     func makeTableView() {
-        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         self._placeHolderType = .tOnlyImage
-        self.sp_addPlaceHolderView()
         
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
-        self.sp_addPlaceHolderView()
-        
-        tableView.rx.setDelegate(self).addDisposableTo(disposeBag)
-        // 用所有的 [Item] 是否为空绑定 view 是否隐藏
-        dataCells.asObservable()
-            .map {  $0.map { $0.items }.reduce([], +)  }
-            .map { !$0.isEmpty }
-            .bind(to: _placeHolderView.rx.isHidden)
-            .addDisposableTo(disposeBag)
         
         
-        dataSource.configureCell = { (dat,tab,ind,mo) in
-            let cell = JH_AttentionCell_Normal.show(tab)
-            
-            cell.lab_name.text = mo.name
-            cell.lab_code.text = mo.code
-            cell.lab_price.text = mo.last_price
-            cell.lab_range.text = mo.quoteChange
-            cell.lab_range.textColor = mo.quoteChange.hasPrefix("-") ? UIColor.mainText_5 : UIColor.mainText_4
-            return cell
-        }
         
-        dataCells.asDriver()
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .addDisposableTo(disposeBag)
-        
-        tableView.rx
-            .modelSelected(M_Attention.self)
-            .subscribe(onNext: { [weak self](model) in
-                self?.tableView.deselectRow(at: self!.tableView.indexPathForSelectedRow!, animated: true)
-                JH_AttentionDetails.show(self, data:model)
-            })
-            .addDisposableTo(disposeBag)
     }
     
 }
 
-extension JH_Attention:UITableViewDelegate {
-    
+extension JH_Attention:UITableViewDelegate,UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.datas.count
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return sp_SectionH_Min
     }
@@ -301,7 +272,20 @@ extension JH_Attention:UITableViewDelegate {
         return sp_fitSize((70,75,80))
         
     }
-    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = JH_AttentionCell_Normal.show(tableView)
+        let mo = self.datas[indexPath.row]
+        cell.lab_name.text = mo.name
+        cell.lab_code.text = mo.code
+        cell.lab_price.text = mo.last_price
+        cell.lab_range.text = mo.quoteChange
+        cell.lab_range.textColor = mo.quoteChange.hasPrefix("-") ? UIColor.mainText_5 : UIColor.mainText_4
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        JH_AttentionDetails.show(self, data:self.datas[indexPath.row])
+    }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
         
@@ -397,7 +381,7 @@ extension JH_Attention {
                         }
                     }
                     */
-                    self?.dataCells.value[0].items = datas
+                    self?.datas = datas
                     self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {
                         self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有自选酒"), btnTitle:sp_localized("点击添加"))
@@ -406,7 +390,7 @@ extension JH_Attention {
                         
                     }
                 }else{
-                    self?.dataCells.value[0].items += datas
+                    self?.datas += datas
                     
                     if datas.count < my_pageSize {
                         self?._footRefersh = false
@@ -420,22 +404,22 @@ extension JH_Attention {
                 self?._placeHolderType = .tNetError(labTitle: error)
                 
             }
-            
+            self?.tableView.cyl_reloadData()
         }
     }
     
     fileprivate func t_删除自选数据(_ index:Int) {
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在删除"))
-        My_API.t_删除自选数据(code:dataCells.value[0].items[index].code).post(M_Attention.self) { [weak self](isOk, data, error) in
+        My_API.t_删除自选数据(code:datas[index].code).post(M_Attention.self) { [weak self](isOk, data, error) in
             SP_HUD.hidden()
             if isOk {
                 SP_HUD.show(text:sp_localized("已删除"))
-                self?.dataCells.value[0].items.remove(at: index)
+                self?.datas.remove(at: index)
                 
             }else{
                 SP_HUD.show(text:error)
             }
-            
+            self?.tableView.cyl_reloadData()
         }
     }
 

@@ -39,4 +39,5 @@ Using YYWebImage (1.0.5)
 Using Then (2.1.0)
 Using YCXMenu (0.0.11)
 USing UICKeyChainStore (2.1.1)
+USing WCDB (1.0.3)
 ```

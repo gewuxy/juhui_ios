@@ -79,7 +79,7 @@ extension JH_News {
         
         self.makeNavigation()
         self.makeTableView()
-        
+        self.makeSocketIO()
     }
     override func clickN_btn_L1() {
         My_MsgVC.show(self)
@@ -96,9 +96,13 @@ extension JH_News {
         YCXMenu.show(in: self.view, from: fromRect, menuItems: menuItems) { [weak self](index, item) in
             switch index {
             case 0:
-                SP_RichTextEdit.show(self, type:.t短评)
+                SP_RichTextEdit.show(self, type:.t短评, block:{ [weak self]_ in
+                    self?.t_获取短评列表()
+                })
             case 1:
-                SP_RichTextEdit.show(self, type:.t长文)
+                SP_RichTextEdit.show(self, type:.t长文, block:{ [weak self]_ in
+                    self?.t_获取短评列表()
+                })
             default:break
             }
         }
@@ -135,6 +139,29 @@ extension JH_News {
     
 }
 extension JH_News {
+    //MARK:--- SocketIO -----------------------------
+    func makeSocketIO() {
+        JH_Attention.socket.on(clientEvent: .connect) { (data, ack) in
+            //iOS客户端上线
+            //self?.socket.emit("login", self!._followData.code)
+        }
+        JH_Attention.socket.on("commentary") { [weak self](res, ack) in
+            //接收到广播
+            let json:[JSON] = JSON(res).arrayValue
+            //print_SP("json ==> \(json)")
+            guard json.count > 0 else{return}
+            let model = M_AttentionDetail(json[0])
+            
+        }
+        /*
+         self.socket.on(clientEvent: .disconnect) { (data, ack) in
+         
+         }*/
+        
+        JH_Attention.socket.connect()
+    }
+}
+extension JH_News {
     fileprivate func makeTableView() {
         /*
         do {
@@ -151,6 +178,8 @@ extension JH_News {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
         self._placeHolderType = .tOnlyImage
         self.tableView.cyl_reloadData()
         self.sp_addMJRefreshHeader()
@@ -265,7 +294,7 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
 //        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return sp_fitSize((90, 100, 110))
+        return UITableViewAutomaticDimension//sp_fitSize((90, 100, 110))
         
 //        if self._dataNewsS[indexPath.section].type == .t新闻 {
 //            return sp_fitSize((90, 100, 110))
@@ -296,8 +325,22 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = JH_NewsPostCell_List.show(tableView)
+        print_SP(cell.bounds.size.height)
         let model = _dataNewsS[indexPath.row]
-        cell.img_Logo.sp_ImageName(model.first_img)
+        if model.first_img.isEmpty {
+            cell.textView.preferredMaxLayoutWidth = sp_ScreenWidth-20
+            cell.img_Logo.snp.updateConstraints({ (make) in
+                make.width.equalTo(0)
+                make.height.equalTo(0)
+            })
+        }else{
+            cell.textView.preferredMaxLayoutWidth = sp_ScreenWidth-120
+            cell.img_Logo.sp_ImageName(model.first_img)
+            cell.img_Logo.snp.updateConstraints({ (make) in
+                make.width.equalTo(100)
+                make.height.equalTo(80)
+            })
+        }
         cell.lab_name.text = model.author_name
         cell.lab_comm.text = "评论:" + String(format: "%d", model.comments_count)
         let locationStr:NSMutableAttributedString = NSMutableAttributedString(string: "", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18)])
@@ -307,12 +350,13 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
             locationStr.append(tagText)
             locationStr.append(tagText2)
         }
-        for item in model.content {
-            
+        for item in model.bastract {
             switch item.type {
             case M_SP_RichTextType.t文字.rawValue:
-                let tagText = NSAttributedString(string: item.text, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 16)])
-                locationStr.append(tagText)
+                if item.text != "\n" {
+                    let tagText = NSAttributedString(string: item.text, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 16)])
+                    locationStr.append(tagText)
+                }
             case M_SP_RichTextType.t关注.rawValue:
                 let tagText = NSMutableAttributedString(string: item.text)
                 tagText.yy_font = UIFont.systemFont(ofSize: 16)
@@ -320,7 +364,7 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
                 tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
                 let highlight = YYTextHighlight()
                 highlight.tapAction = { (containerView,text,range,rect) in
-                    SP_HUD.showMsg("朋友")
+                    SP_HUD.showMsg("@朋友")
                 }
                 tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
                 locationStr.append(tagText)
@@ -331,7 +375,11 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
                 tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
                 let highlight = YYTextHighlight()
                 highlight.tapAction = { (containerView,text,range,rect) in
-                    SP_HUD.showMsg("点击了自选酒")
+                    var model = M_Attention()
+                    model.name = item.text
+                    model.name[0 ..< 2] = ""
+                    model.code = item.code
+                    JH_AttentionDetails.show(self, data:model)
                 }
                 tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
                 locationStr.append(tagText)
@@ -352,6 +400,7 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
             
         }
         cell.textView.attributedText = locationStr
+        
         return cell
         /*
         if self._dataNewsS[indexPath.section].type == .t新闻 {
@@ -387,6 +436,7 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
         if self._dataNewsS[indexPath.section].type == .t新闻 {
             //let model = self._dataNewsS[indexPath.section].news
             //JH_NewsDetials.show(self,data:model)
+            
             My_NewsPostDetail.show(self, _dataNewsS[indexPath.row], block:{ [weak self](type) in
                 switch type {
                 case .t关注(let follow):
@@ -397,11 +447,11 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
                     fff.logo = self!._dataNewsS[indexPath.section].author_img
                     sp_Notification.post(name: follow ? ntf_Name_朋友添加 : ntf_Name_朋友删除, object: fff)
                 case .t赞:
-                    break
+                    self?._dataNewsS[indexPath.section].likes_count += 1
                 case .t评论:
                     self?._dataNewsS[indexPath.section].comments_count += 1
                 case .t转发:
-                    break
+                    self?.t_获取短评列表()
                 }
             })
         }else{

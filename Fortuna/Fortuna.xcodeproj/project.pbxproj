@@ -76,7 +76,15 @@
 		479593051F5D368100BF523D /* My_NewsPostDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479593041F5D368100BF523D /* My_NewsPostDetail.swift */; };
 		479593071F5D455600BF523D /* SP_RichTextEditAddLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479593061F5D455600BF523D /* SP_RichTextEditAddLinkView.swift */; };
 		479593091F5D456000BF523D /* SP_RichTextEditAddLinkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 479593081F5D456000BF523D /* SP_RichTextEditAddLinkView.xib */; };
+		47B747DB1F66814200D3B50B /* M_Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B747DA1F66814200D3B50B /* M_Comment.swift */; };
 		47C8AEDF1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C8AEDE1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift */; };
+		47CA42441F67939900C8E926 /* JH_AttentionDetails_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA42431F67939900C8E926 /* JH_AttentionDetails_Page.swift */; };
+		47CA42491F67B6AB00C8E926 /* SP_PageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA42471F67B6AB00C8E926 /* SP_PageItem.swift */; };
+		47CA424A1F67B6AB00C8E926 /* SP_PageItemLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA42481F67B6AB00C8E926 /* SP_PageItemLabel.swift */; };
+		47CA424C1F67BF1800C8E926 /* JH_AttentionDetails_PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA424B1F67BF1800C8E926 /* JH_AttentionDetails_PostVC.swift */; };
+		47CA424E1F67BF5500C8E926 /* JH_AttentionDetails_NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA424D1F67BF5500C8E926 /* JH_AttentionDetails_NewsVC.swift */; };
+		47CA42511F67D6DC00C8E926 /* My_Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA424F1F67D6DC00C8E926 /* My_Page.swift */; };
+		47CA42521F67D6DC00C8E926 /* My_Questionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CA42501F67D6DC00C8E926 /* My_Questionary.swift */; };
 		47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */; };
 		47E505991F4F031B0093540C /* My_MsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E505981F4F031B0093540C /* My_MsgVC.swift */; };
 		47EE30901F4FCA730016BA5E /* SP_RichTextEditToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EE308F1F4FCA730016BA5E /* SP_RichTextEditToolBar.swift */; };
@@ -595,7 +603,15 @@
 		479593041F5D368100BF523D /* My_NewsPostDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_NewsPostDetail.swift; sourceTree = "<group>"; };
 		479593061F5D455600BF523D /* SP_RichTextEditAddLinkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEditAddLinkView.swift; sourceTree = "<group>"; };
 		479593081F5D456000BF523D /* SP_RichTextEditAddLinkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SP_RichTextEditAddLinkView.xib; sourceTree = "<group>"; };
+		47B747DA1F66814200D3B50B /* M_Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M_Comment.swift; sourceTree = "<group>"; };
 		47C8AEDE1F5FE56F0068ED7A /* My_FriendsVC_Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_FriendsVC_Cell.swift; sourceTree = "<group>"; };
+		47CA42431F67939900C8E926 /* JH_AttentionDetails_Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails_Page.swift; sourceTree = "<group>"; };
+		47CA42471F67B6AB00C8E926 /* SP_PageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_PageItem.swift; sourceTree = "<group>"; };
+		47CA42481F67B6AB00C8E926 /* SP_PageItemLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_PageItemLabel.swift; sourceTree = "<group>"; };
+		47CA424B1F67BF1800C8E926 /* JH_AttentionDetails_PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails_PostVC.swift; sourceTree = "<group>"; };
+		47CA424D1F67BF5500C8E926 /* JH_AttentionDetails_NewsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetails_NewsVC.swift; sourceTree = "<group>"; };
+		47CA424F1F67D6DC00C8E926 /* My_Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_Page.swift; sourceTree = "<group>"; };
+		47CA42501F67D6DC00C8E926 /* My_Questionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_Questionary.swift; sourceTree = "<group>"; };
 		47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JH_AttentionDetailsFull.swift; sourceTree = "<group>"; };
 		47E505981F4F031B0093540C /* My_MsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = My_MsgVC.swift; sourceTree = "<group>"; };
 		47EE308F1F4FCA730016BA5E /* SP_RichTextEditToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SP_RichTextEditToolBar.swift; sourceTree = "<group>"; };
@@ -1208,6 +1224,7 @@
 			isa = PBXGroup;
 			children = (
 				476D29381F4BC42B00AD7DBF /* M_News.swift */,
+				47B747DA1F66814200D3B50B /* M_Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1384,6 +1401,23 @@
 				4790662A1F55733D00640B9A /* My_SearchWineVC.swift */,
 			);
 			path = SearchWine;
+			sourceTree = "<group>";
+		};
+		47CA42451F67B6AB00C8E926 /* SP_PageVC */ = {
+			isa = PBXGroup;
+			children = (
+				47CA42461F67B6AB00C8E926 /* SP_PageItem */,
+			);
+			path = SP_PageVC;
+			sourceTree = "<group>";
+		};
+		47CA42461F67B6AB00C8E926 /* SP_PageItem */ = {
+			isa = PBXGroup;
+			children = (
+				47CA42471F67B6AB00C8E926 /* SP_PageItem.swift */,
+				47CA42481F67B6AB00C8E926 /* SP_PageItemLabel.swift */,
+			);
+			path = SP_PageItem;
 			sourceTree = "<group>";
 		};
 		47E505971F4F030B0093540C /* My_Msg */ = {
@@ -2149,11 +2183,16 @@
 				AB5901521EE9338000826A37 /* JH_Attention.swift */,
 				AB4A75BE1EEF7E550014F633 /* JH_AttentionEdit.swift */,
 				AB2488301EF8E276004CE6BD /* JH_AttentionDetails.swift */,
+				47CA424B1F67BF1800C8E926 /* JH_AttentionDetails_PostVC.swift */,
+				47CA424D1F67BF5500C8E926 /* JH_AttentionDetails_NewsVC.swift */,
+				47CA42431F67939900C8E926 /* JH_AttentionDetails_Page.swift */,
 				47D009AF1F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift */,
 				AB1EA0231F29FCD600F196F2 /* JH_AttentionDetails_Datas.swift */,
 				ABD8F3071F1A011500B48104 /* JH_AttentionKLine.swift */,
 				AB4A75C01EEF86470014F633 /* JH_Attention_Cell.swift */,
 				AB4EB79F1F0A42C200D8CA0D /* JH_AttentionDetails_Cell.swift */,
+				47CA424F1F67D6DC00C8E926 /* My_Page.swift */,
+				47CA42501F67D6DC00C8E926 /* My_Questionary.swift */,
 				AB44C9A91F0CB9830040E3F7 /* SP_TimeLine */,
 				AB67EBFD1F00A39D009FF2DC /* V_M */,
 				AB67EBFA1F00A389009FF2DC /* Model */,
@@ -2213,6 +2252,7 @@
 				AB82CED51EEE3E0000D015B1 /* SP_ToolOC.h */,
 				AB82CED61EEE3E0000D015B1 /* SP_ToolOC.m */,
 				AB292D181F2AD145008C775C /* SP_MyTestPlayground.playground */,
+				47CA42451F67B6AB00C8E926 /* SP_PageVC */,
 				AB23BB8A1F282CCF004D858E /* SP_Stock */,
 				AB4EEAFD1F1778EC00DDCBA4 /* SP_PhotoBrowser */,
 				AB993D3C1F0B948700C06108 /* SP_ImagePickerView */,
@@ -3232,6 +3272,7 @@
 				AB564F2F1EFB930A005E3ABB /* SP_HUD.swift in Sources */,
 				AB0BD3A71F18985300899D0F /* KZVideoSupport.m in Sources */,
 				AB6824261EFA20730079C58B /* SP_UploadParam.swift in Sources */,
+				47B747DB1F66814200D3B50B /* M_Comment.swift in Sources */,
 				AB5901C31EE94B9200826A37 /* Bool_extension.swift in Sources */,
 				AB6824281EFA20950079C58B /* SP_Alamofire.swift in Sources */,
 				AB310AEE1F1CA565007F3778 /* Y_KLineVolume.m in Sources */,
@@ -3259,6 +3300,7 @@
 				AB993D6F1F0B948700C06108 /* PhotoFetchOptions.swift in Sources */,
 				AB310AF11F1CA565007F3778 /* Y_StockChartView.m in Sources */,
 				AB4EEB051F1778EC00DDCBA4 /* SP_PhotoProgressView.swift in Sources */,
+				47CA42441F67939900C8E926 /* JH_AttentionDetails_Page.swift in Sources */,
 				47D009B01F2EE03F00BCD1B2 /* JH_AttentionDetailsFull.swift in Sources */,
 				AB993D861F0B948700C06108 /* SP_AddPhotoPickerVC.swift in Sources */,
 				479065FB1F55474300640B9A /* UIImage+MultiFormat.m in Sources */,
@@ -3293,6 +3335,7 @@
 				AB9920B11F11E11600CFBB6C /* JH_MyHistoryDeal.swift in Sources */,
 				479065C91F55462400640B9A /* ArchiveFile.m in Sources */,
 				AB993D791F0B948700C06108 /* UIImage+Extension.swift in Sources */,
+				47CA42511F67D6DC00C8E926 /* My_Page.swift in Sources */,
 				477339031F5E806A0008CDA1 /* UIFont+LMText.m in Sources */,
 				4790661E1F55475C00640B9A /* NSObject+MJProperty.m in Sources */,
 				470B2CAA1F31C2AB0053CCAE /* FCFileManager.m in Sources */,
@@ -3325,6 +3368,7 @@
 				AB19932D1F03925F00E710CB /* HXCameraViewController.m in Sources */,
 				AB82CEBF1EEE35F900D015B1 /* SP_Tool.swift in Sources */,
 				AB8B21E61EFCC16300B944AA /* JH_MySetting.swift in Sources */,
+				47CA424A1F67B6AB00C8E926 /* SP_PageItemLabel.swift in Sources */,
 				AB1993321F03925F00E710CB /* HXPhotoPreviewViewCell.m in Sources */,
 				AB310AE61F1CA565007F3778 /* Y_KLineGroupModel.m in Sources */,
 				AB4EEAFA1F17095600DDCBA4 /* JH_IM_Input.swift in Sources */,
@@ -3417,8 +3461,10 @@
 				47143D4B1F4D7A5F00B145B5 /* UIImage+NXMScaleSize.m in Sources */,
 				AB310AFC1F1CA565007F3778 /* ViewController+MASAdditions.m in Sources */,
 				479066181F55475C00640B9A /* MJProperty.m in Sources */,
+				47CA424E1F67BF5500C8E926 /* JH_AttentionDetails_NewsVC.swift in Sources */,
 				AB993D761F0B948700C06108 /* PhotoPreviewToolbarView.swift in Sources */,
 				4790662B1F55733D00640B9A /* My_SearchWineVC.swift in Sources */,
+				47CA42491F67B6AB00C8E926 /* SP_PageItem.swift in Sources */,
 				AB993D781F0B948700C06108 /* UICollectionView+Extension.swift in Sources */,
 				AB5901551EE9338D00826A37 /* My_API.swift in Sources */,
 				AB42C7BF1EF6C1BF00C51669 /* JH_BuyAndSell_Cell.swift in Sources */,
@@ -3459,6 +3505,7 @@
 				ABAE354C1F1F0B9C007A9145 /* YYLineDataModel.m in Sources */,
 				AB993D681F0B948700C06108 /* NSIndexSet+Extension.swift in Sources */,
 				AB993D201F0B39A200C06108 /* UIColor+YYStockTheme.m in Sources */,
+				47CA424C1F67BF1800C8E926 /* JH_AttentionDetails_PostVC.swift in Sources */,
 				479065F81F55474300640B9A /* SDWebImagePrefetcher.m in Sources */,
 				AB5901E71EE94B9200826A37 /* SP_MJDIYAutoFooter.swift in Sources */,
 				470B2CA41F31C1A30053CCAE /* NSObject+WZXArchiver.m in Sources */,
@@ -3481,6 +3528,7 @@
 				47143D471F4D7A5F00B145B5 /* NXBSelectPhotosModel.m in Sources */,
 				AB1993301F03925F00E710CB /* HXPhotoManager.m in Sources */,
 				4790661B1F55475C00640B9A /* NSObject+MJClass.m in Sources */,
+				47CA42521F67D6DC00C8E926 /* My_Questionary.swift in Sources */,
 				477338FD1F5E803C0008CDA1 /* LMTextHTMLParser.m in Sources */,
 				AB19937B1F03925F00E710CB /* UIButton+HXExtension.m in Sources */,
 				AB2DE4F71F163D4F006BEC0E /* SP_IM_Voice.swift in Sources */,

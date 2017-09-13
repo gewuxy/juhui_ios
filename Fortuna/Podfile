@@ -10,6 +10,7 @@ target 'Fortuna' do
     pod 'ObjectMapper'
     #pod 'HandyJSON'
     #pod 'SDWebImage'
+    pod 'WCDB' #微信DataBase SQLCipher
     
     pod 'SnapKit'
     pod 'Masonry'
@@ -26,8 +27,8 @@ target 'Fortuna' do
     
     #pod 'Realm'
     pod 'RealmSwift'
-    pod 'RxRealmDataSources'
-    pod 'RxRealm'
+    #pod 'RxRealmDataSources'
+    #pod 'RxRealm'
     
     pod 'Then'
     #下拉弹窗
