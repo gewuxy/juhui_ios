@@ -27,6 +27,7 @@ class JH_NewsDetials: SP_ParentVC {
     }()
     @IBOutlet weak var view_progress: UIProgressView!
     var _datas = M_News()
+    var _isHttp = false
     deinit {
         _wkwebView.removeObserver(self, forKeyPath: "estimatedProgress")
         _wkwebView.delegate = nil
@@ -37,9 +38,10 @@ extension JH_NewsDetials {
     override class func initSPVC() -> JH_NewsDetials {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "JH_NewsDetials") as! JH_NewsDetials
     }
-    class func show(_ parentVC:UIViewController?, data:M_News) {
+    class func show(_ parentVC:UIViewController?, data:M_News, isHttp:Bool = false) {
         let vc = JH_NewsDetials.initSPVC()
         vc._datas = data
+        vc._isHttp = isHttp
         vc.hidesBottomBarWhenPushed = true
         parentVC?.navigationController?.show(vc, sender: nil)
     }
@@ -69,32 +71,35 @@ extension JH_NewsDetials {
         view_progress.progress = 0.0
         self.view.addSubview(_wkwebView)
         
-        
         _wkwebView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(64)
             make.leading.trailing.bottom.equalToSuperview()
         }
-        let strUrl = "<html><head>"
-            + "<style type=\"text/css\">body{ font-size:44px; color: #4d4d4d} img{width: 100%;height: auto;} </style>"
-            + "<title>巨汇</title>"
-            + "</head><body>"
-            + "<br><h3 style=\"text-align:center\">" + _datas.title + "</h3>"
-            + "<p style=\"text-align:center\">"
-            + "来源：" + _datas.origin + "&nbsp&nbsp&nbsp&nbsp"
-            + "日期：" + _datas.news_time + "<br>"
-            + "作者：" + _datas.author
-            + "</p>"
-            + _datas.article
-            + "</body></html>"
         
-        
-        _wkwebView.loadHTMLString(strUrl, baseURL: nil)
-        /*
-        guard _datas.href.hasPrefix("http://") || _datas.href.hasPrefix("https://") else {
-            return
+        if _isHttp {
+            guard _datas.href.hasPrefix("http://") || _datas.href.hasPrefix("https://") else {
+                return
+            }
+            
+            _wkwebView.load(URLRequest(url: URL(string: _datas.href)!))
+        }else{
+            let strUrl = "<html><head>"
+                + "<style type=\"text/css\">body{ font-size:44px; color: #4d4d4d} img{width: 100%;height: auto;} </style>"
+                + "<title>巨汇</title>"
+                + "</head><body>"
+                + "<br><h3 style=\"text-align:center\">" + _datas.title + "</h3>"
+                + "<p style=\"text-align:center\">"
+                + "来源：" + _datas.origin + "&nbsp&nbsp&nbsp&nbsp"
+                + "日期：" + _datas.news_time + "<br>"
+                + "作者：" + _datas.author
+                + "</p>"
+                + _datas.article
+                + "</body></html>"
+            
+            
+            _wkwebView.loadHTMLString(strUrl, baseURL: nil)
         }
-        _wkwebView.load(URLRequest(url: URL(string: _datas.href)!))
-        */
+        
         //[self.myWebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];
         
     }

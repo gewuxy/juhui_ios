@@ -7,7 +7,7 @@
 //
 
 import UIKit
-////import RealmSwift
+import RealmSwift
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -16,11 +16,19 @@ class JH_Market: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
     let disposeBag = DisposeBag()
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, Any>>()
-    let dataCells = Variable([SectionModel<Int, Any>]())
+//    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, Any>>()
+//    let dataCells = Variable([SectionModel<Int, Any>]())
     
-    var _datas = M_Market()
-    var _datasLiv = M_Market()
+    var _datas = M_Market() {
+        didSet{
+            self.tableView.cyl_reloadData()
+        }
+    }
+    var _datasLiv = [M_LivExList]() {
+        didSet{
+            self.tableView.cyl_reloadData()
+        }
+    }
 
     enum sectionType:Int {
         case tLiv_ex = 0
@@ -37,15 +45,18 @@ extension JH_Market {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        makeNavigation()
-        makeTableView()
+        self.makeNavigation()
+        self.makeTableView()
     }
     fileprivate func makeNavigation() {
         n_view.n_btn_L1_Image = ""
     }
     fileprivate func makeTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self._placeHolderType = .tOnlyImage
+        self.tableView.cyl_reloadData()
         
-        /*
         do {
             let realm = try Realm()
             if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_MarketRealm") {
@@ -56,19 +67,24 @@ extension JH_Market {
                     self._datas.low_ratio.append(item.read())
                 }
             }
-            
         } catch let err {
             print(err)
-        }*/
+        }
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self._placeHolderType = .tOnlyImage
-        self.tableView.cyl_reloadData()
+        do {
+            let realm = try Realm()
+            let theRealms:Results<M_LivExListRealm> = realm.objects(M_LivExListRealm.self)
+            
+            for item in theRealms {
+                self._datasLiv.append(item.read())
+                
+            }
+        } catch let err {
+            print(err)
+        }
+        
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
-        
-        
     }
     
     override func sp_placeHolderViewClick() {
@@ -88,6 +104,8 @@ extension JH_Market {
         }
     }
 }
+//MARK:--- 旧的 ----------
+/*
 extension JH_Market{
     fileprivate func makeTableViewRx() {
         dataCells.value = [
@@ -126,19 +144,21 @@ extension JH_Market{
         tableView.rx.setDataSource(self).addDisposableTo(disposeBag)
         
     }
-}
+}*/
 extension JH_Market:UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (_datas.high_ratio.count == 0 && _datas.low_ratio.count == 0) ? 0 : 3
+        return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case sectionType.tLiv_ex.rawValue:
+            return _datasLiv.count > 0 ? 1 : 0
         case sectionType.t涨幅.rawValue:
             return _datas.high_ratio.count
         case sectionType.t跌幅.rawValue:
             return _datas.low_ratio.count
         default:
-            return 1
+            return 0
         }
         
     }
@@ -149,7 +169,7 @@ extension JH_Market:UITableViewDelegate {
         case sectionType.t跌幅.rawValue:
             return _datas.low_ratio.count == 0 ? sp_SectionH_Min : 35
         default:
-            return 0
+            return sp_SectionH_Min
         }
         
     }
@@ -200,6 +220,12 @@ extension JH_Market:UITableViewDataSource{
         if indexPath.section == sectionType.tLiv_ex.rawValue {
             let cell = My_MarketCell_Liv.show(tableView)
             cell.contentView.backgroundColor = UIColor.main_bg
+            cell.dataCells.value = [
+                SectionModel(model:0,items:self._datasLiv)
+            ]
+            cell._selectBlock = { [weak self]model in
+                JH_MarketLivexDetail.show(self, model)
+            }
             return cell
         }
         let cell = JH_AttentionCell_Normal.show(tableView)
@@ -242,7 +268,7 @@ extension JH_Market {
             
             if isOk {
                 guard let datas = data as? M_Market else{return}
-                /*
+                
                 DispatchQueue.global().async {
                     do {
                         let realm = try Realm()
@@ -251,14 +277,14 @@ extension JH_Market {
                         m_MarketRealm.high_ratio.removeAll()
                         m_MarketRealm.low_ratio.removeAll()
                         for item in datas.high_ratio {
-                            let m_AttentionRealm = M_AttentionRealm()
-                            m_AttentionRealm.write(item)
-                            m_MarketRealm.high_ratio.append(m_AttentionRealm)
+                            let m_Realm = M_AttentionRealm()
+                            m_Realm.write(item)
+                            m_MarketRealm.high_ratio.append(m_Realm)
                         }
                         for item in datas.low_ratio {
-                            let m_AttentionRealm = M_AttentionRealm()
-                            m_AttentionRealm.write(item)
-                            m_MarketRealm.low_ratio.append(m_AttentionRealm)
+                            let m_Realm = M_AttentionRealm()
+                            m_Realm.write(item)
+                            m_MarketRealm.low_ratio.append(m_Realm)
                         }
                         try realm.write {
                             //写入，根据主键更新
@@ -274,29 +300,42 @@ extension JH_Market {
                     } catch let err {
                         print(err)
                     }
-                }*/
-                if self?.dataCells.value.count == 0 {
-                    
                 }
-                self?.dataCells.value = [
-                    SectionModel(model:1,items:datas.high_ratio),
-                    SectionModel(model:2,items:datas.low_ratio)]
+                
                 self?._datas = datas
                 if datas.high_ratio.count == 0 && datas.low_ratio.count == 0 {
                     self?._placeHolderType = .tNoData(labTitle: sp_localized("9011110"), btnTitle:sp_localized("点击刷新"))
                 }
-                
-                self?.tableView.cyl_reloadData()
             }else{
                 self?._placeHolderType = .tNetError(labTitle: error)
-                self?.tableView.cyl_reloadData()
+                
             }
             
         }
     }
     fileprivate func t_Liv获取指数表现() {
-        My_API.t_Liv获取指数表现.post(M_MyCommon.self) { (isOk, data, error) in
-            
+        My_API.t_Liv获取指数表现.post(M_LivExList.self) { [weak self](isOk, data, error) in
+            if isOk {
+                guard let datas = data as? [M_LivExList] else{return}
+                DispatchQueue.global().async {
+                    do {
+                        let realm = try Realm()
+                        for item in datas {
+                            let m_Realm = M_LivExListRealm()
+                            m_Realm.write(item)
+                            try realm.write {
+                                //写入，根据主键更新
+                                realm.add(m_Realm, update: true)
+                            }
+                        }
+                        DispatchQueue.main.async { _ in
+                        }
+                    } catch let err {
+                        print(err)
+                    }
+                }
+                self?._datasLiv = datas
+            }
         }
     }
     

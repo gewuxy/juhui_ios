@@ -94,22 +94,7 @@ class JH_AttentionCell_Normal: UITableViewCell {
         lab_price_W.constant = sp_fitSize((80,90,100))
         lab_range_W.constant = sp_fitSize((80,90,100))
         
-        //self.addGestureRecognizer(longPress)
-    }
-    lazy var longPress:UILongPressGestureRecognizer = {
-        let lo = UILongPressGestureRecognizer(target: self, action: #selector(JH_AttentionCell_Normal.longPressClick(_:)))
-        lo.minimumPressDuration = 0.5
-        return lo
-    }()
-    func longPressClick(_ sender:UILongPressGestureRecognizer) {
-        switch sender.state {
-        case .began:
-            self.backgroundColor = UIColor.main_bgHigh
-        case .ended:
-            self.backgroundColor = UIColor.white
-        default:
-            break
-        }
+        
     }
     @IBOutlet weak var view_line: UIView!
     @IBOutlet weak var lab_name: UILabel!

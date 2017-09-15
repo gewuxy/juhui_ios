@@ -64,7 +64,7 @@ extension My_NewsPostDetail {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.n_view._title = _dataNewsS.title
+        self.n_view._title = _dataNewsS.title.isEmpty ? _blog_Title : _dataNewsS.title
         self.makeTableView()
         self.makeBottomView()
     }
@@ -77,6 +77,8 @@ extension My_NewsPostDetail {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
+        
+        
     }
     func makeBottomView() {
         self.btn_Comm.setTitle(String(format:"评论: %d",self._dataNewsS.comments_count), for: .normal)
@@ -86,18 +88,27 @@ extension My_NewsPostDetail {
         switch sender {
         case btn_Zhanfa:
             var title = self._dataNewsS.title
-            if title.isEmpty {
+            if title.isEmpty || title.hasPrefix("【转】") {
                 title = _blog_Title
+            }
+            if title.characters.count > 30 {
+                title = title[0 ..< 27] + "..."
             }
             SP_RichTextEdit.show(self, type:.t转发,blog_id:self._dataNewsS.blog_id, parent_blog_Title:title, placeholderText:sp_localized("说说转发心得..."), block:{ _ in
                 self._vcBlock?(.t转发)
             })
         case btn_Comm:
-            SP_RichTextEdit.show(self, type:.t评论,blog_id:self._dataNewsS.blog_id, placeholderText:sp_localized("发表评论"), block:{ _ in
-                self._vcBlock?(.t评论)
+            SP_RichTextEdit.show(self, type:.t评论,blog_id:self._dataNewsS.blog_id, placeholderText:sp_localized("发表评论"), block:{ [weak self]_ in
+                if self?._pageIndex == 1 {
+                    self?.t_获取短评评论()
+                }
+                self?.t_获取短评详细内容()
+                self?._vcBlock?(.t评论)
             })
         case btn_Zan:
-            self.t_短评点赞()
+            if !_dataNewsS.is_likes {
+                self.t_短评点赞()
+            }
         default:
             break
         }
@@ -140,7 +151,7 @@ extension My_NewsPostDetail:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
-            return sp_SectionH_Top
+            return 40
         }else{
             return sp_SectionH_Min
         }
@@ -194,11 +205,11 @@ extension My_NewsPostDetail:UITableViewDelegate,UITableViewDataSource {
                     }
                 }
             }
-            //MARK:--- JH_NewsCell_User ----------
             return cell
         }else{
             //MARK:--- JH_NewsCell_Content ----------
             let cell = JH_NewsCell_Content.show(tableView)
+            cell.view_line.isHidden = indexPath.section == 0
             var contentSS = [M_SP_RichText]()
             _images.removeAll()
             _locations.removeAll()
@@ -206,11 +217,29 @@ extension My_NewsPostDetail:UITableViewDelegate,UITableViewDataSource {
             if indexPath.section == 0 {
                 contentSS = _dataNewsS.content
                 if !_dataNewsS.title.isEmpty {
-                    let tagText = NSAttributedString(string: _dataNewsS.title, attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 22)])
+                    let tagText = NSMutableAttributedString(string: _dataNewsS.title, attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 22)])
+                    if _dataNewsS.title.hasPrefix("【转】") {
+                        tagText.yy_color = UIColor.main_btnNormal
+                        tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
+                        let highlight = YYTextHighlight()
+                        highlight.tapAction = { [unowned self](containerView,text,range,rect) in
+                            var mo = M_NewsS()
+                            mo.blog_id = self._dataNewsS.parent_blog_id
+                            My_NewsPostDetail.show(self, mo, block:{ [weak self](type) in
+                                switch type {
+                                case .t转发:
+                                    self?._vcBlock?(.t转发)
+                                default:break
+                                }
+                            })
+                        }
+                        tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
+                    }
                     let tagText2 = NSAttributedString(string: "\n", attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 0)])
                     locationStr.append(tagText)
                     locationStr.append(tagText2)
                 }
+                
             }else{
                 contentSS = _comments[indexPath.section-1].content
             }
@@ -218,11 +247,13 @@ extension My_NewsPostDetail:UITableViewDelegate,UITableViewDataSource {
             for item in contentSS {
                 switch item.type {
                 case M_SP_RichTextType.t文字.rawValue:
-                    var attributes:[String:Any] = [NSFontAttributeName:UIFont.systemFont(ofSize: item.fontPt)]
+                    var attributes:[String:Any] = [NSFontAttributeName:UIFont.systemFont(ofSize: indexPath.section == 0 ? item.fontPt : 16)]
                     if item.isBold {
-                        attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: item.fontPt)]
+                        attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: indexPath.section == 0 ? item.fontPt : 16)]
                     }
-                    let tagText = NSAttributedString(string: item.text, attributes: attributes)
+                    
+                    let tagText = NSMutableAttributedString(string: item.text, attributes: attributes)
+                    tagText.yy_color = UIColor.mainText_1
                     locationStr.append(tagText)
                 case M_SP_RichTextType.t关注.rawValue:
                     
@@ -257,8 +288,11 @@ extension My_NewsPostDetail:UITableViewDelegate,UITableViewDataSource {
                     tagText.yy_color = UIColor.main_btnNormal
                     tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: true), range: tagText.yy_rangeOfAll())
                     let highlight = YYTextHighlight()
-                    highlight.tapAction = { (containerView,text,range,rect) in
-                        SP_HUD.showMsg("点击了超链接")
+                    highlight.tapAction = { [weak self](containerView,text,range,rect) in
+                        var mmo = M_News()
+                        mmo.href = item.link
+                        mmo.title = item.text
+                        JH_NewsDetials.show(self,data:mmo, isHttp:true)
                     }
                     tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
                     locationStr.append(tagText)

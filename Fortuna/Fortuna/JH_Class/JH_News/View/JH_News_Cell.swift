@@ -60,8 +60,8 @@ class JH_NewsPostCell_List: UITableViewCell {
         }
         lab_comm.snp.makeConstraints { (make) in
             make.centerY.equalTo(lab_name.snp.centerY)
-            make.left.equalTo(lab_name.snp.right).offset(10)
-            make.right.greaterThanOrEqualTo(img_Logo.snp.left).offset(-10)
+            make.left.greaterThanOrEqualTo(lab_name.snp.right).offset(10)
+            make.right.equalTo(img_Logo.snp.left).offset(-10)
             
         }
         view_line.snp.makeConstraints { (make) in
@@ -164,6 +164,11 @@ class JH_NewsCell_Content: UITableViewCell {
         
 //        let lab = UILabel()
 //        lab.attributedText
+        self.contentView.addSubview(view_line)
+        view_line.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(0.5)
+        }
     }
     
     lazy var textView:YYLabel = {
@@ -191,7 +196,11 @@ class JH_NewsCell_Content: UITableViewCell {
         }
         return text
     }()
-    
+    lazy var view_line: UIView  = {
+        let view = UIView()
+        view.backgroundColor = UIColor.main_line
+        return view
+    }()
 }
 extension JH_NewsCell_Content:YYTextViewDelegate {
      func textViewDidChange(_ textView: YYTextView) {

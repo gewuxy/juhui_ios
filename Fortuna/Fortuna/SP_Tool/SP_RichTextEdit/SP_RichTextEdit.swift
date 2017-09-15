@@ -117,9 +117,12 @@ extension SP_RichTextEdit {
         }
         SP_HUD.show(view: self.view, type: .tLoading, text: sp_localized("正在发布"))
         self.n_view.n_btn_R1.isEnabled = false
+        
+        let attributedJSON = self.attributedTextToJSON()
+        
         switch _vcType {
         case .t评论:
-            My_API.t_发表短评评论接口(content: self.attributedTextToJSON().content, blog_id: self._blog_id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
+            My_API.t_发表短评评论接口(content: attributedJSON.content, blog_id: self._blog_id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
                 SP_HUD.hidden()
                 self?.n_view.n_btn_R1.isEnabled = true
                 if isOk {
@@ -131,7 +134,7 @@ extension SP_RichTextEdit {
                 }
             }
         case .t短评,.t长文, .t转发:
-            My_API.t_发表短评接口(content: self.attributedTextToJSON().content, title: title, bastract: self.attributedTextToJSON().bastract, first_img: self.attributedTextToJSON().first_img, friends: self.attributedTextToJSON().friends, wines: self.attributedTextToJSON().wines,parent_blog_id:self._blog_id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
+            My_API.t_发表短评接口(content: attributedJSON.content, title: title, bastract: attributedJSON.bastract, first_img: attributedJSON.first_img, friends: attributedJSON.friends, wines: attributedJSON.wines,parent_blog_id:self._blog_id).post(M_MyCommon.self) { [weak self](isOk, data, error) in
                 SP_HUD.hidden()
                 self?.n_view.n_btn_R1.isEnabled = true
                 if isOk {
@@ -275,17 +278,20 @@ extension SP_RichTextEdit {
             effectiveRange = NSMakeRange(effectiveRange.location + effectiveRange.length, 0);
         }
         
-        //let content:String = JSON(arrContent).rawString([.castNilToNSNull: true]) ?? ""
         
-        //let bastract = JSON(arrContent).rawString([.castNilToNSNull: true]) ?? ""
+        
         var strBastract2 = ""
         for item in strBastract.characters {
             if item != "\n" {
                 strBastract2.append(item)
             }
         }
-        print(strBastract2)
-        return (strContent,strBastract2,first_img,friends,wines)
+        
+        let contentUTF8:String = strContent.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? strContent
+        let bastractUTF8:String = strBastract2.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? strBastract2
+        
+        //print_SP(contentJson)
+        return (contentUTF8,bastractUTF8,first_img,friends,wines)
     }
     
     
@@ -360,10 +366,10 @@ extension SP_RichTextEdit:YYTextViewDelegate {
                 return true
             }
         case textView:
-            self.newstr = text
-            print_SP("self.newstr => \(text)")
-            print_SP("range.location => \(range.location)")
-            print_SP("range.length => \(range.length)")
+            //self.newstr = text
+            //print_SP("self.newstr => \(text)")
+            //print_SP("range.location => \(range.location)")
+            //print_SP("range.length => \(range.length)")
             
             //self.newRange = NSMakeRange(range.location, text.characters.count);
             return true
@@ -379,43 +385,68 @@ extension SP_RichTextEdit:YYTextViewDelegate {
             return
         }
         let len = textView.attributedText!.length - self.locationStr.length
-        self.locationStr = NSMutableAttributedString(attributedString: textView.attributedText!)
+        
         if len > 0 {
             self.isDelete = false
-            var attributes:[String:Any] = [:]
-            if toolBarConfi.isBold {
-                attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: toolBarConfi.fontSize)]
-                
+            self.newRange = NSMakeRange(self.textView.selectedRange.location - len, len);
+            if self.newRange == nil {
+                return
             }
-            else
-            {
-                attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: toolBarConfi.fontSize)]
-                
-            }
-            
-            let replaceStr = NSAttributedString(string: self.newstr, attributes: attributes)
-            //self.newRange?.length = len
-            self.newRange = NSMakeRange(self.textView.selectedRange.location - self.newstr.characters.count, len);
-            print_SP("self.newRange.location => \(self.newRange?.location)")
-            print_SP("self.newRange.length => \(self.newRange?.length)")
-            self.locationStr.replaceCharacters(in: self.newRange!, with: replaceStr)
-            
-            self.textView.attributedText = self.locationStr
-            //这里需要把光标的位置重新设定
-            self.textView.selectedRange = NSMakeRange(self.newRange!.location+self.newRange!.length, 0)
-            
+            let strrr:NSString = textView.text as NSString
+            self.newstr = strrr.substring(with: self.newRange!)
         }else{
             self.isDelete = true
         }
         
-//        var textBounds = textView.bounds
-//        // 计算 text view 的高度
-//        let maxSize = CGSize(width:textBounds.size.width, height:CGFloat.greatestFiniteMagnitude)
-//        let newSize = textView.sizeThatFits(maxSize)
-//        textBounds.size = newSize
-//        let textHeight = textBounds.size.height
-//        print_SP("textHeight => \(textHeight)")
+        self.locationStr = NSMutableAttributedString(attributedString: self.textView.attributedText!)
+        
+        if self.isDelete {
+            return
+        }
+        
+        var attributes:[String:Any] = [:]
+        if toolBarConfi.isBold {
+            attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: toolBarConfi.fontSize)]
+            
+        }
+        else
+        {
+            attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: toolBarConfi.fontSize)]
+            
+        }
+        
+        let replaceStr = NSAttributedString(string: self.newstr, attributes: attributes)
+        
+        self.locationStr.replaceCharacters(in: self.newRange!, with: replaceStr)
+        
+        self.textView.attributedText = self.locationStr
+        //这里需要把光标的位置重新设定
+        self.textView.selectedRange = NSMakeRange(self.newRange!.location+self.newRange!.length, 0)
+        
     }
+    
+    /*var attributes:[String:Any] = [:]
+     if toolBarConfi.isBold {
+     attributes = [NSFontAttributeName:UIFont.boldSystemFont(ofSize: toolBarConfi.fontSize)]
+     
+     }
+     else
+     {
+     attributes = [NSFontAttributeName:UIFont.systemFont(ofSize: toolBarConfi.fontSize)]
+     
+     }
+     
+     let replaceStr = NSAttributedString(string: self.newstr, attributes: attributes)
+     //self.newRange?.length = len
+     self.newRange = NSMakeRange(self.textView.selectedRange.location - self.newstr.characters.count, len);
+     print_SP("self.newRange.location => \(self.newRange?.location)")
+     print_SP("self.newRange.length => \(self.newRange?.length)")
+     self.locationStr.replaceCharacters(in: self.newRange!, with: replaceStr)
+     
+     self.textView.attributedText = self.locationStr
+     //这里需要把光标的位置重新设定
+     self.textView.selectedRange = NSMakeRange(self.newRange!.location+self.newRange!.length, 0)
+     */
     
     func textViewDidChangeSelection(_ textView: YYTextView) {
         textView.scrollRangeToVisible(textView.selectedRange)

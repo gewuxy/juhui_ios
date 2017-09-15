@@ -8,7 +8,7 @@
 
 import UIKit
 import SafariServices
-////import RealmSwift
+import RealmSwift
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -22,10 +22,12 @@ class JH_News: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
     let disposeBag = DisposeBag()
-    //let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Int, M_NewsS>>()
     
-    //let dataCells = Variable([SectionModel<Int, M_NewsS>]())
-    
+    var msgNum = 0 {
+        didSet{
+            lab_Msg.text = msgNum > 0 ? (msgNum > 99 ? " 99+ " : String(format:" %d ",msgNum)) : ""
+        }
+    }
     var _pageIndex = 1
     
     var _dataNewsS:[M_NewsS] = [] {
@@ -82,6 +84,7 @@ extension JH_News {
         self.makeSocketIO()
     }
     override func clickN_btn_L1() {
+        msgNum = 0
         My_MsgVC.show(self)
     }
     override func clickN_btn_R1() {
@@ -94,6 +97,14 @@ extension JH_News {
         YCXMenu.setTintColor(UIColor.mainText_1)
         YCXMenu.setSelectedColor(UIColor.black)
         YCXMenu.show(in: self.view, from: fromRect, menuItems: menuItems) { [weak self](index, item) in
+            
+            guard SP_User.shared.userIsLogin else {
+                SP_Login.show(self) { (isOk) in
+                    
+                }
+                return
+            }
+            
             switch index {
             case 0:
                 SP_RichTextEdit.show(self, type:.t短评, block:{ [weak self]_ in
@@ -116,7 +127,7 @@ extension JH_News {
         n_view.n_btn_L1_Image = "IM展开加号"
         n_view.n_btn_R1_Image = "IM展开加号"
         btn_Search.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        lab_Msg.text = " 99 "
+        lab_Msg.text = msgNum > 0 ? (msgNum > 99 ? " 99+ " : String(format:" %d ",msgNum)) : ""
         
     }
     
@@ -148,10 +159,19 @@ extension JH_News {
         JH_Attention.socket.on("commentary") { [weak self](res, ack) in
             //接收到广播
             let json:[JSON] = JSON(res).arrayValue
-            //print_SP("json ==> \(json)")
+            print_SP("json ==> \(json)")
             guard json.count > 0 else{return}
-            let model = M_AttentionDetail(json[0])
-            
+            let model = M_MsgSocket(json[0])
+            guard model.to_id == SP_UserModel.read().userId else{return}
+            switch model.type {
+            case .t点赞:
+                SP_HUD.showMsg(model.from_name + "为你点了一个👍")
+                self?.msgNum += 1
+            case .t评论:
+                SP_HUD.showMsg("收到"+model.from_name+"的评论", detailText: model.commomString)
+                self?.msgNum += 1
+            default:break
+            }
         }
         /*
          self.socket.on(clientEvent: .disconnect) { (data, ack) in
@@ -163,25 +183,26 @@ extension JH_News {
 }
 extension JH_News {
     fileprivate func makeTableView() {
-        /*
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
         do {
             let realm = try Realm()
             let theRealms:Results<M_NewsSRealm> = realm.objects(M_NewsSRealm.self)
             
             for item in theRealms {
-                _dataNewsS.append(item.read())
+                self._dataNewsS.append(item.read())
                 
             }
         } catch let err {
             print(err)
-        }*/
+        }
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        
         self._placeHolderType = .tOnlyImage
-        self.tableView.cyl_reloadData()
+        
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
         
@@ -345,7 +366,24 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
         cell.lab_comm.text = "评论:" + String(format: "%d", model.comments_count)
         let locationStr:NSMutableAttributedString = NSMutableAttributedString(string: "", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18)])
         if !model.title.isEmpty {
-            let tagText = NSAttributedString(string: model.title, attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 18)])
+            let tagText = NSMutableAttributedString(string: model.title, attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 18)])
+            if model.title.hasPrefix("【转】") {
+                tagText.yy_color = UIColor.main_btnNormal
+                tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
+                let highlight = YYTextHighlight()
+                highlight.tapAction = { (containerView,text,range,rect) in
+                    var mo = M_NewsS()
+                    mo.blog_id = model.parent_blog_id
+                    My_NewsPostDetail.show(self, mo, block:{ [weak self](type) in
+                        switch type {
+                        case .t转发:
+                            self?.t_获取短评列表()
+                        default:break
+                        }
+                    })
+                }
+                tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
+            }
             let tagText2 = NSAttributedString(string: "\n", attributes: [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 0)])
             locationStr.append(tagText)
             locationStr.append(tagText2)
@@ -389,15 +427,17 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
                 tagText.yy_color = UIColor.main_btnNormal
                 tagText.yy_setTextBinding(YYTextBinding(deleteConfirm: false), range: tagText.yy_rangeOfAll())
                 let highlight = YYTextHighlight()
-                highlight.tapAction = { (containerView,text,range,rect) in
-                    SP_HUD.showMsg("点击了超链接")
+                highlight.tapAction = { [weak self](containerView,text,range,rect) in
+                    var mmo = M_News()
+                    mmo.href = item.link
+                    mmo.title = item.text
+                    JH_NewsDetials.show(self,data:mmo, isHttp:true)
                 }
                 tagText.yy_setTextHighlight(highlight, range: tagText.yy_rangeOfAll())
                 locationStr.append(tagText)
             default:
                 break
             }
-            
         }
         cell.textView.attributedText = locationStr
         
@@ -433,30 +473,23 @@ extension JH_News:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if self._dataNewsS[indexPath.section].type == .t新闻 {
-            //let model = self._dataNewsS[indexPath.section].news
-            //JH_NewsDetials.show(self,data:model)
-            
-            My_NewsPostDetail.show(self, _dataNewsS[indexPath.row], block:{ [weak self](type) in
-                switch type {
-                case .t关注(let follow):
-                    self?._dataNewsS[indexPath.section].is_concerned = follow
-                    var fff = M_Friends()
-                    fff.id = self!._dataNewsS[indexPath.section].author_id
-                    fff.name = self!._dataNewsS[indexPath.section].author_name
-                    fff.logo = self!._dataNewsS[indexPath.section].author_img
-                    sp_Notification.post(name: follow ? ntf_Name_朋友添加 : ntf_Name_朋友删除, object: fff)
-                case .t赞:
-                    self?._dataNewsS[indexPath.section].likes_count += 1
-                case .t评论:
-                    self?._dataNewsS[indexPath.section].comments_count += 1
-                case .t转发:
-                    self?.t_获取短评列表()
-                }
-            })
-        }else{
-            My_NewsPostDetail.show(self, _dataNewsS[indexPath.row])
-        }
+        My_NewsPostDetail.show(self, _dataNewsS[indexPath.row], block:{ [weak self](type) in
+            switch type {
+            case .t关注(let follow):
+                self?._dataNewsS[indexPath.row].is_concerned = follow
+                var fff = M_Friends()
+                fff.id = self!._dataNewsS[indexPath.row].author_id
+                fff.name = self!._dataNewsS[indexPath.row].author_name
+                fff.logo = self!._dataNewsS[indexPath.row].author_img
+                sp_Notification.post(name: follow ? ntf_Name_朋友添加 : ntf_Name_朋友删除, object: fff)
+            case .t赞:
+                self?._dataNewsS[indexPath.row].likes_count += 1
+            case .t评论:
+                self?._dataNewsS[indexPath.row].comments_count += 1
+            case .t转发:
+                self?.t_获取短评列表()
+            }
+        })
     }
    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -504,11 +537,11 @@ extension JH_News {
                         do {
                             let realm = try Realm()
                             for (index,item) in datas.enumerated() {
-                                let m_AttentionRealm = M_NewsRealm()
-                                m_AttentionRealm.write(item, index)
+                                let m_Realm = M_NewsRealm()
+                                m_Realm.write(item, index)
                                 try realm.write {
                                     //写入，根据主键更新
-                                    realm.add(m_AttentionRealm, update: true)
+                                    realm.add(m_Realm, update: true)
                                 }
                             }
                             DispatchQueue.main.async { _ in
@@ -552,16 +585,16 @@ extension JH_News {
             if isOk {
                 guard let datas = data as? [M_NewsS] else{return}
                 if self?._pageIndex == 1 {
-                    /*
+                    
                     DispatchQueue.global().async {
                         do {
                             let realm = try Realm()
                             for (index,item) in datas.enumerated() {
-                                let m_AttentionRealm = M_NewsSRealm()
-                                m_AttentionRealm.write(item, index)
+                                let m_Realm = M_NewsSRealm()
+                                m_Realm.write(item, index)
                                 try realm.write {
                                     //写入，根据主键更新
-                                    realm.add(m_AttentionRealm, update: true)
+                                    realm.add(m_Realm, update: true)
                                 }
                             }
                             DispatchQueue.main.async { _ in
@@ -569,10 +602,11 @@ extension JH_News {
                         } catch let err {
                             print(err)
                         }
-                    }*/
+                    }
                     //self?.dataCells.value[0].items = datas
                     //self!._datas = datas
                     if datas.count > 0 {
+                        self?.msgNum = datas[0].notice_not_read
                         self?._dataNewsS = datas
                         self?.sp_addMJRefreshFooter()
                     }else{

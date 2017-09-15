@@ -19,6 +19,7 @@ class JH_AttentionDetails_PostVC: SP_ParentVC {
             self.tableView.cyl_reloadData()
         }
     }
+    var _code = ""
 }
 
 extension JH_AttentionDetails_PostVC {
@@ -29,6 +30,22 @@ extension JH_AttentionDetails_PostVC {
         super.viewDidLoad()
         makeTableView()
         
+    }
+    override func sp_placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            self._placeHolderType = .tOnlyImage
+            self.tableView.sp_headerBeginRefresh()
+        case .tNetError(let lab):
+            if lab == My_NetCodeError.t需要登录.stringValue {
+                SP_Login.show(self)
+            }else{
+                self._placeHolderType = .tOnlyImage
+                self.tableView.sp_headerBeginRefresh()
+            }
+        }
     }
     func makeTableView() {
         self.n_view.isHidden = true
@@ -41,6 +58,7 @@ extension JH_AttentionDetails_PostVC {
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
     }
+    
 }
 
 extension JH_AttentionDetails_PostVC:UITableViewDelegate,UITableViewDataSource {
@@ -201,7 +219,8 @@ extension JH_AttentionDetails_PostVC {
     }
     
     fileprivate func t_获取短评列表() {
-        My_API.t_获取短评列表(page:_pageIndex).post(M_NewsS.self) { [weak self](isOk, data, error) in
+        print_SP(_code)
+        My_API.t_获取葡萄酒相关短评列表(code:_code,page:_pageIndex).post(M_NewsS.self) { [weak self](isOk, data, error) in
             self?.sp_EndRefresh()
             
             guard self != nil else{return}

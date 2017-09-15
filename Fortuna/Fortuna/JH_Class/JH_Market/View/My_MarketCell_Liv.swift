@@ -14,11 +14,11 @@ class My_MarketCell_Liv: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     let disposeBag = DisposeBag()
-    let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<Int, M_Market_Liv>>()
+    let dataSource = RxCollectionViewSectionedReloadDataSource<SectionModel<Int, M_LivExList>>()
     
-    let dataCells = Variable([SectionModel<Int, M_Market_Liv>]())
+    let dataCells = Variable([SectionModel<Int, M_LivExList>]())
     
-    var _selectBlock:((M_Market_Liv)->Void)?
+    var _selectBlock:((M_LivExList)->Void)?
 }
 
 extension My_MarketCell_Liv {
@@ -29,21 +29,16 @@ extension My_MarketCell_Liv {
     override func awakeFromNib() {
         super.awakeFromNib()
         makeCollectionView()
-        dataCells.value = [
-            SectionModel(model:0,items:[M_Market_Liv()]),
-            SectionModel(model:1,items:[M_Market_Liv()]),
-            SectionModel(model:2,items:[M_Market_Liv()]),
-            SectionModel(model:3,items:[M_Market_Liv()]),
-            SectionModel(model:4,items:[M_Market_Liv()]),
-            SectionModel(model:5,items:[M_Market_Liv()]),
-            SectionModel(model:5,items:[M_Market_Liv()])
-        ]
+        
     }
     fileprivate func makeCollectionView() {
         //collectionView.rx.setDelegate(self).addDisposableTo(disposeBag)
         
         dataSource.configureCell = { (dataSource, coll, indexPath, model) in
             let cell = My_MarketItem_Liv.show(coll, indexPath)
+            cell.lab_1.text = model.name
+            cell.lab_2.text = model.level
+            cell.lab_4.text = model.momPerf
             return cell
         }
         dataCells.asDriver()
@@ -51,7 +46,7 @@ extension My_MarketCell_Liv {
             .addDisposableTo(disposeBag)
         
         collectionView.rx
-            .modelSelected(M_Market_Liv.self)
+            .modelSelected(M_LivExList.self)
             .subscribe(onNext: { [weak self](model) in
                 //self?.collectionView.deselectItem(at: self!.collectionView.indexPathsForSelectedItems, animated: true)
                 self?._selectBlock?(model)
@@ -80,6 +75,20 @@ class My_MarketItem_Liv: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        lab_1.textColor = UIColor.mainText_1
+        lab_2.textColor = UIColor.mainText_4
+        lab_3.textColor = UIColor.mainText_2
+        lab_4.textColor = UIColor.mainText_2
+        
+        lab_1.font = UIFont.systemFont(ofSize: 13)
+        lab_2.font = UIFont.systemFont(ofSize: 14)
+        lab_3.font = UIFont.systemFont(ofSize: 12)
+        lab_4.font = UIFont.systemFont(ofSize: 12)
+        
+        self.layer.borderColor = UIColor.main_line.cgColor
+        self.layer.borderWidth = 0.5
+        self.layer.cornerRadius = 8
+        self.clipsToBounds = true
     }
     
     @IBOutlet weak var lab_1: UILabel!

@@ -41,6 +41,7 @@ class JH_AttentionDetails: SP_ParentVC {
     
     lazy var _postVC:My_Questionary = {
         let vc = My_Questionary.initSPVC()
+        vc._code = self._datas.code
         self.addChildViewController(vc)
         return vc
     }()
@@ -102,6 +103,8 @@ extension JH_AttentionDetails {
     fileprivate func makeTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
     }
     fileprivate func makeNotification() {
         sp_Notification.rx

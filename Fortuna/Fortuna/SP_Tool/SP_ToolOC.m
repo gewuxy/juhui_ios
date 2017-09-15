@@ -649,5 +649,7 @@
 }
 
 
-
++ (NSString *) stringByReplacingOccurrences:(NSString*)string {
+    return [string stringByReplacingOccurrencesOfString:@"?" withString:@""];
+}
 @end

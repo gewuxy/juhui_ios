@@ -8,13 +8,13 @@
 
 import Foundation
 import SwiftyJSON
-////import RealmSwift
-//import Realm
+import RealmSwift
+
 
 /*
  因为已经建立好了模型，
  原则：不改变原有模型设计之上来添加功能，尽量将模块分离.
- 
+ */
 class M_AttentionRealmS: Object {
     var id = ""
     
@@ -75,7 +75,7 @@ class M_AttentionRealm: Object {
         
     }
 }
-*/
+
 struct M_Attention {
     var code =  ""
     var id =  ""

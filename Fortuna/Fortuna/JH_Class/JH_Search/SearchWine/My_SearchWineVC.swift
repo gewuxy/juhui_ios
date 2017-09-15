@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import SwiftyJSON
-//import Realm
-////import RealmSwift
+import RealmSwift
+
 class My_SearchWineVC: SP_ParentVC {
 
     @IBOutlet weak var tableView: UITableView!
@@ -129,7 +129,7 @@ extension My_SearchWineVC {
     fileprivate func makeTableViewRx(){
         
         dataCells.value = [SectionModel(model:0,items:[])]
-        /*
+        
         do {
             let realm = try Realm()
             if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_AttentionRealm") {
@@ -139,14 +139,13 @@ extension My_SearchWineVC {
             }
         } catch let err {
             print(err)
-        }*/
+        }
         
         self._placeHolderType = .tOnlyImage
         self.sp_addPlaceHolderView()
         
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
-        self.sp_addPlaceHolderView()
         
         // 用所有的 [Item] 是否为空绑定 view 是否隐藏
         dataCells.asObservable()
@@ -230,20 +229,20 @@ extension My_SearchWineVC {
                 }
                 datas = ddd
                 if self?._pageIndex == 1 {
-                    /*
+                    
                     DispatchQueue.global().async {
                         do {
                             let realm = try Realm()
-                            let m_AttentionRealmS = M_AttentionRealmS()
-                            m_AttentionRealmS.id = "m_AttentionRealm"
+                            let m_RealmS = M_AttentionRealmS()
+                            m_RealmS.id = "m_AttentionRealm"
                             for item in datas {
-                                let m_AttentionRealm = M_AttentionRealm()
-                                m_AttentionRealm.write(item)
-                                m_AttentionRealmS.attentions.append(m_AttentionRealm)
+                                let m_Realm = M_AttentionRealm()
+                                m_Realm.write(item)
+                                m_RealmS.attentions.append(m_Realm)
                             }
                             try realm.write {
                                 //写入，根据主键更新
-                                realm.add(m_AttentionRealmS, update: true)
+                                realm.add(m_RealmS, update: true)
                             }
                             //打印出数据库地址
                             //print(realm.configuration.fileURL)
@@ -256,7 +255,7 @@ extension My_SearchWineVC {
                             print(err)
                         }
                     }
-                    */
+                    
                     self?.dataCells.value[0].items = datas
                     self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {

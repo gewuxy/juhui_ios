@@ -8,10 +8,10 @@
 
 import Foundation
 import SwiftyJSON
-////import RealmSwift
-//import Realm
+import RealmSwift
 
-/*
+
+
 class M_NewsRealm: Object {
     dynamic var id = 0
     dynamic var article = ""
@@ -50,7 +50,7 @@ class M_NewsRealm: Object {
         
     }
 }
-*/
+
 
 struct M_News {
     var article = ""
@@ -73,7 +73,6 @@ struct M_News {
     
     
 }
-
 extension M_News:SP_JsonModel {
     init(_ json: JSON) {
         if json.isEmpty{
@@ -91,11 +90,12 @@ extension M_News:SP_JsonModel {
 }
 
 
-/*
+
 class M_NewsSRealm: Object {
     dynamic var type = M_NewsS.newsType.t新闻.rawValue
+    dynamic var parent_blog_id = ""
     dynamic var contentString = ""
-    dynamic var news = M_NewsRealm()
+    dynamic var bastractString = ""
     dynamic var blog_id = ""
     dynamic var likes_count = 0
     dynamic var comments_count = 0
@@ -103,8 +103,13 @@ class M_NewsSRealm: Object {
     dynamic var title = ""
     dynamic var is_delete = false
     dynamic var author_name = ""
-    dynamic var create_time = ""
     dynamic var author_img = ""
+    dynamic var author_id = ""
+    dynamic var create_time = ""
+    dynamic var first_img = ""
+    dynamic var is_concerned = false
+    dynamic var is_likes = false
+    
     
     override static func primaryKey() -> String? {
         return "blog_id"
@@ -112,10 +117,9 @@ class M_NewsSRealm: Object {
     
     func write(_ model:M_NewsS, _ index:Int) {
         type = model.type.rawValue
+        parent_blog_id = model.parent_blog_id
         contentString = model.contentString
-        let m_AttentionRealm = M_NewsRealm()
-        m_AttentionRealm.write(model.news, index)
-        news = m_AttentionRealm
+        bastractString = model.bastractString
         title =  model.title
         blog_id = model.blog_id
         likes_count =  model.likes_count
@@ -123,15 +127,19 @@ class M_NewsSRealm: Object {
         area = model.area
         is_delete = model.is_delete
         author_name = model.author_name
-        create_time = model.create_time
         author_img = model.author_img
+        author_id = model.author_id
+        create_time = model.create_time
+        first_img = model.first_img
+        is_concerned = model.is_concerned
+        is_likes = model.is_likes
     }
     func read() -> M_NewsS {
         var model = M_NewsS()
         model.type = M_NewsS.newsType(rawValue: type) ?? .t新闻
-        
+        model.parent_blog_id = parent_blog_id
         model.contentString = contentString
-        
+        model.bastractString = bastractString
         model.title =  title
         model.blog_id = blog_id
         model.likes_count = likes_count
@@ -139,73 +147,45 @@ class M_NewsSRealm: Object {
         model.area = area
         model.is_delete = is_delete
         model.author_name = author_name
-        model.create_time = create_time
+        model.author_id = author_id
         model.author_img = author_img
-        
-        var arr00 = contentString.components(separatedBy: "},")
-        
-        let arrStr = arr00.joined(separator: "}-/-")
-        
-        arr00 = arrStr.components(separatedBy: "-/-")
-        
-        let jsonArr = JSON(arr00).arrayValue
-        
-        for item in jsonArr {
-            model.content.append(M_SP_RichText(item))
-        }
+        model.create_time = create_time
+        model.first_img = first_img
+        model.is_concerned = is_concerned
+        model.is_likes = is_likes
         return model
         
     }
 }
-*/
+
 struct M_NewsS {
     enum newsType:Int {
         case t新闻 = 0
         case t帖子
     }
-    var parent_blog_id = ""
     var type = newsType.t新闻
+    var parent_blog_id = ""
     var contentString = ""
-    var content = [M_SP_RichText]()
-    var news = M_News()
+    var bastractString = ""
+    var title = ""
     var blog_id = ""
     var likes_count = 0
     var comments_count = 0
     var area = ""
-    var title = ""
     var is_delete = false
     var author_name = ""
     var author_id = ""
-    var create_time = ""
     var author_img = ""
+    var create_time = ""
     var first_img = ""
-    var bastractString = ""
-    var bastract = [M_SP_RichText]()
     var is_concerned = false
-}
-
-extension M_NewsS:SP_JsonModel {
-    init(_ json: JSON) {
-        if json.isEmpty{
-            return
-        }
-        parent_blog_id = json["parent_blog_id"].stringValue
-        type = M_NewsS.newsType(rawValue: json["type"].intValue) ?? .t新闻
-        blog_id = json["blog_id"].stringValue
-        likes_count = json["likes_count"].intValue
-        comments_count = json["comments_count"].intValue
-        area = json["area"].stringValue
-        title = json["title"].stringValue
-        is_delete = json["is_delete"].boolValue
-        author_name = json["author_name"].stringValue
-        create_time = json["create_time"].stringValue
-        author_img = json["author_img"].stringValue
-        author_id = json["author_id"].stringValue
-        first_img = json["first_img"].stringValue
-        contentString = json["content"].stringValue
-        bastractString = json["abstract"].stringValue
-        
-        is_concerned = json["is_concerned"].boolValue
+    var notice_not_read = 0
+    var is_likes = false
+    
+    var news = M_News()
+    
+    var content:[M_SP_RichText] {
+        var arr = [M_SP_RichText]()
         let arrContentString = contentString.components(separatedBy: "<*|换行:字符串|*>")
         for item in arrContentString {
             let arr11 = item.components(separatedBy: "<*|属性:参数|*>")
@@ -257,9 +237,13 @@ extension M_NewsS:SP_JsonModel {
                     model.imgHeight = CGFloat(Double(s) ?? 0)
                 }
             }
-            content.append(model)
+            arr.append(model)
         }
-        
+        return arr
+    }
+    
+    var bastract: [M_SP_RichText] {
+        var arr = [M_SP_RichText]()
         let arrBastractString = bastractString.components(separatedBy: "<*|换行:字符串|*>")
         for item in arrBastractString {
             let arr11 = item.components(separatedBy: "<*|属性:参数|*>")
@@ -311,9 +295,38 @@ extension M_NewsS:SP_JsonModel {
                     model.imgWidth = CGFloat(Double(s) ?? 0)
                 }
             }
-            bastract.append(model)
+            arr.append(model)
         }
+        return arr
+    }
+}
 
+extension M_NewsS:SP_JsonModel {
+    init(_ json: JSON) {
+        if json.isEmpty{
+            return
+        }
+        parent_blog_id = json["parent_blog_id"].stringValue
+        type = M_NewsS.newsType(rawValue: json["type"].intValue) ?? .t新闻
+        blog_id = json["blog_id"].stringValue
+        likes_count = json["likes_count"].intValue
+        comments_count = json["comments_count"].intValue
+        area = json["area"].stringValue
+        title = json["title"].stringValue
+        is_delete = json["is_delete"].boolValue
+        author_name = json["author_name"].stringValue
+        create_time = json["create_time"].stringValue
+        author_img = json["author_img"].stringValue
+        author_id = json["author_id"].stringValue
+        first_img = json["first_img"].stringValue
+        
+        is_concerned = json["is_concerned"].boolValue
+        notice_not_read = json["notice_not_read"].intValue
+        is_likes = json["is_like"].boolValue
+        
         news = M_News(json["news"])
+        
+        contentString = json["content"].stringValue.removingPercentEncoding ?? json["content"].stringValue
+        bastractString = json["abstract"].stringValue.removingPercentEncoding ?? json["abstract"].stringValue
     }
 }

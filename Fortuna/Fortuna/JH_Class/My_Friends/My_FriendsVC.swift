@@ -13,8 +13,7 @@ import RxSwift
 import RxDataSources
 
 import SwiftyJSON
-//import Realm
-////import RealmSwift
+import RealmSwift
 
 class My_FriendsVC: SP_ParentVC {
 
@@ -37,7 +36,7 @@ extension My_FriendsVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.makeNotification()
-        self.makeUI()
+        self.makeTableView()
         
     }
     fileprivate func makeNotification() {
@@ -115,29 +114,28 @@ extension My_FriendsVC {
 
 
 extension My_FriendsVC {
-    fileprivate func makeUI() {
-        self.n_view.isHidden = true
-        
-        /*
-        do {
-            let realm = try Realm()
-            if let theRealms:M_FriendsRealmS = realm.object(ofType: M_FriendsRealmS.self, forPrimaryKey: "m_FriendsRealmfollowlist") {
-                for item in theRealms.followlist {
-                    dataCells.value[0].items.append(item.read())
-                }
-            }
-        } catch let err {
-            print(err)
-        }*/
-        makeTableView()
-    }
+    
     func makeTableView() {
+        self.n_view.isHidden = true
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self._placeHolderType = .tOnlyImage
         
+        do {
+            let realm = try Realm()
+            if let theRealms:M_FriendsRealmS = realm.object(ofType: M_FriendsRealmS.self, forPrimaryKey: "m_FriendsRealmfollowlist") {
+                for item in theRealms.followlist {
+                    datas.append(item.read())
+                }
+            }
+        } catch let err {
+            print(err)
+        }
+        
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
+        
+        
     }
     
 }
@@ -213,28 +211,28 @@ extension My_FriendsVC {
             self?.sp_EndRefresh()
             if isOk {
                 guard let datas = data as? [M_Friends] else{return}
-                /*
+                
                 DispatchQueue.global().async {
                     do {
                         let realm = try Realm()
-                        let m_AttentionRealmS = M_FriendsRealmS()
-                        m_AttentionRealmS.id = "m_FriendsRealmfollowlist"
+                        let m_RealmS = M_FriendsRealmS()
+                        m_RealmS.id = "m_FriendsRealmfollowlist"
                         for item in datas {
-                            let m_AttentionRealm = M_FriendsRealm()
-                            m_AttentionRealm.write(item)
-                            m_AttentionRealmS.followlist.append(m_AttentionRealm)
+                            let m_Realm = M_FriendsRealm()
+                            m_Realm.write(item)
+                            m_RealmS.followlist.append(m_Realm)
                         }
                         
                         try realm.write {
                             //写入，根据主键更新
-                            realm.add(m_AttentionRealmS, update: true)
+                            realm.add(m_RealmS, update: true)
                         }
                         DispatchQueue.main.async { _ in
                         }
                     } catch let err {
                         print(err)
                     }
-                }*/
+                }
                 self?.datas = datas
                 if datas.count == 0 {
                     self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有关注"), btnTitle:sp_localized("去逛逛"))
@@ -254,20 +252,6 @@ extension My_FriendsVC {
             if isOk {
                 SP_HUD.show(text:sp_localized("已删除"))
                 self?.datas.remove(at: index)
-            }else{
-                SP_HUD.show(text:error)
-            }
-            
-        }
-    }
-    
-    fileprivate func t_添加朋友关注() {
-        
-        My_API.t_添加朋友关注(user_id:"117").post(M_MyCommon.self) { [weak self](isOk, data, error) in
-            SP_HUD.hidden()
-            if isOk {
-                SP_HUD.show(text:sp_localized("已关注"))
-                
             }else{
                 SP_HUD.show(text:error)
             }

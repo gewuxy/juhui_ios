@@ -31,6 +31,22 @@ extension JH_AttentionDetails_NewsVC {
         self.makeTableView()
         
     }
+    override func sp_placeHolderViewClick() {
+        switch _placeHolderType {
+        case .tOnlyImage:
+            break
+        case .tNoData(_,_):
+            self._placeHolderType = .tOnlyImage
+            self.tableView.sp_headerBeginRefresh()
+        case .tNetError(let lab):
+            if lab == My_NetCodeError.t需要登录.stringValue {
+                SP_Login.show(self)
+            }else{
+                self._placeHolderType = .tOnlyImage
+                self.tableView.sp_headerBeginRefresh()
+            }
+        }
+    }
     func makeTableView() {
         self.n_view.isHidden = true
         
@@ -136,11 +152,11 @@ extension JH_AttentionDetails_NewsVC {
                         do {
                             let realm = try Realm()
                             for (index,item) in datas.enumerated() {
-                                let m_AttentionRealm = M_NewsRealm()
-                                m_AttentionRealm.write(item, index)
+                                let m_Realm = M_NewsRealm()
+                                m_Realm.write(item, index)
                                 try realm.write {
                                     //写入，根据主键更新
-                                    realm.add(m_AttentionRealm, update: true)
+                                    realm.add(m_Realm, update: true)
                                 }
                             }
                             DispatchQueue.main.async { _ in

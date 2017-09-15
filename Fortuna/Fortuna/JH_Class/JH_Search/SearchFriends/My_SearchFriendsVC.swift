@@ -11,8 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import SwiftyJSON
-//import Realm
-////import RealmSwift
+import RealmSwift
 
 class My_SearchFriendsVC: SP_ParentVC {
 
@@ -44,7 +43,7 @@ extension My_SearchFriendsVC {
 extension My_SearchFriendsVC {
     fileprivate func makeTableViewRx(){
         dataCells.value = [SectionModel(model:0,items:[])]
-        /*
+        
         do {
             let realm = try Realm()
             if let theRealms:M_FriendsRealmS = realm.object(ofType: M_FriendsRealmS.self, forPrimaryKey: "m_FriendsRealmfollowlist") {
@@ -54,14 +53,14 @@ extension My_SearchFriendsVC {
             }
         } catch let err {
             print(err)
-        }*/
+        }
         
         self._placeHolderType = .tOnlyImage
         self.sp_addPlaceHolderView()
         
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
-        self.sp_addPlaceHolderView()
+        
         
         // 用所有的 [Item] 是否为空绑定 view 是否隐藏
         dataCells.asObservable()
@@ -118,28 +117,28 @@ extension My_SearchFriendsVC {
             self?.sp_EndRefresh()
             if isOk {
                 guard let datas = data as? [M_Friends] else{return}
-                /*
+                
                 DispatchQueue.global().async {
                     do {
                         let realm = try Realm()
-                        let m_AttentionRealmS = M_FriendsRealmS()
-                        m_AttentionRealmS.id = "m_FriendsRealmfollowlist"
+                        let m_RealmS = M_FriendsRealmS()
+                        m_RealmS.id = "m_FriendsRealmfollowlist"
                         for item in datas {
-                            let m_AttentionRealm = M_FriendsRealm()
-                            m_AttentionRealm.write(item)
-                            m_AttentionRealmS.followlist.append(m_AttentionRealm)
+                            let m_Realm = M_FriendsRealm()
+                            m_Realm.write(item)
+                            m_RealmS.followlist.append(m_Realm)
                         }
                         
                         try realm.write {
                             //写入，根据主键更新
-                            realm.add(m_AttentionRealmS, update: true)
+                            realm.add(m_RealmS, update: true)
                         }
                         DispatchQueue.main.async { _ in
                         }
                     } catch let err {
                         print(err)
                     }
-                }*/
+                }
                 self?.dataCells.value[0].items = datas
                 if datas.count == 0 {
                     self?._placeHolderType = .tNoData(labTitle: sp_localized("还没有关注"), btnTitle:"")

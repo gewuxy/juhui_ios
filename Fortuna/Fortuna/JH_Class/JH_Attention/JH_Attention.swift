@@ -13,8 +13,7 @@ import RxSwift
 import RxDataSources
 import SocketIO
 import SwiftyJSON
-//import Realm
-////import RealmSwift
+import RealmSwift
 
 class JH_Attention: SP_ParentVC {
 
@@ -83,7 +82,7 @@ extension JH_Attention {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.makeNavigation()
-        self.makeUI()
+        self.makeTableView()
         self.makeNotification()
         self.makeSocketIO()
         
@@ -115,25 +114,7 @@ extension JH_Attention {
             .addDisposableTo(disposeBag)
     }
     
-    fileprivate func makeUI() {
-        
-        
-        lab_range_W.constant = sp_fitSize((95,110,125))
-        
-        /*
-        do {
-            let realm = try Realm()
-            if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_AttentionRealm") {
-                for item in theRealms.attentions {
-                    datas.append(item.read())
-                }
-            }
-        } catch let err {
-            print(err)
-        }*/
-        makeTableView()
-        
-    }
+    
     
     
     fileprivate func makeNotification() {
@@ -242,9 +223,23 @@ extension JH_Attention {
 }
 extension JH_Attention {
     func makeTableView() {
+        lab_range_W.constant = sp_fitSize((95,110,125))
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self._placeHolderType = .tOnlyImage
+        
+        
+        
+        do {
+            let realm = try Realm()
+            if let theRealms:M_AttentionRealmS = realm.object(ofType: M_AttentionRealmS.self, forPrimaryKey: "m_AttentionRealm") {
+                for item in theRealms.attentions {
+                    datas.append(item.read())
+                }
+            }
+        } catch let err {
+            print(err)
+        }
         
         self.sp_addMJRefreshHeader()
         self.tableView.sp_headerBeginRefresh()
@@ -354,20 +349,20 @@ extension JH_Attention {
                 }
                 datas = ddd
                 if self?._pageIndex == 1 {
-                    /*
+                    
                     DispatchQueue.global().async {
                         do {
                             let realm = try Realm()
-                            let m_AttentionRealmS = M_AttentionRealmS()
-                            m_AttentionRealmS.id = "m_AttentionRealm"
+                            let m_RealmS = M_AttentionRealmS()
+                            m_RealmS.id = "m_AttentionRealm"
                             for item in datas {
-                                let m_AttentionRealm = M_AttentionRealm()
-                                m_AttentionRealm.write(item)
-                                m_AttentionRealmS.attentions.append(m_AttentionRealm)
+                                let m_Realm = M_AttentionRealm()
+                                m_Realm.write(item)
+                                m_RealmS.attentions.append(m_Realm)
                             }
                             try realm.write {
                                 //写入，根据主键更新
-                                realm.add(m_AttentionRealmS, update: true)
+                                realm.add(m_RealmS, update: true)
                             }
                             //打印出数据库地址
                             //print(realm.configuration.fileURL)
@@ -380,7 +375,7 @@ extension JH_Attention {
                             print(err)
                         }
                     }
-                    */
+ 
                     self?.datas = datas
                     self?.sp_addMJRefreshFooter()
                     if datas.count == 0 {

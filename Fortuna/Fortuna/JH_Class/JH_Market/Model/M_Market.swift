@@ -40,13 +40,3 @@ extension M_Market:SP_JsonModel {
     }
 }
 
-struct M_Market_Liv {
-    
-}
-extension M_Market_Liv:SP_JsonModel {
-    init(_ json: JSON) {
-        if json.isEmpty{
-            return
-        }
-    }
-}

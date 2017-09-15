@@ -69,5 +69,7 @@
 + (BOOL)stringContainsEmoji:(NSString *)string;
 
 + (NSMutableAttributedString *)changeLineSpacing:(NSArray *)stringList;
+
++ (NSString *) stringByReplacingOccurrences:(NSString*)string;
 @end
 

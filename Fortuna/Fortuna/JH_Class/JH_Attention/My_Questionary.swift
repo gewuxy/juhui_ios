@@ -10,6 +10,7 @@ import UIKit
 
 class My_Questionary: My_Page {
 
+    var _code = ""
     
 
 }
@@ -24,10 +25,12 @@ extension My_Questionary {
         self.n_view.n_btn_L1_W.constant = 44
         self.n_view.backgroundColor = UIColor.clear
         self.view.backgroundColor = UIColor.white
-        self._addControllerBlock = { (index) -> UIViewController in
+        self._addControllerBlock = { [weak self](index) -> UIViewController in
             switch index {
             case 0:
-                return JH_AttentionDetails_PostVC.initSPVC()
+                let vc = JH_AttentionDetails_PostVC.initSPVC()
+                vc._code = self!._code
+                return vc
             default:
                 return JH_AttentionDetails_NewsVC.initSPVC()
             }

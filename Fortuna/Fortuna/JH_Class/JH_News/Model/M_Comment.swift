@@ -17,22 +17,8 @@ struct M_Comment {
     var blog_title = ""
     var author_img = ""
     var likes_count = 0
-    var content = [M_SP_RichText]()
-    
-}
-extension M_Comment:SP_JsonModel {
-    init(_ json: JSON) {
-        guard !json.isEmpty else {
-            return
-        }
-        comment_id = json["comment_id"].stringValue
-        contentString = json["content"].stringValue
-        blog_id = json["blog_id"].stringValue
-        author_name = json["author_name"].stringValue
-        create_time = json["create_time"].stringValue
-        blog_title = json["blog_title"].stringValue
-        author_img = json["author_img"].stringValue
-        likes_count = json["likes_count"].intValue
+    var content:[M_SP_RichText] {
+        var arr:[M_SP_RichText] = []
         let arrContentString = contentString.components(separatedBy: "<*|换行:字符串|*>")
         for item in arrContentString {
             let arr11 = item.components(separatedBy: "<*|属性:参数|*>")
@@ -84,7 +70,27 @@ extension M_Comment:SP_JsonModel {
                     model.imgHeight = CGFloat(Double(s) ?? 0)
                 }
             }
-            content.append(model)
+            arr.append(model)
         }
+        return arr
+    }
+    
+}
+extension M_Comment:SP_JsonModel {
+    init(_ json: JSON) {
+        guard !json.isEmpty else {
+            return
+        }
+        comment_id = json["comment_id"].stringValue
+        blog_id = json["blog_id"].stringValue
+        author_name = json["author_name"].stringValue
+        create_time = json["create_time"].stringValue
+        blog_title = json["blog_title"].stringValue
+        author_img = json["author_img"].stringValue
+        likes_count = json["likes_count"].intValue
+        
+        contentString = json["content"].stringValue.removingPercentEncoding ?? json["content"].stringValue
+        
+        
     }
 }

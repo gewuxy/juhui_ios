@@ -109,6 +109,9 @@ enum My_API {
     static let url_获取短评列表 = "api/commentary/getbloglist/"
     case t_获取短评列表(page:Int)
     
+    static let url_获取葡萄酒相关短评列表 = "api/commentary/getwineblogs/"
+    case t_获取葡萄酒相关短评列表(code:String,page:Int)
+    
     static let url_发表短评评论接口 = "api/commentary/savecomment/"
     case t_发表短评评论接口(content:String,blog_id:String)
     
@@ -130,13 +133,21 @@ enum My_API {
     static let url_短评评论点赞 = "api/commentary/savecommentlike/"
     case t_短评评论点赞(comment_id:String)
     
+    static let url_获取消息列表 = "api/commentary/getnotices/"
+    case t_获取消息列表(page:Int)
+    
+    
+    
     
     //MARK:--- Liv-ex ----------
-    static let url_Liv获取指数表现 = "/df/indexperformance/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100"
+    static let url_Liv获取指数表现 = "https://datafeed.liv-ex.com/df/indexperformance/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100,LVXBDX500,LVXINV,BdxL50,Bgdy150,Cham50,Rho100,Ital100,ROW50"
     case t_Liv获取指数表现
     
-    static let url_Liv获取指数所有历史数据 = "/df/indexfullhistory/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/LVX50,LVX100"
-    case t_Liv获取指数所有历史数据
+    static let url_Liv获取指数所有历史数据 = "https://datafeed.liv-ex.com/df/indexfullhistory/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/"
+    case t_Liv获取指数所有历史数据(symbol:String)
+    
+    static let url_Liv最近一个时间段的数据数据 = "https://datafeed.liv-ex.com/df/indexcompacthistory/getjson/token/e3b1877a-9568-4e69-b7df-404e54d560c5/symbol/"
+    case t_Liv最近一个时间段的数据数据(symbol:String)
 }
 extension My_API {
     func post<T: SP_JsonModel>(_ type: T.Type, block:((Bool,Any,String) -> Void)? = nil) {
@@ -351,8 +362,11 @@ extension My_API {
                           "first_img":first_img,
                           "friends":friends,
                           "wines":wines,
-                          "parent_blog_id":parent_blog_id
+                          
             ]
+            if !parent_blog_id.isEmpty {
+                parame += ["parent_blog_id":parent_blog_id]
+            }
             SP_Alamofire.post(main_url+My_API.url_发表短评接口, param: parame, block: { (isOk, res, error) in
                 print_Json("url_发表短评接口=>\(JSON(res!))")
                 My_API.map_Object(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
@@ -377,6 +391,23 @@ extension My_API {
                     block?(isOk, datas, error)
                 })
             })
+        case .t_获取葡萄酒相关短评列表(let code,let page):
+            parame += ["code":code,"page":page,"page_num":my_pageSize]
+            SP_Alamofire.get(main_url+My_API.url_获取葡萄酒相关短评列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取葡萄酒相关短评列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+        case .t_获取消息列表(let page):
+            parame += ["page":page,"page_num":my_pageSize]
+            SP_Alamofire.get(main_url+My_API.url_获取消息列表, param: parame, block: { (isOk, res, error) in
+                print_Json("url_获取消息列表=>\(JSON(res!))")
+                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
+                    block?(isOk, datas, error)
+                })
+            })
+            
         case .t_获取短评详细内容(let blog_id):
             SP_Alamofire.get(main_url+My_API.url_获取短评详细内容, param: ["blog_id":blog_id], block: { (isOk, res, error) in
                 print_Json("url_获取短评详细内容=>\(JSON(res!))")
@@ -410,18 +441,87 @@ extension My_API {
             })
             //MARK:--- t_Liv获取指数表现 ----------
         case .t_Liv获取指数表现:
-            SP_Alamofire.get(main_url+My_API.url_Liv获取指数表现, param: [:], block: { (isOk, res, error) in
+            SP_Alamofire.get(My_API.url_Liv获取指数表现, param: [:], block: { (isOk, res, error) in
                 print_Json("url_Liv获取指数表现=>\(JSON(res!))")
-                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas, error)
-                })
+                if isOk {
+                    let json = JSON(res!)
+                    guard let array:[JSON] = json["index"].array else{
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                        return
+                    }
+                    var objects = [T]()
+                    
+                    if array.count > 0 {
+                        for object in array {
+                            if let obj = My_API.map_FromJSON(object, classType:type)  {
+                                objects.append(obj)
+                            }
+                        }
+                        block?(true,objects,"")
+                    } else {
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                    }
+                }else{
+                    block?(false,[],error!)
+                }
             })
-        case .t_Liv获取指数所有历史数据:
-            SP_Alamofire.get(main_url+My_API.url_Liv获取指数所有历史数据, param: [:], block: { (isOk, res, error) in
+        case .t_Liv获取指数所有历史数据(let symbol):
+            SP_Alamofire.get(My_API.url_Liv获取指数所有历史数据 + symbol, param: [:], block: { (isOk, res, error) in
                 print_Json("url_Liv获取指数所有历史数据=>\(JSON(res!))")
-                My_API.map_Array(type, response: res, error: error, isOk: isOk, block: { (isOk, datas, error) in
-                    block?(isOk, datas, error)
-                })
+                if isOk {
+                    let json = JSON(res!)
+                    guard let array0:[JSON] = json["index"].array, array0.count > 0 else{
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                        return
+                    }
+                    guard let array:[JSON] = array0[0]["data"].array else{
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                        return
+                    }
+                    var objects = [T]()
+                    
+                    if array.count > 0 {
+                        for object in array {
+                            if let obj = My_API.map_FromJSON(object, classType:type)  {
+                                objects.append(obj)
+                            }
+                        }
+                        block?(true,objects,"")
+                    } else {
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                    }
+                }else{
+                    block?(false,[],error!)
+                }
+            })
+        case .t_Liv最近一个时间段的数据数据(let symbol):
+            SP_Alamofire.get(My_API.url_Liv最近一个时间段的数据数据 + symbol, param: [:], block: { (isOk, res, error) in
+                print_Json("url_Liv最近一个时间段的数据数据=>\(JSON(res!))")
+                if isOk {
+                    let json = JSON(res!)
+                    guard let array0:[JSON] = json["index"].array, array0.count > 0 else{
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                        return
+                    }
+                    guard let array:[JSON] = array0[0]["data"].array else{
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                        return
+                    }
+                    var objects = [T]()
+                    
+                    if array.count > 0 {
+                        for object in array {
+                            if let obj = My_API.map_FromJSON(object, classType:type)  {
+                                objects.append(obj)
+                            }
+                        }
+                        block?(true,objects,"")
+                    } else {
+                        block?(true,[],sp_localized(My_NetCodeError.t没有数据.rawValue))
+                    }
+                }else{
+                    block?(false,[],error!)
+                }
             })
         default:break
         }
